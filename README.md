@@ -44,3 +44,9 @@ git checkout -b 브랜치이름
 
 - 브렌치 이름을 작성하고 create branch를 클릭합니다.
 - 새로운 브랜치가 만들어집니다!
+
+![image](https://user-images.githubusercontent.com/97277365/222696481-b5b5c157-4274-4a06-9e7d-68c7e01c6edf.png)
+
+- 로컬에서 git clone을 한 후
+- git checkout [자신이 만든 브랜치 이름] 을 입력하여 브랜치를 전환합니다.
+- 작업을 시작하시변 됩니다 :)
