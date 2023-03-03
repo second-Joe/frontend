@@ -26,3 +26,21 @@ git checkout -b 브랜치이름
 ```
 - 브렌치 이름은 자신의 작업을 나타낼 수 있는 이름으로 사용합니다.
 - feature/{기능요약}  ex) 메인페이지를 만드는 경우 feature/MainPage
+
+### github 에서 브랜치 만들기
+![image](https://user-images.githubusercontent.com/97277365/222694689-30f1c1b2-d628-45f9-9793-074af146ee84.png)
+
+- view all branches를 눌러서 들어갑니다.
+
+![image](https://user-images.githubusercontent.com/97277365/222694887-7f09143b-6924-4bb8-b27f-bf4dc3b5699d.png)
+
+- 우측 상단 new branch를 누릅니다.
+
+![image](https://user-images.githubusercontent.com/97277365/222695033-b0f54ec9-f307-49f1-af38-e2be87bfff31.png)
+
+- branch source 를 dev 변경한 뒤 
+
+![image](https://user-images.githubusercontent.com/97277365/222695202-b876c9ab-3625-46f3-9b9f-7a50084258e6.png)
+
+- 브렌치 이름을 작성하고 create branch를 클릭합니다.
+- 새로운 브랜치가 만들어집니다!
