@@ -21,8 +21,13 @@
 </br>
 
 ## 브렌치 생성 방법
+### cli 환경에서 브랜치 생성
 ```
+git clone [레포주소]
 git checkout -b 브랜치이름
+
+// 작업완료 후
+git push origin [브랜치이름]
 ```
 - 브렌치 이름은 자신의 작업을 나타낼 수 있는 이름으로 사용합니다.
 - feature/{기능요약}  ex) 메인페이지를 만드는 경우 feature/MainPage
