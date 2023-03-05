@@ -8,7 +8,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import "./scroll.css";
-import { GiHamburgerMenu } from "react-icons/bs";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const NavBar = ({ search, setSearch }) => {
   //Link 컴포넌트를 사용하지 않고 다른 페이지로 이동해야 할때 사용
