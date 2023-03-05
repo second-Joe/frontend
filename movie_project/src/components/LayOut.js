@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { useState } from "react";
-import SearchResult from "./Pages/SearchResult";
+import SearchResult from "../pages/SearchResult";
 
 const Layout = () => {
   const [search, setSearch] = useState("");

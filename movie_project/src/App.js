@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "./Login";
-import Home from "./Pages/Home";
-import SearchResult from "./Pages/SearchResult";
-import MyPage from "./Pages/MyPage";
-import NotFound from "./Pages/NotFound";
-import Layout from "./LayOut";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import SearchResult from "./pages/SearchResult";
+import MyPage from "./pages/MyPage";
+import NotFound from "./pages/NotFound";
+import Layout from "./components/LayOut";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
