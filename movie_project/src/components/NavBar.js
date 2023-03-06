@@ -4,23 +4,17 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import { Link } from "react-router-dom";
-import Drawer from "@mui/material/Drawer";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SettingsDropdown from "./SettingDropdown";
+import MenuButton from "./MenuButton";
 import { createTheme } from "@mui/material/styles";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const pages = ["시리즈", "영화", "NEW! 요즘 대세 콘텐츠", "내가 찜한 콘텐츠"];
 
@@ -92,130 +86,68 @@ const NavBar = ({ search, setSearch }) => {
     setSearch(e.target.value);
   };
 
-  const [state, setState] = React.useState(false);
+  // 이거 혹시 드롭다운으로 만드실건가요 ? 시리즈 클릭하면 페이지 이동이 아닌?
+  // const [anchorElNav, setAnchorElNav] = React.useState(null);
+  // const handleCloseNavMenu = () => {
+  //   setAnchorElNav(null);
+  // };
 
-  const toggleDrawer = (event) => {
-    setState(!state);
-  };
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const typographySx = isSmallScreen
+    ? {
+        mr: 2,
+        display: { xs: "none" },
+        fontFamily: "helvetica",
+        fontWeight: 1000,
+        letterSpacing: ".1rem",
+        color: "red",
+        textDecoration: "none",
+        fontSize: "1.7em",
+      }
+    : {
+        mr: 2,
+        display: "flex",
+        fontFamily: "helvetica",
+        fontWeight: 1000,
+        letterSpacing: ".1rem",
+        color: "red",
+        textDecoration: "none",
+        fontSize: "2em",
+        flexGrow: 1,
+      };
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" style={{ background: "#212121" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <ArrowBackIosNewIcon
             sx={{
-              display: { md: "flex", sm: "none", xs: "none" },
+              display: "flex",
               marginRight: "10px",
             }}
             onClick={goBack}
           />
-          {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/login"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "helvetica",
-              fontWeight: 1000,
-              letterSpacing: ".1rem",
-              color: "red",
-              textDecoration: "none",
-              fontSize: "1.7em",
-            }}
-          >
-            NETFLIX
-          </Typography>
-          <ArrowBackIosNewIcon
-            sx={{ display: { md: "none" } }}
-            onClick={goBack}
-          />
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-              onClick={toggleDrawer}
-            >
-              <MenuIcon fontSize="large" />
-            </IconButton>
 
-            <Drawer open={state} onClose={toggleDrawer}>
-              <Box
-                role="presentation"
-                onClick={toggleDrawer}
-                onKeyDown={toggleDrawer}
-              >
-                <List>
-                  <ListItem disablePadding>
-                    <ListItemButton component={Link} to="/login">
-                      <ListItemText primary="홈" />
-                    </ListItemButton>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <ListItemButton component={Link} to="/login">
-                      <ListItemText primary="시리즈" />
-                    </ListItemButton>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <ListItemButton component={Link} to="/login">
-                      <ListItemText primary="영화" />
-                    </ListItemButton>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <ListItemButton component={Link} to="/login">
-                      <ListItemText primary="NEW! 요즘 대세 컨텐츠" />
-                    </ListItemButton>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <ListItemButton component={Link} to="/login">
-                      <ListItemText primary="내가 찜한 콘텐츠" />
-                    </ListItemButton>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <ListItemButton component={Link} to="/login">
-                      <ListItemText primary="언어별로 찾아보기" />
-                    </ListItemButton>
-                  </ListItem>
-                </List>
-              </Box>
-            </Drawer>
+          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
+            <MenuButton />
           </Box>
 
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/login"
-            sx={{
-              fontFamily: "helvetica",
-              fontWeight: 1000,
-              letterSpacing: ".1rem",
-              color: "red",
-              textDecoration: "none",
-              fontSize: "1.7em",
-              mr: 2,
-              display: { sm: "flex", md: "none", xs: "none" },
-              flexGrow: 1,
-            }}
-          >
+          <Typography noWrap component="a" href="/login" sx={typographySx}>
             NETFLIX
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                // onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
@@ -232,7 +164,7 @@ const NavBar = ({ search, setSearch }) => {
               onChange={goSearch}
             />
           </Search>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box>
             <SettingsDropdown />
           </Box>
         </Toolbar>

@@ -10,18 +10,25 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 
 export default function TemporaryDrawer() {
-  const [state, setState] = React.useState(false);
+  const [showMenu, setShowMenu] = React.useState(false);
 
   const toggleDrawer = (event) => {
-    setState(!state);
+    setShowMenu(!showMenu);
   };
 
   return (
-    <div>
-      <IconButton onClick={toggleDrawer}>
-        <MenuIcon fontSize="large" color="primary" />
+    <>
+      <IconButton
+        size="large"
+        aria-label="account of current user"
+        aria-controls="menu-appbar"
+        aria-haspopup="true"
+        color="inherit"
+        onClick={toggleDrawer}
+      >
+        <MenuIcon fontSize="large" />
       </IconButton>
-      <Drawer open={state} onClose={toggleDrawer}>
+      <Drawer open={showMenu} onClose={toggleDrawer}>
         <Box
           role="presentation"
           onClick={toggleDrawer}
@@ -51,6 +58,6 @@ export default function TemporaryDrawer() {
           </List>
         </Box>
       </Drawer>
-    </div>
+    </>
   );
 }

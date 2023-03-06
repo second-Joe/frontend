@@ -28,7 +28,7 @@ export default function FadeMenu() {
           sx={{ p: 0 }}
           onClick={handleClick}
         >
-          <SettingsIcon fontSize="large" color="background" />
+          <SettingsIcon fontSize="large" sx={{ color: "white" }} />
         </IconButton>
       </Tooltip>
       <Menu
