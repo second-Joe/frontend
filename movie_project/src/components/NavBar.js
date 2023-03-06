@@ -115,6 +115,10 @@ const NavBar = ({ search, setSearch }) => {
         color: "red",
         textDecoration: "none",
         fontSize: "2em",
+        flexGrow: 1,
+        [theme.breakpoints.up("md")]: {
+          flexGrow: 0,
+        },
       };
 
   return (
@@ -129,24 +133,14 @@ const NavBar = ({ search, setSearch }) => {
             onClick={goBack}
           />
 
-          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { md: "none" } }}>
             <MenuButton />
           </Box>
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", sm: "flex", md: "none" },
-            }}
-          />
+
           <Typography noWrap component="a" href="/login" sx={typographySx}>
             NETFLIX
           </Typography>
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", sm: "flex", md: "none" },
-            }}
-          />
+
           <Box
             sx={{
               flexGrow: 1,
