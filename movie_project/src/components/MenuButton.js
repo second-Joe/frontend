@@ -15,7 +15,6 @@ export default function TemporaryDrawer() {
   const toggleDrawer = (event) => {
     setShowMenu(!showMenu);
   };
-
   return (
     <>
       <IconButton
@@ -37,22 +36,22 @@ export default function TemporaryDrawer() {
           <List>
             <ListItem disablePadding>
               <ListItemButton component={Link} to="/">
-                <ListItemText primary="메뉴1" />
+                <ListItemText primary="시리즈" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton component={Link} to="/">
-                <ListItemText primary="메뉴2" />
+                <ListItemText primary="영화" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton component={Link} to="/">
-                <ListItemText primary="메뉴3" />
+                <ListItemText primary="NEW! 요즘 대세 콘텐츠" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton component={Link} to="/">
-                <ListItemText primary="메뉴4" />
+                <ListItemText primary="내가 찜한 콘텐츠" />
               </ListItemButton>
             </ListItem>
           </List>

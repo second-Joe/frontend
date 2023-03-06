@@ -13,7 +13,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SettingsDropdown from "./SettingDropdown";
 import MenuButton from "./MenuButton";
-import { createTheme } from "@mui/material/styles";
 import { useMediaQuery, useTheme } from "@mui/material";
 
 const pages = ["시리즈", "영화", "NEW! 요즘 대세 콘텐츠", "내가 찜한 콘텐츠"];
