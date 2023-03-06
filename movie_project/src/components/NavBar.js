@@ -27,6 +27,7 @@ const Search = styled("div")(({ theme }) => ({
   marginLeft: 0,
   marginRight: 20,
   width: "100%",
+
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
     width: "auto",
@@ -114,7 +115,6 @@ const NavBar = ({ search, setSearch }) => {
         color: "red",
         textDecoration: "none",
         fontSize: "2em",
-        flexGrow: 1,
       };
 
   return (
@@ -132,11 +132,21 @@ const NavBar = ({ search, setSearch }) => {
           <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
             <MenuButton />
           </Box>
-
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "flex", md: "none" },
+            }}
+          />
           <Typography noWrap component="a" href="/login" sx={typographySx}>
             NETFLIX
           </Typography>
-
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "flex", md: "none" },
+            }}
+          />
           <Box
             sx={{
               flexGrow: 1,
