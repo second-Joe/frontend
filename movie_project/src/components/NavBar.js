@@ -48,7 +48,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -75,22 +74,16 @@ const NavBar = ({ search, setSearch, showResult, setShowResult }) => {
   const goLogout = () => {
     //Login 페이지로 이동(로그아웃 하면 다시 뒤로가기 안됨)
     //replace: true는 페이지를 이동할때 현재 페이지를 기록에 남기지 않는다.
-    //login state값을 false롤 해준다음, 그 state값을 login페이지로 넘기기.
-    //login페이지로 redirect되면 더이상 홈페이지나 그 안의 내용에 접근 못하게 하기
+    //Q. login페이지로 redirect되면 더이상 홈페이지나 그 안의 내용에 접근 못하게 하려고 했는데, 홈페이지는 접근이 되지 않지만 그 전 기록은 접근이 가능.
+    //Q. browser history를 아예 초기화 시키는 방법을 search해봤으나 불가능하다고 함.
     navigate("/", { replace: true });
-    // window.location.replace("/");
-    // return <Navigate to="/" replace={false} />;
+    // 2 방법. window.location.replace("/");
+    // 3 방법. return <Navigate to="/" replace={false} />;
   };
 
   const showSearchResult = () => {
     navigate("/search", { replace: false });
   };
-
-  // 이거 혹시 드롭다운으로 만드실건가요 ? 시리즈 클릭하면 페이지 이동이 아닌?
-  // const [anchorElNav, setAnchorElNav] = React.useState(null);
-  // const handleCloseNavMenu = () => {
-  //   setAnchorElNav(null);
-  // };
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -150,7 +143,6 @@ const NavBar = ({ search, setSearch, showResult, setShowResult }) => {
             {pages.map((page) => (
               <Button
                 key={page}
-                // onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
                 onClick={showSearchResult}
               >
@@ -159,6 +151,7 @@ const NavBar = ({ search, setSearch, showResult, setShowResult }) => {
             ))}
           </Box>
           <Search>
+            {/* searchbar */}
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -179,9 +172,11 @@ const NavBar = ({ search, setSearch, showResult, setShowResult }) => {
 
 export default NavBar;
 {
-  /* searchBar input의 onChange함수에 처음 값이 바뀌었을 때 부모컴포넌트의 state값 변경, 아래에 입력한 값의 변화에 따라 searchResult 띄우기
-    logout버튼 누르면 Link는 / 로 이동(처음 로그인 페이지) 아니면 Navigate로 맨 처음으로 이동
-    searcbar버튼을 눌렀을 때나 엔터를 쳤을 때 searchResult Link걸어서 searchResult로 이동
+  /* searchBar input의 onChange함수에 처음 값이 바뀌었을 때 goLogout 함수를 통해
+   navbar(자식컴포넌트)에서 state값 변경해서 부모컴포넌트(LayOut)에  state값 전달, 
+   아래에 입력한 값의 변화에 따라 searchResult 띄우기(footer 없어짐)
+    logout버튼 누르면 / 로 이동(처음 로그인 페이지) 
+    searcbar버튼을 눌렀을 때나 엔터를 쳤을 때 searchResult Link걸어서 searchResult 아래에 보여줌
     
   */
 }
