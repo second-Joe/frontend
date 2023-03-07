@@ -9,14 +9,24 @@ const Layout = () => {
 
   return (
     <div>
-      <header>
-        <NavBar search={search} setSearch={setSearch} />
-      </header>
-      <main>{search === "" ? <Outlet /> : <SearchResult />}</main>
-      {/* search input이 바뀌지 않으면 그대로 main 안 section1, section2, section3을 보여주고, 바뀌면 section3으로 전체 화면 대체 */}
-      <footer>
-        <Footer />
-      </footer>
+      {/* search input에서 글자 입력하면  main 안 section1, section2, section3도 보여주면서 검색결과 바뀌어서 보여줌(section3), 엔터치면 section3으로 전체 화면 대체 */}
+      <div>
+        <header>
+          <NavBar search={search} setSearch={setSearch} />
+        </header>
+        <main>
+          {search === "" ? (
+            <div>
+              <Outlet />
+              <footer>
+                <Footer />
+              </footer>
+            </div>
+          ) : (
+            <SearchResult />
+          )}
+        </main>
+      </div>
     </div>
   );
 };

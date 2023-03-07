@@ -7,6 +7,7 @@ import NotFound from "./pages/NotFound";
 import Layout from "./components/LayOut";
 import Settings from "./pages/Settings";
 import Profiles from "./pages/Profiles";
+import Customercenter from "./pages/CustomerCenter";
 const App = () => {
   return (
     <Routes>
@@ -19,6 +20,7 @@ const App = () => {
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/profiles" element={<Profiles />} />
+      <Route path="/customercenter" element={<Customercenter />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

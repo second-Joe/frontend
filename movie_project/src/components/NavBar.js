@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useHistory } from "react-router-dom";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -61,29 +61,29 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const NavBar = ({ search, setSearch }) => {
+const NavBar = ({ search, setSearch, showResult, setShowResult }) => {
   //Link 컴포넌트를 사용하지 않고 다른 페이지로 이동해야 할때 사용
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
   };
-  const goLogout = () => {
-    //Login 경로로 이동(로그아웃 하면 다시 뒤로가기 안됨)
-    //replace: true는 페이지를 이동할때 현재 페이지를 기록에 남기지 않는다.
-    navigate("/", { replace: true });
-  };
-
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const updateScroll = () => {
-    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", updateScroll);
-  });
 
   const goSearch = (e) => {
     setSearch(e.target.value);
+  };
+
+  const goLogout = () => {
+    //Login 페이지로 이동(로그아웃 하면 다시 뒤로가기 안됨)
+    //replace: true는 페이지를 이동할때 현재 페이지를 기록에 남기지 않는다.
+    //login state값을 false롤 해준다음, 그 state값을 login페이지로 넘기기.
+    //login페이지로 redirect되면 더이상 홈페이지나 그 안의 내용에 접근 못하게 하기
+    navigate("/", { replace: true });
+    // window.location.replace("/");
+    // return <Navigate to="/" replace={false} />;
+  };
+
+  const showSearchResult = () => {
+    navigate("/search", { replace: false });
   };
 
   // 이거 혹시 드롭다운으로 만드실건가요 ? 시리즈 클릭하면 페이지 이동이 아닌?
@@ -152,12 +152,13 @@ const NavBar = ({ search, setSearch }) => {
                 key={page}
                 // onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
+                onClick={showSearchResult}
               >
                 {page}
               </Button>
             ))}
           </Box>
-          <Search onClick={goSearch}>
+          <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -168,7 +169,7 @@ const NavBar = ({ search, setSearch }) => {
             />
           </Search>
           <Box>
-            <SettingsDropdown />
+            <SettingsDropdown onClick={goLogout} />
           </Box>
         </Toolbar>
       </Container>

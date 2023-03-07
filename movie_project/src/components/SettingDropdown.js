@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
@@ -8,7 +8,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
-export default function FadeMenu() {
+export default function FadeMenu({ onClick }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -17,6 +17,7 @@ export default function FadeMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <>
       <Tooltip title="Open settings">
@@ -51,19 +52,19 @@ export default function FadeMenu() {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem component={Link} to="/my-link">
+        <MenuItem component={Link} to="/customercenter">
           <Typography textAlign="center">{"고객센터"}</Typography>
         </MenuItem>
-        <MenuItem component={Link} to="/my-link">
+        <MenuItem component={Link} to="/settings">
           <Typography textAlign="center">{"설정"}</Typography>
         </MenuItem>
-        <MenuItem component={Link} to="/my-link">
+        <MenuItem component={Link} to="/mypage">
           <Typography textAlign="center">{"마이페이지"}</Typography>
         </MenuItem>
-        <MenuItem component={Link} to="/">
+        <MenuItem component={Link} to="/profiles">
           <Typography textAlign="center">{"프로필 변경"}</Typography>
         </MenuItem>
-        <MenuItem component={Link} to="/my-link">
+        <MenuItem onClick={onClick}>
           <Typography textAlign="center">{"로그아웃"}</Typography>
         </MenuItem>
       </Menu>

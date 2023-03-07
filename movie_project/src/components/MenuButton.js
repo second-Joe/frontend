@@ -35,22 +35,22 @@ export default function TemporaryDrawer() {
         >
           <List>
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/">
+              <ListItemButton component={Link} to="/search">
                 <ListItemText primary="시리즈" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/">
+              <ListItemButton component={Link} to="/search">
                 <ListItemText primary="영화" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/">
+              <ListItemButton component={Link} to="/search">
                 <ListItemText primary="NEW! 요즘 대세 콘텐츠" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/">
+              <ListItemButton component={Link} to="/search">
                 <ListItemText primary="내가 찜한 콘텐츠" />
               </ListItemButton>
             </ListItem>
