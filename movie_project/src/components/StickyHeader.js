@@ -15,7 +15,8 @@ const StickyHeader = () => {
     <AppBar position="fixed" style={{ background: "#212121" }}>
       <Toolbar>
         <Grid container>
-          <Grid item xs={10}>
+          <Grid item xs={1} />
+          <Grid item xs={9}>
             <Typography
               noWrap
               component="a"
