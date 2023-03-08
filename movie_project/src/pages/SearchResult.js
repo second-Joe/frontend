@@ -1,45 +1,49 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import Movie from "../components/Movie";
-import Grid from '@mui/material/Grid'; // Grid version 1
+import Grid from "@mui/material/Grid"; // Grid version 1
 
 // 길주 대폭 수정
-const SearchResult = () => {
+const SearchResult = ({ search }) => {
   const [loading, setLoding] = useState(true);
-  const [movies, setMovies] = useState([])
-  const { search } = useParams();
-
+  const [movies, setMovies] = useState([]);
+  console.log(search);
   const searchMovies = async () => {
     const json = await (
       await fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${search}`)
     ).json();
-    setMovies(json.data.movies);
+    setMovies(json.data);
     setLoding(false);
-    console.log(json);
+    console.log("json ====", json);
   };
   useEffect(() => {
     searchMovies();
-  }, [search])
+  }, [search]);
   return (
     <div>
-      {loading ? <div style={{ marginTop: "100px", height: "1000px" }}>Searching...</div> :
-        (<div style={{ marginTop: "100px", height: "1000px" }}>
+      {loading ? (
+        <div style={{ marginTop: "100px", height: "1000px" }}>Searching...</div>
+      ) : (
+        <div style={{ marginTop: "100px", height: "1000px" }}>
           <Grid container spacing={2}>
-            {movies.map((movies =>
-              <Grid xs={3}>
-                <Movie
-                  key={movies.yt_trailer_code}
-                  medium_cover_image={movies.medium_cover_image}
-                // title={movies.title}
-                // summary={movies.summary}
-                // genres={movies.genres}
-                />
-              </Grid>
-            ))}
+            {movies.movie_count == 0 ? (
+              <>검색결과가 존재하지 않습니다!</>
+            ) : (
+              movies.movies.map((movies) => (
+                <Grid xs={3}>
+                  <Movie
+                    key={movies.yt_trailer_code}
+                    medium_cover_image={movies.medium_cover_image}
+                    // title={movies.title}
+                    // summary={movies.summary}
+                    // genres={movies.genres}
+                  />
+                </Grid>
+              ))
+            )}
           </Grid>
-        </div>)
-      }
-    </div >
+        </div>
+      )}
+    </div>
     // <div>
     //   <div style={{ marginTop: "100px", height: "1000px" }}>SEARCH RESULT</div>
     // </div>

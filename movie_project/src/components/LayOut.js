@@ -23,7 +23,7 @@ const Layout = () => {
               </footer>
             </div>
           ) : (
-            <SearchResult />
+            <SearchResult search={search} />
           )}
         </main>
       </div>
