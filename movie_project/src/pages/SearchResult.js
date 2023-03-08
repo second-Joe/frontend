@@ -9,7 +9,7 @@ const SearchResult = ({ search }) => {
   console.log(search);
   const searchMovies = async () => {
     const json = await (
-      await fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${search}`)
+      await fetch(`https://yts.mx/api/v2/list_movies.json?limit=50&query_term=${search}`)
     ).json();
     setMovies(json.data);
     setLoding(false);
@@ -25,18 +25,17 @@ const SearchResult = ({ search }) => {
       ) : (
         <div style={{ marginTop: "100px", height: "1000px" }}>
           <Grid container spacing={2}>
-            {movies.movie_count == 0 ? (
-              <>검색결과가 존재하지 않습니다!</>
+            {movies.movie_count === 0 ? (
+              <div>검색결과가 존재하지 않습니다!</div>
             ) : (
-              movies.movies.map((movies) => (
-                <Grid xs={3}>
+              movies.movies.map((movie) => (
+                <Grid item xs={2} key={movie.id}>
                   <Movie
-                    key={movies.yt_trailer_code}
-                    medium_cover_image={movies.medium_cover_image}
-                    // title={movies.title}
-                    // summary={movies.summary}
-                    // genres={movies.genres}
-                    ////////////////////////////////////////////////////////////
+                    id={movie.id}
+                    medium_cover_image={movie.medium_cover_image}
+                    title={movie.title}
+                    summary={movie.summary}
+                    genres={movie.genres}
                   />
                 </Grid>
               ))
