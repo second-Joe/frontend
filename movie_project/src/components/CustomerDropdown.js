@@ -3,17 +3,25 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 
 export default function PositionedMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logout = () => {
+    //jwt 삭제
+    //localStorage.removeItem('jwtToken');
+    navigate("/", { replace: true });
   };
 
   return (
@@ -58,10 +66,10 @@ export default function PositionedMenu() {
         }}
         sx={{ mt: 6 }}
       >
-        <MenuItem component={Link} to="/">
+        <MenuItem component={Link} to="/mypage">
           계정
         </MenuItem>
-        <MenuItem component={Link} to="/">
+        <MenuItem onClick={logout} component={Link} to="/">
           로그아웃
         </MenuItem>
       </Menu>
