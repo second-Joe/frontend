@@ -1,0 +1,56 @@
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { Grid } from "@mui/material";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+
+const bull = (
+  <Box
+    component="span"
+    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
+  >
+    •
+  </Box>
+);
+
+export default function BasicCard() {
+  return (
+    <Card sx={{ minWidth: 275, boxShadow: 2, m: 2 }}>
+      <CardContent>
+        <Grid container>
+          <Box
+            item
+            xs={1}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              mr: 2,
+              color: "orange",
+            }}
+          >
+            <WarningAmberIcon />
+          </Box>
+          <Grid item xs={10}>
+            <Typography sx={{ fontSize: 16, m: 0.3 }} fontWeight="bold">
+              넷플릭스 비밀번호를 변경하는 방법
+            </Typography>
+            <Typography
+              sx={{ fontSize: 14, m: 0.3 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              넷플릭스 이메일 주소 또는 비밀번호가 기억나지 않는 경우 이
+              문서에서 계정에 다시 액세스 하는 방법을 알아보세요.
+            </Typography>
+          </Grid>
+          <Grid item xs={1}>
+            <Button size="large">지원받기</Button>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
+  );
+}
