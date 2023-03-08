@@ -1,7 +1,11 @@
+import MyPageNavbar from "../components/MyPageNavbar";
+import MyPageBody from "../components/MyPageBody";
+
 const MyPage = () => {
   return (
     <div>
-      <div>MyPage</div>
+      <MyPageNavbar />
+      <MyPageBody />
     </div>
   );
 };
