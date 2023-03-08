@@ -12,16 +12,15 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 620,
-        bgcolor: 'background.paper',
+        width: 720,
+        bgcolor: 'rgba(0,0,0,0.8)',
         border: '2px solid #000',
         boxShadow: 24,
         p: 2,
-        display: "flex"
+        display: "flex",
+        zIndex: 9999
     };
-    const style2 = {
-        display: 'flex'
-    }
+
     const [isHover, setIsHover] = React.useState(false);
     const handleHover = () => setIsHover(true);
     const handleLeave = () => setIsHover(false);
@@ -30,57 +29,93 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
     const handleOpen = (e) => {
         e.stopPropagation();
         setOpen(true);
+        setIsHover(false);
     }
     const handleClose = () => setOpen(false);
-    return <div
-        style={{
-            position: "relative",
-            width: "100%",
-            height: "100%",
-        }}
-    >
-        <img
-            src={medium_cover_image}
-            alt={title}
-            onMouseEnter={handleHover}
-            onMouseLeave={handleLeave}
-            onClick={handleOpen}
+
+
+    return (
+        <div
             style={{
+                position: "relative",
                 width: "100%",
                 height: "100%",
-                objectFit: "cover",
-                transition: "all 0.3s ease-out",
-                transform: isHover ? "scale(1.1)" : "scale(1)",
-                cursor: "pointer",
-                zIndex: isHover ? "1" : "0"
             }}
-        />
-        <Modal
-            keepMounted
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="keep-mounted-modal-title"
-            aria-describedby="keep-mounted-modal-description"
+            onMouseEnter={handleHover}
+            onMouseLeave={handleLeave}
         >
-            <Box sx={style}>
-                <div style={{ display: "flex" }}>
-                    <img
-                        width="250px"
-                        style={{ display: "block" }}
-                        src={medium_cover_image}
-                    ></img>
+            <img
+                src={medium_cover_image}
+                title={title}
+                style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    transition: "all 0.3s ease-out",
+                    transform: isHover ? "scale(1.1)" : "scale(1)",
+                    cursor: "pointer",
+                }}
+                onClick={handleOpen}
+            />
+            {isHover ? (
+                <div onClick={handleOpen}
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        zIndex: 10,
+                        backgroundColor: "rgba(0,0,0,0.8)",
+                    }}
+                >
                     <Typography
-                        id="keep-mounted-modal-title"
-                        style={{ marginLeft: "16px", width: "350px" }}
+                        variant="h6"
+                        component="div"
+                        sx={{
+                            color: "white",
+                            p: 2,
+                            animation: isHover ? "none" : "$fadeInOut 2s ease-out infinite",
+                        }}
+
                     >
-                        <div style={{ display: "flex", flexDirection: "column" }}>
-                            <h2 style={{ display: "block" }}>{title}</h2>
-                            <p>{summary}</p>
-                        </div>
+                        {title}
                     </Typography>
                 </div>
-            </Box>
-        </Modal>
-    </div >;
+            ) : null}
+            <Modal
+                keepMounted
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="keep-mounted-modal-title"
+                aria-describedby="keep-mounted-modal-description"
+            >
+                <Box sx={style}>
+                    <div style={{ display: "flex" }}>
+                        <img
+                            width="250px"
+                            style={{ display: "block" }}
+                            src={medium_cover_image}
+                        ></img>
+                        <Typography
+                            sx={{
+                                color: "white"
+                            }}
+                            id="keep-mounted-modal-title"
+                            style={{ marginLeft: "16px", width: "450px" }}
+                        >
+                            <div style={{ display: "flex", flexDirection: "column" }}>
+                                <h2 style={{ display: "block" }}>{title}</h2>
+                                <p>{summary}</p>
+                            </div>
+                        </Typography>
+                    </div>
+                </Box>
+            </Modal>
+        </div >
+    )
 }
 export default Movie;
