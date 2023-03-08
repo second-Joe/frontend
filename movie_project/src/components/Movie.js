@@ -4,6 +4,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import "./Movie.css"
+import zIndex from "@mui/material/styles/zIndex";
 
 function Movie({ id, medium_cover_image, title, summary, genres }) {
     const style = {
@@ -49,8 +50,9 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                 height: "100%",
                 objectFit: "cover",
                 transition: "all 0.3s ease-out",
-                transform: isHover ? "scale(1.5)" : "scale(1)",
+                transform: isHover ? "scale(1.1)" : "scale(1)",
                 cursor: "pointer",
+                zIndex: isHover ? "1" : "0"
             }}
         />
         <Modal
