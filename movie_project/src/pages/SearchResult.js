@@ -36,6 +36,7 @@ const SearchResult = ({ search }) => {
                     // title={movies.title}
                     // summary={movies.summary}
                     // genres={movies.genres}
+                    ////////////////////////////////////////////////////////////
                   />
                 </Grid>
               ))
