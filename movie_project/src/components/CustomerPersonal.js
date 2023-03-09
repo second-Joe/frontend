@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 
 const CustomerPersonal = () => {
   return (
-    <Container sx={{ paddingTop: "200px" }}>
+    <Container sx={{ paddingTop: "250px" }}>
       <Typography
         variant={"h1"}
         sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
