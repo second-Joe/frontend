@@ -32,7 +32,6 @@ const CustomerAsk = () => {
             flexDirection: "row",
             alignItems: "center",
             mt: 2,
-            mb: 2,
           }}
         >
           <Typography flexGrow="1" sx={{ fontSize: 24, fontWeight: "bold" }}>

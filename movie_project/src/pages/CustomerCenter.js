@@ -6,6 +6,7 @@ import CustomerSolution from "../components/CustomerSolution";
 
 const Customercenter = () => {
   const body = document.getElementById("body");
+  body.style.margin = "0";
   body.style.backgroundColor = "white";
 
   return (
