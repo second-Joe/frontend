@@ -2,17 +2,12 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import plusbtn from "../assets/plusbtn.png";
-import { useNavigate } from "react-router-dom";
 import ProfilesBox from "../components/ProfilesBox";
 import ProfilesManageBtn from "../components/ProfilesManageBtn";
 // import Typography from "material-ui/Typography";
 // import { withStyles } from "material-ui/styles";
 
 const Profiles = () => {
-  const navigate = useNavigate();
-  const goHome = () => {
-    navigate("/login");
-  };
   return (
     <div style={{ backgroundColor: "rgb(42, 43, 43)" }}>
       <div
