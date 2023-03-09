@@ -3,6 +3,9 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import plusbtn from "../plusbtn.png";
 import Button from "@mui/material/Button";
+// import Typography from "material-ui/Typography";
+// import { withStyles } from "material-ui/styles";
+
 const Profiles = () => {
   return (
     <div style={{ backgroundColor: "rgb(42, 43, 43)" }}>
@@ -38,21 +41,14 @@ const Profiles = () => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <div
-                style={{
-                  "&:hover": {
-                    cursor: "pointer",
-                    color: "white",
-                  },
-                }}
-              >
+              <div>
                 <Box
                   component="img"
                   sx={{
-                    width: 200,
-                    height: 200,
-                    maxHeight: { xs: 180, md: 200 },
-                    maxWidth: { xs: 180, md: 200 },
+                    width: 180,
+                    height: 180,
+                    maxHeight: { xs: 180, md: 180 },
+                    maxWidth: { xs: 180, md: 180 },
                     boxSizing: "border-box",
                     "&:hover": {
                       backgroundColor: "primary.main",
@@ -66,7 +62,7 @@ const Profiles = () => {
                 />
                 <h1
                   style={{
-                    color: "grey",
+                    color: "white",
                     textAlign: "center",
                   }}
                 >
@@ -77,10 +73,10 @@ const Profiles = () => {
                 <Box
                   component="img"
                   sx={{
-                    width: 200,
-                    height: 200,
-                    maxHeight: { xs: 180, md: 200 },
-                    maxWidth: { xs: 180, md: 200 },
+                    width: 180,
+                    height: 180,
+                    maxHeight: { xs: 180, md: 180 },
+                    maxWidth: { xs: 180, md: 180 },
                     boxSizing: "border-box",
                     "&:hover": {
                       backgroundColor: "primary.main",
@@ -94,7 +90,7 @@ const Profiles = () => {
                 />
                 <h1
                   style={{
-                    color: "grey",
+                    color: "white",
                     textAlign: "center",
                     "&:hover": {
                       backgroundColor: "primary.main",
@@ -111,10 +107,10 @@ const Profiles = () => {
                 <Box
                   component="img"
                   sx={{
-                    width: 200,
-                    height: 200,
-                    maxHeight: { xs: 180, md: 200 },
-                    maxWidth: { xs: 180, md: 200 },
+                    width: 180,
+                    height: 180,
+                    maxHeight: { xs: 180, md: 180 },
+                    maxWidth: { xs: 180, md: 180 },
                     boxSizing: "border-box",
                     "&:hover": {
                       backgroundColor: "primary.main",
@@ -128,7 +124,7 @@ const Profiles = () => {
                 />
                 <h1
                   style={{
-                    color: "grey",
+                    color: "white",
                     textAlign: "center",
                     "&:hover": {
                       backgroundColor: "primary.main",
@@ -145,10 +141,10 @@ const Profiles = () => {
                 <Box
                   component="img"
                   sx={{
-                    width: 200,
-                    height: 200,
-                    maxHeight: { xs: 180, md: 200 },
-                    maxWidth: { xs: 180, md: 200 },
+                    width: 180,
+                    height: 180,
+                    maxHeight: { xs: 180, md: 180 },
+                    maxWidth: { xs: 180, md: 180 },
                     boxSizing: "border-box",
                     "&:hover": {
                       backgroundColor: "primary.main",
@@ -162,7 +158,7 @@ const Profiles = () => {
                 />
                 <h1
                   style={{
-                    color: "grey",
+                    color: "white",
                     textAlign: "center",
                     "&:hover": {
                       backgroundColor: "primary.main",
@@ -179,10 +175,10 @@ const Profiles = () => {
                 <Box
                   component="img"
                   sx={{
-                    width: 200,
-                    height: 200,
-                    maxHeight: { xs: 180, md: 200 },
-                    maxWidth: { xs: 180, md: 200 },
+                    width: 180,
+                    height: 180,
+                    maxHeight: { xs: 180, md: 180 },
+                    maxWidth: { xs: 180, md: 180 },
                     boxSizing: "border-box",
                     ":hover": {
                       backgroundColor: "white",
@@ -196,7 +192,7 @@ const Profiles = () => {
                 />
                 <h1
                   style={{
-                    color: "grey",
+                    color: "white",
                     textAlign: "center",
                     "&:hover": {
                       backgroundColor: "primary.main",
@@ -215,7 +211,7 @@ const Profiles = () => {
       </div>
       <div
         style={{
-          marginTop: "150px",
+          marginTop: "120px",
           display: "flex",
           justifyContent: "center",
         }}
