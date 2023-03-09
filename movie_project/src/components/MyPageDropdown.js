@@ -61,9 +61,7 @@ export default function PositionedMenu() {
         <MenuItem component={Link} to="/profiles">
           프로필 관리
         </MenuItem>
-        <MenuItem component={Link} to="/mypage">
-          계정
-        </MenuItem>
+
         <MenuItem component={Link} to="/customercenter">
           고객 센터
         </MenuItem>
