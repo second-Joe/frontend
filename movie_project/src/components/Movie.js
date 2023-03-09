@@ -47,8 +47,8 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                 src={medium_cover_image}
                 title={title}
                 style={{
-                    width: "100%",
-                    height: "100%",
+                    width: "95%",
+                    height: "95%",
                     objectFit: "cover",
                     transition: "all 0.3s ease-out",
                     transform: isHover ? "scale(1.1)" : "scale(1)",
@@ -62,8 +62,8 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                         position: "absolute",
                         top: 0,
                         left: 0,
-                        width: "100%",
-                        height: "100%",
+                        width: "95%",
+                        height: "95%",
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",

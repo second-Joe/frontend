@@ -10,6 +10,7 @@ const SearchResult = ({ search }) => {
 
   const searchMovies = async () => {
     setLoading(true);
+
     const json = await (
       await fetch(`https://yts.mx/api/v2/list_movies.json?limit=48&query_term=${search}`)
     ).json();
