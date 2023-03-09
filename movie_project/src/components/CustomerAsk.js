@@ -25,7 +25,7 @@ const CustomerAsk = () => {
         m: 0,
       }}
     >
-      <Container float>
+      <Container>
         <Box
           sx={{
             display: "flex",

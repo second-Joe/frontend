@@ -7,22 +7,12 @@ import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
-
 export default function BasicCard() {
   return (
     <Card sx={{ minWidth: 275, boxShadow: 2, m: 2 }}>
       <CardContent>
         <Grid container>
           <Box
-            item
             xs={1}
             sx={{
               display: "flex",
