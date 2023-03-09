@@ -5,7 +5,6 @@ import SearchResult from "./pages/SearchResult";
 import MyPage from "./pages/MyPage";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/LayOut";
-import Settings from "./pages/Settings";
 import Profiles from "./pages/Profiles";
 import Customercenter from "./pages/CustomerCenter";
 const App = () => {
@@ -18,7 +17,6 @@ const App = () => {
       <Route path="/search/" element={<SearchResult />} />
       {/* SearchResult결과는 section3 컴포넌트 이용 */}
       <Route path="/mypage" element={<MyPage />} />
-      <Route path="/settings" element={<Settings />} />
       <Route path="/profiles" element={<Profiles />} />
       <Route path="/customercenter" element={<Customercenter />} />
       <Route path="*" element={<NotFound />} />

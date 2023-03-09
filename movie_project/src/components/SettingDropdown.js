@@ -55,9 +55,7 @@ export default function FadeMenu({ onClick }) {
         <MenuItem component={Link} to="/customercenter">
           <Typography textAlign="center">{"고객센터"}</Typography>
         </MenuItem>
-        <MenuItem component={Link} to="/settings">
-          <Typography textAlign="center">{"설정"}</Typography>
-        </MenuItem>
+
         <MenuItem component={Link} to="/mypage">
           <Typography textAlign="center">{"마이페이지"}</Typography>
         </MenuItem>
