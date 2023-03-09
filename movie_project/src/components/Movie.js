@@ -164,10 +164,10 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                                 <h2 style={{ display: "block" }}>{title}</h2>
                                 <p
                                     style={{
-                                        //현재는 overflow, textoverflow 밑 기타 요소들을, 밑의 삼항연산자가 대체
+                                        //현재는 textoverflow 밑 기타 요소들을, 밑의 삼항연산자가 대체
                                         fontSize: 18,
                                         display: "block",
-                                        // overflow: "hidden",
+                                        overflow: "hidden"
                                         //textOverflow: 글자가 maxHeight를 넘을 시, 보이지 않게 하기 위함
                                         //overflow hidden으로는 일정 높이를 초과하게 되면 나머지 부분을 숨김
                                         // textOverflow: "ellipsis",
