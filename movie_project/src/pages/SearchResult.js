@@ -34,6 +34,7 @@ const SearchResult = ({ search }) => {
             marginTop: "100px",
             color: "white",
             fontSize: "2.4em",
+            position: "fixed"
           }}
         >
           Searching...
