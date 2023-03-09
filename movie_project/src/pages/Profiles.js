@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import plusbtn from "../plusbtn.png";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import Typography from "material-ui/Typography";
 // import { withStyles } from "material-ui/styles";
 
@@ -46,7 +46,15 @@ const Profiles = () => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <div>
+              <Box
+                sx={{
+                  boxSizing: "border-box",
+                  "&:hover": {
+                    opacity: [0.9, 0.8, 0.7],
+                    cursor: "pointer",
+                  },
+                }}
+              >
                 <Box
                   onClick={goHome}
                   component="img"
@@ -61,6 +69,7 @@ const Profiles = () => {
                       opacity: [0.9, 0.8, 0.7],
                       cursor: "pointer",
                       border: "5px solid white",
+                      color: "white",
                     },
                   }}
                   alt="Netflix profile icon"
@@ -74,8 +83,16 @@ const Profiles = () => {
                 >
                   user1
                 </h1>
-              </div>
-              <div>
+              </Box>
+              <Box
+                sx={{
+                  boxSizing: "border-box",
+                  "&:hover": {
+                    opacity: [0.9, 0.8, 0.7],
+                    cursor: "pointer",
+                  },
+                }}
+              >
                 <Box
                   onClick={goHome}
                   component="img"
@@ -109,8 +126,16 @@ const Profiles = () => {
                 >
                   user2
                 </h1>
-              </div>
-              <div>
+              </Box>
+              <Box
+                sx={{
+                  boxSizing: "border-box",
+                  "&:hover": {
+                    opacity: [0.9, 0.8, 0.7],
+                    cursor: "pointer",
+                  },
+                }}
+              >
                 <Box
                   onClick={goHome}
                   component="img"
@@ -144,8 +169,16 @@ const Profiles = () => {
                 >
                   user3
                 </h1>
-              </div>
-              <div>
+              </Box>
+              <Box
+                sx={{
+                  boxSizing: "border-box",
+                  "&:hover": {
+                    opacity: [0.9, 0.8, 0.7],
+                    cursor: "pointer",
+                  },
+                }}
+              >
                 <Box
                   onClick={goHome}
                   component="img"
@@ -179,8 +212,16 @@ const Profiles = () => {
                 >
                   user4
                 </h1>
-              </div>
-              <div>
+              </Box>
+              <Box
+                sx={{
+                  boxSizing: "border-box",
+                  "&:hover": {
+                    opacity: [0.9, 0.8, 0.7],
+                    cursor: "pointer",
+                  },
+                }}
+              >
                 <Box
                   component="img"
                   sx={{
@@ -213,7 +254,7 @@ const Profiles = () => {
                 >
                   프로필 추가
                 </h1>
-              </div>
+              </Box>
             </Grid>
           </Grid>
         </Box>
