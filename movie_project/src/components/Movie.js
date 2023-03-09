@@ -109,6 +109,7 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                             sx={{
                                 color: "white",
                             }}
+                            component="span"
                             id="keep-mounted-modal-title"
                             style={{
                                 marginLeft: "16px",
