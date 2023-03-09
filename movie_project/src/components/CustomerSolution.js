@@ -36,7 +36,7 @@ const CustomerSolution = () => {
     ],
   ];
   return (
-    <Container sx={{ mb: 10 }}>
+    <Container>
       <Grid container spacing={1} sx={{ width: "100%" }}>
         {solutionList.map((innerArray) => {
           return (
