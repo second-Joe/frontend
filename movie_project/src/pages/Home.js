@@ -15,38 +15,13 @@ const Home = () => {
   const horrorRight = () => {
     setHorrorPage((prevPage) => prevPage + 1);
   };
-  const [mystery, setMystery] = useState([]);
-  const [animation, setAnimation] = useState([]);
-  const [comedy, setComedy] = useState([]);
-  const [romance, setRomance] = useState([]);
-  const [action, setAction] = useState([]);
   const loadHorrorMovies = async (page) => {
-    const response = await fetch(`https://yts.mx/api/v2/list_movies.json?limit=5&genre=horror&minimum_rating=7&page=${page}`);
-    const data = await response.json();
-    setHorror(data.data.movies);
+    const HorrorData = await (
+      await fetch(`https://yts.mx/api/v2/list_movies.json?limit=5&genre=horror&minimum_rating=8&page=${page}`)
+    ).json();
+    setHorror(HorrorData.data.movies);
   };
-  //   setHorror(horror.data);
-  //   const mystery = await (
-  //     await fetch(`https://yts.mx/api/v2/list_movies.json?limit=50&genre=mystery`)
-  //   ).json();
-  //   setMystery(mystery.data);
-  //   const animation = await (
-  //     await fetch(`https://yts.mx/api/v2/list_movies.json?limit=50&genre=animation`)
-  //   ).json();
-  //   setAnimation(animation.data);
-  //   const comedy = await (
-  //     await fetch(`https://yts.mx/api/v2/list_movies.json?limit=50&genre=comedy`)
-  //   ).json();
-  //   setComedy(comedy.data);
-  //   const romance = await (
-  //     await fetch(`https://yts.mx/api/v2/list_movies.json?limit=50&genre=romance`)
-  //   ).json();
-  //   setRomance(romance.data);
-  //   const action = await (
-  //     await fetch(`https://yts.mx/api/v2/list_movies.json?limit=50&genre=action`)
-  //   ).json();
-  //   setAction(action.data);
-  // }
+
 
 
   return (
