@@ -10,8 +10,8 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 720,
-        maxheight: 320,
+        width: 780,
+        height: 400,
         bgcolor: 'rgba(0,0,0,0.8)',
         border: '2px solid #000',
         boxShadow: 24,
@@ -98,9 +98,11 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                 <Box sx={style}>
                     <div style={{ display: "flex" }}>
                         <img
-                            width="250px"
-                            height="300px"
-                            style={{ display: "flex" }}
+                            width="300px"
+                            height="400px"
+                            style={{
+                                display: "flex"
+                            }}
                             src={medium_cover_image}
                         ></img>
                         <Typography
@@ -110,7 +112,6 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                             id="keep-mounted-modal-title"
                             style={{
                                 marginLeft: "16px",
-                                maxHeight: "300px",
                                 display: "flex",
                                 width: "450px",
                             }}
@@ -123,15 +124,19 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                                 }}
                             >
                                 <h2 style={{ display: "block" }}>{title}</h2>
-                                <p style={{
-                                    fontSize: 13,
-                                    display: "block",
-                                    overflow: "hidden", textOverflow: "ellipsis",
-                                    maxHeight: "275px"
-                                }}>
-                                    {summary}
+                                <p
+                                    style={{
+                                        fontSize: 18,
+                                        display: "block",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        maxHeight: "320px",
+                                    }}
+                                >
+                                    {summary.length > 600
+                                        ? `${summary.slice(0, 600)}...`
+                                        : summary}
                                 </p>
-
                             </div>
                         </Typography>
                     </div>
