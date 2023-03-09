@@ -3,10 +3,15 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import plusbtn from "../plusbtn.png";
 import Button from "@mui/material/Button";
+import { Link, useNavigate } from "react-router-dom";
 // import Typography from "material-ui/Typography";
 // import { withStyles } from "material-ui/styles";
 
 const Profiles = () => {
+  const navigate = useNavigate();
+  const goHome = () => {
+    navigate("/login");
+  };
   return (
     <div style={{ backgroundColor: "rgb(42, 43, 43)" }}>
       <div
@@ -43,6 +48,7 @@ const Profiles = () => {
             >
               <div>
                 <Box
+                  onClick={goHome}
                   component="img"
                   sx={{
                     width: 180,
@@ -71,6 +77,7 @@ const Profiles = () => {
               </div>
               <div>
                 <Box
+                  onClick={goHome}
                   component="img"
                   sx={{
                     width: 180,
@@ -105,6 +112,7 @@ const Profiles = () => {
               </div>
               <div>
                 <Box
+                  onClick={goHome}
                   component="img"
                   sx={{
                     width: 180,
@@ -139,6 +147,7 @@ const Profiles = () => {
               </div>
               <div>
                 <Box
+                  onClick={goHome}
                   component="img"
                   sx={{
                     width: 180,
