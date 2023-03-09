@@ -9,7 +9,7 @@ import ProfilesManageBtn from "../components/ProfilesManageBtn";
 
 const Profiles = () => {
   return (
-    <div style={{ backgroundColor: "rgb(42, 43, 43)" }}>
+    <div style={{ backgroundColor: "rgb(42, 43, 43)", minHeight: "100vh" }}>
       <div
         style={{
           color: "white",
