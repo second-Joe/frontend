@@ -2,8 +2,8 @@ import Modal from '@mui/material/Modal';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-function Movie({ id, medium_cover_image, title, summary, genres }) {
 
+function Movie({ id, medium_cover_image, title, summary, genres }) {
     const style = {
         position: 'absolute',
         top: '50%',
