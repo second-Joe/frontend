@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import SearchResult from "./pages/SearchResult";
@@ -7,7 +7,22 @@ import NotFound from "./pages/NotFound";
 import Layout from "./components/LayOut";
 import Profiles from "./pages/Profiles";
 import Customercenter from "./pages/CustomerCenter";
+import { useEffect } from "react";
+
 const App = () => {
+  const location = useLocation();
+  useEffect(() => {
+    console.log(location);
+  }, [location]);
+  if (location.pathname == "/login" || location.pathname == "/profiles") {
+    document.body.style.backgroundColor = "rgb(42, 43, 43)";
+  } else if (
+    location.pathname == "/customercenter" ||
+    location.pathname == "/mypage"
+  ) {
+    document.body.style.backgroundColor = "white";
+  }
+
   return (
     <Routes>
       <Route path="/" element={<Login />}></Route>
