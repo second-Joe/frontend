@@ -7,7 +7,7 @@ function Banner() {
   const [mystery, setMystery] = useState([]);
   const loadMysteryMovies = async () => {
     const response = await fetch(
-      `https://yts.mx/api/v2/list_movies.json?limit=1&genre=mystery`
+      `https://yts.mx/api/v2/list_movies.json?limit=1&genre=drama`
     );
     const data = await response.json();
     setMystery(data.data.movies);
@@ -28,6 +28,7 @@ function Banner() {
             genres={movie.genres}
             background={movie.background_image}
             large_cover_image={movie.large_cover_image}
+            yt_trailer_code={movie.yt_trailer_code}
           />
         </Grid>
       ))}

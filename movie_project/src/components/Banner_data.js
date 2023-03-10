@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
+import YouTube from "react-youtube";
 
 function Banner_data({
   id,
@@ -16,6 +17,7 @@ function Banner_data({
   genres,
   background,
   large_cover_image,
+  yt_trailer_code,
 }) {
   const style = {
     position: "absolute",
@@ -31,6 +33,20 @@ function Banner_data({
     display: "flex",
     zIndex: 9999,
   };
+  const style1 = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 560,
+    height: 315,
+    bgcolor: "rgba(0,0,0,0.8)",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 2,
+    display: "flex",
+    zIndex: 9999,
+  };
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = (e) => {
@@ -39,6 +55,14 @@ function Banner_data({
   };
 
   const handleClose = () => setOpen(false);
+
+  const [playeropen, setPlayerOpen] = React.useState(false);
+  const trailerOpen = (e) => {
+    e.stopPropagation();
+    setPlayerOpen(true);
+  };
+
+  const trailerClose = () => setPlayerOpen(false);
   return (
     <div>
       <Container
@@ -48,6 +72,8 @@ function Banner_data({
         style={{
           backgroundImage: `url(${medium_cover_image})`,
           height: "70vh",
+          //   backgroundClip:
+          //     'url("https://www.youtube.com/watch?v=${yt_trailer_code}")',
           //   backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
@@ -77,8 +103,8 @@ function Banner_data({
           </Grid>
           <Grid
             container
-            row-spacing={3}
-            column-Spacing={3}
+            rowspacing={3}
+            columnSpacing={3}
             style={{
               marginTop: "5px",
             }}
@@ -88,6 +114,7 @@ function Banner_data({
                 variant="outlined"
                 startIcon={<PlayCircleFilledWhiteOutlinedIcon />}
                 style={{ color: "white", backgroundColor: "#787777" }}
+                onClick={trailerOpen}
               >
                 재생
               </Button>
@@ -148,6 +175,25 @@ function Banner_data({
               </div>
             </Typography>
           </div>
+        </Box>
+      </Modal>
+      <Modal keepMounted open={playeropen} onClose={trailerClose}>
+        <Box sx={style1}>
+          <YouTube
+            videoId={yt_trailer_code}
+            opts={{
+              width: "560",
+              height: "315",
+              playerVars: {
+                autoplay: 1,
+                rel: 0,
+                modestbranding: 1,
+              },
+            }}
+            onEnd={(e) => {
+              e.target.stopVideo(0);
+            }}
+          />
         </Box>
       </Modal>
     </div>
