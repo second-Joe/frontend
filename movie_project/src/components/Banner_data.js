@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import YouTube from "react-youtube";
@@ -48,21 +48,31 @@ function Banner_data({
     zIndex: 9999,
   };
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = (e) => {
     e.stopPropagation();
     setOpen(true);
   };
-
   const handleClose = () => setOpen(false);
 
-  const [playeropen, setPlayerOpen] = React.useState(false);
+  const [playeropen, setPlayerOpen] = useState(false);
+
   const trailerOpen = (e) => {
     e.stopPropagation();
     setPlayerOpen(true);
+    if (youtubeRef.current) {
+      youtubeRef.current.playVideo();
+    }
   };
 
-  const trailerClose = () => setPlayerOpen(false);
+  const trailerClose = () => {
+    setPlayerOpen(false);
+    if (youtubeRef.current) {
+      youtubeRef.current.stopVideo();
+    }
+  };
+
+  const youtubeRef = useRef(null);
   return (
     <div>
       <Container
@@ -193,10 +203,14 @@ function Banner_data({
             onEnd={(e) => {
               e.target.stopVideo(0);
             }}
+            onReady={(e) => {
+              youtubeRef.current = e.target;
+            }}
           />
         </Box>
       </Modal>
     </div>
   );
 }
+
 export default Banner_data;
