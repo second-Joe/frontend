@@ -136,7 +136,12 @@ const NavBar = ({
           />
 
           <Box sx={{ flexGrow: 1, display: { md: "none" } }}>
-            <MenuButton />
+            <MenuButton
+              menuClick={menuClick}
+              setMenuClick={setMenuClick}
+              menuKind={menuKind}
+              setMenuKind={setMenuKind}
+            />
           </Box>
 
           <Typography noWrap component="a" href="/login" sx={typographySx}>
