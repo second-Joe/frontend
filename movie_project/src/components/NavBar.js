@@ -15,7 +15,7 @@ import SettingsDropdown from "./SettingDropdown";
 import MenuButton from "./MenuButton";
 import { useMediaQuery, useTheme } from "@mui/material";
 
-const pages = ["평점 8", "평점 8.5", "평점 9"];
+const pages = ["다운로드 가장 많은 영화", "좋아요 가장 많은 영화", "최근 추가 된 영화"];
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -100,29 +100,29 @@ const NavBar = ({
 
   const typographySx = isSmallScreen
     ? {
-        mr: 2,
-        display: { xs: "none" },
-        fontFamily: "helvetica",
-        fontWeight: 1000,
-        letterSpacing: ".1rem",
-        color: "red",
-        textDecoration: "none",
-        fontSize: "1.7em",
-      }
+      mr: 2,
+      display: { xs: "none" },
+      fontFamily: "helvetica",
+      fontWeight: 1000,
+      letterSpacing: ".1rem",
+      color: "red",
+      textDecoration: "none",
+      fontSize: "1.7em",
+    }
     : {
-        mr: 2,
-        display: "flex",
-        fontFamily: "helvetica",
-        fontWeight: 1000,
-        letterSpacing: ".1rem",
-        color: "red",
-        textDecoration: "none",
-        fontSize: "2em",
-        flexGrow: 1,
-        [theme.breakpoints.up("md")]: {
-          flexGrow: 0,
-        },
-      };
+      mr: 2,
+      display: "flex",
+      fontFamily: "helvetica",
+      fontWeight: 1000,
+      letterSpacing: ".1rem",
+      color: "red",
+      textDecoration: "none",
+      fontSize: "2em",
+      flexGrow: 1,
+      [theme.breakpoints.up("md")]: {
+        flexGrow: 0,
+      },
+    };
 
   return (
     <AppBar position="fixed" style={{ background: "#212121" }}>

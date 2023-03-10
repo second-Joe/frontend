@@ -52,17 +52,17 @@ export default function TemporaryDrawer({
             <ListItem disablePadding>
               <ListItemButton onClick={showSearchResult}>
                 {/* search뒤에다가 쿼리스트링 붙여주기 ex.?query=series 그 쿼리스트링을 searchResult페이지에서 searchParams로 읽은다음 관련 결과 띄워주기 */}
-                <ListItemText primary="평점 8" />
+                <ListItemText primary="다운로드 가장 많은 영화" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton onClick={showSearchResult}>
-                <ListItemText primary="평점 8.5" />
+                <ListItemText primary="좋아요 가장 많은 영화" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton onClick={showSearchResult}>
-                <ListItemText primary="평점 9" />
+                <ListItemText primary="최근 추가 된 영화" />
               </ListItemButton>
             </ListItem>
           </List>

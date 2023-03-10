@@ -3,9 +3,9 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { useState } from "react";
 import SearchResult from "../pages/SearchResult";
-import Rating8 from "./rating8";
-import Rating85 from "./rating8.5";
-import Rating9 from "./rating9";
+import DownLoadmany from "./DownLoadmany";
+import GoodMany from "./GoodMany";
+import NewDateAdd from "./NewDateAdd";
 
 const Layout = () => {
   const [search, setSearch] = useState("");
@@ -41,12 +41,12 @@ const Layout = () => {
               <SearchResult search={search} />
             )
           ) : search === "" ? (
-            menuName === "평점 8" ? (
-              <Rating8 />
-            ) : menuName === "평점 8.5" ? (
-              <Rating85 />
+            menuName === "다운로드 가장 많은 영화" ? (
+              <DownLoadmany />
+            ) : menuName === "좋아요 가장 많은 영화" ? (
+              <GoodMany />
             ) : (
-              <Rating9 />
+              <NewDateAdd />
             )
           ) : (
             <SearchResult search={search} />
