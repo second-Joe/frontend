@@ -39,7 +39,7 @@ function Banner_data({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 1100,
+    width: 800,
     height: 440,
     bgcolor: "rgba(0,0,0,0.8)",
     border: "2px solid #000",
@@ -83,16 +83,15 @@ function Banner_data({
           backgroundImage: `url(${medium_cover_image})`,
           height: "70vh",
           backgroundPosition: "center",
-          backgroundSize: "container",
-          padding: "0 15%",
+          backgroundSize: "cover",
         }}
       >
         <Box
           style={{
-            width: "500px",
+            width: "400px",
             position: "absolute",
-            top: "30%",
-            left: "50%",
+            top: "65%",
+            left: "55%",
             transform: "translate(-160%, -50%)",
           }}
         >
@@ -103,7 +102,7 @@ function Banner_data({
             style={{
               fontSize: "2em",
               fontWeight: "bold",
-              color: "white",
+              color: "#CECACA",
             }}
           >
             {title}
