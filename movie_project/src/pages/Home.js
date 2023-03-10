@@ -12,7 +12,7 @@ const Home = () => {
         marginTop: "80px",
       }}
     >
-      {/* <Banner /> */}
+      <Banner />
       {genres.map((genre) => (
         <OutputMovieGenres key={genre} genre={genre} />
       ))}
