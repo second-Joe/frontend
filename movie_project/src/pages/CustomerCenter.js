@@ -5,9 +5,6 @@ import CustomerAsk from "../components/CustomerAsk";
 import CustomerSolution from "../components/CustomerSolution";
 
 const Customercenter = () => {
-  const body = document.getElementById("body");
-  body.style.backgroundColor = "white";
-
   return (
     <div>
       <StickyHeader />
