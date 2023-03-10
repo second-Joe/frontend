@@ -65,7 +65,7 @@ function Login() {
       setPasswordError("비밀번호는 4~60자 사이여야 합니다.");
     }
     if (validEmail && validPassword) {
-      console.log("로그인 성공");
+      window.location.href = "/login";
     }
   };
   return (
@@ -103,19 +103,21 @@ function Login() {
         <TextField
           margin="normal"
           label="이메일 주소"
-          type="text"
+          type="email"
           name="email"
           required
           fullWidth
           variant="outlined"
           inputProps={{ style: { color: "white" } }}
           InputLabelProps={{ style: { color: "white" } }}
-          sx={{ my: 2, background: "#38393b", border: "1.5px solid white" }}
+          sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
           value={email}
           onChange={handleEmailChange}
           // 이메일 주소 입력란의 값이 변경될때마다 이 함수가 호출됨
         />
-        <FormHelperText sx={{ color: "red" }}>{emailError}</FormHelperText>
+        <FormHelperText sx={{ padding: "1px", color: "red" }}>
+          {emailError}
+        </FormHelperText>
 
         <TextField
           label="비밀번호"
@@ -126,7 +128,7 @@ function Login() {
           variant="outlined"
           inputProps={{ style: { color: "white" } }}
           InputLabelProps={{ style: { color: "white" } }}
-          sx={{ border: "1.5px solid white" }}
+          sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
           value={password}
           onChange={handlePasswordChange}
         />
@@ -156,6 +158,7 @@ function Login() {
             <Link>비밀번호를 잊으셨나요?</Link>
           </Box>
         </Typography>
+
         <Button
           type="submit"
           fullWidth
@@ -165,6 +168,7 @@ function Login() {
         >
           로그인
         </Button>
+
         <Typography sx={{ display: "flex", alignItems: "center" }}>
           <Link sx={{ ml: "auto" }}>지금 가입하세요.</Link>
         </Typography>
