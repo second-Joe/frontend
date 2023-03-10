@@ -57,10 +57,10 @@ function Banner_data({
           style={{
             marginLeft: "50px",
             width: "500px",
-            postion: "absolute",
-
+            position: "center",
             top: 100,
             left: 50,
+            transform: "translate(30%, 200%)",
           }}
         >
           <Grid
@@ -75,7 +75,14 @@ function Banner_data({
           >
             {title}
           </Grid>
-          <Grid contianer spacing={2}>
+          <Grid
+            container
+            row-spacing={3}
+            column-Spacing={3}
+            style={{
+              marginTop: "5px",
+            }}
+          >
             <Grid>
               <Button
                 variant="outlined"
