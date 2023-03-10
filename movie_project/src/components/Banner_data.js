@@ -24,22 +24,8 @@ function Banner_data({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 780,
-    height: 400,
-    bgcolor: "rgba(0,0,0,0.8)",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 2,
-    display: "flex",
-    zIndex: 9999,
-  };
-  const style1 = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 560,
-    height: 315,
+    width: 1000,
+    height: 600,
     bgcolor: "rgba(0,0,0,0.8)",
     border: "2px solid #000",
     boxShadow: 24,
@@ -48,6 +34,20 @@ function Banner_data({
     zIndex: 9999,
   };
 
+  const style1 = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 1100,
+    height: 440,
+    bgcolor: "rgba(0,0,0,0.8)",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 2,
+    display: "flex",
+    zIndex: 9999,
+  };
   const [open, setOpen] = useState(false);
   const handleOpen = (e) => {
     e.stopPropagation();
@@ -82,21 +82,18 @@ function Banner_data({
         style={{
           backgroundImage: `url(${medium_cover_image})`,
           height: "70vh",
-          //   backgroundClip:
-          //     'url("https://www.youtube.com/watch?v=${yt_trailer_code}")',
-          //   backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
+          backgroundSize: "container",
+          padding: "0 15%",
         }}
       >
         <Box
           style={{
-            marginLeft: "50px",
             width: "500px",
-            position: "center",
-            top: 100,
-            left: 50,
-            transform: "translate(30%, 200%)",
+            position: "absolute",
+            top: "30%",
+            left: "50%",
+            transform: "translate(-160%, -50%)",
           }}
         >
           <Grid
@@ -192,8 +189,8 @@ function Banner_data({
           <YouTube
             videoId={yt_trailer_code}
             opts={{
-              width: "560",
-              height: "315",
+              width: style1.width.toString(),
+              height: style1.height.toString(),
               playerVars: {
                 autoplay: 1,
                 rel: 0,

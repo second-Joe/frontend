@@ -22,7 +22,7 @@ function Banner() {
         <Grid item xs={2} key={movie.id}>
           <Banner_data
             id={movie.id}
-            medium_cover_image={movie.medium_cover_image}
+            medium_cover_image="https://static.wixstatic.com/media/cfe3a0_ff11eb8b5c644ccca71135ecd0066a61~mv2.jpg/v1/fill/w_640,h_522,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/cfe3a0_ff11eb8b5c644ccca71135ecd0066a61~mv2.jpg"
             title={movie.title}
             summary={movie.summary}
             genres={movie.genres}
