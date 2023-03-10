@@ -9,12 +9,27 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 
-export default function TemporaryDrawer() {
+export default function TemporaryDrawer({
+  search,
+  setSearch,
+  menuClick,
+  setMenuClick,
+  menuKind,
+  setMenuKind,
+}) {
   const [showMenu, setShowMenu] = React.useState(false);
 
   const toggleDrawer = (event) => {
     setShowMenu(!showMenu);
   };
+
+  const showSearchResult = (e) => {
+    setMenuClick(true);
+    setMenuKind(e.target.innerText);
+    setSearch("");
+    // console.log(e.target.innerText);
+  };
+
   return (
     <>
       <IconButton
@@ -35,24 +50,19 @@ export default function TemporaryDrawer() {
         >
           <List>
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/search">
+              <ListItemButton onClick={showSearchResult}>
                 {/* search뒤에다가 쿼리스트링 붙여주기 ex.?query=series 그 쿼리스트링을 searchResult페이지에서 searchParams로 읽은다음 관련 결과 띄워주기 */}
-                <ListItemText primary="시리즈" />
+                <ListItemText primary="평점 8" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/search">
-                <ListItemText primary="영화" />
+              <ListItemButton onClick={showSearchResult}>
+                <ListItemText primary="평점 8.5" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/search">
-                <ListItemText primary="NEW! 요즘 대세 콘텐츠" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton component={Link} to="/search">
-                <ListItemText primary="내가 찜한 콘텐츠" />
+              <ListItemButton onClick={showSearchResult}>
+                <ListItemText primary="평점 9" />
               </ListItemButton>
             </ListItem>
           </List>

@@ -15,7 +15,7 @@ import SettingsDropdown from "./SettingDropdown";
 import MenuButton from "./MenuButton";
 import { useMediaQuery, useTheme } from "@mui/material";
 
-const pages = ["시리즈", "영화", "NEW! 요즘 대세 콘텐츠", "내가 찜한 콘텐츠"];
+const pages = ["평점 8", "평점 8.5", "평점 9"];
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -60,7 +60,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const NavBar = ({ search, setSearch, showResult, setShowResult }) => {
+const NavBar = ({
+  search,
+  setSearch,
+  menuClick,
+  setMenuClick,
+  menuKind,
+  setMenuKind,
+}) => {
   //Link 컴포넌트를 사용하지 않고 다른 페이지로 이동해야 할때 사용
   const navigate = useNavigate();
   const goBack = () => {
@@ -81,8 +88,11 @@ const NavBar = ({ search, setSearch, showResult, setShowResult }) => {
     // 3 방법. return <Navigate to="/" replace={false} />;
   };
 
-  const showSearchResult = () => {
-    navigate("/search", { replace: false });
+  const showSearchResult = (e) => {
+    setMenuClick(true);
+    setMenuKind(e.target.value);
+    // console.log(e.target.value);
+    setSearch("");
   };
 
   const theme = useTheme();
@@ -127,7 +137,14 @@ const NavBar = ({ search, setSearch, showResult, setShowResult }) => {
           />
 
           <Box sx={{ flexGrow: 1, display: { md: "none" } }}>
-            <MenuButton />
+            <MenuButton
+              search={search}
+              setSearch={setSearch}
+              menuClick={menuClick}
+              setMenuClick={setMenuClick}
+              menuKind={menuKind}
+              setMenuKind={setMenuKind}
+            />
           </Box>
 
           <Typography noWrap component="a" href="/login" sx={typographySx}>
@@ -145,6 +162,7 @@ const NavBar = ({ search, setSearch, showResult, setShowResult }) => {
                 key={page}
                 sx={{ my: 2, color: "white", display: "block" }}
                 onClick={showSearchResult}
+                value={page}
               >
                 {page}
               </Button>
