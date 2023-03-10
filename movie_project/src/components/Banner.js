@@ -27,6 +27,7 @@ function Banner() {
             summary={movie.summary}
             genres={movie.genres}
             background={movie.background_image}
+            large_cover_image={movie.large_cover_image}
           />
         </Grid>
       ))}

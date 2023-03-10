@@ -15,6 +15,7 @@ function Banner_data({
   summary,
   genres,
   background,
+  large_cover_image,
 }) {
   const style = {
     position: "absolute",
@@ -45,15 +46,19 @@ function Banner_data({
         disableGutters
         md={{ height: "100%" }}
         style={{
-          backgroundImage: `url(${background})`,
+          backgroundImage: `url(${medium_cover_image})`,
           height: "70vh",
-          backgroundSize: "cover",
+          //   backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
         }}
       >
         <Box
           style={{
+            marginLeft: "50px",
             width: "500px",
             postion: "absolute",
+
             top: 100,
             left: 50,
           }}
@@ -65,6 +70,7 @@ function Banner_data({
             style={{
               fontSize: "2em",
               fontWeight: "bold",
+              color: "white",
             }}
           >
             {title}
