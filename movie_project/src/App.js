@@ -14,7 +14,11 @@ const App = () => {
   useEffect(() => {
     console.log(location);
   }, [location]);
-  if (location.pathname == "/login" || location.pathname == "/profiles") {
+  if (
+    location.pathname === "/login" ||
+    location.pathname === "/profiles" ||
+    location.pathname === "/"
+  ) {
     document.body.style.backgroundColor = "rgb(42, 43, 43)";
   } else if (
     location.pathname == "/customercenter" ||

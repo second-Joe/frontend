@@ -35,19 +35,19 @@ export default function TemporaryDrawer() {
         >
           <List>
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/search">
+              <ListItemButton component={Link} to="/rating8">
                 {/* search뒤에다가 쿼리스트링 붙여주기 ex.?query=series 그 쿼리스트링을 searchResult페이지에서 searchParams로 읽은다음 관련 결과 띄워주기 */}
-                <ListItemText primary="시리즈" />
+                <ListItemText primary="Rating8" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/search">
-                <ListItemText primary="영화" />
+              <ListItemButton component={Link} to="/rating8.5">
+                <ListItemText primary="Rating8.5" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/search">
-                <ListItemText primary="NEW! 요즘 대세 콘텐츠" />
+              <ListItemButton component={Link} to="/rating9">
+                <ListItemText primary="Rating9" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
