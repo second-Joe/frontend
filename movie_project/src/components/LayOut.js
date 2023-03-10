@@ -15,7 +15,9 @@ const Layout = () => {
   const menuName = menuKind;
   //console.log(menuName);
   return (
-    <div>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       {/* search input에서 글자 입력하면  main 안 section1, section2, section3도 보여주면서 검색결과 바뀌어서 보여줌(section3), 엔터치면 section3으로 전체 화면 대체 */}
       <div>
         <header>
@@ -33,9 +35,6 @@ const Layout = () => {
             search === "" ? (
               <div>
                 <Outlet />
-                <footer>
-                  <Footer />
-                </footer>
               </div>
             ) : (
               <SearchResult search={search} />
@@ -52,6 +51,7 @@ const Layout = () => {
             <SearchResult search={search} />
           )}
         </main>
+        <Footer />
       </div>
     </div>
   );
