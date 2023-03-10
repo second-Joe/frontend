@@ -40,7 +40,7 @@ const OutputMovieGenres = ({ genre }) => {
             (<div> <Box
                 style={{
                     height: "22em"
-                }}>.</Box></div >) :
+                }}>&nbsp;</Box></div >) :
             (<div>
                 <h2
                     style={{
