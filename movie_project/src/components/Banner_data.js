@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import YouTube from "react-youtube";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 function Banner_data({
   id,
@@ -19,6 +20,20 @@ function Banner_data({
   large_cover_image,
   yt_trailer_code,
 }) {
+  const theme = useTheme();
+  console.dir(theme.breakpoints);
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const containerStyle = isSmallScreen
+    ? {
+        height: "470px",
+        display: "flex",
+        marginLeft: "8.5%",
+        flexDirection: "column",
+        justifyContent: "space-around",
+      }
+    : { height: "350px", display: "flex", marginLeft: "8.5%" };
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -63,50 +78,46 @@ function Banner_data({
   };
 
   const trailerClose = () => setPlayerOpen(false);
+
   return (
     <div>
       <Container
+        fixed
         maxWidth={false}
         disableGutters
-        md={{ height: "100%" }}
-        style={{
-          backgroundImage: `url(${medium_cover_image})`,
-          height: "70vh",
-          //   backgroundClip:
-          //     'url("https://www.youtube.com/watch?v=${yt_trailer_code}")',
-          //   backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-        }}
+        md={{ height: "500%" }}
+        style={containerStyle}
       >
         <Box
           style={{
-            marginLeft: "50px",
-            width: "500px",
+            width: "25%",
             position: "center",
-            top: 100,
-            left: 50,
-            transform: "translate(30%, 200%)",
+            backgroundPosition: "left",
           }}
         >
           <Grid
             item
             xs={6}
+            sm={3}
             md={4}
             style={{
-              fontSize: "2em",
-              fontWeight: "bold",
+              marginTop: "0px",
+              justifyContent: "left",
               color: "white",
+              fontSize: "1.7em",
+              fontWeight: "bold",
+              width: "300px",
             }}
           >
             {title}
           </Grid>
           <Grid
             container
-            rowspacing={3}
-            columnSpacing={3}
             style={{
-              marginTop: "5px",
+              marginTop: "12px",
+              flexDirection: "row",
+              width: "205px",
+              justifyContent: "space-between",
             }}
           >
             <Grid>
@@ -131,6 +142,13 @@ function Banner_data({
             </Grid>
           </Grid>
         </Box>
+        <Box
+          style={{
+            backgroundImage: `url(${medium_cover_image})`,
+            width: "230px",
+            height: "345px",
+          }}
+        />
       </Container>
       <Modal keepMounted open={open} onClose={handleClose}>
         <Box sx={style}>
@@ -142,6 +160,7 @@ function Banner_data({
                 display: "flex",
               }}
               src={medium_cover_image}
+              alt="movie"
             ></img>
             <Typography
               component="span"
