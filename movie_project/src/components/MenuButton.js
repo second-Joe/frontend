@@ -10,6 +10,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 
 export default function TemporaryDrawer({
+  search,
+  setSearch,
   menuClick,
   setMenuClick,
   menuKind,
@@ -24,6 +26,7 @@ export default function TemporaryDrawer({
   const showSearchResult = (e) => {
     setMenuClick(true);
     setMenuKind(e.target.innerText);
+    setSearch("");
     // console.log(e.target.innerText);
   };
 

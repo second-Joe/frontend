@@ -92,6 +92,7 @@ const NavBar = ({
     setMenuClick(true);
     setMenuKind(e.target.value);
     // console.log(e.target.value);
+    setSearch("");
   };
 
   const theme = useTheme();
@@ -137,6 +138,8 @@ const NavBar = ({
 
           <Box sx={{ flexGrow: 1, display: { md: "none" } }}>
             <MenuButton
+              search={search}
+              setSearch={setSearch}
               menuClick={menuClick}
               setMenuClick={setMenuClick}
               menuKind={menuKind}

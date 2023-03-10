@@ -42,11 +42,11 @@ const Layout = () => {
             )
           ) : search === "" ? (
             menuName === "평점 8" ? (
-              (console.log(menuName), (<Rating8 />))
+              <Rating8 />
             ) : menuName === "평점 8.5" ? (
-              (console.log(menuName), (<Rating85 />))
+              <Rating85 />
             ) : (
-              (console.log(menuName), (<Rating9 />))
+              <Rating9 />
             )
           ) : (
             <SearchResult search={search} />
