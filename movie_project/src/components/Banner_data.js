@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import YouTube from "react-youtube";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { Hidden, useMediaQuery, useTheme } from "@mui/material";
 
 function Banner_data({
   id,
@@ -23,6 +23,7 @@ function Banner_data({
   const theme = useTheme();
   console.dir(theme.breakpoints);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down("lg"));
 
   const containerStyle = isSmallScreen
     ? {
@@ -32,7 +33,35 @@ function Banner_data({
         flexDirection: "column",
         justifyContent: "space-around",
       }
-    : { height: "350px", display: "flex", marginLeft: "8.5%" };
+    : {
+        height: "350px",
+        display: "flex",
+        marginLeft: "8.5%",
+      };
+  const imgStyle = isMediumScreen
+    ? {
+        display: "none",
+      }
+    : {
+        backgroundImage: `url(${medium_cover_image})`,
+        width: "230px",
+        height: "345px",
+      };
+  const playerStyle = isSmallScreen
+    ? { marginTop: "10px" }
+    : {
+        marginLeft: "50px",
+      };
+
+  const btnStyle = isMediumScreen
+    ? {
+        width: "20%",
+        position: "center",
+        backgroundPosition: "left",
+      }
+    : {
+        diplay: "none",
+      };
 
   const style = {
     position: "absolute",
@@ -88,13 +117,7 @@ function Banner_data({
         md={{ height: "500%" }}
         style={containerStyle}
       >
-        <Box
-          style={{
-            width: "25%",
-            position: "center",
-            backgroundPosition: "left",
-          }}
-        >
+        <Box style={btnStyle}>
           <Grid
             item
             xs={6}
@@ -143,12 +166,31 @@ function Banner_data({
           </Grid>
         </Box>
         <Box
-          style={{
-            backgroundImage: `url(${medium_cover_image})`,
-            width: "230px",
-            height: "345px",
-          }}
+          style={imgStyle}
+          // style={{
+          //   backgroundImage: `url(${medium_cover_image})`,
+          //   width: "230px",
+          //   height: "345px",
+          // }}
         />
+
+        <Box style={playerStyle}>
+          <YouTube
+            videoId={yt_trailer_code}
+            opts={{
+              width: "580",
+              height: "345",
+              playerVars: {
+                autoplay: 1,
+                rel: 0,
+                modestbranding: 1,
+              },
+            }}
+            onEnd={(e) => {
+              e.target.stopVideo(0);
+            }}
+          />
+        </Box>
       </Container>
       <Modal keepMounted open={open} onClose={handleClose}>
         <Box sx={style}>
@@ -196,7 +238,7 @@ function Banner_data({
           </div>
         </Box>
       </Modal>
-      <Modal keepMounted open={playeropen} onClose={trailerClose}>
+      {/* <Modal keepMounted open={playeropen} onClose={trailerClose}>
         <Box sx={style1}>
           <YouTube
             videoId={yt_trailer_code}
@@ -214,7 +256,7 @@ function Banner_data({
             }}
           />
         </Box>
-      </Modal>
+      </Modal> */}
     </div>
   );
 }
