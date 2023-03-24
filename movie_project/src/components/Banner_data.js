@@ -15,9 +15,6 @@ function Banner_data({
   medium_cover_image,
   title,
   summary,
-  genres,
-  background,
-  large_cover_image,
   yt_trailer_code,
 }) {
   const theme = useTheme();
@@ -48,14 +45,19 @@ function Banner_data({
         height: "345px",
       };
   const playerStyle = isSmallScreen
-    ? { marginTop: "10px" }
+    ? {
+        marginTop: "10px",
+        width: "30%",
+        height: "70%",
+        // alignContent: "stretch",
+      }
     : {
-        marginLeft: "50px",
+        marginLeft: "40px",
       };
 
   const btnStyle = isMediumScreen
     ? {
-        width: "20%",
+        width: "35%",
         position: "center",
         backgroundPosition: "left",
       }
@@ -77,20 +79,6 @@ function Banner_data({
     display: "flex",
     zIndex: 9999,
   };
-  const style1 = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 560,
-    height: 315,
-    bgcolor: "rgba(0,0,0,0.8)",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 2,
-    display: "flex",
-    zIndex: 9999,
-  };
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = (e) => {
@@ -103,6 +91,7 @@ function Banner_data({
   const [playeropen, setPlayerOpen] = React.useState(false);
   const trailerOpen = (e) => {
     e.stopPropagation();
+    // e.playVideo();
     setPlayerOpen(true);
   };
 
@@ -165,14 +154,7 @@ function Banner_data({
             </Grid>
           </Grid>
         </Box>
-        <Box
-          style={imgStyle}
-          // style={{
-          //   backgroundImage: `url(${medium_cover_image})`,
-          //   width: "230px",
-          //   height: "345px",
-          // }}
-        />
+        <Box style={imgStyle} />
 
         <Box style={playerStyle}>
           <YouTube
@@ -181,7 +163,7 @@ function Banner_data({
               width: "580",
               height: "345",
               playerVars: {
-                autoplay: 1,
+                autoplay: 0,
                 rel: 0,
                 modestbranding: 1,
               },
@@ -238,25 +220,6 @@ function Banner_data({
           </div>
         </Box>
       </Modal>
-      {/* <Modal keepMounted open={playeropen} onClose={trailerClose}>
-        <Box sx={style1}>
-          <YouTube
-            videoId={yt_trailer_code}
-            opts={{
-              width: "560",
-              height: "315",
-              playerVars: {
-                autoplay: 1,
-                rel: 0,
-                modestbranding: 1,
-              },
-            }}
-            onEnd={(e) => {
-              e.target.stopVideo(0);
-            }}
-          />
-        </Box>
-      </Modal> */}
     </div>
   );
 }
