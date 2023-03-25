@@ -9,6 +9,8 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import FormHelperText from "@mui/material/FormHelperText";
 import PasswordCheck from "../components/passwordCheck";
+import CustomizedButton from "../components/CustomizedButton";
+
 function Login() {
   const [email, setEmail] = useState("");
   //email 상태값 업데이트
@@ -165,7 +167,7 @@ function Login() {
             sx={{ mr: "auto" }}
           />
           <Box sx={{ ml: "400px" }}>
-            <Button onClick={handleOpen}>비밀번호를 잊으셨나요?</Button>
+            <CustomizedButton onClick={handleOpen}></CustomizedButton>
             {openModal ? (
               <PasswordCheck
                 openModal={openModal}

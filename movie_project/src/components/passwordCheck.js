@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-
 import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
+import OutlinedTextField from "./OutlinedTextField";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -84,12 +84,16 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Typography id="spring-modal-title" variant="h6" component="h2">
-              Text in a modal
+            <Typography
+              sx={{ mb: 8, px: 16 }}
+              id="spring-modal-title"
+              variant="h6"
+              component="h2"
+            >
+              비밀번호 찾기
             </Typography>
-            <Typography id="spring-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+            <OutlinedTextField label="아이디를 입력해주세요" />
+            <OutlinedTextField label="비밀번호 찾기 질문에 대한 답을 입력해주세요" />
           </Box>
         </Fade>
       </Modal>
