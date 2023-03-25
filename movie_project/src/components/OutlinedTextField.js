@@ -22,7 +22,13 @@ export default function OutlinedTextField({ label }) {
   return (
     <Box component="form" noValidate autoComplete="off">
       <FormControl sx={{ width: "100%", mb: 3 }}>
-        <OutlinedInput placeholder={label} />
+        <OutlinedInput
+          required
+          inputProps={{ style: { color: "white" } }}
+          InputLabelProps={{ style: { color: "white" } }}
+          sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
+          placeholder={label}
+        />
         {/* <MyFormHelperText /> */}
       </FormControl>
     </Box>

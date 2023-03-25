@@ -54,8 +54,9 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
+  color: "white",
   width: 400,
-  bgcolor: "background.paper",
+  bgcolor: "black",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
@@ -87,15 +88,24 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
         <Fade in={open}>
           <Box sx={style}>
             <Typography
-              sx={{ mb: 8, px: 16 }}
+              sx={{ mb: 5, px: 16 }}
               id="spring-modal-title"
               variant="h6"
               component="h2"
             >
               비밀번호 찾기
             </Typography>
+            <Typography variant="h10" component="h4">
+              아이디
+            </Typography>
             <OutlinedTextField label="아이디를 입력해주세요" />
+            <Typography variant="h10" component="h4">
+              비밀번호 찾기 질문 선택
+            </Typography>
             <SelectInput question={question} setQuestion={setQuestion} />
+            <Typography variant="h10" component="h4">
+              비밀번호 찾기 답변
+            </Typography>
             <OutlinedTextField label="비밀번호 찾기 질문에 대한 답을 입력해주세요" />
           </Box>
         </Fade>
