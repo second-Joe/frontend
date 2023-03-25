@@ -167,7 +167,10 @@ function Login() {
             sx={{ mr: "auto" }}
           />
           <Box sx={{ ml: "400px" }}>
-            <CustomizedButton onClick={handleOpen}></CustomizedButton>
+            <CustomizedButton
+              label="비밀번호 찾기"
+              onClick={handleOpen}
+            ></CustomizedButton>
             {openModal ? (
               <PasswordCheck
                 openModal={openModal}

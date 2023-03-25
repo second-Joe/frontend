@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
 import SelectInput from "./SelectInput";
+import CustomizedButton from "./CustomizedButton";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -70,6 +71,8 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
     setOpen(false);
     handleClose();
   };
+
+  const handleSubmit = () => {};
   return (
     <div>
       <Modal
@@ -88,9 +91,9 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
         <Fade in={open}>
           <Box sx={style}>
             <Typography
-              sx={{ mb: 5, px: 16 }}
+              sx={{ mb: 5, px: 15 }}
               id="spring-modal-title"
-              variant="h6"
+              variant="h5"
               component="h2"
             >
               비밀번호 찾기
@@ -99,7 +102,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               아이디
             </Typography>
             <OutlinedTextField label="아이디를 입력해주세요" />
-            <Typography variant="h10" component="h4">
+            <Typography sx={{ mb: 2 }} variant="h10" component="h4">
               비밀번호 찾기 질문 선택
             </Typography>
             <SelectInput question={question} setQuestion={setQuestion} />
@@ -107,6 +110,12 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               비밀번호 찾기 답변
             </Typography>
             <OutlinedTextField label="비밀번호 찾기 질문에 대한 답을 입력해주세요" />
+            <div sx={{ pl: 10 }}>
+              <CustomizedButton
+                label="찾기"
+                onClick={handleSubmit}
+              ></CustomizedButton>
+            </div>
           </Box>
         </Fade>
       </Modal>

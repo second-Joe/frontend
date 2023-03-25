@@ -36,10 +36,10 @@ const BootstrapButton = styled(Button)({
   },
 });
 
-export default function CustomizedButton({ onClick }) {
+export default function CustomizedButton(props) {
   return (
-    <BootstrapButton onClick={onClick} variant="contained" disableRipple>
-      비밀번호 찾기
+    <BootstrapButton onClick={props.onClick} variant="contained" disableRipple>
+      {props.label}
     </BootstrapButton>
   );
 }
