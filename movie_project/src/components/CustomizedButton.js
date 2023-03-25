@@ -11,8 +11,8 @@ const BootstrapButton = styled(Button)({
   padding: "6px 12px",
   border: "1px solid",
   lineHeight: 1.5,
-  backgroundColor: "#0063cc",
-  borderColor: "#0063cc",
+  backgroundColor: "#dd1923",
+  borderColor: "#cc2c24",
   fontFamily: [
     "-apple-system",
     "BlinkMacSystemFont",
@@ -26,17 +26,15 @@ const BootstrapButton = styled(Button)({
     '"Segoe UI Symbol"',
   ].join(","),
   "&:hover": {
-    backgroundColor: "#0069d9",
-    borderColor: "#0062cc",
+    backgroundColor: "#f94449",
     boxShadow: "none",
   },
   "&:active": {
     boxShadow: "none",
-    backgroundColor: "#0062cc",
-    borderColor: "#005cbf",
+    backgroundColor: "#f94449",
   },
   "&:focus": {
-    boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
+    boxShadow: "0 0 0 0.2rem rgba(221,25,35,.5)",
   },
 });
 
@@ -50,8 +48,8 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 export default function CustomizedButton({ onClick }) {
   return (
-    <ColorButton onClick={onClick} variant="contained">
+    <BootstrapButton onClick={onClick} variant="contained" disableRipple>
       비밀번호 찾기
-    </ColorButton>
+    </BootstrapButton>
   );
 }
