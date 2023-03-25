@@ -1,8 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import { red, common } from "@mui/material/colors";
 
 const BootstrapButton = styled(Button)({
   boxShadow: "none",
@@ -37,14 +35,6 @@ const BootstrapButton = styled(Button)({
     boxShadow: "0 0 0 0.2rem rgba(221,25,35,.5)",
   },
 });
-
-const ColorButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(red[800]),
-  backgroundColor: red[800],
-  "&:hover": {
-    backgroundColor: common[900],
-  },
-}));
 
 export default function CustomizedButton({ onClick }) {
   return (
