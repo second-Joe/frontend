@@ -6,6 +6,7 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
+import SelectInput from "./SelectInput";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -62,6 +63,7 @@ const style = {
 
 export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
   const [open, setOpen] = React.useState(openModal);
+  const [question, setQuestion] = React.useState("");
 
   const handleClose2 = () => {
     setOpen(false);
@@ -93,6 +95,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               비밀번호 찾기
             </Typography>
             <OutlinedTextField label="아이디를 입력해주세요" />
+            <SelectInput question={question} setQuestion={setQuestion} />
             <OutlinedTextField label="비밀번호 찾기 질문에 대한 답을 입력해주세요" />
           </Box>
         </Fade>
