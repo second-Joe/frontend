@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import SearchResult from "./pages/SearchResult";
@@ -9,6 +9,9 @@ import Profiles from "./pages/Profiles";
 import Customercenter from "./pages/CustomerCenter";
 import BoardInsert from "./pages/BoardInsert";
 import { useEffect } from "react";
+import Board from "./components/Board";
+import BoardList from "./components/BoardList";
+
 
 const App = () => {
   const location = useLocation();
@@ -38,8 +41,9 @@ const App = () => {
       {/* SearchResult결과는 section3 컴포넌트 이용 */}
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/profiles" element={<Profiles />} />
-
       <Route path="/customercenter" element={<Customercenter />} />
+      <Route path="/customercenter/board" element={<Board />} />
+      <Route path="/board" element={<BoardList />} />
       <Route path="/boardInsert" element={<BoardInsert />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
