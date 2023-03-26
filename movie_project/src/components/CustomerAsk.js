@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
-import BoardUpdateRemove from "./BoardUpdateRemove";
+import BoardPasswordCheck from "./BoardPasswordCheck";
 
 const CustomerAsk = () => {
   const buttonSx = {
@@ -16,14 +16,14 @@ const CustomerAsk = () => {
   const body = document.getElementById("body");
   body.style.margin = 0;
 
-  const [openModal, setOpenModal] = React.useState(false);
+  // const [openModal, setOpenModal] = React.useState(false);
 
-  const handleOpen = () => {
-    setOpenModal(true);
-  };
-  const handleClose = () => {
-    setOpenModal(false);
-  };
+  // const handleOpen = () => {
+  //   setOpenModal(true);
+  // };
+  // const handleClose = () => {
+  //   setOpenModal(false);
+  // };
   return (
     <div
       style={{
@@ -51,18 +51,18 @@ const CustomerAsk = () => {
             sx={{
               ...buttonSx,
             }}
-            onClick={handleOpen}
+            // onClick={handleOpen}
           >
             문의 전화
           </Button>
-          {openModal ? (
-            <BoardUpdateRemove
+          {/* {openModal ? (
+            <BoardPasswordCheck
               openModal={openModal}
               setOpenModal={setOpenModal}
               handleOpen={handleOpen}
               handleClose={handleClose}
-            ></BoardUpdateRemove>
-          ) : null}
+            ></BoardPasswordCheck>
+          ) : null} */}
           <Button variant="outlined" sx={{ ...buttonSx }}>
             실시간 채팅 시작하기
           </Button>

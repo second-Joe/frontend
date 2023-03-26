@@ -62,7 +62,11 @@ const style = {
   p: 4,
 };
 
-export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
+export default function BoardPasswordCheck({
+  openModal,
+  handleOpen,
+  handleClose,
+}) {
   const [open, setOpen] = React.useState(openModal);
 
   const handleClose2 = () => {
@@ -107,21 +111,13 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               </Typography>
               <OutlinedTextField label="게시판 비밀번호를 입력해주세요" />
             </Box>
-            <Box sx={{ display: "flex", ml: 50, width: 160 }}>
-              <Box sx={{ mr: 3 }}>
-                <CustomizedButton
-                  label="수정"
-                  value="update"
-                  onClick={handleUpdate}
-                ></CustomizedButton>
-              </Box>
-              <Box>
-                <CustomizedButton
-                  label="삭제"
-                  value="remove"
-                  onClick={handleRemove}
-                ></CustomizedButton>
-              </Box>
+
+            <Box sx={{ ml: 60 }}>
+              <CustomizedButton
+                label="확인"
+                value="updateDelete"
+                onClick={handleUpdate}
+              ></CustomizedButton>
             </Box>
           </Box>
         </Fade>
