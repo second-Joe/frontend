@@ -7,6 +7,7 @@ import NotFound from "./pages/NotFound";
 import Layout from "./components/LayOut";
 import Profiles from "./pages/Profiles";
 import Customercenter from "./pages/CustomerCenter";
+import ProfileUpdate from "./pages/ProfileUpdate";
 import { useEffect } from "react";
 
 const App = () => {
@@ -22,7 +23,8 @@ const App = () => {
     document.body.style.backgroundColor = "rgb(42, 43, 43)";
   } else if (
     location.pathname == "/customercenter" ||
-    location.pathname == "/mypage"
+    location.pathname == "/mypage" ||
+    location.pathname == "/profileupdate"
   ) {
     document.body.style.backgroundColor = "white";
   }
@@ -38,6 +40,7 @@ const App = () => {
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/profiles" element={<Profiles />} />
       <Route path="/customercenter" element={<Customercenter />} />
+      <Route path="/profileupdate" element={<ProfileUpdate />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

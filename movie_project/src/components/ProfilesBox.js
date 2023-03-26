@@ -3,8 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 const ProfilesBox = ({ src, user, editMode }) => {
   const navigate = useNavigate();
-  const goHome = () => {
-    navigate("/login");
+
+  const goToProfile = () => {
+    if (editMode && user !== "프로필 추가") {
+      navigate("/profileupdate");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -19,7 +24,7 @@ const ProfilesBox = ({ src, user, editMode }) => {
       }}
     >
       <Box
-        onClick={goHome}
+        onClick={goToProfile}
         component="img"
         sx={{
           width: 180,
