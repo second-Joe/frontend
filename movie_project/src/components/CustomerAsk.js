@@ -4,6 +4,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import BoardPasswordCheck from "./BoardPasswordCheck";
+import BoardInsert from "../pages/BoardInsert";
+import { useNavigate } from "react-router-dom";
 
 const CustomerAsk = () => {
   const buttonSx = {
@@ -16,6 +18,10 @@ const CustomerAsk = () => {
   const body = document.getElementById("body");
   body.style.margin = 0;
 
+  // const navigate = useNavigate();
+  // const goBoardInsert = () => {
+  //   navigate("/boardInsert");
+  // };
   // const [openModal, setOpenModal] = React.useState(false);
 
   // const handleOpen = () => {
@@ -63,7 +69,11 @@ const CustomerAsk = () => {
               handleClose={handleClose}
             ></BoardPasswordCheck>
           ) : null} */}
-          <Button variant="outlined" sx={{ ...buttonSx }}>
+          <Button
+            // onClick={goBoardInsert}
+            variant="outlined"
+            sx={{ ...buttonSx }}
+          >
             실시간 채팅 시작하기
           </Button>
         </Box>
