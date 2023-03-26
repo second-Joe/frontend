@@ -4,8 +4,15 @@ import Typography from "@mui/material/Typography";
 import BoardInsertInput from "../components/BoardInsertInput";
 import BoardInsertMultiline from "../components/BoardInsertMultiline";
 import StickyHeader from "../components/StickyHeader";
+import CustomizedButton from "../components/CustomizedButton";
+import { useNavigate } from "react-router-dom";
 
 export default function BoardInsert() {
+  const handleSubmit = () => {};
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate("/customerCenter");
+  };
   return (
     <div>
       <StickyHeader></StickyHeader>
@@ -63,8 +70,23 @@ export default function BoardInsert() {
           >
             내용
           </Typography>
-
           <BoardInsertMultiline></BoardInsertMultiline>
+        </Box>
+        <Box sx={{ display: "flex", ml: "auto" }}>
+          <Box sx={{ width: 100, ml: 79, mr: 3 }}>
+            <CustomizedButton
+              label="취소"
+              value="cancel"
+              onClick={goBack}
+            ></CustomizedButton>
+          </Box>
+          <Box sx={{ width: 100 }}>
+            <CustomizedButton
+              label="확인"
+              value="insert"
+              onClick={handleSubmit}
+            ></CustomizedButton>
+          </Box>
         </Box>
       </Box>
     </div>
