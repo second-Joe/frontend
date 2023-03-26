@@ -21,7 +21,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 export default function OutlinedTextField({ label }) {
   return (
     <Box component="form" noValidate autoComplete="off">
-      <FormControl sx={{ width: "100%", mb: 3 }}>
+      <FormControl sx={{ width: 360, mb: 3 }}>
         <OutlinedInput
           required
           inputProps={{ style: { color: "white" } }}

@@ -56,7 +56,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   color: "white",
-  width: 400,
+  width: 560,
   bgcolor: "black",
   border: "2px solid #000",
   boxShadow: 24,
@@ -91,31 +91,51 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
         <Fade in={open}>
           <Box sx={style}>
             <Typography
-              sx={{ mb: 5, px: 15 }}
+              sx={{ width: 160, mx: "auto", mb: 3 }}
               id="spring-modal-title"
               variant="h5"
               component="h2"
             >
               비밀번호 찾기
             </Typography>
-            <Typography variant="h10" component="h4">
-              아이디
-            </Typography>
-            <OutlinedTextField label="아이디를 입력해주세요" />
-            <Typography sx={{ mb: 2 }} variant="h10" component="h4">
-              비밀번호 찾기 질문 선택
-            </Typography>
-            <SelectInput question={question} setQuestion={setQuestion} />
-            <Typography variant="h10" component="h4">
-              비밀번호 찾기 답변
-            </Typography>
-            <OutlinedTextField label="비밀번호 찾기 질문에 대한 답을 입력해주세요" />
-            <div sx={{ pl: 10 }}>
+            <Box sx={{ display: "flex" }}>
+              <Typography
+                sx={{ width: "150px", mr: 5, mt: 3 }}
+                variant="h10"
+                component="h4"
+              >
+                아이디
+              </Typography>
+              <OutlinedTextField label="아이디를 입력해주세요" />
+            </Box>
+            <Box sx={{ display: "flex" }}>
+              <Typography
+                sx={{ width: "150px", mr: 5, mt: 3 }}
+                variant="h10"
+                component="h4"
+              >
+                비밀번호 찾기 질문
+              </Typography>
+              <SelectInput question={question} setQuestion={setQuestion} />
+            </Box>
+            <Box sx={{ display: "flex" }}>
+              <Typography
+                sx={{ width: "150px", mr: 5, mt: 3 }}
+                variant="h10"
+                component="h4"
+              >
+                비밀번호 찾기 답변
+              </Typography>
+
+              <OutlinedTextField label="비밀번호 찾기 질문에 대한 답을 입력해주세요" />
+            </Box>
+            <Box sx={{ mx: "auto", width: 50 }}>
               <CustomizedButton
                 label="찾기"
+                value="passwordAnswer"
                 onClick={handleSubmit}
               ></CustomizedButton>
-            </div>
+            </Box>
           </Box>
         </Fade>
       </Modal>

@@ -37,6 +37,8 @@ const BootstrapButton = styled(Button)({
 });
 
 export default function CustomizedButton(props) {
+  const { value } = props;
+  console.log(value);
   return (
     <BootstrapButton onClick={props.onClick} variant="contained" disableRipple>
       {props.label}

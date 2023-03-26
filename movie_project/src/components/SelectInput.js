@@ -13,7 +13,18 @@ export default function SelectInput({ question, setQuestion }) {
   return (
     <Box sx={{ minWidth: 120, mb: 3 }}>
       <FormControl fullWidth>
-        <InputLabel id="simple-select-label">Password Questions</InputLabel>
+        <InputLabel
+          sx={{
+            color: "white",
+
+            pt: 1,
+            mt: -1,
+            fontSize: "20px",
+          }}
+          id="simple-select-label"
+        >
+          Password Questions
+        </InputLabel>
         <Select
           labelId="simple-select-label"
           id="simple-select"
@@ -22,7 +33,13 @@ export default function SelectInput({ question, setQuestion }) {
           onChange={handleChange}
           inputProps={{ style: { color: "white" } }}
           InputLabelProps={{ style: { color: "white" } }}
-          sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
+          sx={{
+            my: 1,
+            width: 360,
+            background: "#38393b",
+            border: "1.5px solid white",
+            color: "white",
+          }}
         >
           <MenuItem value="자신의 보물 제1호는?">자신의 보물 제1호는?</MenuItem>
           <MenuItem value="추억하고 싶은 날짜가 있다면?">

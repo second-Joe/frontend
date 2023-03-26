@@ -169,6 +169,7 @@ function Login() {
           <Box sx={{ ml: "400px" }}>
             <CustomizedButton
               label="비밀번호 찾기"
+              value="비밀번호 찾기"
               onClick={handleOpen}
             ></CustomizedButton>
             {openModal ? (
