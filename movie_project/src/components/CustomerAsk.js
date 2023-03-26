@@ -18,10 +18,10 @@ const CustomerAsk = () => {
   const body = document.getElementById("body");
   body.style.margin = 0;
 
-  const navigate = useNavigate();
-  const goBoardInsert = () => {
-    navigate("/boardInsert");
-  };
+  // const navigate = useNavigate();
+  // const goBoardInsert = () => {
+  //   navigate("/boardInsert");
+  // };
   // const [openModal, setOpenModal] = React.useState(false);
 
   // const handleOpen = () => {
@@ -70,7 +70,7 @@ const CustomerAsk = () => {
             ></BoardPasswordCheck>
           ) : null} */}
           <Button
-            onClick={goBoardInsert}
+            // onClick={goBoardInsert}
             variant="outlined"
             sx={{ ...buttonSx }}
           >
