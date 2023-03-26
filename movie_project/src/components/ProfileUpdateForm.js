@@ -37,9 +37,18 @@ const ProfileUpdateForm = ({ onSubmit, onCancel, onDelete }) => {
             color: "#fff",
           },
         }}
+        InputProps={{
+          style: {
+            color: "#fff",
+          },
+        }}
       />
 
-      <UpdateBtn onSubmit={handleSubmit} onCancel={onCancel} onDelete={onDelete} />
+      <UpdateBtn
+        onSubmit={handleSubmit}
+        onCancel={onCancel}
+        onDelete={onDelete}
+      />
     </Box>
   );
 };
