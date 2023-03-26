@@ -5,5 +5,7 @@ import Input from "@mui/material/Input";
 const ariaLabel = { "aria-label": "description" };
 
 export default function BoardInsertInput({ label }) {
-  return <Input placeholder={label} inputProps={ariaLabel} />;
+  return (
+    <Input sx={{ width: "100%" }} placeholder={label} inputProps={ariaLabel} />
+  );
 }

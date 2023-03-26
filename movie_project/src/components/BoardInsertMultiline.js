@@ -5,11 +5,11 @@ export default function BoardInsertMultiline() {
   return (
     <div>
       <TextField
+        sx={{ width: 630, mt: 3 }}
         id="outlined-multiline-static"
-        label="Multiline"
         multiline
-        rows={4}
-        defaultValue="Default Value"
+        rows={10}
+        placeholder="내용을 입력하세요"
       />
     </div>
   );
