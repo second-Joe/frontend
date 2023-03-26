@@ -203,7 +203,7 @@ function Login() {
         </Button>
 
         <Typography lg={{ display: "flex", alignItems: "center" }}>
-          <Box sx={{ ml: "400px" }}>
+          <Box sx={{ background: "#e50914", mt: "24px", mb: "16px" }}>
             <CustomizedButton
               label="지금 가입하세요"
               value="지금 가입하세요"

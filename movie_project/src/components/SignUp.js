@@ -190,11 +190,11 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
 
               <OutlinedTextField label="비밀번호 찾기 질문에 대한 답을 입력해주세요" />
             </Box>
-            <Box sx={{ mx: "auto", width: 50 }}>
+            <Box sx={{ mx: "auto", width: 100 }}>
               <CustomizedButton
                 label="회원가입"
                 value="passwordAnswer"
-                onClick={handleSubmit}
+                onClick={(handleSubmit, handleClose2)}
               ></CustomizedButton>
             </Box>
           </Box>
