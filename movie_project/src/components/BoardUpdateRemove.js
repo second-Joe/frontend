@@ -90,7 +90,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
         <Fade in={open}>
           <Box sx={style}>
             <Typography
-              sx={{ width: 160, mx: "auto", mb: 3 }}
+              sx={{ width: 270, mx: "auto", mb: 3 }}
               id="spring-modal-title"
               variant="h5"
               component="h2"
@@ -107,17 +107,21 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               </Typography>
               <OutlinedTextField label="게시판 비밀번호를 입력해주세요" />
             </Box>
-            <Box sx={{ mx: "auto", width: 50 }}>
-              <CustomizedButton
-                label="수정"
-                value="update"
-                onClick={handleUpdate}
-              ></CustomizedButton>
-              <CustomizedButton
-                label="삭제"
-                value="remove"
-                onClick={handleRemove}
-              ></CustomizedButton>
+            <Box sx={{ display: "flex", ml: 50, width: 160 }}>
+              <Box sx={{ mr: 3 }}>
+                <CustomizedButton
+                  label="수정"
+                  value="update"
+                  onClick={handleUpdate}
+                ></CustomizedButton>
+              </Box>
+              <Box>
+                <CustomizedButton
+                  label="삭제"
+                  value="remove"
+                  onClick={handleRemove}
+                ></CustomizedButton>
+              </Box>
             </Box>
           </Box>
         </Fade>
