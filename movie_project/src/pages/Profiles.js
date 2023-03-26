@@ -5,15 +5,27 @@ import Grid from "@mui/material/Unstable_Grid2";
 import plusbtn from "../assets/plusbtn.png";
 import ProfilesBox from "../components/ProfilesBox";
 import ProfilesManageBtn from "../components/ProfilesManageBtn";
+import ProfileAdd from "../components/ProfileAdd";
 
 const Profiles = () => {
   const [editMode, setEditMode] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
   };
 
-  const titleText = editMode ? "프로필 관리" : "넷플릭스를 시청할 프로필을 선택하세요.";
+  const handleModalOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleModalClose = () => {
+    setOpenModal(false);
+  };
+
+  const titleText = editMode
+    ? "프로필 관리"
+    : "넷플릭스를 시청할 프로필을 선택하세요.";
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -73,6 +85,7 @@ const Profiles = () => {
                 editMode={editMode}
                 src={plusbtn}
                 user="프로필 추가"
+                handleModalOpen={handleModalOpen}
               />
             </Grid>
           </Grid>
@@ -87,6 +100,7 @@ const Profiles = () => {
           </div>
         </Box>
       </div>
+      <ProfileAdd open={openModal} handleClose={handleModalClose} />
     </div>
   );
 };

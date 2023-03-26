@@ -1,25 +1,28 @@
-import Box from "@mui/material/Box";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 
-const ProfilesBox = ({ src, user, editMode }) => {
+const ProfilesBox = ({ src, user, editMode, handleModalOpen }) => {
   const navigate = useNavigate();
 
   const goToProfile = () => {
-    if (editMode && user !== "프로필 추가") {
-      navigate("/profileupdate");
+    if (editMode && user !== '프로필 추가') {
+      navigate('/profileupdate');
+    } else if (user === '프로필 추가') {
+      handleModalOpen();
     } else {
-      navigate("/login");
+      navigate('/login');
     }
   };
 
   return (
     <Box
       sx={{
-        position: "relative",
-        boxSizing: "border-box",
-        "&:hover": {
+        position: 'relative',
+        boxSizing: 'border-box',
+        '&:hover': {
           opacity: [0.9, 0.8, 0.7],
-          cursor: "pointer",
+          cursor: 'pointer',
         },
       }}
     >
@@ -31,41 +34,41 @@ const ProfilesBox = ({ src, user, editMode }) => {
           height: 180,
           maxHeight: { xs: 180, md: 180 },
           maxWidth: { xs: 180, md: 180 },
-          boxSizing: "border-box",
-          "&:hover": {
-            backgroundColor: "white",
+          boxSizing: 'border-box',
+          '&:hover': {
+            backgroundColor: 'white',
             opacity: [0.9, 0.8, 0.7],
-            cursor: "pointer",
-            border: "5px solid white",
-            color: "white",
+            cursor: 'pointer',
+            border: '5px solid white',
+            color: 'white',
           },
         }}
         alt="Netflix profile icon"
         src={src}
       />
-      {editMode && user !== "프로필 추가" && (
+      {editMode && user !== '프로필 추가' && (
         <div
           style={{
-            position: "absolute",
+            position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            pointerEvents: "none",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            pointerEvents: 'none',
           }}
         >
           <div
             style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "white",
-              fontSize: "1.5em",
-              fontWeight: "bold",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: 'white',
+              fontSize: '1.5em',
+              fontWeight: 'bold',
             }}
           >
             수정
@@ -74,8 +77,8 @@ const ProfilesBox = ({ src, user, editMode }) => {
       )}
       <h1
         style={{
-          color: "white",
-          textAlign: "center",
+          color: 'white',
+          textAlign: 'center',
         }}
       >
         {user}
