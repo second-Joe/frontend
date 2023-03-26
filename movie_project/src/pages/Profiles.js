@@ -13,6 +13,8 @@ const Profiles = () => {
     setEditMode(!editMode);
   };
 
+  const titleText = editMode ? "프로필 관리" : "넷플릭스를 시청할 프로필을 선택하세요.";
+
   return (
     <div style={{ minHeight: "100vh" }}>
       <div
@@ -23,7 +25,7 @@ const Profiles = () => {
           paddingTop: "120px",
         }}
       >
-        넷플릭스를 시청할 프로필을 선택하세요.
+        {titleText}
       </div>
       <div
         style={{
@@ -67,7 +69,11 @@ const Profiles = () => {
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnuhUq4HXrAE3wwDJRAJ97klKQ99jquh-ANNPEl_i7PmdrmC4lHAyuD6AvZ5ks_Ubnrbg&usqp=CAU"
                 user="user4"
               />
-              <ProfilesBox editMode={editMode} src={plusbtn} user="프로필 추가" />
+              <ProfilesBox
+                editMode={editMode}
+                src={plusbtn}
+                user="프로필 추가"
+              />
             </Grid>
           </Grid>
           <div
@@ -77,11 +83,12 @@ const Profiles = () => {
               justifyContent: "center",
             }}
           >
-            <ProfilesManageBtn onClick={toggleEditMode} />
+            <ProfilesManageBtn editMode={editMode} onClick={toggleEditMode} />
           </div>
         </Box>
       </div>
     </div>
   );
 };
+
 export default Profiles;
