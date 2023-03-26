@@ -58,7 +58,7 @@ const style = {
   color: "white",
   width: 560,
   bgcolor: "black",
-  border: "2px solid #000",
+  border: "1px solid white",
   boxShadow: 24,
   p: 4,
 };
