@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import FormHelperText from "@mui/material/FormHelperText";
 import PasswordCheck from "../components/passwordCheck";
 import CustomizedButton from "../components/CustomizedButton";
-
+import SignUp from "../components/SignUp";
 function Login() {
   const [email, setEmail] = useState("");
   //email 상태값 업데이트
@@ -78,6 +78,15 @@ function Login() {
   };
   const handleClose = () => {
     setOpenModal(false);
+  };
+
+  const [openSignUp, setOpenSignUp] = React.useState(false);
+
+  const signUpOpen = () => {
+    setOpenSignUp(true);
+  };
+  const signUpClose = () => {
+    setOpenSignUp(false);
   };
 
   return (
@@ -193,8 +202,22 @@ function Login() {
           로그인
         </Button>
 
-        <Typography sx={{ display: "flex", alignItems: "center" }}>
-          <Link sx={{ ml: "auto" }}>지금 가입하세요.</Link>
+        <Typography lg={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ ml: "400px" }}>
+            <CustomizedButton
+              label="지금 가입하세요"
+              value="지금 가입하세요"
+              onClick={signUpOpen}
+            ></CustomizedButton>
+            {openSignUp ? (
+              <SignUp
+                openSignUp={openSignUp}
+                setOpenSignUp={setOpenSignUp}
+                signUpOpen={signUpOpen}
+                signUpClose={signUpClose}
+              ></SignUp>
+            ) : null}
+          </Box>
         </Typography>
       </Box>
     </Container>
