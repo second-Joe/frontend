@@ -21,13 +21,13 @@ const ProfileUpdate = () => {
     <Box sx={{ backgroundColor: "#141414", minHeight: "100vh" }}>
       <Box
         sx={{
-          maxWidth: "1200px",
+          maxWidth: "900px",
           margin: "0 auto",
           padding: "100px 20px",
           color: "#fff",
         }}
       >
-        <h2>프로필 변경</h2>
+        <h1>프로필 변경</h1>
         <ProfileUpdateForm
           onSubmit={handleSave}
           onCancel={handleCancel}
