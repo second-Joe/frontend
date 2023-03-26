@@ -23,8 +23,7 @@ const App = () => {
     document.body.style.backgroundColor = "rgb(42, 43, 43)";
   } else if (
     location.pathname == "/customercenter" ||
-    location.pathname == "/mypage" ||
-    location.pathname == "/profileupdate"
+    location.pathname == "/mypage" 
   ) {
     document.body.style.backgroundColor = "white";
   }

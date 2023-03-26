@@ -8,12 +8,16 @@ import UpdateBtn from "./UpdateBtn";
 const ProfileUpdateForm = ({ onSubmit, onCancel, onDelete }) => {
   const [name, setName] = useState("");
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit({ name });
+  };
+
   return (
     <Box
       sx={{
         backgroundColor: "#141414",
         padding: "50px",
-    
       }}
     >
       <div
@@ -178,10 +182,11 @@ const ProfileUpdateForm = ({ onSubmit, onCancel, onDelete }) => {
           borderColor: "rgba(255, 255, 255, 0.5)",
           borderWidth: "1px",
           marginTop: "20px",
-          marginBottom: "20px"
+          marginBottom: "20px",
         }}
       />
       <UpdateBtn
+        onSubmit={handleSubmit}
         onCancel={onCancel}
         onDelete={onDelete}
       />
