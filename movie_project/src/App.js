@@ -46,7 +46,8 @@ const App = () => {
       <Route path="/customercenter/board" element={<Board />} />
       <Route path="/board" element={<BoardList />} />
       <Route path="/board/:id" element={<BoardDetail />} />
-      <Route path="/boardInsert" element={<BoardInsert />} />
+      <Route path="/profileupdate" element={<ProfileUpdate />} />
+      <Route path="/boardInsert" element={<BoardInsert />} />햐
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
