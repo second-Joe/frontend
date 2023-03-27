@@ -47,7 +47,7 @@ const App = () => {
       <Route path="/board" element={<BoardList />} />
       <Route path="/board/:id" element={<BoardDetail />} />
       <Route path="/profileupdate" element={<ProfileUpdate />} />
-      <Route path="/boardInsert" element={<BoardInsert />} />햐
+      <Route path="/boardInsert" element={<BoardInsert />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
