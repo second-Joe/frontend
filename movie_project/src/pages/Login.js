@@ -8,6 +8,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import FormHelperText from "@mui/material/FormHelperText";
+import PasswordCheck from "../components/passwordCheck";
+import CustomizedButton from "../components/CustomizedButton";
+import SignUp from "../components/SignUp";
 function Login() {
   const [email, setEmail] = useState("");
   //email 상태값 업데이트
@@ -67,6 +70,25 @@ function Login() {
       window.location.href = "/login";
     }
   };
+
+  const [openModal, setOpenModal] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpenModal(true);
+  };
+  const handleClose = () => {
+    setOpenModal(false);
+  };
+
+  const [openSignUp, setOpenSignUp] = React.useState(false);
+
+  const signUpOpen = () => {
+    setOpenSignUp(true);
+  };
+  const signUpClose = () => {
+    setOpenSignUp(false);
+  };
+
   return (
     <Container
       component="main"
@@ -112,7 +134,7 @@ function Login() {
           sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
           value={email}
           onChange={handleEmailChange}
-        // 이메일 주소 입력란의 값이 변경될때마다 이 함수가 호출됨
+          // 이메일 주소 입력란의 값이 변경될때마다 이 함수가 호출됨
         />
         <FormHelperText sx={{ padding: "1px", color: "red" }}>
           {emailError}
@@ -154,7 +176,19 @@ function Login() {
             sx={{ mr: "auto" }}
           />
           <Box sx={{ ml: "400px" }}>
-            <Link>비밀번호를 잊으셨나요?</Link>
+            <CustomizedButton
+              label="비밀번호 찾기"
+              value="비밀번호 찾기"
+              onClick={handleOpen}
+            ></CustomizedButton>
+            {openModal ? (
+              <PasswordCheck
+                openModal={openModal}
+                setOpenModal={setOpenModal}
+                handleOpen={handleOpen}
+                handleClose={handleClose}
+              ></PasswordCheck>
+            ) : null}
           </Box>
         </Typography>
 
@@ -168,8 +202,22 @@ function Login() {
           로그인
         </Button>
 
-        <Typography sx={{ display: "flex", alignItems: "center" }}>
-          <Link sx={{ ml: "auto" }}>지금 가입하세요.</Link>
+        <Typography lg={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ background: "#e50914", mt: "24px", mb: "16px" }}>
+            <CustomizedButton
+              label="지금 가입하세요"
+              value="지금 가입하세요"
+              onClick={signUpOpen}
+            ></CustomizedButton>
+            {openSignUp ? (
+              <SignUp
+                openSignUp={openSignUp}
+                setOpenSignUp={setOpenSignUp}
+                signUpOpen={signUpOpen}
+                signUpClose={signUpClose}
+              ></SignUp>
+            ) : null}
+          </Box>
         </Typography>
       </Box>
     </Container>
