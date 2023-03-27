@@ -30,9 +30,9 @@ export default function BoardDetail() {
                                 <Typography variant="subtitle1" sx={{ display: 'flex', alignItems: 'center', mb: '8px', fontWeight: 'bold', flexShrink: 0 }}>
                                     작성자 : <Box sx={{ ml: '8px' }}>{post.author}</Box>
                                 </Typography>
-                                <Typography variant="subtitle1" sx={{ display: 'flex', alignItems: 'center', mb: '8px', fontWeight: 'bold', flexShrink: 0 }}>
+                                <Typography variant="subtitle1" sx={{ display: 'flex', alignItems: 'start', mb: '8px', fontWeight: 'bold', flexShrink: 0 }}>
                                     내용&nbsp;&nbsp; &nbsp;:
-                                    <Box sx={{ ml: '8px', flex: 1, overflowWrap: 'break-word' }}>{post.content}</Box>
+                                    <Box sx={{ ml: '8px', flex: 1, width: "90%", height: "100%" }}>{post.content}</Box>
                                 </Typography>
                             </Box>
                             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>

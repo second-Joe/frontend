@@ -20,6 +20,18 @@ const columns = [
 
 export const posts = [
     { id: '1', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my firstrst postThis is my first postThis is myrst postThis is my first postThis is myrst postThis is my first postThis is myrst postThis is my first postThis is myrst postThis is my first postThis is myrst postThis is my first postThis is my postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis', date: '2023-01-01' },
+    { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' },
+    { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' },
+    { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' },
+    { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' },
+    { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' },
+    { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' },
+    { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' },
+    { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' },
+    { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' },
+    { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' },
+    { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' },
+    { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' },
     { id: '2', author: '홍길동', title: '영화는 어떻게 보는건가요', content: 'This is my first post', date: '2023-01-01' }
 
 ];
