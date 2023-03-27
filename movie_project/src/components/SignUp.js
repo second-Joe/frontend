@@ -91,7 +91,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     signUpClose();
   };
   const [id, setId] = useState("");
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [addr, setAddr] = useState("");
   const [tel, setTel] = useState("");
@@ -103,7 +103,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   const [addrError, setAddrError] = useState("");
   const [pwCheckError, setPwCheckError] = useState("");
   const [telError, setTelError] = useState("");
-  const [emailError, setEmailError] = useState("");
+  // const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
@@ -119,12 +119,12 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
   };
 
-  const isValidEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-    // 이메일 주소의 유효성을 검사하는 코드를 작성한다.
-    // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
-  };
+  // const isValidEmail = (email) => {
+  //   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  //   return emailRegex.test(email);
+  //   // 이메일 주소의 유효성을 검사하는 코드를 작성한다.
+  //   // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
+  // };
 
   const isValidPassword = (password) => {
     const passwordRegex = password.length >= 4 && password.length <= 60;
@@ -133,15 +133,15 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     // 유효한 패스워드인 경우 true, 그렇지 않은 경우 false를 반환한다.
   };
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-    // setEmail 함수를 이용해 email 상태값을 업데이트한다.
-    setEmailError(
-      isValidEmail(event.target.value)
-        ? ""
-        : "정확한 이메일 주소를 입력해주세요."
-    );
-  };
+  // const handleEmailChange = (event) => {
+  //   setEmail(event.target.value);
+  //   // setEmail 함수를 이용해 email 상태값을 업데이트한다.
+  //   setEmailError(
+  //     isValidEmail(event.target.value)
+  //       ? ""
+  //       : "정확한 이메일 주소를 입력해주세요."
+  //   );
+  // };
   const handleIdChange = (event) => {
     setId(event.target.value);
     // setEmail 함수를 이용해 email 상태값을 업데이트한다.
@@ -187,7 +187,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     if (password !== ConfirmPassword) {
       return alert("비밀번호와 비밀번호 확인이 같지 않습니다.");
     }
-    let validEmail = /\S+@\S+.\S+/.test(email);
+    // let validEmail = /\S+@\S+.\S+/.test(email);
     let validId = /\S+@\S+.\S+/.test(id);
     let validPassword = password.length >= 4 && password.length <= 60;
     if (!id) {
@@ -195,11 +195,11 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     } else if (!validId) {
       setIdError("정확한 이메일 주소를 입력해주세요.");
     }
-    if (!email) {
-      setEmailError("이메일을 입력해주세요.");
-    } else if (!validEmail) {
-      setEmailError("정확한 이메일 주소를 입력해주세요.");
-    }
+    // if (!email) {
+    //   setEmailError("이메일을 입력해주세요.");
+    // } else if (!validEmail) {
+    //   setEmailError("정확한 이메일 주소를 입력해주세요.");
+    // }
     if (!password) {
       setPasswordError("비밀번호를 입력해주세요.");
     } else if (!validPassword) {
@@ -249,23 +249,33 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               >
                 아이디
               </Typography>
-              <TextField
-                label="아이디를 입력해주세요"
-                type="email"
-                value={id}
-                onChange={handleIdChange}
-                required
-                inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
-                sx={formStyle}
-              />
+              <div>
+                <TextField
+                  label="아이디를 입력해주세요"
+                  type="email"
+                  value={id}
+                  onChange={handleIdChange}
+                  required
+                  inputProps={{ style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "white" } }}
+                  sx={{
+                    my: 2,
+                    width: "265px",
+                    color: "white",
+                    background: "#38393b",
+                    border: "1.5px solid white",
+                    fontSize: "20px",
+                    borderRadius: 1,
+                  }}
+                />
+                <CustomizedButton
+                  label="중복확인"
+                  value="check"
+                ></CustomizedButton>
+              </div>
               <FormHelperText sx={{ padding: "1px", color: "red" }}>
                 {idError}
               </FormHelperText>
-              {/* <CustomizedButton
-                label="중복확인"
-                value="check"
-              ></CustomizedButton> */}
             </Box>
             <Box sx={inputFormStyle}>
               <Typography
@@ -368,7 +378,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
 
               <FormHelperText sx={{ color: "red" }}>{addrError}</FormHelperText>
             </Box>
-            <Box sx={inputFormStyle}>
+            {/* <Box sx={inputFormStyle}>
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -388,9 +398,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               <FormHelperText sx={{ padding: "1px", color: "red" }}>
                 {emailError}
               </FormHelperText>
-            </Box>
+            </Box> */}
 
-            <Box sx={inputFormStyle}>
+            <Box sx={inputFormStyle} style={{ height: "73.6px" }}>
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -422,7 +432,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 {pwCheckError}
               </FormHelperText>
             </Box>
-            <Box sx={{ mx: "auto", width: 100 }}>
+            <Box sx={{ mx: "auto", width: 100, marginTop: "15px" }}>
               <CustomizedButton
                 label="회원가입"
                 onClick={handleSubmit}
