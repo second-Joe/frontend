@@ -11,6 +11,7 @@ import BoardInsert from "./pages/BoardInsert";
 import { useEffect } from "react";
 import Board from "./components/Board";
 import BoardList from "./components/BoardList";
+import BoardDetail from "./components/BoardDetail";
 
 
 const App = () => {
