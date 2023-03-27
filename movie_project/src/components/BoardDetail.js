@@ -18,18 +18,21 @@ export default function BoardDetail() {
                     </Typography>
                     {post && post.id === id ? (
                         <div>
-                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-                                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: '8px' }}>
-                                    작성자
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'flex-start',
+                                    justifyContent: 'flex-start',
+                                    height: 500
+                                }}
+                            >
+                                <Typography variant="subtitle1" sx={{ display: 'flex', alignItems: 'center', mb: '8px', fontWeight: 'bold', flexShrink: 0 }}>
+                                    작성자 : <Box sx={{ ml: '8px' }}>{post.author}</Box>
                                 </Typography>
-                                <Typography variant="body1" sx={{ mb: '16px' }}>
-                                    {post.author}
-                                </Typography>
-                                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: '8px' }}>
-                                    내용
-                                </Typography>
-                                <Typography variant="body1" sx={{ mb: '16px' }}>
-                                    {post.content}
+                                <Typography variant="subtitle1" sx={{ display: 'flex', alignItems: 'center', mb: '8px', fontWeight: 'bold', flexShrink: 0 }}>
+                                    내용&nbsp;&nbsp; &nbsp;:
+                                    <Box sx={{ ml: '8px', flex: 1, overflowWrap: 'break-word' }}>{post.content}</Box>
                                 </Typography>
                             </Box>
                             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
