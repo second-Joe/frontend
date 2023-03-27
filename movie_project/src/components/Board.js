@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Card, CardContent, CardActions, Button, Typography } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
 import StickyHeader from './StickyHeader';
 import Container from "@mui/material/Container";
-import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent } from '@mui/material';
 import { styled } from '@mui/system';
 
 const Title = styled(DialogTitle)({
@@ -35,6 +35,8 @@ const Board = () => {
     const handleClose = () => {
         setSelectedPost(null);
     };
+
+
 
     return (
         <div>
