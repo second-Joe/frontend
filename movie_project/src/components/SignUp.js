@@ -58,7 +58,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   color: "white",
-  width: 560,
+  width: 600,
   height: 700,
   bgcolor: "black",
   border: "1px solid white",
@@ -167,9 +167,16 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
+  // const autoHyphen2 = (event) => {
+  //   event.value = event.value
+  //     .replace(/[^0-9]/g, "")
+  //     .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+  //     .replace(/(\-{1,2})$/g, "");
+  // };
 
   const handleTelChange = (event) => {
     setTel(event.target.value);
+    console.log(setTel);
   };
   const handlePwCheckChange = (event) => {
     setPwCheck(event.target.value);
@@ -210,9 +217,6 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     if (!pwCheck) {
       setPwCheckError("비밀번호 확인 답변을 입력해주세요.");
     }
-    // if (validEmail && validPassword) {
-    //   window.location.href = "/login";
-    // }
   };
   return (
     <div>
@@ -230,7 +234,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
         <Fade in={open}>
           <Box sx={style}>
             <Typography
-              sx={{ width: 160, mx: "auto", mb: 3 }}
+              sx={{ width: "150px", mx: "auto", mb: 3 }}
               id="spring-modal-title"
               variant="h5"
               component="h2"
@@ -340,6 +344,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 sx={formStyle}
                 value={tel}
                 onChange={handleTelChange}
+                // autoHyphen2={tel}
               />
               <FormHelperText sx={{ color: "red" }}>{telError}</FormHelperText>
             </Box>

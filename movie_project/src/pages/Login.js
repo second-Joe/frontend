@@ -126,12 +126,12 @@ function Login() {
           label="이메일 주소"
           type="email"
           name="email"
-          required
           fullWidth
           variant="outlined"
           inputProps={{ style: { color: "white" } }}
           InputLabelProps={{ style: { color: "white" } }}
           sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
+          required
           value={email}
           onChange={handleEmailChange}
           // 이메일 주소 입력란의 값이 변경될때마다 이 함수가 호출됨
