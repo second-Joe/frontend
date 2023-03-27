@@ -91,7 +91,6 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     signUpClose();
   };
   const [id, setId] = useState("");
-  // const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [addr, setAddr] = useState("");
   const [tel, setTel] = useState("");
@@ -103,7 +102,6 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   const [addrError, setAddrError] = useState("");
   const [pwCheckError, setPwCheckError] = useState("");
   const [telError, setTelError] = useState("");
-  // const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
@@ -118,14 +116,6 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     // 이메일 주소의 유효성을 검사하는 코드를 작성한다.
     // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
   };
-
-  // const isValidEmail = (email) => {
-  //   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  //   return emailRegex.test(email);
-  //   // 이메일 주소의 유효성을 검사하는 코드를 작성한다.
-  //   // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
-  // };
-
   const isValidPassword = (password) => {
     const passwordRegex = password.length >= 4 && password.length <= 60;
     return passwordRegex;
@@ -133,15 +123,6 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     // 유효한 패스워드인 경우 true, 그렇지 않은 경우 false를 반환한다.
   };
 
-  // const handleEmailChange = (event) => {
-  //   setEmail(event.target.value);
-  //   // setEmail 함수를 이용해 email 상태값을 업데이트한다.
-  //   setEmailError(
-  //     isValidEmail(event.target.value)
-  //       ? ""
-  //       : "정확한 이메일 주소를 입력해주세요."
-  //   );
-  // };
   const handleIdChange = (event) => {
     setId(event.target.value);
     // setEmail 함수를 이용해 email 상태값을 업데이트한다.
@@ -167,16 +148,16 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
-  // const autoHyphen2 = (event) => {
-  //   event.value = event.value
-  //     .replace(/[^0-9]/g, "")
-  //     .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
-  //     .replace(/(\-{1,2})$/g, "");
-  // };
 
   const handleTelChange = (event) => {
-    setTel(event.target.value);
-    console.log(setTel);
+    setTel(
+      event.target.value
+        .replace(/[^0-9]/g, "")
+        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+        .replace(/(\-{1,2})$/g, "")
+    );
+    console.log(event.target.value);
+    console.log("a" + tel);
   };
   const handlePwCheckChange = (event) => {
     setPwCheck(event.target.value);
@@ -187,7 +168,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     if (password !== ConfirmPassword) {
       return alert("비밀번호와 비밀번호 확인이 같지 않습니다.");
     }
-    // let validEmail = /\S+@\S+.\S+/.test(email);
+
     let validId = /\S+@\S+.\S+/.test(id);
     let validPassword = password.length >= 4 && password.length <= 60;
     if (!id) {
@@ -195,11 +176,6 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     } else if (!validId) {
       setIdError("정확한 이메일 주소를 입력해주세요.");
     }
-    // if (!email) {
-    //   setEmailError("이메일을 입력해주세요.");
-    // } else if (!validEmail) {
-    //   setEmailError("정확한 이메일 주소를 입력해주세요.");
-    // }
     if (!password) {
       setPasswordError("비밀번호를 입력해주세요.");
     } else if (!validPassword) {
@@ -207,15 +183,23 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     }
     if (!name) {
       setNameError("이름을 입력해주세요.");
+    } else {
+      setNameError("");
     }
     if (!tel) {
       setTelError("전화번호를 입력해주세요.");
+    } else {
+      setTelError("");
     }
     if (!addr) {
       setAddrError("주소를 입력해주세요.");
+    } else {
+      setAddrError("");
     }
     if (!pwCheck) {
       setPwCheckError("비밀번호 확인 답변을 입력해주세요.");
+    } else {
+      setPwCheckError("");
     }
   };
   return (
@@ -370,7 +354,6 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 sx={formStyle}
                 value={tel}
                 onChange={handleTelChange}
-                // autoHyphen2={tel}
               />
               <FormHelperText sx={{ color: "red" }}>{telError}</FormHelperText>
             </Box>
@@ -394,28 +377,6 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
 
               <FormHelperText sx={{ color: "red" }}>{addrError}</FormHelperText>
             </Box>
-            {/* <Box sx={inputFormStyle}>
-              <Typography
-                sx={{ width: "150px", mr: 5, mt: 3 }}
-                variant="h10"
-                component="h4"
-              >
-                이메일
-              </Typography>
-              <TextField
-                required
-                value={email}
-                inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
-                label="이메일을 입력해주세요"
-                onChange={handleEmailChange}
-                sx={formStyle}
-              />
-              <FormHelperText sx={{ padding: "1px", color: "red" }}>
-                {emailError}
-              </FormHelperText>
-            </Box> */}
-
             <Box sx={inputFormStyle} style={{ height: "73.6px" }}>
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
