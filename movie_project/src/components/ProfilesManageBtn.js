@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-const ProfilesManageBtn = () => {
+const ProfilesManageBtn = ({ editMode, onClick }) => {
   return (
     <div>
       <Box
@@ -17,6 +17,7 @@ const ProfilesManageBtn = () => {
         }}
       >
         <Button
+          onClick={onClick}
           style={{
             fontSize: "1.5em",
             color: "#FFFFFF",
@@ -29,7 +30,7 @@ const ProfilesManageBtn = () => {
             },
           }}
         >
-          프로필 관리
+          {editMode ? "완료" : "프로필 관리"}
         </Button>
       </Box>
     </div>

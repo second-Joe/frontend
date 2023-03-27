@@ -7,6 +7,7 @@ import NotFound from "./pages/NotFound";
 import Layout from "./components/LayOut";
 import Profiles from "./pages/Profiles";
 import Customercenter from "./pages/CustomerCenter";
+import ProfileUpdate from "./pages/ProfileUpdate";
 import BoardInsert from "./pages/BoardInsert";
 import { useEffect } from "react";
 import Board from "./components/Board";
@@ -27,7 +28,7 @@ const App = () => {
     document.body.style.backgroundColor = "rgb(42, 43, 43)";
   } else if (
     location.pathname == "/customercenter" ||
-    location.pathname == "/mypage"
+    location.pathname == "/mypage" 
   ) {
     document.body.style.backgroundColor = "white";
   }
