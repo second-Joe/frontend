@@ -241,7 +241,15 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
             >
               회원가입
             </Typography>
-            <Box sx={inputFormStyle}>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "flex-end",
+                height: "73.6",
+                marginBottom: "5px",
+              }}
+            >
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -249,7 +257,13 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               >
                 아이디
               </Typography>
-              <div>
+              <div
+                style={{
+                  height: "57.6px",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
                 <TextField
                   label="아이디를 입력해주세요"
                   type="email"
@@ -259,13 +273,15 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                   inputProps={{ style: { color: "white" } }}
                   InputLabelProps={{ style: { color: "white" } }}
                   sx={{
-                    my: 2,
-                    width: "265px",
+                    my: 1,
+                    width: "255px",
                     color: "white",
                     background: "#38393b",
                     border: "1.5px solid white",
                     fontSize: "20px",
                     borderRadius: 1,
+                    marginRight: "10px",
+                    height: "50px",
                   }}
                 />
                 <CustomizedButton
