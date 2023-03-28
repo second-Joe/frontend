@@ -5,9 +5,11 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
-import OutlinedTextField from "./OutlinedTextField";
 import SelectInput from "./SelectInput";
 import CustomizedButton from "./CustomizedButton";
+import { useState } from "react";
+import { TextField } from "@mui/material";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -56,13 +58,28 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   color: "white",
-  width: 560,
+  width: 600,
   height: 700,
   bgcolor: "black",
   border: "1px solid white",
   boxShadow: 24,
   p: 4,
   overflowY: "scroll",
+};
+
+const formStyle = {
+  my: 1,
+  width: "360px",
+  color: "white",
+  background: "#38393b",
+  border: "1.5px solid white",
+  fontSize: "20px",
+  borderRadius: 1,
+};
+const inputFormStyle = {
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "flex-end",
 };
 
 export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
@@ -73,8 +90,118 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     setOpen(false);
     signUpClose();
   };
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [addr, setAddr] = useState("");
+  const [tel, setTel] = useState("");
+  const [pwCheck, setPwCheck] = useState("");
+  const [password, setPassword] = useState("");
+  const [ConfirmPassword, setConfirmPassword] = useState("");
+  const [idError, setIdError] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [addrError, setAddrError] = useState("");
+  const [pwCheckError, setPwCheckError] = useState("");
+  const [telError, setTelError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const onNameHandler = (event) => {
+    setName(event.currentTarget.value);
+  };
+  const onConfirmPasswordHandler = (event) => {
+    setConfirmPassword(event.currentTarget.value);
+  };
 
-  const handleSubmit = () => {};
+  const isValidId = (id) => {
+    const idRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return idRegex.test(id);
+    // 이메일 주소의 유효성을 검사하는 코드를 작성한다.
+    // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
+  };
+  const isValidPassword = (password) => {
+    const passwordRegex = password.length >= 4 && password.length <= 60;
+    return passwordRegex;
+    // 패스워드의 유효성을 검사하는 코드를 작성한다.
+    // 유효한 패스워드인 경우 true, 그렇지 않은 경우 false를 반환한다.
+  };
+
+  const handleIdChange = (event) => {
+    setId(event.target.value);
+    // setEmail 함수를 이용해 email 상태값을 업데이트한다.
+    setIdError(
+      isValidId(event.target.value) ? "" : "정확한 이메일 주소를 입력해주세요."
+    );
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+    // setPassword 함수를 이용해 password 상태값을 업데이트한다.
+    setPasswordError(
+      isValidPassword(event.target.value)
+        ? ""
+        : "비밀번호는 4~60자 사이여야 합니다."
+    );
+  };
+
+  const handleAddrChange = (event) => {
+    setAddr(event.target.value);
+  };
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleTelChange = (event) => {
+    setTel(
+      event.target.value
+        .replace(/[^0-9]/g, "")
+        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})(\d{0,1})$/g, "$1-$2-$3")
+        .replace(/(\-{1,2})$/g, "")
+    );
+    console.log(event.target.value);
+    console.log("a" + tel);
+  };
+  const handlePwCheckChange = (event) => {
+    setPwCheck(event.target.value);
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (password !== ConfirmPassword) {
+      return alert("비밀번호와 비밀번호 확인이 같지 않습니다.");
+    }
+
+    let validId = /\S+@\S+.\S+/.test(id);
+    let validPassword = password.length >= 4 && password.length <= 60;
+    if (!id) {
+      setIdError("이메일을 입력해주세요.");
+    } else if (!validId) {
+      setIdError("정확한 이메일 주소를 입력해주세요.");
+    }
+    if (!password) {
+      setPasswordError("비밀번호를 입력해주세요.");
+    } else if (!validPassword) {
+      setPasswordError("비밀번호는 4~60자 사이여야 합니다.");
+    }
+    if (!name) {
+      setNameError("이름을 입력해주세요.");
+    } else {
+      setNameError("");
+    }
+    if (!tel) {
+      setTelError("전화번호를 입력해주세요.");
+    } else {
+      setTelError("");
+    }
+    if (!addr) {
+      setAddrError("주소를 입력해주세요.");
+    } else {
+      setAddrError("");
+    }
+    if (!pwCheck) {
+      setPwCheckError("비밀번호 확인 답변을 입력해주세요.");
+    } else {
+      setPwCheckError("");
+    }
+  };
   return (
     <div>
       <Modal
@@ -91,14 +218,22 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
         <Fade in={open}>
           <Box sx={style}>
             <Typography
-              sx={{ width: 160, mx: "auto", mb: 3 }}
+              sx={{ width: "150px", mx: "auto", mb: 3 }}
               id="spring-modal-title"
               variant="h5"
               component="h2"
             >
               회원가입
             </Typography>
-            <Box sx={{ display: "flex" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "flex-end",
+                height: "73.6",
+                marginBottom: "5px",
+              }}
+            >
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -106,9 +241,43 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               >
                 아이디
               </Typography>
-              <OutlinedTextField label="아이디를 입력해주세요" />
+              <div
+                style={{
+                  height: "57.6px",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <TextField
+                  label="아이디를 입력해주세요"
+                  type="email"
+                  value={id}
+                  onChange={handleIdChange}
+                  required
+                  inputProps={{ style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "white" } }}
+                  sx={{
+                    my: 1,
+                    width: "255px",
+                    color: "white",
+                    background: "#38393b",
+                    border: "1.5px solid white",
+                    fontSize: "20px",
+                    borderRadius: 1,
+                    marginRight: "10px",
+                    height: "50px",
+                  }}
+                />
+                <CustomizedButton
+                  label="중복확인"
+                  value="check"
+                ></CustomizedButton>
+              </div>
+              <FormHelperText sx={{ padding: "1px", color: "red" }}>
+                {idError}
+              </FormHelperText>
             </Box>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={inputFormStyle}>
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -116,9 +285,21 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               >
                 비밀번호
               </Typography>
-              <OutlinedTextField label="비밀번호를 입력해주세요" />
+              <TextField
+                label="비밀번호를 입력해주세요"
+                type="password"
+                value={password}
+                onChange={handlePasswordChange}
+                required
+                inputProps={{ style: { color: "white" } }}
+                InputLabelProps={{ style: { color: "white" } }}
+                sx={formStyle}
+              />
+              <FormHelperText sx={{ color: "red" }}>
+                {passwordError}
+              </FormHelperText>
             </Box>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={inputFormStyle}>
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -126,9 +307,18 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               >
                 비밀번호 확인
               </Typography>
-              <OutlinedTextField label="비밀번호를 입력해주세요" />
+              <TextField
+                sx={formStyle}
+                required
+                inputProps={{ style: { color: "white" } }}
+                InputLabelProps={{ style: { color: "white" } }}
+                label="비밀번호를 입력해주세요"
+                type="password"
+                value={ConfirmPassword}
+                onChange={onConfirmPasswordHandler}
+              />
             </Box>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={inputFormStyle}>
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -136,9 +326,19 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               >
                 이름
               </Typography>
-              <OutlinedTextField label="이름를 입력해주세요" />
+              <TextField
+                label="이름을 입력해주세요"
+                type="text"
+                value={name}
+                onChange={handleNameChange}
+                required
+                inputProps={{ style: { color: "white" } }}
+                InputLabelProps={{ style: { color: "white" } }}
+                sx={formStyle}
+              />
+              <FormHelperText sx={{ color: "red" }}>{nameError}</FormHelperText>
             </Box>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={inputFormStyle}>
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -146,9 +346,18 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               >
                 전화번호
               </Typography>
-              <OutlinedTextField label="전화번호를 입력해주세요" />
+              <TextField
+                label="전화번호를 입력해주세요"
+                required
+                inputProps={{ style: { color: "white" } }}
+                InputLabelProps={{ style: { color: "white" } }}
+                sx={formStyle}
+                value={tel}
+                onChange={handleTelChange}
+              />
+              <FormHelperText sx={{ color: "red" }}>{telError}</FormHelperText>
             </Box>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={inputFormStyle}>
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -156,20 +365,19 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               >
                 주소
               </Typography>
-              <OutlinedTextField label="주소를 입력해주세요" />
-            </Box>
-            <Box sx={{ display: "flex" }}>
-              <Typography
-                sx={{ width: "150px", mr: 5, mt: 3 }}
-                variant="h10"
-                component="h4"
-              >
-                이메일
-              </Typography>
-              <OutlinedTextField label="이메일을 입력해주세요" />
-            </Box>
+              <TextField
+                label="주소를 입력해주세요"
+                required
+                inputProps={{ style: { color: "white" } }}
+                InputLabelProps={{ style: { color: "white" } }}
+                sx={formStyle}
+                value={addr}
+                onChange={handleAddrChange}
+              />
 
-            <Box sx={{ display: "flex" }}>
+              <FormHelperText sx={{ color: "red" }}>{addrError}</FormHelperText>
+            </Box>
+            <Box sx={inputFormStyle} style={{ height: "73.6px" }}>
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -179,7 +387,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               </Typography>
               <SelectInput question={question} setQuestion={setQuestion} />
             </Box>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={inputFormStyle}>
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -188,13 +396,23 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 비밀번호 찾기 답변
               </Typography>
 
-              <OutlinedTextField label="비밀번호 찾기 질문에 대한 답을 입력해주세요" />
+              <TextField
+                label="비밀번호 찾기 질문에 대한 답"
+                required
+                inputProps={{ style: { color: "white" } }}
+                InputLabelProps={{ style: { color: "white" } }}
+                sx={formStyle}
+                value={pwCheck}
+                onChange={handlePwCheckChange}
+              />
+              <FormHelperText sx={{ color: "red" }}>
+                {pwCheckError}
+              </FormHelperText>
             </Box>
-            <Box sx={{ mx: "auto", width: 100 }}>
+            <Box sx={{ mx: "auto", width: 100, marginTop: "15px" }}>
               <CustomizedButton
                 label="회원가입"
-                value="passwordAnswer"
-                onClick={(handleSubmit, handleClose2)}
+                onClick={handleSubmit}
               ></CustomizedButton>
             </Box>
           </Box>
