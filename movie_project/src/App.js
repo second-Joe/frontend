@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import SearchResult from "./pages/SearchResult";
@@ -14,7 +19,6 @@ import Board from "./components/Board";
 import BoardList from "./components/BoardList";
 import BoardDetail from "./components/BoardDetail";
 
-
 const App = () => {
   const location = useLocation();
   useEffect(() => {
@@ -28,7 +32,7 @@ const App = () => {
     document.body.style.backgroundColor = "rgb(42, 43, 43)";
   } else if (
     location.pathname == "/customercenter" ||
-    location.pathname == "/mypage" 
+    location.pathname == "/mypage"
   ) {
     document.body.style.backgroundColor = "white";
   }

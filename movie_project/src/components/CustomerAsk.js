@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 import BoardPasswordCheck from "./BoardPasswordCheck";
 import BoardInsert from "../pages/BoardInsert";
 import { useNavigate } from "react-router-dom";
+import CustomizedButton from "./CustomizedButton";
 
 const CustomerAsk = () => {
   const buttonSx = {
@@ -18,7 +19,7 @@ const CustomerAsk = () => {
   const body = document.getElementById("body");
   body.style.margin = 0;
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // const goBoardInsert = () => {
   //   navigate("/boardInsert");
   // };
@@ -30,6 +31,12 @@ const CustomerAsk = () => {
   // const handleClose = () => {
   //   setOpenModal(false);
   // };
+  const gotoBoard = () => {
+    navigate("/board");
+  };
+  const gotoFAQ = () => {
+    navigate("/customercenter/board");
+  };
   return (
     <div
       style={{
@@ -52,15 +59,12 @@ const CustomerAsk = () => {
           <Typography flexGrow="1" sx={{ fontSize: 24, fontWeight: "bold" }}>
             고객 센터에 문의하시겠어요?
           </Typography>
-          <Button
-            variant="outlined"
-            sx={{
-              ...buttonSx,
-            }}
-            // onClick={handleOpen}
-          >
-            문의 전화
-          </Button>
+          <Box sx={{ mr: 3 }}>
+            <CustomizedButton
+              onClick={gotoFAQ}
+              label="자주 묻는 질문들"
+            ></CustomizedButton>
+          </Box>
           {/* {openModal ? (
             <BoardPasswordCheck
               openModal={openModal}
@@ -69,13 +73,9 @@ const CustomerAsk = () => {
               handleClose={handleClose}
             ></BoardPasswordCheck>
           ) : null} */}
-          <Button
-            // onClick={goBoardInsert}
-            variant="outlined"
-            sx={{ ...buttonSx }}
-          >
+          <CustomizedButton onClick={gotoBoard} label="문의하기">
             실시간 채팅 시작하기
-          </Button>
+          </CustomizedButton>
         </Box>
       </Container>
     </div>
