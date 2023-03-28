@@ -6,18 +6,18 @@ import BoardInsertMultiline from "../components/BoardInsertMultiline";
 import StickyHeader from "../components/StickyHeader";
 import CustomizedButton from "../components/CustomizedButton";
 import { useNavigate } from "react-router-dom";
-import { Paper } from '@mui/material';
+import { Paper } from "@mui/material";
 
 export default function BoardInsert() {
-  const handleSubmit = () => { };
+  const handleSubmit = () => {};
   const navigate = useNavigate();
   const goBack = () => {
-    navigate("/customerCenter");
+    navigate("/board");
   };
   return (
     <div>
       <StickyHeader />
-      <Paper sx={{ padding: '16px', height: "100vh" }}>
+      <Paper sx={{ padding: "16px", height: "100vh" }}>
         <Box
           component="form"
           sx={{
