@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
-import BoardPasswordCheck from "./BoardPasswordCheck";
+
 import BoardInsert from "../pages/BoardInsert";
 import { useNavigate } from "react-router-dom";
 import CustomizedButton from "./CustomizedButton";
@@ -20,17 +20,10 @@ const CustomerAsk = () => {
   body.style.margin = 0;
 
   const navigate = useNavigate();
-  // const goBoardInsert = () => {
-  //   navigate("/boardInsert");
-  // };
-  // const [openModal, setOpenModal] = React.useState(false);
+  const goBoardInsert = () => {
+    navigate("/boardInsert");
+  };
 
-  // const handleOpen = () => {
-  //   setOpenModal(true);
-  // };
-  // const handleClose = () => {
-  //   setOpenModal(false);
-  // };
   const gotoBoard = () => {
     navigate("/board");
   };
