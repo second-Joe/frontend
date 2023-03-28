@@ -3,6 +3,8 @@ import Container from "@mui/material/Container";
 import { Divider, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import CustomizedButton from "./CustomizedButton";
+import Box from "@mui/material/Box";
 
 const MyPageBody = () => {
   return (
@@ -15,25 +17,38 @@ const MyPageBody = () => {
         </Grid>
         <Grid item xs={9} sx={{ direction: "column" }}>
           <Grid container>
-            <Grid item xs={10} sx={{ p: 2, color: "gray" }}>
+            <Grid item xs={8} sx={{ pl: 2, pt: 3, color: "gray" }}>
+              이메일 주소: ********
+            </Grid>
+            <Grid item xs={2} sx={{ p: 2 }}>
+              <Box sx={{ width: 200 }}>
+                <CustomizedButton
+                  label="이메일 주소 변경"
+                  value="emailChange"
+                ></CustomizedButton>
+              </Box>
+            </Grid>
+            <Grid item xs={8} sx={{ pl: 2, pt: 3, color: "gray" }}>
               비밀번호: ********
             </Grid>
             <Grid item xs={2} sx={{ p: 2 }}>
-              <Typography
-                sx={{ fontSize: 14, mb: 2, color: "blue", textAlign: "right" }}
-              >
-                이메일 주소 변경
-              </Typography>
-              <Typography
-                sx={{ fontSize: 14, mb: 2, color: "blue", textAlign: "right" }}
-              >
-                비밀번호 변경
-              </Typography>
-              <Typography
-                sx={{ fontSize: 14, mb: 2, color: "blue", textAlign: "right" }}
-              >
-                휴대폰 번호 등록
-              </Typography>
+              <Box sx={{ width: "200%" }}>
+                <CustomizedButton
+                  label="비밀번호 변경"
+                  value="emailChange"
+                ></CustomizedButton>
+              </Box>
+            </Grid>
+            <Grid item xs={8} sx={{ pl: 2, pt: 3, color: "gray" }}>
+              휴대폰 번호 : ********
+            </Grid>
+            <Grid item xs={3} sx={{ p: 2 }}>
+              <Box sx={{ width: 200, mb: 2 }}>
+                <CustomizedButton
+                  label="휴대폰 번호 등록"
+                  value="emailChange"
+                ></CustomizedButton>
+              </Box>
             </Grid>
           </Grid>
           <Divider />
