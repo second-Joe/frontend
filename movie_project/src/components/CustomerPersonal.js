@@ -3,13 +3,21 @@ import PersonalHelpCard from "./PersonalHelpCard";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
+import { useMediaQuery, useTheme } from "@mui/material";
 import { Grid } from "@mui/material";
 import DescriptionIcon from "@mui/icons-material/Description";
 import Box from "@mui/material/Box";
 
 const CustomerPersonal = () => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
+  let paddingTop = "250px";
+  if (isSmallScreen) {
+    paddingTop = "180px";
+  }
   return (
-    <Container sx={{ paddingTop: "250px" }}>
+    <Container sx={{ paddingTop: { paddingTop } }}>
       <Typography
         variant={"h1"}
         sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
