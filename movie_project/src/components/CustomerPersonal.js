@@ -32,7 +32,17 @@ const CustomerPersonal = () => {
 
       <Grid container spacing={2} sx={{ mb: 3 }}>
         <Grid item>
-          <Card sx={{ display: "flex", width: "auto", height: 40 }}>
+          <Card
+            sx={{
+              display: "flex",
+              width: "auto",
+              height: 40,
+              "&:hover": {
+                cursor: "pointer",
+                backgroundColor: "#dddddd",
+              },
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
@@ -51,7 +61,17 @@ const CustomerPersonal = () => {
           </Card>
         </Grid>
         <Grid item>
-          <Card sx={{ display: "flex", width: "auto", height: 40 }}>
+          <Card
+            sx={{
+              display: "flex",
+              width: "auto",
+              height: 40,
+              "&:hover": {
+                cursor: "pointer",
+                backgroundColor: "#dddddd",
+              },
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
@@ -70,7 +90,17 @@ const CustomerPersonal = () => {
           </Card>
         </Grid>
         <Grid item>
-          <Card sx={{ display: "flex", width: "auto", height: 40 }}>
+          <Card
+            sx={{
+              display: "flex",
+              width: "auto",
+              height: 40,
+              "&:hover": {
+                cursor: "pointer",
+                backgroundColor: "#dddddd",
+              },
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
