@@ -20,9 +20,6 @@ const CustomerAsk = () => {
   body.style.margin = 0;
 
   const navigate = useNavigate();
-  const goBoardInsert = () => {
-    navigate("/boardInsert");
-  };
 
   const gotoBoard = () => {
     navigate("/board");
