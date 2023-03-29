@@ -8,7 +8,7 @@ import CustomizedButton from "../components/CustomizedButton";
 import { useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
 
-export default function BoardInsert() {
+export default function BoardModify() {
   const handleSubmit = () => {};
   const navigate = useNavigate();
   const goBack = () => {
@@ -36,13 +36,19 @@ export default function BoardInsert() {
             }}
           >
             <Typography
-              sx={{ width: "150px", mr: 3, mt: 1, fontWeight: "bold" }}
+              sx={{ width: "150px", mt: 1, fontWeight: "bold" }}
               variant="h6"
               component="h4"
             >
               작성자
             </Typography>
-            <BoardInsertInput label="이름"></BoardInsertInput>
+            <Typography
+              sx={{ width: "150px", mt: 1, fontWeight: "bold" }}
+              variant="h6"
+              component="h4"
+            >
+              ***
+            </Typography>
           </Box>
           <Box
             sx={{

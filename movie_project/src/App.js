@@ -17,6 +17,7 @@ import BoardInsert from "./pages/BoardInsert";
 import { useEffect } from "react";
 import Board from "./components/Board";
 import BoardList from "./components/BoardList";
+import BoardModify from "./pages/BoardModify";
 import BoardDetail from "./components/BoardDetail";
 
 const App = () => {
@@ -53,6 +54,7 @@ const App = () => {
       <Route path="/board/:id" element={<BoardDetail />} />
       <Route path="/profileupdate" element={<ProfileUpdate />} />
       <Route path="/boardInsert" element={<BoardInsert />} />
+      <Route path="/boardModify" element={<BoardModify />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

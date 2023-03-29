@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
 import CustomizedButton from "./CustomizedButton";
+import { useNavigate } from "react-router-dom";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -73,8 +74,10 @@ export default function BoardPasswordCheck({
     setOpen(false);
     handleClose();
   };
-
-  const handleUpdate = () => {};
+  const navigate = useNavigate();
+  const handleUpdate = () => {
+    navigate("/boardModify");
+  };
   const handleRemove = () => {};
   return (
     <div>
