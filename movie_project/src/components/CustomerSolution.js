@@ -3,6 +3,7 @@ import { Container, Grid } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { fontWeight } from "@mui/system";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const CustomerSolution = () => {
   const solutionList = [
@@ -35,23 +36,27 @@ const CustomerSolution = () => {
       "결제 내역 검토",
     ],
   ];
+  const theme = useTheme();
+  const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <Container sx={{ mb: 10 }}>
       <Grid container spacing={1} sx={{ width: "100%" }}>
-        {solutionList.map((innerArray) => {
-          return (
-            <Grid item style={{ width: "20%" }} key={innerArray}>
-              <List>
-                <ListItem sx={{ fontWeight: "bold", fontSize: "1.5rem" }}>
-                  {innerArray[0]}
-                </ListItem>
-                {innerArray.slice(1).map((i) => {
-                  return <ListItem key={i}>{i}</ListItem>;
-                })}
-              </List>
-            </Grid>
-          );
-        })}
+        {isMiddleScreen
+          ? null
+          : solutionList.map((innerArray) => {
+              return (
+                <Grid item style={{ width: "20%" }} key={innerArray}>
+                  <List>
+                    <ListItem sx={{ fontWeight: "bold", fontSize: "1.5rem" }}>
+                      {innerArray[0]}
+                    </ListItem>
+                    {innerArray.slice(1).map((i) => {
+                      return <ListItem key={i}>{i}</ListItem>;
+                    })}
+                  </List>
+                </Grid>
+              );
+            })}
       </Grid>
     </Container>
   );
