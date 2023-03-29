@@ -11,8 +11,18 @@ export default function BoardDetail() {
   const { id } = useParams();
   const post = posts.find((post) => post.id === id);
   const [openModal, setOpenModal] = React.useState(false);
+  const [modify, setModify] = React.useState(false);
+  const [remove, setRemove] = React.useState(false);
 
   const navigate = useNavigate();
+  const clickModify = () => {
+    handleOpen();
+    setModify(true);
+  };
+  const clickDelete = () => {
+    handleOpen();
+    setRemove(true);
+  };
   const handleOpen = () => {
     setOpenModal(true);
   };
@@ -81,17 +91,19 @@ export default function BoardDetail() {
                 <CustomizedButton
                   label="수정"
                   value="update"
-                  onClick={handleOpen}
+                  onClick={clickModify}
                 ></CustomizedButton>
                 &nbsp; &nbsp;
                 <CustomizedButton
                   label="삭제"
                   value="delete"
-                  onClick={handleOpen}
+                  onClick={clickDelete}
                 ></CustomizedButton>
               </Box>
               {openModal ? (
                 <BoardPasswordCheck
+                  modify={modify}
+                  remove={remove}
                   openModal={openModal}
                   setOpenModal={setOpenModal}
                   handleOpen={handleOpen}

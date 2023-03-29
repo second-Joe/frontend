@@ -67,6 +67,8 @@ export default function BoardPasswordCheck({
   openModal,
   handleOpen,
   handleClose,
+  modify,
+  remove,
 }) {
   const [open, setOpen] = React.useState(openModal);
 
@@ -75,8 +77,11 @@ export default function BoardPasswordCheck({
     handleClose();
   };
   const navigate = useNavigate();
-  const handleUpdate = () => {
-    navigate("/boardModify");
+  const handleUpdate = (e) => {
+    console.log(e);
+    if (modify === true) {
+      navigate("/boardModify");
+    }
   };
   const handleRemove = () => {};
   return (
