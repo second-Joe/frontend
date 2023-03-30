@@ -19,7 +19,6 @@ import Board from "./components/Board";
 import BoardList from "./components/BoardList";
 import BoardModify from "./pages/BoardModify";
 import BoardDetail from "./components/BoardDetail";
-import { createContext } from "react";
 
 const App = () => {
   const location = useLocation();

@@ -49,7 +49,7 @@ export default function BoardDetail() {
                   flexDirection: "column",
                   alignItems: "flex-start",
                   justifyContent: "flex-start",
-                  height: 500,
+                  height: "100%",
                 }}
               >
                 <Typography
