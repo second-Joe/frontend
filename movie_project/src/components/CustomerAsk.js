@@ -109,9 +109,10 @@ const CustomerAsk = () => {
               ></CustomizedButton>
             </Box>
 
-            <CustomizedButton onClick={gotoBoard} label="문의하기">
-              실시간 채팅 시작하기
-            </CustomizedButton>
+            <CustomizedButton
+              onClick={gotoBoard}
+              label="문의하기"
+            ></CustomizedButton>
           </Box>
         </Container>
       </div>

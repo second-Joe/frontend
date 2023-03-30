@@ -4,6 +4,7 @@ import StickyHeader from "./StickyHeader";
 import Container from "@mui/material/Container";
 import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 import { styled } from "@mui/system";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const Title = styled(DialogTitle)({
   backgroundColor: "#000",
@@ -19,6 +20,9 @@ const Content = styled(DialogContent)({
 });
 
 const Board = () => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [posts, setPosts] = useState([
     {
       id: 1,
@@ -57,10 +61,15 @@ const Board = () => {
     setSelectedPost(null);
   };
 
+  let paddingTop = "250px";
+  if (isSmallScreen) {
+    paddingTop = "180px";
+  }
+
   return (
     <div>
       <StickyHeader />
-      <Container sx={{ paddingTop: "250px" }}>
+      <Container sx={{ paddingTop: { paddingTop } }}>
         {posts.map((post) => (
           <Card
             key={post.id}

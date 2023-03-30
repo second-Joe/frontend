@@ -14,6 +14,7 @@ export default function BoardInsert() {
   const goBack = () => {
     navigate("/board");
   };
+
   return (
     <div>
       <StickyHeader />

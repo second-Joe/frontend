@@ -19,6 +19,7 @@ import Board from "./components/Board";
 import BoardList from "./components/BoardList";
 import BoardModify from "./pages/BoardModify";
 import BoardDetail from "./components/BoardDetail";
+import { createContext } from "react";
 
 const App = () => {
   const location = useLocation();
@@ -32,9 +33,13 @@ const App = () => {
   ) {
     document.body.style.backgroundColor = "rgb(42, 43, 43)";
   } else if (
-    location.pathname == "/customercenter" ||
-    location.pathname == "/mypage"
+    location.pathname === "/customercenter" ||
+    location.pathname === "/mypage" ||
+    location.pathname === "/board" ||
+    location.pathname === "/boardInsert"
   ) {
+    document.body.style.backgroundColor = "white";
+  } else {
     document.body.style.backgroundColor = "white";
   }
 

@@ -32,6 +32,7 @@ export default function BoardDetail() {
   const goBack = () => {
     navigate("/board");
   };
+
   return (
     <div>
       <StickyHeader />
