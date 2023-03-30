@@ -38,7 +38,7 @@ export default function PositionedMenu() {
           noWrap
           component="div"
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { sm: "block" },
             textAlign: "center",
             fontFamily: "helvetica",
             fontWeight: 9,
