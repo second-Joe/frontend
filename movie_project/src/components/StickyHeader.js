@@ -15,7 +15,7 @@ const StickyHeader = () => {
     <AppBar position="fixed" style={{ background: "#212121" }}>
       <Toolbar>
         {isMiddleScreen ? (
-          <Grid container sx={{ pt: 4 }}>
+          <Grid container sx={{ pt: 2 }}>
             <Grid item xs={8} sx={{ ml: 5 }}>
               <Typography
                 noWrap
@@ -44,7 +44,7 @@ const StickyHeader = () => {
             <Grid item xs={3}></Grid>
           </Grid>
         ) : (
-          <Grid container sx={{ pt: 4 }}>
+          <Grid container sx={{ pt: 2 }}>
             <Grid item xs={10} sx={{ ml: 5 }}>
               <Typography
                 noWrap
