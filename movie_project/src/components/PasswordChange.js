@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
 import CustomizedButton from "./CustomizedButton";
-import { useNavigate } from "react-router-dom";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -63,26 +62,15 @@ const style = {
   p: 4,
 };
 
-export default function BoardPasswordCheck({
-  openModal,
-  handleOpen,
-  handleClose,
-  modify,
-  remove,
-}) {
+export default function PasswordChange({ openModal, handleOpen, handleClose }) {
   const [open, setOpen] = React.useState(openModal);
 
   const handleClose2 = () => {
     setOpen(false);
     handleClose();
   };
-  const navigate = useNavigate();
-  const handleUpdate = (e) => {
-    console.log(e);
-    if (modify === true) {
-      navigate("/boardModify");
-    }
-  };
+
+  const handleUpdate = () => {};
   const handleRemove = () => {};
   return (
     <div>
@@ -107,7 +95,7 @@ export default function BoardPasswordCheck({
               variant="h5"
               component="h2"
             >
-              게시판 수정 및 삭제하기
+              비밀번호 변경하기
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Typography
@@ -117,7 +105,7 @@ export default function BoardPasswordCheck({
               >
                 비밀번호 입력
               </Typography>
-              <OutlinedTextField label="게시판 비밀번호를 입력해주세요" />
+              <OutlinedTextField label="변경할 비밀번호를 입력해주세요" />
             </Box>
 
             <Box sx={{ ml: 60 }}>

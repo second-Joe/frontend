@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import SearchResult from "./pages/SearchResult";
@@ -12,8 +17,8 @@ import BoardInsert from "./pages/BoardInsert";
 import { useEffect } from "react";
 import Board from "./components/Board";
 import BoardList from "./components/BoardList";
+import BoardModify from "./pages/BoardModify";
 import BoardDetail from "./components/BoardDetail";
-
 
 const App = () => {
   const location = useLocation();
@@ -27,9 +32,13 @@ const App = () => {
   ) {
     document.body.style.backgroundColor = "rgb(42, 43, 43)";
   } else if (
-    location.pathname == "/customercenter" ||
-    location.pathname == "/mypage" 
+    location.pathname === "/customercenter" ||
+    location.pathname === "/mypage" ||
+    location.pathname === "/board" ||
+    location.pathname === "/boardInsert"
   ) {
+    document.body.style.backgroundColor = "white";
+  } else {
     document.body.style.backgroundColor = "white";
   }
 
@@ -49,6 +58,7 @@ const App = () => {
       <Route path="/board/:id" element={<BoardDetail />} />
       <Route path="/profileupdate" element={<ProfileUpdate />} />
       <Route path="/boardInsert" element={<BoardInsert />} />
+      <Route path="/boardModify" element={<BoardModify />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

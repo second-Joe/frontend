@@ -38,7 +38,7 @@ export default function PositionedMenu() {
           noWrap
           component="div"
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { sm: "block" },
             textAlign: "center",
             fontFamily: "helvetica",
             fontWeight: 9,
@@ -68,6 +68,9 @@ export default function PositionedMenu() {
       >
         <MenuItem component={Link} to="/mypage">
           계정
+        </MenuItem>
+        <MenuItem component={Link} to="/customercenter">
+          고객센터
         </MenuItem>
         <MenuItem onClick={logout} component={Link} to="/">
           로그아웃

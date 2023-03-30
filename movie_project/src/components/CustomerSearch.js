@@ -58,7 +58,7 @@ export default function PrimarySearchAppBar() {
           textAlign: "center",
           fontFamily: "helvetica",
           fontWeight: 1000,
-          margin: 2,
+          mb: 1,
         }}
       >
         고객 센터
