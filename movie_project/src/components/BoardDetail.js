@@ -6,6 +6,7 @@ import CustomizedButton from "./CustomizedButton";
 import { useNavigate } from "react-router-dom";
 import BoardPasswordCheck from "./BoardPasswordCheck";
 import React from "react";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 export default function BoardDetail() {
   const { id } = useParams();
@@ -32,11 +33,18 @@ export default function BoardDetail() {
   const goBack = () => {
     navigate("/board");
   };
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
 
+  let paddingTop = "200px";
+  if (isSmallScreen) {
+    paddingTop = "140px";
+  }
   return (
     <div>
       <StickyHeader />
-      <Container sx={{ paddingTop: "200px" }}>
+      <Container sx={{ paddingTop: { paddingTop } }}>
         <Paper sx={{ padding: "16px" }}>
           <Typography variant="h4" sx={{ fontWeight: "bold", mb: "16px" }}>
             {post && post.id === id ? post.title : "게시글을 찾을 수 없습니다."}
