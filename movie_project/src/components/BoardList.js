@@ -11,6 +11,7 @@ import StickyHeader from "./StickyHeader";
 import Container from "@mui/material/Container";
 import CustomizedButton from "./CustomizedButton";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useMediaQuery, useTheme } from "@mui/material";
 const columns = [
   { id: "id", label: "번호", minWidth: 10 },
   { id: "author", label: "작성자", minWidth: 10 },
@@ -121,9 +122,17 @@ export const posts = [
 ];
 
 export default function StickyHeadTable() {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [selectedPost, setSelectedPost] = React.useState(null); // 추가
+
+  let paddingTop = "200px";
+  if (isSmallScreen) {
+    paddingTop = "140px";
+  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -145,7 +154,7 @@ export default function StickyHeadTable() {
   return (
     <div>
       <StickyHeader />
-      <Container sx={{ paddingTop: "200px" }}>
+      <Container sx={{ paddingTop: { paddingTop } }}>
         <h2 style={{ display: "flex", alignItems: "center", color: "white" }}>
           <span style={{ marginRight: "auto" }}>문의하기</span>
           <CustomizedButton
