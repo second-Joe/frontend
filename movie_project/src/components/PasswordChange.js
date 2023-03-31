@@ -67,6 +67,7 @@ export default function PasswordChange({
   handlePwOpen,
   handlePwClose,
   setPasswordSearch,
+  email,
 }) {
   const [open, setOpen] = React.useState(openPwModal);
 
@@ -76,8 +77,25 @@ export default function PasswordChange({
     setOpen(false);
   };
 
-  const handleUpdate = () => {};
-  const handleRemove = () => {};
+  const handlePwUpdate = () => {
+    // axios
+    //   .post("/passwordUpdate", {
+    //     member_id: email,
+    //   })
+    //   .then((res) => {
+    //     console.log("passwordUpdate =>", res);
+    //     if (res === 1) {
+    //       handleClose2();
+    //       alert("업데이트 성공!");
+    //     } else {
+    //       alert("업데이트 실패!");
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.error(e);
+    //   });
+  };
+
   return (
     <div>
       <Modal
@@ -118,7 +136,7 @@ export default function PasswordChange({
               <CustomizedButton
                 label="확인"
                 value="updateDelete"
-                onClick={handleUpdate}
+                onClick={handlePwUpdate}
               ></CustomizedButton>
             </Box>
           </Box>

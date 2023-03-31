@@ -79,10 +79,10 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
   const [email, setEmail] = useState("");
   //email 상태값 업데이트
   const [emailError, setEmailError] = useState("");
-  const [passwordAnswer, setPasswordAnswer] = useState("");
-  const [pwAnsError, setPwAnsError] = useState("");
   const [passwordQuestion, setPasswordQuestion] = useState("");
   const [pwQError, setPwQError] = useState("");
+  const [passwordAnswer, setPasswordAnswer] = useState("");
+  const [pwAnsError, setPwAnsError] = useState("");
 
   const [passwordSearch, setPasswordSearch] = useState(false);
 
@@ -107,14 +107,15 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
     handlePwOpen();
     // axios
     //   .post("/passwordSearch", {
-    //     member_id: emailRef.current.value,
-    //     pw_question: pwQuestionRef.current.value,
-    //     pw_answer: pwAnswerRef.current.value,
+    //     member_id: email,
+    //     pw_question: passwordQuestion,
+    //     pw_answer: passwordAnswer,
     //   })
     //   .then((res) => {
     //     console.log("passwordSearch =>", res);
-    //     if (res !== null) {
-    //       setPasswordSearch(true);
+    //     if (res == 1) {
+    //        setPasswordSearch(true);
+    //        handlePwOpen();
     //     } else {
     //       alert("관련 정보 없음!");
     //     }
@@ -271,6 +272,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               ></CustomizedButton>
               {passwordSearch ? (
                 <PasswordChange
+                  email={email}
                   setPasswordSearch={setPasswordSearch}
                   openPwModal={openPwModal}
                   setOpenPwModal={setOpenPwModal}
