@@ -148,7 +148,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
       setPwQError("비밀번호 질문을 선택해주세요.");
     }
 
-    if (validEmail) {
+    if (validEmail && passwordAnswer !== "" && passwordQuestion !== "") {
       passwordSubmit();
     }
   };
