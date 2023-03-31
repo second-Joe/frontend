@@ -39,18 +39,6 @@ const MyPageBody = () => {
       });
   });
 
-  const [changeEmail, setChangeEmail] = useState(false);
-  const [changePw, setChangePw] = useState(false);
-  const [changePhone, setChangePhone] = useState(false);
-  const changeEmailInfo = () => {
-    setChangeEmail(true);
-  };
-  const changePwInfo = () => {
-    setChangePw(true);
-  };
-  const changePhoneInfo = () => {
-    setChangePhone(true);
-  };
   const [openEmailModal, setOpenEmailModal] = React.useState(false);
   const [openPwModal, setOpenPwModal] = React.useState(false);
   const [openPhoneModal, setOpenPhoneModal] = React.useState(false);

@@ -8,6 +8,7 @@ import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
 import CustomizedButton from "./CustomizedButton";
 import axios from "axios";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -67,31 +68,74 @@ export default function EmailChange({ openModal, handleOpen, handleClose }) {
   const [open, setOpen] = React.useState(openModal);
   const [newEmail, setNewEmail] = React.useState("");
   const [email, setEmail] = React.useState(window.sessionStorage.getItem("id"));
+
+  const [idError, setIdError] = React.useState("");
+
   const handleClose2 = () => {
     handleClose();
     setOpen(false);
   };
+  const isValidId = (id) => {
+    const idRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return idRegex.test(id);
+    // 이메일 주소의 유효성을 검사하는 코드를 작성한다.
+    // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
+  };
+
+  const handleIdChange = (event) => {};
+
+  const idDuplicateCheck = () => {
+    if (newEmail !== "") {
+      axios
+        .post("/idDuplicateCheck", {
+          member_id: newEmail,
+        })
+        .then((res) => {
+          console.log("idDuplicateCheck =>", res);
+          if (res.data === 1) {
+            setIdError("아이디가 중복됩니다.");
+            return false;
+          } else {
+            setIdError("사용가능한 아이디입니다.");
+            return true;
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    } else {
+      setIdError("아이디를 입력하세요.");
+    }
+  };
 
   const handleUpdate = () => {
-    axios
-      .post("/emailUpdate", {
-        member_id: email,
-        member_new_id: newEmail,
-      })
-      .then((res) => {
-        console.log("emailUpdate =>", res);
-        if (res.data === 1) {
-          handleClose2();
-          alert("이메일 주소 업데이트 성공!");
-          window.sessionStorage.setItem("id", newEmail);
-        } else {
-          handleClose2();
-          alert("이메일 주소 업데이트 실패!");
-        }
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    idDuplicateCheck();
+    if (idError === "") {
+      alert("아이디 중복확인 해주세요.");
+      return false;
+    } else if (idError === "아이디가 중복됩니다.") {
+      return false;
+    } else {
+      axios
+        .post("/emailUpdate", {
+          member_id: email,
+          member_new_id: newEmail,
+        })
+        .then((res) => {
+          console.log("emailUpdate =>", res);
+          if (res.data === 1) {
+            handleClose2();
+            alert("이메일 주소 업데이트 성공!");
+            window.sessionStorage.setItem("id", newEmail);
+          } else {
+            handleClose2();
+            alert("이메일 주소 업데이트 실패!");
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    }
   };
 
   return (
@@ -127,11 +171,18 @@ export default function EmailChange({ openModal, handleOpen, handleClose }) {
               >
                 이메일 주소 입력
               </Typography>
-              <OutlinedTextField
-                value={newEmail}
-                onChange={setNewEmail}
-                label="변경할 이메일 주소를 입력해주세요"
-              />
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <OutlinedTextField
+                  value={newEmail}
+                  onChange={setNewEmail}
+                  isValidId={isValidId}
+                  setIdError={setIdError}
+                  label="변경할 이메일 주소를 입력해주세요"
+                />
+                <FormHelperText sx={{ mt: -2, fontSize: "1em", color: "red" }}>
+                  {idError}
+                </FormHelperText>
+              </Box>
             </Box>
 
             <Box sx={{ ml: 60 }}>

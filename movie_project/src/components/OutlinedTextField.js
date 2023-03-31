@@ -19,10 +19,20 @@ import { useRef } from "react";
 //   return <FormHelperText>{helperText}</FormHelperText>;
 // }
 
-export default function OutlinedTextField({ label, ref1, value, onChange }) {
+export default function OutlinedTextField({
+  label,
+  ref1,
+  value,
+  onChange,
+  setIdError,
+  isValidId,
+}) {
   const changeVal = (e) => {
     // console.log(e.target.value);
     onChange(e.target.value);
+    setIdError(
+      isValidId(e.target.value) ? "" : "정확한 이메일 주소를 입력해주세요."
+    );
   };
 
   return (
