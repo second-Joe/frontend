@@ -66,7 +66,6 @@ export default function EmailChange({
   openModal,
   handleOpen,
   handleClose,
-  value,
   email,
 }) {
   const [open, setOpen] = React.useState(openModal);
@@ -97,8 +96,6 @@ export default function EmailChange({
     //   });
   };
 
-  const [val, setVal] = React.useState(value);
-  let label = `변경할 ${val}를 입력해주세요`;
   return (
     <div>
       <Modal
@@ -122,8 +119,8 @@ export default function EmailChange({
               variant="h5"
               component="h2"
             >
-              {console.log(value)}
-              {val} 변경하기
+              {console.log(newEmail)}
+              이메일 주소 변경하기
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Typography
@@ -131,12 +128,12 @@ export default function EmailChange({
                 variant="h10"
                 component="h4"
               >
-                {val} 입력
+                이메일 주소 입력
               </Typography>
               <OutlinedTextField
                 value={newEmail}
                 onChange={setNewEmail}
-                label={label}
+                label="변경할 이메일 주소를 입력해주세요"
               />
             </Box>
 
