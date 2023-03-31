@@ -76,8 +76,25 @@ export default function EmailChange({
     setOpen(false);
   };
 
-  const handleUpdate = () => {};
-  const handleRemove = () => {};
+  const handleUpdate = () => {
+    // axios
+    //   .post("/emailUpdate", {
+    //     member_id: email,
+    //   })
+    //   .then((res) => {
+    //     console.log("emailUpdate =>", res);
+    //     if (res === 1) {
+    //       handleClose2();
+    //       alert("이메일 주소 업데이트 성공!");
+    //     } else {
+    //       alert("이메일 주소 업데이트 실패!");
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.error(e);
+    //   });
+  };
+
   const [val, setVal] = React.useState(value);
   let label = `변경할 ${val}를 입력해주세요`;
   return (

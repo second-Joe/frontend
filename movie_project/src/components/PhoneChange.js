@@ -62,7 +62,12 @@ const style = {
   p: 4,
 };
 
-export default function PhoneChange({ openModal, handleOpen, handleClose }) {
+export default function PhoneChange({
+  openModal,
+  handleOpen,
+  handleClose,
+  email,
+}) {
   const [open, setOpen] = React.useState(openModal);
 
   const handleClose2 = () => {
@@ -70,7 +75,24 @@ export default function PhoneChange({ openModal, handleOpen, handleClose }) {
     handleClose();
   };
 
-  const handleUpdate = () => {};
+  const handleUpdate = () => {
+    // axios
+    //   .post("/phoneUpdate", {
+    //     member_id: email,
+    //   })
+    //   .then((res) => {
+    //     console.log("passwordUpdate =>", res);
+    //     if (res === 1) {
+    //       handleClose2();
+    //       alert("휴대폰 번호 업데이트 성공!");
+    //     } else {
+    //       alert("휴대폰 번호 업데이트 실패!");
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.error(e);
+    //   });
+  };
   const handleRemove = () => {};
   return (
     <div>

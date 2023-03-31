@@ -86,9 +86,9 @@ export default function PasswordChange({
     //     console.log("passwordUpdate =>", res);
     //     if (res === 1) {
     //       handleClose2();
-    //       alert("업데이트 성공!");
+    //       alert("비밀번호 업데이트 성공!");
     //     } else {
-    //       alert("업데이트 실패!");
+    //       alert("비밀번호 업데이트 실패!");
     //     }
     //   })
     //   .catch((e) => {
