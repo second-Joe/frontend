@@ -20,13 +20,18 @@ import { useRef } from "react";
 // }
 
 export default function OutlinedTextField({ label, ref1, value, onChange }) {
+  const changeVal = (e) => {
+    console.log(e.target.value);
+    onChange(e.target.value);
+  };
+
   return (
     <Box component="form" noValidate autoComplete="off">
       <FormControl sx={{ width: 360, mb: 3 }}>
         <OutlinedInput
           required
           ref={ref1}
-          onChange={onChange}
+          onChange={changeVal}
           value={value}
           inputProps={{ style: { color: "white" } }}
           InputLabelProps={{ style: { color: "white" } }}

@@ -10,6 +10,7 @@ import CustomizedButton from "./CustomizedButton";
 import { useState } from "react";
 import { TextField } from "@mui/material";
 import FormHelperText from "@mui/material/FormHelperText";
+import axios from "axios";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -236,52 +237,52 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
 
   const loginSubmit = (e) => {
     if (loginCheck()) {
-      // axios
-      //   .post("/insertMember", {
-      //     member_id: id,
-      //     member_pw: password,
-      //     member_name: name,
-      //     member_tel: tel,
-      //     member_addr: addr,
-      //     pw_question:passwordQuestion,
-      //     pw_answer:pwCheck
-      //   })
-      //   .then((res) => {
-      //     console.log("insertMember =>", res);
-      //     if (res == 1) {
-      //        alert("회원가입 성공!");
-      //        handleClose2();
-      //     } else {
-      //       alert("회원가입 실패!");
-      //     }
-      //   })
-      //   .catch((e) => {
-      //     console.error(e);
-      //   });
+      axios
+        .post("/insertMember", {
+          member_id: id,
+          member_pw: password,
+          member_name: name,
+          member_tel: tel,
+          member_addr: addr,
+          pw_question: passwordQuestion,
+          pw_answer: pwCheck,
+        })
+        .then((res) => {
+          console.log("insertMember =>", res);
+          if (res === 1) {
+            alert("회원가입 성공!");
+            handleClose2();
+          } else {
+            alert("회원가입 실패!");
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
     }
   };
 
   const idDuplicateCheck = () => {
-    // let check = false;
-    // axios
-    //   .post("/idDuplicateCheck", {
-    //     member_id: id
-    //   })
-    //   .then((res) => {
-    //     console.log("idDuplicateCheck =>", res);
-    //     if (res == 1) {
-    //        alert("아이디가 중복됩니다.");
-    //        setIdError("아이디가 중복됩니다.");
-    //        check = false;
-    //     } else {
-    //       alert("가입 가능한 아이디입니다.");
-    //       check= true;
-    //     }
-    //     return check;
-    //   })
-    //   .catch((e) => {
-    //     console.error(e);
-    //   });
+    let check = false;
+    axios
+      .post("/idDuplicateCheck", {
+        member_id: id,
+      })
+      .then((res) => {
+        console.log("idDuplicateCheck =>", res);
+        if (res === 1) {
+          alert("아이디가 중복됩니다.");
+          setIdError("아이디가 중복됩니다.");
+          check = false;
+        } else {
+          alert("가입 가능한 아이디입니다.");
+          check = true;
+        }
+        return check;
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
   return (
     <div>

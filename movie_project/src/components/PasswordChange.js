@@ -70,6 +70,7 @@ export default function PasswordChange({
   email,
 }) {
   const [open, setOpen] = React.useState(openPwModal);
+  const [newPw, setNewPw] = React.useState("");
 
   const handleClose2 = () => {
     setPasswordSearch(false);
@@ -81,6 +82,7 @@ export default function PasswordChange({
     // axios
     //   .post("/passwordUpdate", {
     //     member_id: email,
+    //     member_new_pw: newPw
     //   })
     //   .then((res) => {
     //     console.log("passwordUpdate =>", res);
@@ -129,7 +131,11 @@ export default function PasswordChange({
               >
                 비밀번호 입력
               </Typography>
-              <OutlinedTextField label="변경할 비밀번호를 입력해주세요" />
+              <OutlinedTextField
+                value={newPw}
+                onChange={setNewPw}
+                label="변경할 비밀번호를 입력해주세요"
+              />
             </Box>
 
             <Box sx={{ ml: 60 }}>

@@ -69,6 +69,7 @@ export default function PhoneChange({
   email,
 }) {
   const [open, setOpen] = React.useState(openModal);
+  const [newTel, setNewTel] = React.useState("");
 
   const handleClose2 = () => {
     setOpen(false);

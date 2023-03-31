@@ -70,6 +70,7 @@ export default function EmailChange({
   email,
 }) {
   const [open, setOpen] = React.useState(openModal);
+  const [newEmail, setNewEmail] = React.useState("");
 
   const handleClose2 = () => {
     handleClose();
@@ -80,6 +81,7 @@ export default function EmailChange({
     // axios
     //   .post("/emailUpdate", {
     //     member_id: email,
+    //     member_new_id:
     //   })
     //   .then((res) => {
     //     console.log("emailUpdate =>", res);

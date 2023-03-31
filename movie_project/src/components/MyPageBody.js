@@ -15,6 +15,8 @@ import PhoneChange from "./PhoneChange";
 const MyPageBody = () => {
   const [passwordSearch, setPasswordSearch] = useState(false);
   const [email, setEmail] = useState(window.sessionStorage.getItem("id"));
+  const [tel, setTel] = useState("");
+  const [pw, setPw] = useState("");
   const [response, setResponse] = useState({});
 
   useEffect(() => {
@@ -25,7 +27,8 @@ const MyPageBody = () => {
     //   .then((res) => {
     //     console.log("selectMember =>", res);
     //     if (res === 1) {
-    //       setResponse(res);
+    //       setTel(res.data.member_tel);
+    //       setPw(res.data.member_pw);
     //       alert("정보 확인 성공!");
     //     } else {
     //       alert("정보 확인 실패!");
@@ -83,7 +86,7 @@ const MyPageBody = () => {
         <Grid item xs={9} sx={{ direction: "column" }}>
           <Grid container>
             <Grid item xs={8} sx={{ pl: 2, pt: 3, color: "gray" }}>
-              이메일 주소: {response.data.member_id}
+              이메일 주소 : {email}
             </Grid>
             <Grid item xs={2} sx={{ p: 2 }}>
               <Box sx={{ width: 200 }}>
@@ -105,7 +108,7 @@ const MyPageBody = () => {
               </Box>
             </Grid>
             <Grid item xs={8} sx={{ pl: 2, pt: 3, color: "gray" }}>
-              비밀번호: {response.data.member_pw}
+              비밀번호 : {pw}
             </Grid>
             <Grid item xs={2} sx={{ p: 2 }}>
               <Box sx={{ width: "200%" }}>
@@ -128,7 +131,7 @@ const MyPageBody = () => {
               </Box>
             </Grid>
             <Grid item xs={8} sx={{ pl: 2, pt: 3, color: "gray" }}>
-              휴대폰 번호 : {response.data.member_tel}
+              휴대폰 번호 : {tel}
             </Grid>
             <Grid item xs={3} sx={{ p: 2 }}>
               <Box sx={{ width: 200, mb: 2 }}>
