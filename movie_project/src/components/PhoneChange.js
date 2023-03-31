@@ -81,7 +81,7 @@ export default function PhoneChange({
   };
   const isValidatePhone = () => {
     const phoneRegex = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
-    return phoneRegex.test(newTel);
+    return phoneRegex.test(newTel.slice(0, 13));
   };
 
   const handleUpdate = () => {

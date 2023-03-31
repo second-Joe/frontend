@@ -116,7 +116,8 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   };
 
   const isValidId = (id) => {
-    const idRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const idRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     return idRegex.test(id);
     // 이메일 주소의 유효성을 검사하는 코드를 작성한다.
     // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
@@ -127,6 +128,10 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     // 패스워드의 유효성을 검사하는 코드를 작성한다.
     // 유효한 패스워드인 경우 true, 그렇지 않은 경우 false를 반환한다.
   };
+  const isValidatePhone = (tel) => {
+    const phoneRegex = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+    return phoneRegex.test(tel.slice(0, 13));
+  };
 
   const handleIdChange = (event) => {
     setId(event.target.value);
@@ -134,6 +139,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     setIdError(
       isValidId(event.target.value) ? "" : "정확한 이메일 주소를 입력해주세요."
     );
+    if (event.target.value === "") {
+      setIdError("이메일을 입력하세요");
+    }
   };
 
   const handlePasswordChange = (event) => {
@@ -144,12 +152,17 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
         ? ""
         : "비밀번호는 4~20자 사이여야 합니다."
     );
+    if (event.target.value === "") {
+      setPasswordError("비밀번호를 입력하세요");
+    }
   };
 
   const handleAddrChange = (event) => {
     setAddr(event.target.value);
     if (event.target.value !== "") {
       setAddrError("");
+    } else {
+      setAddrError("주소를 입력하세요");
     }
   };
 
@@ -157,6 +170,8 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     setName(event.target.value);
     if (event.target.value !== "") {
       setNameError("");
+    } else {
+      setNameError("이름을 입력하세요");
     }
   };
 
@@ -166,15 +181,24 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
         .replace(/[^0-9]/g, "")
         .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})(\d{0,1})$/g, "$1-$2-$3")
         .replace(/(\-{1,2})$/g, "")
+        .slice(0, 13)
     );
-    if (event.target.value !== "") {
-      setTelError("");
+    console.log(event.target.value);
+    setTelError(
+      isValidatePhone(event.target.value)
+        ? ""
+        : "올바른 휴대폰 번호를 입력하세요."
+    );
+    if (event.target.value === "") {
+      setTelError("휴대폰 번호를 입력하세요");
     }
   };
   const handlePwCheckChange = (event) => {
     setPwCheck(event.target.value);
     if (event.target.value !== "") {
       setPwCheckError("");
+    } else {
+      setPwCheckError("비밀번호 찾기 답을 입력하세요");
     }
   };
 
@@ -193,8 +217,14 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
       check = false;
     }
 
-    let validId = /\S+@\S+.\S+/.test(id);
+    let validId =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(
+        id
+      );
     let validPassword = password.length >= 4 && password.length <= 20;
+    let validTel = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/.test(
+      tel.slice(0, 13)
+    );
     if (!id) {
       setIdError("이메일을 입력해주세요.");
       check = false;
@@ -218,8 +248,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     if (!tel) {
       setTelError("전화번호를 입력해주세요.");
       check = false;
-    } else {
-      setTelError("");
+    } else if (!validTel) {
+      setTelError("올바른 휴대폰 번호를 입력하세요.");
+      check = false;
     }
     if (!addr) {
       setAddrError("주소를 입력해주세요.");
@@ -272,23 +303,27 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
 
   const idDuplicateCheck = () => {
     if (id !== "") {
-      axios
-        .post("/idDuplicateCheck", {
-          member_id: id,
-        })
-        .then((res) => {
-          console.log("idDuplicateCheck =>", res);
-          if (res.data === 1) {
-            setIdError("아이디가 중복됩니다.");
-            return false;
-          } else {
-            setIdError("사용가능한 아이디입니다.");
-            return true;
-          }
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+      if (isValidId(id)) {
+        axios
+          .post("/idDuplicateCheck", {
+            member_id: id,
+          })
+          .then((res) => {
+            console.log("idDuplicateCheck =>", res);
+            if (res.data === 1) {
+              setIdError("아이디가 중복됩니다.");
+              return false;
+            } else {
+              setIdError("사용가능한 아이디입니다.");
+              return true;
+            }
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      } else {
+        setIdError("정확한 이메일 주소를 입력해주세요.");
+      }
     } else {
       setIdError("아이디를 입력하세요.");
     }
