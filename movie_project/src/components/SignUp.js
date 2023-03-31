@@ -97,12 +97,14 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   const [pwCheck, setPwCheck] = useState("");
   const [password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
+  const [passwordQuestion, setPasswordQuestion] = useState("");
   const [idError, setIdError] = useState("");
   const [nameError, setNameError] = useState("");
   const [addrError, setAddrError] = useState("");
   const [pwCheckError, setPwCheckError] = useState("");
   const [telError, setTelError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [pwQError, setPwQError] = useState("");
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
   };
@@ -143,10 +145,16 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
 
   const handleAddrChange = (event) => {
     setAddr(event.target.value);
+    if (event.target.value !== "") {
+      setAddrError("");
+    }
   };
 
   const handleNameChange = (event) => {
     setName(event.target.value);
+    if (event.target.value !== "") {
+      setNameError("");
+    }
   };
 
   const handleTelChange = (event) => {
@@ -156,15 +164,18 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
         .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})(\d{0,1})$/g, "$1-$2-$3")
         .replace(/(\-{1,2})$/g, "")
     );
-    console.log(event.target.value);
-    console.log("a" + tel);
+    if (event.target.value !== "") {
+      setTelError("");
+    }
   };
   const handlePwCheckChange = (event) => {
     setPwCheck(event.target.value);
+    if (event.target.value !== "") {
+      setPwCheckError("");
+    }
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
 
+  const loginCheck = (event) => {
     if (password !== ConfirmPassword) {
       return alert("비밀번호와 비밀번호 확인이 같지 않습니다.");
     }
@@ -180,6 +191,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
       setPasswordError("비밀번호를 입력해주세요.");
     } else if (!validPassword) {
       setPasswordError("비밀번호는 4~20자 사이여야 합니다.");
+      return false;
     }
     if (!name) {
       setNameError("이름을 입력해주세요.");
@@ -196,10 +208,45 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     } else {
       setAddrError("");
     }
+    if (!passwordQuestion) {
+      setPwQError("비밀번호 질문을 선택해주세요.");
+    } else {
+      setPwQError("");
+    }
     if (!pwCheck) {
       setPwCheckError("비밀번호 확인 답변을 입력해주세요.");
     } else {
       setPwCheckError("");
+    }
+    return true;
+  };
+
+  const loginSubmit = (e) => {
+    if (loginCheck()) {
+      // axios
+      //   .post("/insertMember", {
+      //     member_id: id,
+      //     member_pw: pw,
+      //     member_name: name,
+      //     member_tel: tel,
+      //     member_addr: addr,
+      //     pw_question:
+      //     pw_answer:
+      //     pw_question: passwordQuestion,
+      //     pw_answer: passwordAnswer,
+      //   })
+      //   .then((res) => {
+      //     console.log("passwordSearch =>", res);
+      //     if (res == 1) {
+      //        setPasswordSearch(true);
+      //        handlePwOpen();
+      //     } else {
+      //       alert("관련 정보 없음!");
+      //     }
+      //   })
+      //   .catch((e) => {
+      //     console.error(e);
+      //   });
     }
   };
   return (
@@ -290,6 +337,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 type="password"
                 value={password}
                 onChange={handlePasswordChange}
+                setPwQError={setPwQError}
+                passwordQuestion={passwordQuestion}
+                setPasswordQuestion={setPasswordQuestion}
                 required
                 inputProps={{ style: { color: "white" } }}
                 InputLabelProps={{ style: { color: "white" } }}
@@ -377,7 +427,10 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
 
               <FormHelperText sx={{ color: "red" }}>{addrError}</FormHelperText>
             </Box>
-            <Box sx={inputFormStyle} style={{ height: "73.6px" }}>
+            <Box
+              sx={inputFormStyle}
+              style={{ marginTop: "2px", height: "92px" }}
+            >
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -385,7 +438,14 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               >
                 비밀번호 찾기 질문
               </Typography>
-              <SelectInput question={question} setQuestion={setQuestion} />
+              <SelectInput
+                setPwQError={setPwQError}
+                passwordQuestion={passwordQuestion}
+                setPasswordQuestion={setPasswordQuestion}
+              />
+              <FormHelperText sx={{ color: "red", mt: -3, mb: 3 }}>
+                {pwQError}
+              </FormHelperText>
             </Box>
             <Box sx={inputFormStyle}>
               <Typography
@@ -412,7 +472,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
             <Box sx={{ mx: "auto", width: 100, marginTop: "15px" }}>
               <CustomizedButton
                 label="회원가입"
-                onClick={handleSubmit}
+                onClick={loginSubmit}
               ></CustomizedButton>
             </Box>
           </Box>
