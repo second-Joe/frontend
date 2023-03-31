@@ -3,6 +3,7 @@ import FormControl, { useFormControl } from "@mui/material/FormControl";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Box from "@mui/material/Box";
 import FormHelperText from "@mui/material/FormHelperText";
+import { useRef } from "react";
 
 // function MyFormHelperText() {
 //   const { focused } = useFormControl() || {};
@@ -18,12 +19,15 @@ import FormHelperText from "@mui/material/FormHelperText";
 //   return <FormHelperText>{helperText}</FormHelperText>;
 // }
 
-export default function OutlinedTextField({ label }) {
+export default function OutlinedTextField({ label, ref1, value, onChange }) {
   return (
     <Box component="form" noValidate autoComplete="off">
       <FormControl sx={{ width: 360, mb: 3 }}>
         <OutlinedInput
           required
+          ref={ref1}
+          onChange={onChange}
+          value={value}
           inputProps={{ style: { color: "white" } }}
           InputLabelProps={{ style: { color: "white" } }}
           sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}

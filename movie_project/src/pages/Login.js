@@ -26,6 +26,7 @@ function Login() {
   //password 상태값 업데이트
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
   const isValidEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
@@ -75,7 +76,7 @@ function Login() {
       setPasswordError("비밀번호를 입력해주세요.");
       pwRef.current.focus();
     } else if (!validPassword) {
-      setPasswordError("비밀번호는 4~60자 사이여야 합니다.");
+      setPasswordError("비밀번호는 4~20자 사이여야 합니다.");
       pwRef.current.focus();
     }
     if (validEmail && validPassword) {
@@ -84,23 +85,23 @@ function Login() {
   };
 
   const handleLogin = () => {
-    axios
-      .post("/login", {
-        member_id: emailRef.current.value,
-        member_pw: pwRef.current.value,
-      })
-      .then((res) => {
-        // console.log("handleLogin =>", res);
-        if (res.data === 1) {
-          window.sessionStorage.setItem("id", emailRef.current.value);
-          navigate("/login");
-        } else {
-          navigate("/");
-        }
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    // axios
+    //   .post("/login", {
+    //     member_id: emailRef.current.value,
+    //     member_pw: pwRef.current.value,
+    //   })
+    //   .then((res) => {
+    //     // console.log("handleLogin =>", res);
+    //     if (res.data === 1) {
+    //       window.sessionStorage.setItem("id", emailRef.current.value);
+    //       navigate("/login");
+    //     } else {
+    //       navigate("/");
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.error(e);
+    //   });
   };
 
   const [openModal, setOpenModal] = React.useState(false);

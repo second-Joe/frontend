@@ -56,6 +56,8 @@ Fade.propTypes = {
 
 const style = {
   position: "absolute",
+  display: "flex",
+  flexDirection: "column",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -67,23 +69,19 @@ const style = {
   p: 4,
 };
 
-export default function PasswordCheck({
-  openModal,
-  handleOpen,
-  handleClose,
-  handleEmailChange,
-  isValidEmail,
-}) {
+export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
   const emailRef = useRef();
   const pwQuestionRef = useRef();
   const pwAnswerRef = useRef();
 
   const [open, setOpen] = React.useState(openModal);
   const [question, setQuestion] = React.useState("");
+
   const [email, setEmail] = useState("");
   //email 상태값 업데이트
   const [emailError, setEmailError] = useState("");
-  const [passwordSearch, setPasswordSearch] = useState(false);
+
+  const [passwordSearch, setPasswordSearch] = useState(true);
   const [openPwModal, setOpenPwModal] = React.useState(false);
 
   const handlePwOpen = () => {
@@ -99,28 +97,34 @@ export default function PasswordCheck({
   };
 
   const passwordSubmit = () => {
-    axios
-      .post("/passwordSearch", {
-        member_id: emailRef.current.value,
-        pw_question: pwQuestionRef.current.value,
-        pw_answer: pwAnswerRef.current.value,
-      })
-      .then((res) => {
-        console.log("passwordSearch =>", res);
-        if (res !== null) {
-          setPasswordSearch(true);
-        } else {
-          alert("관련 정보 없음!");
-        }
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    // axios
+    //   .post("/passwordSearch", {
+    //     member_id: emailRef.current.value,
+    //     pw_question: pwQuestionRef.current.value,
+    //     pw_answer: pwAnswerRef.current.value,
+    //   })
+    //   .then((res) => {
+    //     console.log("passwordSearch =>", res);
+    //     if (res !== null) {
+    //       setPasswordSearch(true);
+    //     } else {
+    //       alert("관련 정보 없음!");
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.error(e);
+    //   });
+  };
+  const isValidEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+    // 이메일 주소의 유효성을 검사하는 코드를 작성한다.
+    // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
   };
 
-  const handlePsswordCheck = (event) => {
+  const handlePasswordCheck = (event) => {
     event.preventDefault();
-    let validEmail = /\S+@\S+.\S+/.test(emailRef.current.value);
+    let validEmail = /\S+@\S+.\S+/.test(email);
 
     if (!email) {
       setEmailError("이메일을 입력해주세요.");
@@ -133,6 +137,17 @@ export default function PasswordCheck({
     if (validEmail) {
       passwordSubmit();
     }
+  };
+  const handleEmailChange = (event) => {
+    console.log(event);
+    setEmail(event.target.value);
+    // setEmail 함수를 이용해 email 상태값을 업데이트한다.
+
+    setEmailError(
+      isValidEmail(event.target.value)
+        ? ""
+        : "정확한 이메일 주소를 입력해주세요."
+    );
   };
 
   return (
@@ -168,15 +183,17 @@ export default function PasswordCheck({
               >
                 이메일 주소
               </Typography>
-              <OutlinedTextField
-                ref={emailRef}
-                value={email}
-                onChange={handleEmailChange}
-                label="이메일 주소를 입력해주세요"
-              />
-              <FormHelperText sx={{ padding: "1px", color: "red" }}>
-                {emailError}
-              </FormHelperText>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <OutlinedTextField
+                  ref1={emailRef}
+                  value={email}
+                  onChange={handleEmailChange}
+                  label="이메일 주소를 입력해주세요"
+                />
+                <FormHelperText sx={{ mt: -3, mb: 2, color: "red" }}>
+                  {emailError}
+                </FormHelperText>
+              </Box>
             </Box>
             <Box sx={{ display: "flex" }}>
               <Typography
@@ -187,7 +204,7 @@ export default function PasswordCheck({
                 비밀번호 찾기 질문
               </Typography>
               <SelectInput
-                ref={pwQuestionRef}
+                ref1={pwQuestionRef}
                 question={question}
                 setQuestion={setQuestion}
               />
@@ -202,7 +219,7 @@ export default function PasswordCheck({
               </Typography>
 
               <OutlinedTextField
-                ref={pwAnswerRef}
+                ref1={pwAnswerRef}
                 label="비밀번호 찾기 질문에 대한 답을 입력해주세요"
               />
             </Box>
@@ -210,7 +227,7 @@ export default function PasswordCheck({
               <CustomizedButton
                 label="찾기"
                 value="passwordAnswer"
-                onClick={handlePsswordCheck}
+                onClick={handlePasswordCheck}
               ></CustomizedButton>
             </Box>
             {passwordSearch ? (
