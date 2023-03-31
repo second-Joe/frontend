@@ -11,6 +11,7 @@ import CustomizedButton from "./CustomizedButton";
 import { useRef, useState } from "react";
 import FormHelperText from "@mui/material/FormHelperText";
 import axios from "axios";
+import PasswordChange from "./PasswordChange";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -82,6 +83,15 @@ export default function PasswordCheck({
   const [email, setEmail] = useState("");
   //email 상태값 업데이트
   const [emailError, setEmailError] = useState("");
+  const [passwordSearch, setPasswordSearch] = useState(false);
+  const [openPwModal, setOpenPwModal] = React.useState(false);
+
+  const handlePwOpen = () => {
+    setOpenPwModal(true);
+  };
+  const handlePwClose = () => {
+    setOpenPwModal(false);
+  };
 
   const handleClose2 = () => {
     setOpen(false);
@@ -97,6 +107,11 @@ export default function PasswordCheck({
       })
       .then((res) => {
         console.log("passwordSearch =>", res);
+        if (res !== null) {
+          setPasswordSearch(true);
+        } else {
+          alert("관련 정보 없음!");
+        }
       })
       .catch((e) => {
         console.error(e);
@@ -119,6 +134,7 @@ export default function PasswordCheck({
       passwordSubmit();
     }
   };
+
   return (
     <div>
       <Modal
@@ -197,6 +213,14 @@ export default function PasswordCheck({
                 onClick={handlePsswordCheck}
               ></CustomizedButton>
             </Box>
+            {passwordSearch ? (
+              <PasswordChange
+                openModal={openPwModal}
+                setOpenModal={setOpenPwModal}
+                handleOpen={handlePwOpen}
+                handleClose={handlePwClose}
+              />
+            ) : null}
           </Box>
         </Fade>
       </Modal>
