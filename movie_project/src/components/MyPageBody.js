@@ -11,33 +11,33 @@ import OutlinedTextField from "./OutlinedTextField";
 import EmailChange from "./EmailChange";
 import PasswordChange from "./PasswordChange";
 import PhoneChange from "./PhoneChange";
+import axios from "axios";
 
 const MyPageBody = () => {
   const [passwordSearch, setPasswordSearch] = useState(false);
   const [email, setEmail] = useState(window.sessionStorage.getItem("id"));
   const [tel, setTel] = useState("");
   const [pw, setPw] = useState("");
-  const [response, setResponse] = useState({});
 
   useEffect(() => {
-    // axios
-    //   .post("/selectMember", {
-    //     member_id: email,
-    //   })
-    //   .then((res) => {
-    //     console.log("selectMember =>", res);
-    //     if (res === 1) {
-    //       setTel(res.data.member_tel);
-    //       setPw(res.data.member_pw);
-    //       alert("정보 확인 성공!");
-    //     } else {
-    //       alert("정보 확인 실패!");
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     console.error(e);
-    //   });
-  }, []);
+    axios
+      .post("/selectMember", {
+        member_id: email,
+      })
+      .then((res) => {
+        console.log("selectMember =>", res);
+        if (res.data !== null) {
+          setTel(res.data.member_tel);
+          setPw(res.data.member_pw);
+          // alert("정보 확인 성공!");
+        } else {
+          alert("정보 확인 실패!");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  });
 
   const [changeEmail, setChangeEmail] = useState(false);
   const [changePw, setChangePw] = useState(false);
