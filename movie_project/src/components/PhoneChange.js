@@ -8,6 +8,7 @@ import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
 import CustomizedButton from "./CustomizedButton";
 import axios from "axios";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -71,32 +72,41 @@ export default function PhoneChange({
 }) {
   const [open, setOpen] = React.useState(openModal);
   const [newTel, setNewTel] = React.useState("");
+  const [telError, setTelError] = React.useState("");
   const [email, setEmail] = React.useState(window.sessionStorage.getItem("id"));
 
   const handleClose2 = () => {
     setOpen(false);
     handleClose();
   };
+  const isValidatePhone = () => {
+    const phoneRegex = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+    return phoneRegex.test(newTel);
+  };
 
   const handleUpdate = () => {
-    axios
-      .post("/phoneUpdate", {
-        member_id: email,
-        member_tel: newTel,
-      })
-      .then((res) => {
-        console.log("phoneUpdate =>", res);
-        if (res.data === 1) {
-          handleClose2();
-          setTel(newTel);
-          alert("휴대폰 번호 업데이트 성공!");
-        } else {
-          alert("휴대폰 번호 업데이트 실패!");
-        }
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    if (isValidatePhone(newTel)) {
+      axios
+        .post("/phoneUpdate", {
+          member_id: email,
+          member_tel: newTel,
+        })
+        .then((res) => {
+          console.log("phoneUpdate =>", res);
+          if (res.data === 1) {
+            handleClose2();
+            setTel(newTel);
+            alert("휴대폰 번호 업데이트 성공!");
+          } else {
+            alert("휴대폰 번호 업데이트 실패!");
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    } else if (newTel === "") {
+      setTelError("전화번호를 입력해주세요.");
+    }
   };
 
   return (
@@ -132,13 +142,19 @@ export default function PhoneChange({
               >
                 휴대폰 번호 입력
               </Typography>
-              <OutlinedTextField
-                value={newTel}
-                onChange={setNewTel}
-                label="변경할 휴대폰 번호를 입력해주세요"
-              />
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <OutlinedTextField
+                  value={newTel}
+                  onChange={setNewTel}
+                  setTelError={setTelError}
+                  isValidatePhone={isValidatePhone}
+                  label="변경할 휴대폰 번호를 입력해주세요"
+                />
+                <FormHelperText sx={{ mt: -2, fontSize: "1em", color: "red" }}>
+                  {telError}
+                </FormHelperText>
+              </Box>
             </Box>
-
             <Box sx={{ ml: 60 }}>
               <CustomizedButton
                 label="확인"

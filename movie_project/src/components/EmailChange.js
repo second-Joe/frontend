@@ -89,8 +89,6 @@ export default function EmailChange({
     // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
   };
 
-  const handleIdChange = (event) => {};
-
   const idDuplicateCheck = () => {
     if (newEmail !== "") {
       axios
