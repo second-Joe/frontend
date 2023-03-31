@@ -106,8 +106,8 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   const [telError, setTelError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [pwQError, setPwQError] = useState("");
-  const [loginAvailable, setLoginAvailable] = useState(false);
-  const [idDuplicate, setIdDuplicate] = useState(false);
+  // const [loginAvailable, setLoginAvailable] = useState(false);
+  // const [idDuplicate, setIdDuplicate] = useState(false);
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
   };
@@ -184,12 +184,12 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
       alert("비밀번호와 비밀번호 확인이 같지 않습니다.");
       check = false;
     }
-    console.log(id);
+
     idDuplicateCheck();
-    console.log("idDuplicateCheck : " + idDuplicate);
-    if (idDuplicate) {
-      alert("아이디가 중복됩니다.");
-      setIdError("아이디가 중복됩니다.");
+    if (idError === "") {
+      alert("아이디 중복확인 해주세요.");
+      check = false;
+    } else if (idError === "아이디가 중복됩니다.") {
       check = false;
     }
 
@@ -244,7 +244,6 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   };
 
   const loginSubmit = (e) => {
-    console.log("loginCheck():" + loginCheck());
     if (loginCheck()) {
       axios
         .post("/insertMember", {
@@ -272,24 +271,27 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   };
 
   const idDuplicateCheck = () => {
-    axios
-      .post("/idDuplicateCheck", {
-        member_id: id,
-      })
-      .then((res) => {
-        console.log("idDuplicateCheck =>", res);
-        if (res.data === 1) {
-          alert("아이디가 중복됩니다.");
-          setIdError("아이디가 중복됩니다.");
-          setIdDuplicate(true);
-        } else {
-          alert("가입 가능한 아이디입니다.");
-          setIdDuplicate(false);
-        }
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    if (id !== "") {
+      axios
+        .post("/idDuplicateCheck", {
+          member_id: id,
+        })
+        .then((res) => {
+          console.log("idDuplicateCheck =>", res);
+          if (res.data === 1) {
+            setIdError("아이디가 중복됩니다.");
+            return false;
+          } else {
+            setIdError("사용가능한 아이디입니다.");
+            return true;
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    } else {
+      setIdError("아이디를 입력하세요.");
+    }
   };
   return (
     <div>
