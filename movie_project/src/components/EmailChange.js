@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
 import CustomizedButton from "./CustomizedButton";
+import axios from "axios";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -62,39 +63,35 @@ const style = {
   p: 4,
 };
 
-export default function EmailChange({
-  openModal,
-  handleOpen,
-  handleClose,
-  email,
-}) {
+export default function EmailChange({ openModal, handleOpen, handleClose }) {
   const [open, setOpen] = React.useState(openModal);
   const [newEmail, setNewEmail] = React.useState("");
-
+  const [email, setEmail] = React.useState(window.sessionStorage.getItem("id"));
   const handleClose2 = () => {
     handleClose();
     setOpen(false);
   };
 
   const handleUpdate = () => {
-    // axios
-    //   .post("/emailUpdate", {
-    //     member_id: email,
-    //     member_new_id: newEmail
-    //   })
-    //   .then((res) => {
-    //     console.log("emailUpdate =>", res);
-    //     if (res === 1) {
-    //       handleClose2();
-    //       alert("이메일 주소 업데이트 성공!");
-    //       window.sessionStorage.setItem("id",newEmail);
-    //     } else {
-    //       alert("이메일 주소 업데이트 실패!");
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     console.error(e);
-    //   });
+    axios
+      .post("/emailUpdate", {
+        member_id: email,
+        member_new_id: newEmail,
+      })
+      .then((res) => {
+        console.log("emailUpdate =>", res);
+        if (res.data === 1) {
+          handleClose2();
+          alert("이메일 주소 업데이트 성공!");
+          window.sessionStorage.setItem("id", newEmail);
+        } else {
+          handleClose2();
+          alert("이메일 주소 업데이트 실패!");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   return (
@@ -120,7 +117,6 @@ export default function EmailChange({
               variant="h5"
               component="h2"
             >
-              {console.log(newEmail)}
               이메일 주소 변경하기
             </Typography>
             <Box sx={{ display: "flex" }}>

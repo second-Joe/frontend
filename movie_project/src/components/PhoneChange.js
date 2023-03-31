@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
 import CustomizedButton from "./CustomizedButton";
+import axios from "axios";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -62,14 +63,10 @@ const style = {
   p: 4,
 };
 
-export default function PhoneChange({
-  openModal,
-  handleOpen,
-  handleClose,
-  email,
-}) {
+export default function PhoneChange({ openModal, handleOpen, handleClose }) {
   const [open, setOpen] = React.useState(openModal);
   const [newTel, setNewTel] = React.useState("");
+  const [email, setEmail] = React.useState(window.sessionStorage.getItem("id"));
 
   const handleClose2 = () => {
     setOpen(false);
@@ -77,25 +74,25 @@ export default function PhoneChange({
   };
 
   const handleUpdate = () => {
-    // axios
-    //   .post("/phoneUpdate", {
-    //     member_id: email,
-    //     member_tel: newTel
-    //   })
-    //   .then((res) => {
-    //     console.log("phoneUpdate =>", res);
-    //     if (res === 1) {
-    //       handleClose2();
-    //       alert("휴대폰 번호 업데이트 성공!");
-    //     } else {
-    //       alert("휴대폰 번호 업데이트 실패!");
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     console.error(e);
-    //   });
+    axios
+      .post("/phoneUpdate", {
+        member_id: email,
+        member_tel: newTel,
+      })
+      .then((res) => {
+        console.log("phoneUpdate =>", res);
+        if (res.data === 1) {
+          handleClose2();
+          alert("휴대폰 번호 업데이트 성공!");
+        } else {
+          alert("휴대폰 번호 업데이트 실패!");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
-  const handleRemove = () => {};
+
   return (
     <div>
       <Modal

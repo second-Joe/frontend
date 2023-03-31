@@ -21,7 +21,7 @@ import { useRef } from "react";
 
 export default function OutlinedTextField({ label, ref1, value, onChange }) {
   const changeVal = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     onChange(e.target.value);
   };
 

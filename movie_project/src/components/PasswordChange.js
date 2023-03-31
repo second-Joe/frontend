@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
 import CustomizedButton from "./CustomizedButton";
+import axios from "axios";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -67,11 +68,10 @@ export default function PasswordChange({
   handlePwOpen,
   handlePwClose,
   setPasswordSearch,
-  email,
 }) {
   const [open, setOpen] = React.useState(openPwModal);
   const [newPw, setNewPw] = React.useState("");
-
+  const [email, setEmail] = React.useState(window.sessionStorage.getItem("id"));
   const handleClose2 = () => {
     setPasswordSearch(false);
     handlePwClose();
@@ -79,23 +79,23 @@ export default function PasswordChange({
   };
 
   const handlePwUpdate = () => {
-    // axios
-    //   .post("/passwordUpdate", {
-    //     member_id: email,
-    //     member_pw: newPw
-    //   })
-    //   .then((res) => {
-    //     console.log("passwordUpdate =>", res);
-    //     if (res === 1) {
-    //       handleClose2();
-    //       alert("비밀번호 업데이트 성공!");
-    //     } else {
-    //       alert("비밀번호 업데이트 실패!");
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     console.error(e);
-    //   });
+    axios
+      .post("/passwordUpdate", {
+        member_id: email,
+        member_pw: newPw,
+      })
+      .then((res) => {
+        console.log("passwordUpdate =>", res);
+        if (res.data === 1) {
+          handleClose2();
+          alert("비밀번호 업데이트 성공!");
+        } else {
+          alert("비밀번호 업데이트 실패!");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   return (
