@@ -181,6 +181,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
       alert("비밀번호와 비밀번호 확인이 같지 않습니다.");
       check = false;
     }
+    if (!idDuplicateCheck) {
+      check = false;
+    }
 
     let validId = /\S+@\S+.\S+/.test(id);
     let validPassword = password.length >= 4 && password.length <= 20;
@@ -257,6 +260,29 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
       //   });
     }
   };
+
+  const idDuplicateCheck = () => {
+    // let check = false;
+    // axios
+    //   .post("/idDuplicateCheck", {
+    //     member_id: id
+    //   })
+    //   .then((res) => {
+    //     console.log("idDuplicateCheck =>", res);
+    //     if (res == 1) {
+    //        alert("아이디가 중복됩니다.");
+    //        setIdError("아이디가 중복됩니다.");
+    //        check = false;
+    //     } else {
+    //       alert("가입 가능한 아이디입니다.");
+    //       check= true;
+    //     }
+    //     return check;
+    //   })
+    //   .catch((e) => {
+    //     console.error(e);
+    //   });
+  };
   return (
     <div>
       <Modal
@@ -326,6 +352,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 <CustomizedButton
                   label="중복확인"
                   value="check"
+                  onClick={idDuplicateCheck}
                 ></CustomizedButton>
               </div>
               <FormHelperText sx={{ padding: "1px", color: "red" }}>
