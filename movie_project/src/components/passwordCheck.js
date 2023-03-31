@@ -75,11 +75,14 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
   const pwAnswerRef = useRef();
 
   const [open, setOpen] = React.useState(openModal);
-  const [question, setQuestion] = React.useState("");
 
   const [email, setEmail] = useState("");
   //email 상태값 업데이트
   const [emailError, setEmailError] = useState("");
+  const [passwordAnswer, setPasswordAnswer] = useState("");
+  const [pwAnsError, setPwAnsError] = useState("");
+  const [passwordQuestion, setPasswordQuestion] = useState("");
+  const [pwQError, setPwQError] = useState("");
 
   const [passwordSearch, setPasswordSearch] = useState(false);
 
@@ -138,6 +141,12 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
       setEmailError("정확한 이메일 주소를 입력해주세요.");
       emailRef.current.focus();
     }
+    if (passwordAnswer === "") {
+      setPwAnsError("비밀번호 질문에 대한 답을 입력해주세요.");
+    }
+    if (passwordQuestion === "") {
+      setPwQError("비밀번호 질문을 선택해주세요.");
+    }
 
     if (validEmail) {
       passwordSubmit();
@@ -153,6 +162,18 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
         ? ""
         : "정확한 이메일 주소를 입력해주세요."
     );
+  };
+
+  const handlePwAnsChange = (event) => {
+    console.log(event);
+    setPasswordAnswer(event.target.value);
+    // setEmail 함수를 이용해 email 상태값을 업데이트한다.
+
+    if (event.target.value === "") {
+      setPwAnsError("비밀번호 질문에 대한 답을 입력해주세요.");
+    } else {
+      setPwAnsError("");
+    }
   };
 
   return (
@@ -190,6 +211,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <OutlinedTextField
+                  required
                   ref1={emailRef}
                   value={email}
                   onChange={handleEmailChange}
@@ -208,11 +230,18 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               >
                 비밀번호 찾기 질문
               </Typography>
-              <SelectInput
-                ref1={pwQuestionRef}
-                question={question}
-                setQuestion={setQuestion}
-              />
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <SelectInput
+                  required
+                  ref1={pwQuestionRef}
+                  setPwQError={setPwQError}
+                  passwordQuestion={passwordQuestion}
+                  setPasswordQuestion={setPasswordQuestion}
+                />
+                <FormHelperText sx={{ mt: -3, mb: 2, color: "red" }}>
+                  {pwQError}
+                </FormHelperText>
+              </Box>
             </Box>
             <Box sx={{ display: "flex" }}>
               <Typography
@@ -222,11 +251,17 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               >
                 비밀번호 찾기 답변
               </Typography>
-
-              <OutlinedTextField
-                ref1={pwAnswerRef}
-                label="비밀번호 찾기 질문에 대한 답을 입력해주세요"
-              />
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <OutlinedTextField
+                  required
+                  ref1={pwAnswerRef}
+                  onChange={handlePwAnsChange}
+                  label="비밀번호 찾기 질문에 대한 답을 입력해주세요"
+                />
+                <FormHelperText sx={{ mt: -3, mb: 2, color: "red" }}>
+                  {pwAnsError}
+                </FormHelperText>
+              </Box>
             </Box>
             <Box sx={{ mx: "auto", width: 50 }}>
               <CustomizedButton
