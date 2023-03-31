@@ -167,6 +167,7 @@ function Login() {
           value={email}
           onChange={handleEmailChange}
           // 이메일 주소 입력란의 값이 변경될때마다 이 함수가 호출됨
+          ref={emailRef}
         />
         <FormHelperText sx={{ padding: "1px", color: "red" }}>
           {emailError}
@@ -184,6 +185,7 @@ function Login() {
           sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
           value={password}
           onChange={handlePasswordChange}
+          ref={pwRef}
         />
 
         <FormHelperText sx={{ color: "red" }}>{passwordError}</FormHelperText>
