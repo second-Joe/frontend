@@ -1,16 +1,16 @@
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
-import Grid from "@mui/material/Grid";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { useMediaQuery, useTheme } from "@mui/material";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import React, { useState, useLayoutEffect } from "react";
+import Grid from "@mui/material/Grid";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-import YouTube from "react-youtube";
 import axios from "axios";
-import { useMediaQuery, useTheme } from "@mui/material";
+import React, { useLayoutEffect, useState } from "react";
+import YouTube from "react-youtube";
 
 function Banner_data({
   id,
@@ -86,7 +86,7 @@ function Banner_data({
         movie_title: title,
       })
       .then((res) => {
-        setIsChecked(res.data?.length ? false : true);
+        setIsChecked(res.data?.length ? true : false);
         console.log("Res ", res);
         console.log("Res.data ", res.data);
       })
@@ -98,8 +98,20 @@ function Banner_data({
   const handlelike = () => {
     console.log("ischecked" + ischecked);
     if (ischecked) {
-      console.log("db에 없을때");
+      console.log("isChecked가 true일때");
       setIsChecked(false);
+      axios
+        .post("/favmovie/delete", {
+          movie_title: title,
+        })
+        .then((res) => {
+          alert("찜하기 취소!!!");
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    } else {
+      console.log("isChecked false일때 ");
       axios
         .post("/favmovie/insert", {
           movie_title: title,
@@ -114,19 +126,7 @@ function Banner_data({
           console.error(e);
           console.log("3" + title);
         });
-    } else {
-      console.log("db에 있을때");
       setIsChecked(true);
-      axios
-        .post("/favmovie/delete", {
-          movie_title: title,
-        })
-        .then((res) => {
-          alert("찜하기 취소!!!");
-        })
-        .catch((e) => {
-          console.error(e);
-        });
     }
   };
 
@@ -166,23 +166,13 @@ function Banner_data({
             }}
           >
             <Grid onClick={() => handlelike()}>
-              {ischecked ? (
-                <Button
-                  variant="outlined"
-                  style={{ color: "white", backgroundColor: "#787777" }}
-                  startIcon={<StarBorderIcon />}
-                >
-                  찜하기
-                </Button>
-              ) : (
-                <Button
-                  variant="outlined"
-                  style={{ color: "white", backgroundColor: "#787777" }}
-                  startIcon={<StarIcon />}
-                >
-                  찜하기
-                </Button>
-              )}
+              <Button
+                variant="outlined"
+                style={{ color: "white", backgroundColor: "#787777" }}
+                startIcon={ischecked ? <StarIcon /> : <StarBorderIcon />}
+              >
+                찜하기
+              </Button>
             </Grid>
             <Grid>
               <Button
@@ -252,9 +242,7 @@ function Banner_data({
                     overflow: "hidden",
                   }}
                 >
-                  {summary.length > 500
-                    ? `${summary.slice(0, 500)}...`
-                    : summary}
+                  {summary.length > 500 ? `${summary.slice(0, 500)}…` : summary}
                 </p>
               </div>
             </Typography>
