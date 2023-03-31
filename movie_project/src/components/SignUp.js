@@ -263,6 +263,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   };
 
   const idDuplicateCheck = () => {
+    console.log(id);
     let check = false;
     axios
       .post("/idDuplicateCheck", {
@@ -270,7 +271,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
       })
       .then((res) => {
         console.log("idDuplicateCheck =>", res);
-        if (res === 1) {
+        if (res.data === 1) {
           alert("아이디가 중복됩니다.");
           setIdError("아이디가 중복됩니다.");
           check = false;
