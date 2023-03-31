@@ -37,7 +37,7 @@ const MyPageBody = () => {
       .catch((e) => {
         console.error(e);
       });
-  });
+  }, [email, tel, pw]);
 
   const [openEmailModal, setOpenEmailModal] = React.useState(false);
   const [openPwModal, setOpenPwModal] = React.useState(false);
@@ -90,7 +90,7 @@ const MyPageBody = () => {
                     setOpenModal={setOpenEmailModal}
                     handleOpen={handleEmailOpen}
                     handleClose={handleEmailClose}
-                    email={email}
+                    setEmail={setEmail}
                   ></EmailChange>
                 ) : null}
               </Box>
@@ -113,7 +113,7 @@ const MyPageBody = () => {
                     handlePwOpen={handlePwOpen}
                     handlePwClose={handlePwClose}
                     setPasswordSearch={setPasswordSearch}
-                    email={email}
+                    setPw={setPw}
                   ></PasswordChange>
                 ) : null}
               </Box>
@@ -135,7 +135,7 @@ const MyPageBody = () => {
                     setOpenModal={setOpenPhoneModal}
                     handleOpen={handlePhoneOpen}
                     handleClose={handlePhoneClose}
-                    email={email}
+                    setTel={setTel}
                   ></PhoneChange>
                 ) : null}
               </Box>

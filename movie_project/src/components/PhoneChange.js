@@ -63,7 +63,12 @@ const style = {
   p: 4,
 };
 
-export default function PhoneChange({ openModal, handleOpen, handleClose }) {
+export default function PhoneChange({
+  openModal,
+  handleOpen,
+  handleClose,
+  setTel,
+}) {
   const [open, setOpen] = React.useState(openModal);
   const [newTel, setNewTel] = React.useState("");
   const [email, setEmail] = React.useState(window.sessionStorage.getItem("id"));
@@ -83,6 +88,7 @@ export default function PhoneChange({ openModal, handleOpen, handleClose }) {
         console.log("phoneUpdate =>", res);
         if (res.data === 1) {
           handleClose2();
+          setTel(newTel);
           alert("휴대폰 번호 업데이트 성공!");
         } else {
           alert("휴대폰 번호 업데이트 실패!");

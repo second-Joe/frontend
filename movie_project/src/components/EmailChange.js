@@ -64,10 +64,17 @@ const style = {
   p: 4,
 };
 
-export default function EmailChange({ openModal, handleOpen, handleClose }) {
+export default function EmailChange({
+  openModal,
+  handleOpen,
+  handleClose,
+  setEmail,
+}) {
   const [open, setOpen] = React.useState(openModal);
   const [newEmail, setNewEmail] = React.useState("");
-  const [email, setEmail] = React.useState(window.sessionStorage.getItem("id"));
+  const [email2, setEmail2] = React.useState(
+    window.sessionStorage.getItem("id")
+  );
 
   const [idError, setIdError] = React.useState("");
 
@@ -118,7 +125,7 @@ export default function EmailChange({ openModal, handleOpen, handleClose }) {
     } else {
       axios
         .post("/emailUpdate", {
-          member_id: email,
+          member_id: email2,
           member_new_id: newEmail,
         })
         .then((res) => {
@@ -127,6 +134,7 @@ export default function EmailChange({ openModal, handleOpen, handleClose }) {
             handleClose2();
             alert("이메일 주소 업데이트 성공!");
             window.sessionStorage.setItem("id", newEmail);
+            setEmail(newEmail);
           } else {
             handleClose2();
             alert("이메일 주소 업데이트 실패!");
