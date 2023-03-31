@@ -15,7 +15,11 @@ import SettingsDropdown from "./SettingDropdown";
 import MenuButton from "./MenuButton";
 import { useMediaQuery, useTheme } from "@mui/material";
 
-const pages = ["다운로드 가장 많은 영화", "좋아요 가장 많은 영화", "최근 추가 된 영화"];
+const pages = [
+  "다운로드 가장 많은 영화",
+  "좋아요 가장 많은 영화",
+  "최근 추가 된 영화",
+];
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -71,7 +75,7 @@ const NavBar = ({
   //Link 컴포넌트를 사용하지 않고 다른 페이지로 이동해야 할때 사용
   const navigate = useNavigate();
   const goBack = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   const goSearch = (e) => {
@@ -100,29 +104,29 @@ const NavBar = ({
 
   const typographySx = isSmallScreen
     ? {
-      mr: 2,
-      display: { xs: "none" },
-      fontFamily: "helvetica",
-      fontWeight: 1000,
-      letterSpacing: ".1rem",
-      color: "red",
-      textDecoration: "none",
-      fontSize: "1.7em",
-    }
+        mr: 2,
+        display: { xs: "none" },
+        fontFamily: "helvetica",
+        fontWeight: 1000,
+        letterSpacing: ".1rem",
+        color: "red",
+        textDecoration: "none",
+        fontSize: "1.7em",
+      }
     : {
-      mr: 2,
-      display: "flex",
-      fontFamily: "helvetica",
-      fontWeight: 1000,
-      letterSpacing: ".1rem",
-      color: "red",
-      textDecoration: "none",
-      fontSize: "2em",
-      flexGrow: 1,
-      [theme.breakpoints.up("md")]: {
-        flexGrow: 0,
-      },
-    };
+        mr: 2,
+        display: "flex",
+        fontFamily: "helvetica",
+        fontWeight: 1000,
+        letterSpacing: ".1rem",
+        color: "red",
+        textDecoration: "none",
+        fontSize: "2em",
+        flexGrow: 1,
+        [theme.breakpoints.up("md")]: {
+          flexGrow: 0,
+        },
+      };
 
   return (
     <AppBar position="fixed" style={{ background: "#212121" }}>
