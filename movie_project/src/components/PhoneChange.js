@@ -81,7 +81,7 @@ export default function PhoneChange({
     //     member_id: email,
     //   })
     //   .then((res) => {
-    //     console.log("passwordUpdate =>", res);
+    //     console.log("phoneUpdate =>", res);
     //     if (res === 1) {
     //       handleClose2();
     //       alert("휴대폰 번호 업데이트 성공!");

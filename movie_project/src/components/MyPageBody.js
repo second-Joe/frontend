@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import CustomizedButton from "./CustomizedButton";
 import Box from "@mui/material/Box";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import OutlinedTextField from "./OutlinedTextField";
 import EmailChange from "./EmailChange";
@@ -15,6 +15,24 @@ import PhoneChange from "./PhoneChange";
 const MyPageBody = () => {
   const [passwordSearch, setPasswordSearch] = useState(false);
   const [email, setEmail] = useState(window.sessionStorage.getItem("id"));
+  useEffect(() => {
+    // axios
+    //   .post("/selectMember", {
+    //     member_id: email,
+    //   })
+    //   .then((res) => {
+    //     console.log("selectMember =>", res);
+    //     if (res === 1) {
+    //       handleClose2();
+    //       alert("비밀번호 업데이트 성공!");
+    //     } else {
+    //       alert("비밀번호 업데이트 실패!");
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.error(e);
+    //   });
+  }, []);
 
   const [changeEmail, setChangeEmail] = useState(false);
   const [changePw, setChangePw] = useState(false);
