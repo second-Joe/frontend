@@ -81,7 +81,7 @@ export default function EmailChange({
     // axios
     //   .post("/emailUpdate", {
     //     member_id: email,
-    //     member_new_id:
+    //     member_new_id: newEmail
     //   })
     //   .then((res) => {
     //     console.log("emailUpdate =>", res);
@@ -133,7 +133,11 @@ export default function EmailChange({
               >
                 {val} 입력
               </Typography>
-              <OutlinedTextField label={label} />
+              <OutlinedTextField
+                value={newEmail}
+                onChange={setNewEmail}
+                label={label}
+              />
             </Box>
 
             <Box sx={{ ml: 60 }}>

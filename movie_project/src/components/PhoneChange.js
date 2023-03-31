@@ -80,6 +80,7 @@ export default function PhoneChange({
     // axios
     //   .post("/phoneUpdate", {
     //     member_id: email,
+    //     member_new_tel: newTel
     //   })
     //   .then((res) => {
     //     console.log("phoneUpdate =>", res);
@@ -128,7 +129,11 @@ export default function PhoneChange({
               >
                 휴대폰 번호 입력
               </Typography>
-              <OutlinedTextField label="변경할 휴대폰 번호를 입력해주세요" />
+              <OutlinedTextField
+                value={newTel}
+                onChange={setNewTel}
+                label="변경할 휴대폰 번호를 입력해주세요"
+              />
             </Box>
 
             <Box sx={{ ml: 60 }}>
