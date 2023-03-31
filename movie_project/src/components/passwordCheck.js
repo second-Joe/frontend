@@ -8,6 +8,8 @@ import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
 import SelectInput from "./SelectInput";
 import CustomizedButton from "./CustomizedButton";
+import { useRef, useState } from "react";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -63,16 +65,46 @@ const style = {
   p: 4,
 };
 
-export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
+export default function PasswordCheck({
+  openModal,
+  handleOpen,
+  handleClose,
+  handleEmailChange,
+  isValidEmail,
+}) {
+  const emailRef = useRef();
+  const pwQuestionRef = useRef();
+  const pwAnswerRef = useRef();
+
   const [open, setOpen] = React.useState(openModal);
   const [question, setQuestion] = React.useState("");
+  const [email, setEmail] = useState("");
+  //email 상태값 업데이트
+  const [emailError, setEmailError] = useState("");
 
   const handleClose2 = () => {
     setOpen(false);
     handleClose();
   };
 
-  const handleSubmit = () => {};
+  const passwordSubmit = () => {};
+
+  const handlePsswordCheck = (event) => {
+    event.preventDefault();
+    let validEmail = /\S+@\S+.\S+/.test(emailRef.current.value);
+
+    if (!email) {
+      setEmailError("이메일을 입력해주세요.");
+      emailRef.current.focus();
+    } else if (!validEmail) {
+      setEmailError("정확한 이메일 주소를 입력해주세요.");
+      emailRef.current.focus();
+    }
+
+    if (validEmail) {
+      passwordSubmit();
+    }
+  };
   return (
     <div>
       <Modal
@@ -106,7 +138,15 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               >
                 이메일 주소
               </Typography>
-              <OutlinedTextField label="이메일 주소를 입력해주세요" />
+              <OutlinedTextField
+                ref={emailRef}
+                value={email}
+                onChange={handleEmailChange}
+                label="이메일 주소를 입력해주세요"
+              />
+              <FormHelperText sx={{ padding: "1px", color: "red" }}>
+                {emailError}
+              </FormHelperText>
             </Box>
             <Box sx={{ display: "flex" }}>
               <Typography
@@ -116,7 +156,11 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               >
                 비밀번호 찾기 질문
               </Typography>
-              <SelectInput question={question} setQuestion={setQuestion} />
+              <SelectInput
+                ref={pwQuestionRef}
+                question={question}
+                setQuestion={setQuestion}
+              />
             </Box>
             <Box sx={{ display: "flex" }}>
               <Typography
@@ -127,13 +171,16 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                 비밀번호 찾기 답변
               </Typography>
 
-              <OutlinedTextField label="비밀번호 찾기 질문에 대한 답을 입력해주세요" />
+              <OutlinedTextField
+                ref={pwAnswerRef}
+                label="비밀번호 찾기 질문에 대한 답을 입력해주세요"
+              />
             </Box>
             <Box sx={{ mx: "auto", width: 50 }}>
               <CustomizedButton
                 label="찾기"
                 value="passwordAnswer"
-                onClick={handleSubmit}
+                onClick={handlePsswordCheck}
               ></CustomizedButton>
             </Box>
           </Box>
