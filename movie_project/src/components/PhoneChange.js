@@ -80,7 +80,7 @@ export default function PhoneChange({
     // axios
     //   .post("/phoneUpdate", {
     //     member_id: email,
-    //     member_new_tel: newTel
+    //     member_tel: newTel
     //   })
     //   .then((res) => {
     //     console.log("phoneUpdate =>", res);

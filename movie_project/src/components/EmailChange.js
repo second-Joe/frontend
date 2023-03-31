@@ -87,6 +87,7 @@ export default function EmailChange({
     //     if (res === 1) {
     //       handleClose2();
     //       alert("이메일 주소 업데이트 성공!");
+    //       window.sessionStorage.setItem("id",newEmail);
     //     } else {
     //       alert("이메일 주소 업데이트 실패!");
     //     }

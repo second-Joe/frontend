@@ -82,7 +82,7 @@ export default function PasswordChange({
     // axios
     //   .post("/passwordUpdate", {
     //     member_id: email,
-    //     member_new_pw: newPw
+    //     member_pw: newPw
     //   })
     //   .then((res) => {
     //     console.log("passwordUpdate =>", res);
