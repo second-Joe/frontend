@@ -5,11 +5,12 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import React, { useState, useRef } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import YouTube from "react-youtube";
-import { Hidden, useMediaQuery, useTheme } from "@mui/material";
+import axios from "axios";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 function Banner_data({
   id,
@@ -18,7 +19,6 @@ function Banner_data({
   summary,
   yt_trailer_code,
 }) {
-  const [like, setLike] = useState();
   const theme = useTheme();
   console.dir(theme.breakpoints);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -78,25 +78,57 @@ function Banner_data({
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
+  const [ischecked, setIsChecked] = useState(false);
+  useLayoutEffect(() => {
+    console.log("1번");
+    axios
+      .post("/favmovie/chk", {
+        movie_title: title,
+      })
+      .then((res) => {
+        setIsChecked(res.data?.length ? false : true);
+        console.log("Res ", res);
+        console.log("Res.data ", res.data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, []);
 
-  const [playeropen, setPlayerOpen] = useState(false);
-
-  const trailerOpen = (e) => {
-    e.stopPropagation();
-    setPlayerOpen(true);
-    if (youtubeRef.current) {
-      youtubeRef.current.playVideo();
+  const handlelike = () => {
+    console.log("ischecked" + ischecked);
+    if (ischecked) {
+      console.log("db에 없을때");
+      setIsChecked(false);
+      axios
+        .post("/favmovie/insert", {
+          movie_title: title,
+          movie_summary: summary,
+          movie_image: medium_cover_image,
+        })
+        .then((res) => {
+          console.log("2");
+          alert("찜하기 성공!!!");
+        })
+        .catch((e) => {
+          console.error(e);
+          console.log("3" + title);
+        });
+    } else {
+      console.log("db에 있을때");
+      setIsChecked(true);
+      axios
+        .post("/favmovie/delete", {
+          movie_title: title,
+        })
+        .then((res) => {
+          alert("찜하기 취소!!!");
+        })
+        .catch((e) => {
+          console.error(e);
+        });
     }
   };
-
-  const trailerClose = () => {
-    setPlayerOpen(false);
-    if (youtubeRef.current) {
-      youtubeRef.current.stopVideo();
-    }
-  };
-
-  const youtubeRef = useRef(null);
 
   return (
     <div>
@@ -133,15 +165,24 @@ function Banner_data({
               justifyContent: "space-between",
             }}
           >
-            <Grid>
-              <Button
-                variant="outlined"
-                startIcon={<StarBorderIcon />}
-                style={{ color: "white", backgroundColor: "#787777" }}
-                onClick={trailerOpen}
-              >
-                찜하기
-              </Button>
+            <Grid onClick={() => handlelike()}>
+              {ischecked ? (
+                <Button
+                  variant="outlined"
+                  style={{ color: "white", backgroundColor: "#787777" }}
+                  startIcon={<StarBorderIcon />}
+                >
+                  찜하기
+                </Button>
+              ) : (
+                <Button
+                  variant="outlined"
+                  style={{ color: "white", backgroundColor: "#787777" }}
+                  startIcon={<StarIcon />}
+                >
+                  찜하기
+                </Button>
+              )}
             </Grid>
             <Grid>
               <Button
