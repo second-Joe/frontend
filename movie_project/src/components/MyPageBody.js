@@ -13,6 +13,7 @@ import PasswordChange from "./PasswordChange";
 import PhoneChange from "./PhoneChange";
 
 const MyPageBody = () => {
+  const [passwordSearch, setPasswordSearch] = useState(false);
   const [changeEmail, setChangeEmail] = useState(false);
   const [changePw, setChangePw] = useState(false);
   const [changePhone, setChangePhone] = useState(false);
@@ -86,17 +87,18 @@ const MyPageBody = () => {
             <Grid item xs={2} sx={{ p: 2 }}>
               <Box sx={{ width: "200%" }}>
                 <CustomizedButton
-                  label="비밀번호 변경"
+                  label="비밀번호 변경  "
                   value="passwordChange"
                   onClick={handlePwOpen}
                 ></CustomizedButton>
                 {openPwModal ? (
                   <PasswordChange
                     value="비밀번호"
-                    openModal={openPwModal}
-                    setOpenModal={setOpenPwModal}
-                    handleOpen={handlePwOpen}
-                    handleClose={handlePwClose}
+                    openPwModal={openPwModal}
+                    setOpenPwModal={setOpenPwModal}
+                    handlePwOpen={handlePwOpen}
+                    handlePwClose={handlePwClose}
+                    setPasswordSearch={setPasswordSearch}
                   ></PasswordChange>
                 ) : null}
               </Box>
