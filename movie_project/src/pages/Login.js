@@ -26,7 +26,7 @@ function Login() {
   };
 
   const isValidPassword = (password) => {
-    const passwordRegex = password.length >= 4 && password.length <= 60;
+    const passwordRegex = password.length >= 4 && password.length <= 20;
     return passwordRegex;
     // 패스워드의 유효성을 검사하는 코드를 작성한다.
     // 유효한 패스워드인 경우 true, 그렇지 않은 경우 false를 반환한다.
@@ -48,7 +48,7 @@ function Login() {
     setPasswordError(
       isValidPassword(event.target.value)
         ? ""
-        : "비밀번호는 4~60자 사이여야 합니다."
+        : "비밀번호는 4~20자 사이여야 합니다."
     );
   };
 

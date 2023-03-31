@@ -137,7 +137,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     setPasswordError(
       isValidPassword(event.target.value)
         ? ""
-        : "비밀번호는 4~60자 사이여야 합니다."
+        : "비밀번호는 4~20자 사이여야 합니다."
     );
   };
 
@@ -170,7 +170,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     }
 
     let validId = /\S+@\S+.\S+/.test(id);
-    let validPassword = password.length >= 4 && password.length <= 60;
+    let validPassword = password.length >= 4 && password.length <= 20;
     if (!id) {
       setIdError("이메일을 입력해주세요.");
     } else if (!validId) {
@@ -179,7 +179,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     if (!password) {
       setPasswordError("비밀번호를 입력해주세요.");
     } else if (!validPassword) {
-      setPasswordError("비밀번호는 4~60자 사이여야 합니다.");
+      setPasswordError("비밀번호는 4~20자 사이여야 합니다.");
     }
     if (!name) {
       setNameError("이름을 입력해주세요.");
@@ -239,7 +239,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 variant="h10"
                 component="h4"
               >
-                아이디
+                이메일 주소
               </Typography>
               <div
                 style={{
@@ -249,7 +249,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 }}
               >
                 <TextField
-                  label="아이디를 입력해주세요"
+                  label="이메일 주소를 입력해주세요"
                   type="email"
                   value={id}
                   onChange={handleIdChange}

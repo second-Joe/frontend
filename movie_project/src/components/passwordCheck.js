@@ -104,9 +104,9 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                 variant="h10"
                 component="h4"
               >
-                아이디
+                이메일 주소
               </Typography>
-              <OutlinedTextField label="아이디를 입력해주세요" />
+              <OutlinedTextField label="이메일 주소를 입력해주세요" />
             </Box>
             <Box sx={{ display: "flex" }}>
               <Typography
