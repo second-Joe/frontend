@@ -84,7 +84,6 @@ const inputFormStyle = {
 
 export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   const [open, setOpen] = React.useState(openSignUp);
-  const [question, setQuestion] = React.useState("");
 
   const handleClose2 = () => {
     setOpen(false);
@@ -98,6 +97,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   const [password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const [passwordQuestion, setPasswordQuestion] = useState("");
+
   const [idError, setIdError] = useState("");
   const [nameError, setNameError] = useState("");
   const [addrError, setAddrError] = useState("");
@@ -176,49 +176,59 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   };
 
   const loginCheck = (event) => {
-    if (password !== ConfirmPassword) {
-      return alert("비밀번호와 비밀번호 확인이 같지 않습니다.");
+    let check = true;
+    if (password !== ConfirmPassword && password !== "") {
+      alert("비밀번호와 비밀번호 확인이 같지 않습니다.");
+      check = false;
     }
 
     let validId = /\S+@\S+.\S+/.test(id);
     let validPassword = password.length >= 4 && password.length <= 20;
     if (!id) {
       setIdError("이메일을 입력해주세요.");
+      check = false;
     } else if (!validId) {
       setIdError("정확한 이메일 주소를 입력해주세요.");
+      check = false;
     }
     if (!password) {
       setPasswordError("비밀번호를 입력해주세요.");
+      check = false;
     } else if (!validPassword) {
       setPasswordError("비밀번호는 4~20자 사이여야 합니다.");
-      return false;
+      check = false;
     }
     if (!name) {
       setNameError("이름을 입력해주세요.");
+      check = false;
     } else {
       setNameError("");
     }
     if (!tel) {
       setTelError("전화번호를 입력해주세요.");
+      check = false;
     } else {
       setTelError("");
     }
     if (!addr) {
       setAddrError("주소를 입력해주세요.");
+      check = false;
     } else {
       setAddrError("");
     }
     if (!passwordQuestion) {
       setPwQError("비밀번호 질문을 선택해주세요.");
+      check = false;
     } else {
       setPwQError("");
     }
     if (!pwCheck) {
       setPwCheckError("비밀번호 확인 답변을 입력해주세요.");
+      check = false;
     } else {
       setPwCheckError("");
     }
-    return true;
+    return check;
   };
 
   const loginSubmit = (e) => {
@@ -226,22 +236,20 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
       // axios
       //   .post("/insertMember", {
       //     member_id: id,
-      //     member_pw: pw,
+      //     member_pw: password,
       //     member_name: name,
       //     member_tel: tel,
       //     member_addr: addr,
-      //     pw_question:
-      //     pw_answer:
-      //     pw_question: passwordQuestion,
-      //     pw_answer: passwordAnswer,
+      //     pw_question:passwordQuestion,
+      //     pw_answer:pwCheck
       //   })
       //   .then((res) => {
-      //     console.log("passwordSearch =>", res);
+      //     console.log("insertMember =>", res);
       //     if (res == 1) {
-      //        setPasswordSearch(true);
-      //        handlePwOpen();
+      //        alert("회원가입 성공!");
+      //        handleClose2();
       //     } else {
-      //       alert("관련 정보 없음!");
+      //       alert("회원가입 실패!");
       //     }
       //   })
       //   .catch((e) => {
