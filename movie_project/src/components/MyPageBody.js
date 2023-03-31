@@ -14,6 +14,8 @@ import PhoneChange from "./PhoneChange";
 
 const MyPageBody = () => {
   const [passwordSearch, setPasswordSearch] = useState(false);
+  const [email, setEmail] = useState(window.sessionStorage.getItem("id"));
+
   const [changeEmail, setChangeEmail] = useState(false);
   const [changePw, setChangePw] = useState(false);
   const [changePhone, setChangePhone] = useState(false);
@@ -77,6 +79,7 @@ const MyPageBody = () => {
                     setOpenModal={setOpenEmailModal}
                     handleOpen={handleEmailOpen}
                     handleClose={handleEmailClose}
+                    email={email}
                   ></EmailChange>
                 ) : null}
               </Box>
@@ -99,6 +102,7 @@ const MyPageBody = () => {
                     handlePwOpen={handlePwOpen}
                     handlePwClose={handlePwClose}
                     setPasswordSearch={setPasswordSearch}
+                    email={email}
                   ></PasswordChange>
                 ) : null}
               </Box>
@@ -120,6 +124,7 @@ const MyPageBody = () => {
                     setOpenModal={setOpenPhoneModal}
                     handleOpen={handlePhoneOpen}
                     handleClose={handlePhoneClose}
+                    email={email}
                   ></PhoneChange>
                 ) : null}
               </Box>

@@ -67,6 +67,7 @@ export default function EmailChange({
   handleOpen,
   handleClose,
   value,
+  email,
 }) {
   const [open, setOpen] = React.useState(openModal);
 
