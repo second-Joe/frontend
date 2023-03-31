@@ -106,6 +106,8 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   const [telError, setTelError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [pwQError, setPwQError] = useState("");
+  const [loginAvailable, setLoginAvailable] = useState(false);
+  const [idDuplicate, setIdDuplicate] = useState(false);
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
   };
@@ -182,7 +184,12 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
       alert("비밀번호와 비밀번호 확인이 같지 않습니다.");
       check = false;
     }
-    if (!idDuplicateCheck) {
+    console.log(id);
+    idDuplicateCheck();
+    console.log("idDuplicateCheck : " + idDuplicate);
+    if (idDuplicate) {
+      alert("아이디가 중복됩니다.");
+      setIdError("아이디가 중복됩니다.");
       check = false;
     }
 
@@ -232,10 +239,12 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     } else {
       setPwCheckError("");
     }
+    console.log("return check : " + check);
     return check;
   };
 
   const loginSubmit = (e) => {
+    console.log("loginCheck():" + loginCheck());
     if (loginCheck()) {
       axios
         .post("/insertMember", {
@@ -249,7 +258,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
         })
         .then((res) => {
           console.log("insertMember =>", res);
-          if (res === 1) {
+          if (res.data === 1) {
             alert("회원가입 성공!");
             handleClose2();
           } else {
@@ -263,8 +272,6 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   };
 
   const idDuplicateCheck = () => {
-    console.log(id);
-    let check = false;
     axios
       .post("/idDuplicateCheck", {
         member_id: id,
@@ -274,12 +281,11 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
         if (res.data === 1) {
           alert("아이디가 중복됩니다.");
           setIdError("아이디가 중복됩니다.");
-          check = false;
+          setIdDuplicate(true);
         } else {
           alert("가입 가능한 아이디입니다.");
-          check = true;
+          setIdDuplicate(false);
         }
-        return check;
       })
       .catch((e) => {
         console.error(e);
