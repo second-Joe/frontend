@@ -62,12 +62,18 @@ const style = {
   p: 4,
 };
 
-export default function PasswordChange({ openModal, handleOpen, handleClose }) {
-  const [open, setOpen] = React.useState(openModal);
+export default function PasswordChange({
+  openPwModal,
+  handlePwOpen,
+  handlePwClose,
+  setPasswordSearch,
+}) {
+  const [open, setOpen] = React.useState(openPwModal);
 
   const handleClose2 = () => {
+    setPasswordSearch(false);
+    handlePwClose();
     setOpen(false);
-    handleClose();
   };
 
   const handleUpdate = () => {};

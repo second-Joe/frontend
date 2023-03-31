@@ -81,13 +81,15 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
   //email 상태값 업데이트
   const [emailError, setEmailError] = useState("");
 
-  const [passwordSearch, setPasswordSearch] = useState(true);
-  const [openPwModal, setOpenPwModal] = React.useState(false);
+  const [passwordSearch, setPasswordSearch] = useState(false);
+
+  const [openPwModal, setOpenPwModal] = useState(false);
 
   const handlePwOpen = () => {
     setOpenPwModal(true);
   };
   const handlePwClose = () => {
+    console.log(openPwModal);
     setOpenPwModal(false);
   };
 
@@ -97,6 +99,9 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
   };
 
   const passwordSubmit = () => {
+    setPasswordSearch(true);
+    console.log(passwordSearch);
+    handlePwOpen();
     // axios
     //   .post("/passwordSearch", {
     //     member_id: emailRef.current.value,
@@ -229,15 +234,16 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                 value="passwordAnswer"
                 onClick={handlePasswordCheck}
               ></CustomizedButton>
+              {passwordSearch ? (
+                <PasswordChange
+                  setPasswordSearch={setPasswordSearch}
+                  openPwModal={openPwModal}
+                  setOpenPwModal={setOpenPwModal}
+                  handlePwOpen={handlePwOpen}
+                  handlePwClose={handlePwClose}
+                />
+              ) : null}
             </Box>
-            {passwordSearch ? (
-              <PasswordChange
-                openModal={openPwModal}
-                setOpenModal={setOpenPwModal}
-                handleOpen={handlePwOpen}
-                handleClose={handlePwClose}
-              />
-            ) : null}
           </Box>
         </Fade>
       </Modal>
