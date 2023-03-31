@@ -10,6 +10,7 @@ import SelectInput from "./SelectInput";
 import CustomizedButton from "./CustomizedButton";
 import { useRef, useState } from "react";
 import FormHelperText from "@mui/material/FormHelperText";
+import axios from "axios";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -87,7 +88,20 @@ export default function PasswordCheck({
     handleClose();
   };
 
-  const passwordSubmit = () => {};
+  const passwordSubmit = () => {
+    axios
+      .post("/passwordSearch", {
+        member_id: emailRef.current.value,
+        pw_question: pwQuestionRef.current.value,
+        pw_answer: pwAnswerRef.current.value,
+      })
+      .then((res) => {
+        console.log("passwordSearch =>", res);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
 
   const handlePsswordCheck = (event) => {
     event.preventDefault();
