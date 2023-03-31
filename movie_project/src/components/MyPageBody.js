@@ -15,6 +15,8 @@ import PhoneChange from "./PhoneChange";
 const MyPageBody = () => {
   const [passwordSearch, setPasswordSearch] = useState(false);
   const [email, setEmail] = useState(window.sessionStorage.getItem("id"));
+  const [response, setResponse] = useState({});
+
   useEffect(() => {
     // axios
     //   .post("/selectMember", {
@@ -23,10 +25,10 @@ const MyPageBody = () => {
     //   .then((res) => {
     //     console.log("selectMember =>", res);
     //     if (res === 1) {
-    //       handleClose2();
-    //       alert("비밀번호 업데이트 성공!");
+    //       setResponse(res);
+    //       alert("정보 확인 성공!");
     //     } else {
-    //       alert("비밀번호 업데이트 실패!");
+    //       alert("정보 확인 실패!");
     //     }
     //   })
     //   .catch((e) => {
@@ -81,7 +83,7 @@ const MyPageBody = () => {
         <Grid item xs={9} sx={{ direction: "column" }}>
           <Grid container>
             <Grid item xs={8} sx={{ pl: 2, pt: 3, color: "gray" }}>
-              이메일 주소: ******
+              이메일 주소: {response.data.member_id}
             </Grid>
             <Grid item xs={2} sx={{ p: 2 }}>
               <Box sx={{ width: 200 }}>
@@ -103,7 +105,7 @@ const MyPageBody = () => {
               </Box>
             </Grid>
             <Grid item xs={8} sx={{ pl: 2, pt: 3, color: "gray" }}>
-              비밀번호: ********
+              비밀번호: {response.data.member_pw}
             </Grid>
             <Grid item xs={2} sx={{ p: 2 }}>
               <Box sx={{ width: "200%" }}>
@@ -126,7 +128,7 @@ const MyPageBody = () => {
               </Box>
             </Grid>
             <Grid item xs={8} sx={{ pl: 2, pt: 3, color: "gray" }}>
-              휴대폰 번호 : ********
+              휴대폰 번호 : {response.data.member_tel}
             </Grid>
             <Grid item xs={3} sx={{ p: 2 }}>
               <Box sx={{ width: 200, mb: 2 }}>
