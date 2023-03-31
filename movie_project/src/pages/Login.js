@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@mui/material";
@@ -11,7 +11,15 @@ import FormHelperText from "@mui/material/FormHelperText";
 import PasswordCheck from "../components/passwordCheck";
 import CustomizedButton from "../components/CustomizedButton";
 import SignUp from "../components/SignUp";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 function Login() {
+  const emailRef = useRef();
+  const pwRef = useRef();
+
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   //email 상태값 업데이트
   const [password, setPassword] = useState("");
@@ -52,23 +60,47 @@ function Login() {
     );
   };
 
-  const handleSubmit = (event) => {
+  const checkSubmit = (event) => {
     event.preventDefault();
     let validEmail = /\S+@\S+.\S+/.test(email);
     let validPassword = password.length >= 4 && password.length <= 60;
     if (!email) {
       setEmailError("이메일을 입력해주세요.");
+      emailRef.current.focus();
     } else if (!validEmail) {
       setEmailError("정확한 이메일 주소를 입력해주세요.");
+      emailRef.current.focus();
     }
     if (!password) {
       setPasswordError("비밀번호를 입력해주세요.");
+      pwRef.current.focus();
     } else if (!validPassword) {
       setPasswordError("비밀번호는 4~60자 사이여야 합니다.");
+      pwRef.current.focus();
     }
     if (validEmail && validPassword) {
-      window.location.href = "/login";
+      handleLogin();
     }
+  };
+
+  const handleLogin = () => {
+    axios
+      .post("/login", {
+        member_id: emailRef.current.value,
+        member_pw: pwRef.current.value,
+      })
+      .then((res) => {
+        // console.log("handleLogin =>", res);
+        if (res.data === 1) {
+          window.sessionStorage.setItem("id", emailRef.current.value);
+          navigate("/login");
+        } else {
+          navigate("/");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   const [openModal, setOpenModal] = React.useState(false);
@@ -197,7 +229,7 @@ function Login() {
           fullWidth
           variant="contained"
           sx={{ background: "#e50914", mt: "24px", mb: "16px" }}
-          onClick={handleSubmit}
+          onClick={checkSubmit}
         >
           로그인
         </Button>
