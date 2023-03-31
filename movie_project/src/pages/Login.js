@@ -85,23 +85,24 @@ function Login() {
   };
 
   const handleLogin = () => {
-    // axios
-    //   .post("/login", {
-    //     member_id: emailRef.current.value,
-    //     member_pw: pwRef.current.value,
-    //   })
-    //   .then((res) => {
-    //     // console.log("handleLogin =>", res);
-    //     if (res.data === 1) {
-    //       window.sessionStorage.setItem("id", emailRef.current.value);
-    //       navigate("/login");
-    //     } else {
-    //       navigate("/");
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     console.error(e);
-    //   });
+    axios
+      .post("/login", {
+        member_id: email,
+        member_pw: password,
+      })
+      .then((res) => {
+        // console.log("handleLogin =>", res);
+        if (res.data === 1) {
+          window.sessionStorage.setItem("id", email);
+          navigate("/login");
+        } else {
+          alert("일치하는 로그인 정보가 없습니다!");
+          navigate("/");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   const [openModal, setOpenModal] = React.useState(false);
