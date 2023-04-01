@@ -39,6 +39,7 @@ export default function PositionedMenu() {
         console.log("selectMember =>", res);
         if (res.data !== null) {
           setUserName(res.data.member_name);
+          console.log(user);
           // alert("정보 확인 성공!");
         } else {
           alert("정보 확인 실패!");
@@ -70,6 +71,7 @@ export default function PositionedMenu() {
             fontSize: "1.3em",
             color: "white",
           }}
+          textTransform="none"
         >
           {user}
         </Typography>
