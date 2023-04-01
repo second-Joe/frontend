@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@mui/material";
@@ -27,6 +27,29 @@ function Login() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const [saveAccount, setSaveAccount] = useState(false);
+
+  const [emailLabel, setEmailLabel] = useState("이메일 주소");
+  const [pwLabel, setPwLabel] = useState("비밀번호");
+
+  useEffect(() => {
+    if (window.localStorage.getItem("id") !== null) {
+      // alert("저장된 정보 있음!");
+
+      setEmail(window.localStorage.getItem("id"));
+      axios
+        .post("/selectMember", { member_id: window.localStorage.getItem("id") })
+        .then((res) => {
+          if (res.data !== null) {
+            setPassword(res.data.member_pw);
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    }
+  }, []);
+
   const isValidEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
@@ -42,7 +65,8 @@ function Login() {
   };
 
   const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+    console.log(event.target.value);
+    setEmail((value) => event.target.value);
     // setEmail 함수를 이용해 email 상태값을 업데이트한다.
     setEmailError(
       isValidEmail(event.target.value)
@@ -52,7 +76,7 @@ function Login() {
   };
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+    setPassword((value) => event.target.value);
     // setPassword 함수를 이용해 password 상태값을 업데이트한다.
     setPasswordError(
       isValidPassword(event.target.value)
@@ -67,6 +91,7 @@ function Login() {
     let validPassword = password.length >= 4 && password.length <= 60;
     if (!email) {
       setEmailError("이메일을 입력해주세요.");
+      console.log(emailRef);
       emailRef.current.focus();
     } else if (!validEmail) {
       setEmailError("정확한 이메일 주소를 입력해주세요.");
@@ -101,6 +126,11 @@ function Login() {
               console.log("handleLogin =>", res);
               if (res.data === 1) {
                 window.sessionStorage.setItem("id", email);
+                if (saveAccount === true) {
+                  // 로그인 정보 저장 버튼을 누르면 localstorage에 로그인 정보 저장
+                  window.localStorage.clear();
+                  window.localStorage.setItem("id", email);
+                }
                 navigate("/login");
               } else {
                 alert("비밀번호가 다릅니다!");
@@ -137,6 +167,10 @@ function Login() {
     setOpenSignUp(false);
   };
 
+  const saveAccountChange = (e) => {
+    setSaveAccount(e.target.checked);
+  };
+
   return (
     <Container
       component="main"
@@ -170,8 +204,9 @@ function Login() {
           로그인
         </Typography>
         <TextField
+          ref={emailRef}
           margin="normal"
-          label="이메일 주소"
+          label={emailLabel}
           type="email"
           name="email"
           fullWidth
@@ -183,14 +218,14 @@ function Login() {
           value={email}
           onChange={handleEmailChange}
           // 이메일 주소 입력란의 값이 변경될때마다 이 함수가 호출됨
-          ref={emailRef}
         />
         <FormHelperText sx={{ padding: "1px", color: "red" }}>
           {emailError}
         </FormHelperText>
 
         <TextField
-          label="비밀번호"
+          ref={pwRef}
+          label={pwLabel}
           type="password"
           autoComplete="current-password"
           required
@@ -201,7 +236,6 @@ function Login() {
           sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
           value={password}
           onChange={handlePasswordChange}
-          ref={pwRef}
         />
 
         <FormHelperText sx={{ color: "red" }}>{passwordError}</FormHelperText>
@@ -213,6 +247,7 @@ function Login() {
                 value="remember"
                 color="primary"
                 sx={{
+                  color: "white",
                   "&.Mui-checked": {
                     color: "white",
                     "&:hover": {
@@ -220,6 +255,9 @@ function Login() {
                     },
                   },
                 }}
+                checked={saveAccount}
+                onChange={saveAccountChange}
+                name="saveAccount"
               />
             }
             label="로그인 정보 저장"

@@ -19,6 +19,7 @@ const MyPageBody = () => {
   const [tel, setTel] = useState("");
   const [pw, setPw] = useState("");
 
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .post("/selectMember", {
@@ -62,6 +63,26 @@ const MyPageBody = () => {
   };
   const handlePhoneClose = () => {
     setOpenPhoneModal(false);
+  };
+
+  const deleteAccount = () => {
+    axios
+      .post("/deleteMember", {
+        member_id: email,
+      })
+      .then((res) => {
+        console.log("deleteMember =>", res);
+        if (res.data === 1) {
+          alert("회원 탈퇴되었습니다.");
+          window.sessionStorage.clear();
+          navigate("/", { return: true });
+        } else {
+          alert("회원 탈퇴 실패!");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
   return (
     <Container sx={{ paddingTop: "100px" }}>
@@ -213,7 +234,10 @@ const MyPageBody = () => {
       </Grid>
       <Divider />
       <Box sx={{ display: "flex", justifyContent: "end", mt: 4 }}>
-        <CustomizedButton label="탈퇴하기"></CustomizedButton>
+        <CustomizedButton
+          label="탈퇴하기"
+          onClick={deleteAccount}
+        ></CustomizedButton>
       </Box>
     </Container>
   );
