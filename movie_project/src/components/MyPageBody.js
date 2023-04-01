@@ -101,7 +101,7 @@ const MyPageBody = () => {
             <Grid item xs={2} sx={{ p: 2 }}>
               <Box sx={{ width: "200%" }}>
                 <CustomizedButton
-                  label="비밀번호 변경  "
+                  label="비밀번호 변경"
                   value="passwordChange"
                   onClick={handlePwOpen}
                 ></CustomizedButton>
