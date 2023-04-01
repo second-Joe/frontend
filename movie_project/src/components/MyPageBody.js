@@ -212,6 +212,9 @@ const MyPageBody = () => {
         </Grid>
       </Grid>
       <Divider />
+      <Box sx={{ display: "flex", justifyContent: "end", mt: 4 }}>
+        <CustomizedButton label="탈퇴하기"></CustomizedButton>
+      </Box>
     </Container>
   );
 };
