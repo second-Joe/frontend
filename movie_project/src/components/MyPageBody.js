@@ -111,6 +111,15 @@ const MyPageBody = () => {
       });
   };
 
+  const deleteLoginInfo = () => {
+    window.localStorage.clear();
+    if (window.localStorage.getItem("id") === null) {
+      alert("로그인 정보가 삭제되었습니다!");
+    } else {
+      alert("로그인 정보가 삭제 실패!");
+    }
+  };
+
   return (
     <Container sx={{ paddingTop: "100px" }}>
       <Typography sx={{ fontSize: 35, mb: 2 }}>계정</Typography>
@@ -317,11 +326,19 @@ const MyPageBody = () => {
         </Grid>
       </Grid>
       <Divider />
-      <Box sx={{ display: "flex", justifyContent: "end", mt: 4 }}>
-        <CustomizedButton
-          label="탈퇴하기"
-          onClick={deleteAccount}
-        ></CustomizedButton>
+      <Box sx={{ display: "flex", justifyContent: "end", mt: 5 }}>
+        <Box sx={{ mr: 3 }}>
+          <CustomizedButton
+            label="로그인 정보 삭제하기"
+            onClick={deleteLoginInfo}
+          ></CustomizedButton>
+        </Box>
+        <Box>
+          <CustomizedButton
+            label="탈퇴하기"
+            onClick={deleteAccount}
+          ></CustomizedButton>
+        </Box>
       </Box>
     </Container>
   );
