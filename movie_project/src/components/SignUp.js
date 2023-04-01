@@ -10,7 +10,32 @@ import CustomizedButton from "./CustomizedButton";
 import { useState } from "react";
 import { TextField } from "@mui/material";
 import FormHelperText from "@mui/material/FormHelperText";
+import axios from "axios";
+import {
+  createMuiTheme,
+  makeStyles,
+  createStyles,
+  Theme as AugmentedTheme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      // color: green[900],
+
+      "& .MuiOutlinedInput-root": {
+        backgroundColor: "transparent",
+        "& fieldset": {
+          borderColor: "rgba(0, 0, 0, 0.23)", // default
+        },
+        "&.Mui-focused fieldset": {
+          border: "2px solid white", // customized
+        },
+      },
+    },
+  })
+);
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
     children,
@@ -72,7 +97,6 @@ const formStyle = {
   width: "360px",
   color: "white",
   background: "#38393b",
-  border: "1.5px solid white",
   fontSize: "20px",
   borderRadius: 1,
 };
@@ -83,8 +107,8 @@ const inputFormStyle = {
 };
 
 export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
+  const classes = useStyles();
   const [open, setOpen] = React.useState(openSignUp);
-  const [question, setQuestion] = React.useState("");
 
   const handleClose2 = () => {
     setOpen(false);
@@ -97,12 +121,17 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   const [pwCheck, setPwCheck] = useState("");
   const [password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
+  const [passwordQuestion, setPasswordQuestion] = useState("");
+
   const [idError, setIdError] = useState("");
   const [nameError, setNameError] = useState("");
   const [addrError, setAddrError] = useState("");
   const [pwCheckError, setPwCheckError] = useState("");
   const [telError, setTelError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [pwQError, setPwQError] = useState("");
+  // const [loginAvailable, setLoginAvailable] = useState(false);
+  // const [idDuplicate, setIdDuplicate] = useState(false);
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
   };
@@ -111,16 +140,21 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   };
 
   const isValidId = (id) => {
-    const idRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const idRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     return idRegex.test(id);
     // 이메일 주소의 유효성을 검사하는 코드를 작성한다.
     // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
   };
   const isValidPassword = (password) => {
-    const passwordRegex = password.length >= 4 && password.length <= 60;
+    const passwordRegex = password.length >= 4 && password.length <= 20;
     return passwordRegex;
     // 패스워드의 유효성을 검사하는 코드를 작성한다.
     // 유효한 패스워드인 경우 true, 그렇지 않은 경우 false를 반환한다.
+  };
+  const isValidatePhone = (tel) => {
+    const phoneRegex = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+    return phoneRegex.test(tel.slice(0, 13));
   };
 
   const handleIdChange = (event) => {
@@ -129,6 +163,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     setIdError(
       isValidId(event.target.value) ? "" : "정확한 이메일 주소를 입력해주세요."
     );
+    if (event.target.value === "") {
+      setIdError("이메일을 입력하세요");
+    }
   };
 
   const handlePasswordChange = (event) => {
@@ -137,16 +174,29 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     setPasswordError(
       isValidPassword(event.target.value)
         ? ""
-        : "비밀번호는 4~60자 사이여야 합니다."
+        : "비밀번호는 4~20자 사이여야 합니다."
     );
+    if (event.target.value === "") {
+      setPasswordError("비밀번호를 입력하세요");
+    }
   };
 
   const handleAddrChange = (event) => {
     setAddr(event.target.value);
+    if (event.target.value !== "") {
+      setAddrError("");
+    } else {
+      setAddrError("주소를 입력하세요");
+    }
   };
 
   const handleNameChange = (event) => {
     setName(event.target.value);
+    if (event.target.value !== "") {
+      setNameError("");
+    } else {
+      setNameError("이름을 입력하세요");
+    }
   };
 
   const handleTelChange = (event) => {
@@ -155,51 +205,151 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
         .replace(/[^0-9]/g, "")
         .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})(\d{0,1})$/g, "$1-$2-$3")
         .replace(/(\-{1,2})$/g, "")
+        .slice(0, 13)
     );
     console.log(event.target.value);
-    console.log("a" + tel);
+    setTelError(
+      isValidatePhone(event.target.value)
+        ? ""
+        : "올바른 휴대폰 번호를 입력하세요."
+    );
+    if (event.target.value === "") {
+      setTelError("휴대폰 번호를 입력하세요");
+    }
   };
   const handlePwCheckChange = (event) => {
     setPwCheck(event.target.value);
+    if (event.target.value !== "") {
+      setPwCheckError("");
+    } else {
+      setPwCheckError("비밀번호 찾기 답을 입력하세요");
+    }
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
 
-    if (password !== ConfirmPassword) {
-      return alert("비밀번호와 비밀번호 확인이 같지 않습니다.");
+  const loginCheck = (event) => {
+    let check = true;
+    if (password !== ConfirmPassword && password !== "") {
+      alert("비밀번호와 비밀번호 확인이 같지 않습니다.");
+      check = false;
     }
 
-    let validId = /\S+@\S+.\S+/.test(id);
-    let validPassword = password.length >= 4 && password.length <= 60;
+    idDuplicateCheck();
+    if (idError === "") {
+      alert("아이디 중복확인 해주세요.");
+      check = false;
+    } else if (idError === "아이디가 중복됩니다.") {
+      check = false;
+    }
+
+    let validId =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(
+        id
+      );
+    let validPassword = password.length >= 4 && password.length <= 20;
+    let validTel = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/.test(
+      tel.slice(0, 13)
+    );
     if (!id) {
       setIdError("이메일을 입력해주세요.");
+      check = false;
     } else if (!validId) {
       setIdError("정확한 이메일 주소를 입력해주세요.");
+      check = false;
     }
     if (!password) {
       setPasswordError("비밀번호를 입력해주세요.");
+      check = false;
     } else if (!validPassword) {
-      setPasswordError("비밀번호는 4~60자 사이여야 합니다.");
+      setPasswordError("비밀번호는 4~20자 사이여야 합니다.");
+      check = false;
     }
     if (!name) {
       setNameError("이름을 입력해주세요.");
+      check = false;
     } else {
       setNameError("");
     }
     if (!tel) {
       setTelError("전화번호를 입력해주세요.");
-    } else {
-      setTelError("");
+      check = false;
+    } else if (!validTel) {
+      setTelError("올바른 휴대폰 번호를 입력하세요.");
+      check = false;
     }
     if (!addr) {
       setAddrError("주소를 입력해주세요.");
+      check = false;
     } else {
       setAddrError("");
     }
+    if (!passwordQuestion) {
+      setPwQError("비밀번호 질문을 선택해주세요.");
+      check = false;
+    } else {
+      setPwQError("");
+    }
     if (!pwCheck) {
       setPwCheckError("비밀번호 확인 답변을 입력해주세요.");
+      check = false;
     } else {
       setPwCheckError("");
+    }
+    console.log("return check : " + check);
+    return check;
+  };
+
+  const loginSubmit = (e) => {
+    if (loginCheck()) {
+      axios
+        .post("http://localhost:8080/insertMember", {
+          member_id: id,
+          member_pw: password,
+          member_name: name,
+          member_tel: tel,
+          member_addr: addr,
+          pw_question: passwordQuestion,
+          pw_answer: pwCheck,
+        })
+        .then((res) => {
+          console.log("insertMember =>", res);
+          if (res.data === 1) {
+            alert("회원가입 성공!");
+            handleClose2();
+          } else {
+            alert("회원가입 실패!");
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    }
+  };
+
+  const idDuplicateCheck = () => {
+    if (id !== "") {
+      if (isValidId(id)) {
+        axios
+          .post("http://localhost:8080/idDuplicateCheck", {
+            member_id: id,
+          })
+          .then((res) => {
+            console.log("idDuplicateCheck =>", res);
+            if (res.data === 1) {
+              setIdError("아이디가 중복됩니다.");
+              return false;
+            } else {
+              setIdError("사용가능한 아이디입니다.");
+              return true;
+            }
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      } else {
+        setIdError("정확한 이메일 주소를 입력해주세요.");
+      }
+    } else {
+      setIdError("아이디를 입력하세요.");
     }
   };
   return (
@@ -239,7 +389,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 variant="h10"
                 component="h4"
               >
-                아이디
+                이메일 주소
               </Typography>
               <div
                 style={{
@@ -249,7 +399,10 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 }}
               >
                 <TextField
-                  label="아이디를 입력해주세요"
+                  classes={{
+                    root: classes.root,
+                  }}
+                  label="이메일 주소를 입력해주세요"
                   type="email"
                   value={id}
                   onChange={handleIdChange}
@@ -261,16 +414,17 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                     width: "255px",
                     color: "white",
                     background: "#38393b",
-                    border: "1.5px solid white",
                     fontSize: "20px",
                     borderRadius: 1,
                     marginRight: "10px",
-                    height: "50px",
+                    height: "53px",
                   }}
                 />
+
                 <CustomizedButton
                   label="중복확인"
                   value="check"
+                  onClick={idDuplicateCheck}
                 ></CustomizedButton>
               </div>
               <FormHelperText sx={{ padding: "1px", color: "red" }}>
@@ -286,10 +440,16 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 비밀번호
               </Typography>
               <TextField
+                classes={{
+                  root: classes.root,
+                }}
                 label="비밀번호를 입력해주세요"
                 type="password"
                 value={password}
                 onChange={handlePasswordChange}
+                setPwQError={setPwQError}
+                passwordQuestion={passwordQuestion}
+                setPasswordQuestion={setPasswordQuestion}
                 required
                 inputProps={{ style: { color: "white" } }}
                 InputLabelProps={{ style: { color: "white" } }}
@@ -308,6 +468,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 비밀번호 확인
               </Typography>
               <TextField
+                classes={{
+                  root: classes.root,
+                }}
                 sx={formStyle}
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -327,6 +490,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 이름
               </Typography>
               <TextField
+                classes={{
+                  root: classes.root,
+                }}
                 label="이름을 입력해주세요"
                 type="text"
                 value={name}
@@ -347,6 +513,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 전화번호
               </Typography>
               <TextField
+                classes={{
+                  root: classes.root,
+                }}
                 label="전화번호를 입력해주세요"
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -366,6 +535,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 주소
               </Typography>
               <TextField
+                classes={{
+                  root: classes.root,
+                }}
                 label="주소를 입력해주세요"
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -377,7 +549,10 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
 
               <FormHelperText sx={{ color: "red" }}>{addrError}</FormHelperText>
             </Box>
-            <Box sx={inputFormStyle} style={{ height: "73.6px" }}>
+            <Box
+              sx={inputFormStyle}
+              style={{ marginTop: "2px", height: "92px" }}
+            >
               <Typography
                 sx={{ width: "150px", mr: 5, mt: 3 }}
                 variant="h10"
@@ -385,7 +560,17 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               >
                 비밀번호 찾기 질문
               </Typography>
-              <SelectInput question={question} setQuestion={setQuestion} />
+              <SelectInput
+                classes={{
+                  root: classes.root,
+                }}
+                setPwQError={setPwQError}
+                passwordQuestion={passwordQuestion}
+                setPasswordQuestion={setPasswordQuestion}
+              />
+              <FormHelperText sx={{ color: "red", mt: -3, mb: 3 }}>
+                {pwQError}
+              </FormHelperText>
             </Box>
             <Box sx={inputFormStyle}>
               <Typography
@@ -397,6 +582,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               </Typography>
 
               <TextField
+                classes={{
+                  root: classes.root,
+                }}
                 label="비밀번호 찾기 질문에 대한 답"
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -412,7 +600,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
             <Box sx={{ mx: "auto", width: 100, marginTop: "15px" }}>
               <CustomizedButton
                 label="회원가입"
-                onClick={handleSubmit}
+                onClick={loginSubmit}
               ></CustomizedButton>
             </Box>
           </Box>

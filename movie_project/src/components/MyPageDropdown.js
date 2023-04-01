@@ -20,9 +20,8 @@ export default function PositionedMenu() {
   };
 
   const logout = () => {
-    //jwt 삭제
-    //localStorage.removeItem('jwtToken');
-    navigate("/", { replace: true });
+    window.sessionStorage.clear(); // 세션스토리지에 저장된 속성값 모두 삭제
+    navigate("/", { replace: true }); // 로그인페이지로 이동
   };
 
   return (
