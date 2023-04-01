@@ -192,7 +192,14 @@ export default function EmailChange({
               </Box>
             </Box>
 
-            <Box sx={{ ml: 60 }}>
+            <Box sx={{ display: "flex", ml: 47 }}>
+              <Box sx={{ mr: 3 }}>
+                <CustomizedButton
+                  label="중복확인"
+                  value="updateDelete"
+                  onClick={handleUpdate}
+                ></CustomizedButton>
+              </Box>
               <CustomizedButton
                 label="확인"
                 value="updateDelete"
