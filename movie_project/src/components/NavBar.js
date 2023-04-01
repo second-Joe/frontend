@@ -76,7 +76,7 @@ const NavBar = ({
   //Link 컴포넌트를 사용하지 않고 다른 페이지로 이동해야 할때 사용
   const navigate = useNavigate();
   const goBack = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   const goSearch = (e) => {
@@ -84,10 +84,7 @@ const NavBar = ({
   };
 
   const goLogout = () => {
-    //Login 페이지로 이동(로그아웃 하면 다시 뒤로가기 안됨)
-    //replace: true는 페이지를 이동할때 현재 페이지를 기록에 남기지 않는다.
-    //Q. login페이지로 redirect되면 더이상 홈페이지나 그 안의 내용에 접근 못하게 하려고 했는데, 홈페이지는 접근이 되지 않지만 그 전 기록은 접근이 가능.
-    //Q. browser history를 아예 초기화 시키는 방법을 search해봤으나 불가능하다고 함.
+    window.sessionStorage.clear(); // 세션스토리지에 저장된 속성값 모두 삭제
     navigate("/", { replace: true });
     // 2 방법. window.location.replace("/");
     // 3 방법. return <Navigate to="/" replace={false} />;

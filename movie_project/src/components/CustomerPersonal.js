@@ -7,11 +7,35 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import { Grid } from "@mui/material";
 import DescriptionIcon from "@mui/icons-material/Description";
 import Box from "@mui/material/Box";
+import axios from "axios";
+import { useEffect } from "react";
 
 const CustomerPersonal = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [user, setUser] = React.useState(window.sessionStorage.getItem("id"));
+  const [userName, setUserName] = React.useState("");
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8080/selectMember", {
+        member_id: user,
+      })
+      .then((res) => {
+        console.log("selectMember =>", res);
+        if (res.data !== null) {
+          setUserName(res.data.member_name);
+          // alert("정보 확인 성공!");
+        } else {
+          alert("정보 확인 실패!");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, []);
   let paddingTop = "250px";
   if (isSmallScreen) {
     paddingTop = "180px";
@@ -23,7 +47,7 @@ const CustomerPersonal = () => {
         sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
         fontWeight="bold"
       >
-        유저 님, 안녕하세요.
+        {userName} 님, 안녕하세요.
       </Typography>
       <PersonalHelpCard />
       <Typography variant="h6" sx={{ mt: 3, mb: 3 }}>

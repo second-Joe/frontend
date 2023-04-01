@@ -8,6 +8,10 @@ import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
 import SelectInput from "./SelectInput";
 import CustomizedButton from "./CustomizedButton";
+import { useRef, useState } from "react";
+import FormHelperText from "@mui/material/FormHelperText";
+import axios from "axios";
+import PasswordChange from "./PasswordChange";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -52,6 +56,8 @@ Fade.propTypes = {
 
 const style = {
   position: "absolute",
+  display: "flex",
+  flexDirection: "column",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -65,14 +71,98 @@ const style = {
 
 export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
   const [open, setOpen] = React.useState(openModal);
-  const [question, setQuestion] = React.useState("");
+
+  const [id, setId] = useState("");
+  //email 상태값 업데이트
+  const [idError, setIdError] = React.useState("");
+  const [passwordQuestion, setPasswordQuestion] = useState("");
+  const [pwQError, setPwQError] = useState("");
+  const [passwordAnswer, setPasswordAnswer] = useState("");
+  const [pwAnsError, setPwAnsError] = useState("");
+
+  const [passwordSearch, setPasswordSearch] = useState(false);
+
+  const [openPwModal, setOpenPwModal] = useState(false);
+
+  const handlePwOpen = () => {
+    setOpenPwModal(true);
+  };
+  const handlePwClose = () => {
+    console.log(openPwModal);
+    setOpenPwModal(false);
+  };
 
   const handleClose2 = () => {
     setOpen(false);
     handleClose();
   };
 
-  const handleSubmit = () => {};
+  const passwordSearchSubmit = () => {
+    if (handlePasswordCheck()) {
+      axios
+        .post("http://localhost:8080/passwordSearch", {
+          member_id: id,
+          pw_question: passwordQuestion,
+          pw_answer: passwordAnswer,
+        })
+        .then((res) => {
+          console.log("passwordSearch =>", res);
+          if (res.data === 1) {
+            setPasswordSearch(true);
+            handlePwOpen();
+          } else {
+            alert("관련 정보 없음!");
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    }
+  };
+  const isValidId = (email) => {
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    return emailRegex.test(email);
+    // 이메일 주소의 유효성을 검사하는 코드를 작성한다.
+    // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
+  };
+
+  const isValidPassword = (password) => {
+    const passwordRegex = password.length >= 4 && password.length <= 20;
+    return passwordRegex;
+    // 패스워드의 유효성을 검사하는 코드를 작성한다.
+    // 유효한 패스워드인 경우 true, 그렇지 않은 경우 false를 반환한다.
+  };
+
+  const handlePasswordCheck = (event) => {
+    let check = true;
+    let validEmail =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(
+        id
+      );
+
+    if (!id) {
+      setIdError("이메일을 입력해주세요.");
+      check = false;
+    } else if (!validEmail) {
+      setIdError("정확한 이메일 주소를 입력해주세요.");
+      check = false;
+    }
+    if (passwordAnswer === "") {
+      setPwAnsError("비밀번호 질문에 대한 답을 입력해주세요.");
+      check = false;
+    } else {
+      setPwAnsError("");
+    }
+    if (passwordQuestion === "") {
+      setPwQError("비밀번호 질문을 선택해주세요.");
+      check = false;
+    } else {
+      setPwQError("");
+    }
+    return check;
+  };
+
   return (
     <div>
       <Modal
@@ -104,9 +194,21 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                 variant="h10"
                 component="h4"
               >
-                아이디
+                이메일 주소
               </Typography>
-              <OutlinedTextField label="아이디를 입력해주세요" />
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <OutlinedTextField
+                  required
+                  isValidId={isValidId}
+                  value={id}
+                  onChange={setId}
+                  setIdError={setIdError}
+                  label="이메일 주소를 입력해주세요"
+                />
+                <FormHelperText sx={{ mt: -3, mb: 2, color: "red" }}>
+                  {idError}
+                </FormHelperText>
+              </Box>
             </Box>
             <Box sx={{ display: "flex" }}>
               <Typography
@@ -116,7 +218,17 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               >
                 비밀번호 찾기 질문
               </Typography>
-              <SelectInput question={question} setQuestion={setQuestion} />
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <SelectInput
+                  required
+                  setPwQError={setPwQError}
+                  passwordQuestion={passwordQuestion}
+                  setPasswordQuestion={setPasswordQuestion}
+                />
+                <FormHelperText sx={{ mt: -3, mb: 2, color: "red" }}>
+                  {pwQError}
+                </FormHelperText>
+              </Box>
             </Box>
             <Box sx={{ display: "flex" }}>
               <Typography
@@ -126,15 +238,37 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               >
                 비밀번호 찾기 답변
               </Typography>
-
-              <OutlinedTextField label="비밀번호 찾기 질문에 대한 답을 입력해주세요" />
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <OutlinedTextField
+                  required
+                  value={passwordAnswer}
+                  setPwAnsError={setPwAnsError}
+                  onChange={setPasswordAnswer}
+                  label="비밀번호 찾기 질문에 대한 답을 입력해주세요"
+                />
+                <FormHelperText sx={{ mt: -3, mb: 2, color: "red" }}>
+                  {pwAnsError}
+                </FormHelperText>
+              </Box>
             </Box>
             <Box sx={{ mx: "auto", width: 50 }}>
               <CustomizedButton
                 label="찾기"
                 value="passwordAnswer"
-                onClick={handleSubmit}
+                onClick={passwordSearchSubmit}
               ></CustomizedButton>
+              {passwordSearch ? (
+                <PasswordChange
+                  label="비밀번호 찾기 변경"
+                  passwordChangeEmail={id}
+                  setPasswordSearch={setPasswordSearch}
+                  openPwModal={openPwModal}
+                  setOpenPwModal={setOpenPwModal}
+                  handlePwOpen={handlePwOpen}
+                  handlePwClose={handlePwClose}
+                  handleCloseAll={handleClose2}
+                />
+              ) : null}
             </Box>
           </Box>
         </Fade>

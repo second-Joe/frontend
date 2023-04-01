@@ -37,16 +37,30 @@ const BootstrapButton = styled(Button)({
 });
 
 export default function CustomizedButton(props) {
-  const { value } = props;
+  const { value, label } = props;
 
   return (
-    <BootstrapButton
-      value={value}
-      onClick={props.onClick}
-      variant="contained"
-      disableRipple
-    >
-      {props.label}
-    </BootstrapButton>
+    <div>
+      {label === "비밀번호 변경" ? (
+        <BootstrapButton
+          value={value}
+          onClick={props.onClick}
+          variant="contained"
+          disableRipple
+          sx={{ width: 149 }}
+        >
+          {props.label}
+        </BootstrapButton>
+      ) : (
+        <BootstrapButton
+          value={value}
+          onClick={props.onClick}
+          variant="contained"
+          disableRipple
+        >
+          {props.label}
+        </BootstrapButton>
+      )}
+    </div>
   );
 }

@@ -7,6 +7,8 @@ import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
 import CustomizedButton from "./CustomizedButton";
+import axios from "axios";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -62,16 +64,67 @@ const style = {
   p: 4,
 };
 
-export default function PasswordChange({ openModal, handleOpen, handleClose }) {
-  const [open, setOpen] = React.useState(openModal);
-
+export default function PasswordChange({
+  openPwModal,
+  handlePwOpen,
+  handlePwClose,
+  setPasswordSearch,
+  setPw,
+  passwordChangeEmail,
+  label,
+  handleCloseAll,
+}) {
+  const [open, setOpen] = React.useState(openPwModal);
+  const [newPw, setNewPw] = React.useState("");
+  const [passwordError, setPasswordError] = React.useState("");
+  const [email, setEmail] = React.useState(window.sessionStorage.getItem("id"));
+  if (email === null) {
+    //비밃번호 찾기 일 경우에는 session에 저장된 아이디 없음.
+    setEmail(passwordChangeEmail);
+  }
   const handleClose2 = () => {
+    setPasswordSearch(false);
+    handlePwClose();
     setOpen(false);
-    handleClose();
+    if (label === "비밀번호 찾기 변경") {
+      handleCloseAll();
+    }
   };
 
-  const handleUpdate = () => {};
-  const handleRemove = () => {};
+  const isValidPassword = (password) => {
+    const passwordRegex = password.length >= 4 && password.length <= 20;
+    return passwordRegex;
+    // 패스워드의 유효성을 검사하는 코드를 작성한다.
+    // 유효한 패스워드인 경우 true, 그렇지 않은 경우 false를 반환한다.
+  };
+  const handlePwUpdate = () => {
+    if (isValidPassword(newPw)) {
+      axios
+        .post("http://localhost:8080/passwordUpdate", {
+          member_id: email,
+          member_pw: newPw,
+        })
+        .then((res) => {
+          console.log("passwordUpdate =>", res);
+          if (res.data === 1) {
+            handleClose2();
+            if (label === "마이페이지 비밀번호 변경") {
+              setPw(newPw);
+            }
+
+            alert("비밀번호 업데이트 성공!");
+          } else {
+            alert("비밀번호 업데이트 실패!");
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    } else if (newPw === "") {
+      setPasswordError("비밀번호를 입력해주세요.");
+    }
+  };
+
   return (
     <div>
       <Modal
@@ -105,14 +158,25 @@ export default function PasswordChange({ openModal, handleOpen, handleClose }) {
               >
                 비밀번호 입력
               </Typography>
-              <OutlinedTextField label="변경할 비밀번호를 입력해주세요" />
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <OutlinedTextField
+                  value={newPw}
+                  onChange={setNewPw}
+                  isValidPassword={isValidPassword}
+                  setPasswordError={setPasswordError}
+                  label="변경할 비밀번호를 입력해주세요"
+                />
+                <FormHelperText sx={{ mt: -2, fontSize: "1em", color: "red" }}>
+                  {passwordError}
+                </FormHelperText>
+              </Box>
             </Box>
 
             <Box sx={{ ml: 60 }}>
               <CustomizedButton
                 label="확인"
                 value="updateDelete"
-                onClick={handleUpdate}
+                onClick={handlePwUpdate}
               ></CustomizedButton>
             </Box>
           </Box>

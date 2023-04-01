@@ -28,16 +28,11 @@ const App = () => {
   if (
     location.pathname === "/login" ||
     location.pathname === "/profiles" ||
-    location.pathname === "/"
+    location.pathname === "/" ||
+    location.pathname === "/search/" ||
+    location.pathname === "/profileupdate"
   ) {
     document.body.style.backgroundColor = "rgb(42, 43, 43)";
-  } else if (
-    location.pathname === "/customercenter" ||
-    location.pathname === "/mypage" ||
-    location.pathname === "/board" ||
-    location.pathname === "/boardInsert"
-  ) {
-    document.body.style.backgroundColor = "white";
   } else {
     document.body.style.backgroundColor = "white";
   }

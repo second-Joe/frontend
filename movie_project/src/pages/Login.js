@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@mui/material";
@@ -11,13 +11,75 @@ import FormHelperText from "@mui/material/FormHelperText";
 import PasswordCheck from "../components/passwordCheck";
 import CustomizedButton from "../components/CustomizedButton";
 import SignUp from "../components/SignUp";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import {
+  createMuiTheme,
+  makeStyles,
+  createStyles,
+  Theme as AugmentedTheme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
+import { orange, blue, green } from "@material-ui/core/colors";
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      // color: green[900],
+
+      "& .MuiOutlinedInput-root": {
+        backgroundColor: "transparent",
+        "& fieldset": {
+          borderColor: "rgba(0, 0, 0, 0.23)", // default
+        },
+        "&.Mui-focused fieldset": {
+          border: "2px solid white", // customized
+        },
+      },
+    },
+  })
+);
+
 function Login() {
+  const classes = useStyles();
+  const theme = createMuiTheme();
+  const emailRef = useRef();
+  const pwRef = useRef();
+
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   //email 상태값 업데이트
   const [password, setPassword] = useState("");
   //password 상태값 업데이트
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const [saveAccount, setSaveAccount] = useState(false);
+
+  const [emailLabel, setEmailLabel] = useState("이메일 주소");
+  const [pwLabel, setPwLabel] = useState("비밀번호");
+
+  useEffect(() => {
+    if (window.localStorage.getItem("id") !== null) {
+      // alert("저장된 정보 있음!");
+
+      setEmail(window.localStorage.getItem("id"));
+      axios
+        .post("http://localhost:8080/selectMember", {
+          member_id: window.localStorage.getItem("id"),
+        })
+        .then((res) => {
+          if (res.data !== null) {
+            setPassword(res.data.member_pw);
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    }
+  }, []);
+
   const isValidEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
@@ -26,14 +88,15 @@ function Login() {
   };
 
   const isValidPassword = (password) => {
-    const passwordRegex = password.length >= 4 && password.length <= 60;
+    const passwordRegex = password.length >= 4 && password.length <= 20;
     return passwordRegex;
     // 패스워드의 유효성을 검사하는 코드를 작성한다.
     // 유효한 패스워드인 경우 true, 그렇지 않은 경우 false를 반환한다.
   };
 
   const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+    console.log(event.target.value);
+    setEmail((value) => event.target.value);
     // setEmail 함수를 이용해 email 상태값을 업데이트한다.
     setEmailError(
       isValidEmail(event.target.value)
@@ -43,32 +106,77 @@ function Login() {
   };
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+    setPassword((value) => event.target.value);
     // setPassword 함수를 이용해 password 상태값을 업데이트한다.
     setPasswordError(
       isValidPassword(event.target.value)
         ? ""
-        : "비밀번호는 4~60자 사이여야 합니다."
+        : "비밀번호는 4~20자 사이여야 합니다."
     );
   };
 
-  const handleSubmit = (event) => {
+  const checkSubmit = (event) => {
     event.preventDefault();
     let validEmail = /\S+@\S+.\S+/.test(email);
     let validPassword = password.length >= 4 && password.length <= 60;
     if (!email) {
       setEmailError("이메일을 입력해주세요.");
+      console.log(emailRef);
+      emailRef.current.focus();
     } else if (!validEmail) {
       setEmailError("정확한 이메일 주소를 입력해주세요.");
+      emailRef.current.focus();
     }
     if (!password) {
       setPasswordError("비밀번호를 입력해주세요.");
+      pwRef.current.focus();
     } else if (!validPassword) {
-      setPasswordError("비밀번호는 4~60자 사이여야 합니다.");
+      setPasswordError("비밀번호는 4~20자 사이여야 합니다.");
+      pwRef.current.focus();
     }
     if (validEmail && validPassword) {
-      window.location.href = "/login";
+      handleLogin();
     }
+  };
+
+  const handleLogin = () => {
+    axios
+      .post("http://localhost:8080/selectMember", {
+        member_id: email,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data !== "") {
+          axios
+            .post("http://localhost:8080/login", {
+              member_id: email,
+              member_pw: password,
+            })
+            .then((res) => {
+              console.log("handleLogin =>", res);
+              if (res.data === 1) {
+                window.sessionStorage.setItem("id", email);
+                if (saveAccount === true) {
+                  // 로그인 정보 저장 버튼을 누르면 localstorage에 로그인 정보 저장
+                  window.localStorage.clear();
+                  window.localStorage.setItem("id", email);
+                }
+                navigate("/login");
+              } else {
+                alert("비밀번호가 다릅니다!");
+                navigate("/");
+              }
+            })
+            .catch((e) => {
+              console.error(e);
+            });
+        } else {
+          alert("일치하는 이메일 주소가 없습니다!");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   const [openModal, setOpenModal] = React.useState(false);
@@ -87,6 +195,10 @@ function Login() {
   };
   const signUpClose = () => {
     setOpenSignUp(false);
+  };
+
+  const saveAccountChange = (e) => {
+    setSaveAccount(e.target.checked);
   };
 
   return (
@@ -116,21 +228,39 @@ function Login() {
           flexDirection: "column",
           alignItems: "center",
           padding: "16px",
+          width: "90%",
+          minWidth: "400px",
         }}
       >
-        <Typography component="h1" variant="h5" sx={{ mb: "16px" }}>
+        <Typography component="h1" variant="h5" sx={{ mt: "30px", mb: "30px" }}>
           로그인
         </Typography>
         <TextField
+          classes={{
+            root: classes.root,
+          }}
+          autoComplete="off"
+          ref={emailRef}
           margin="normal"
-          label="이메일 주소"
+          label={emailLabel}
           type="email"
           name="email"
           fullWidth
           variant="outlined"
           inputProps={{ style: { color: "white" } }}
           InputLabelProps={{ style: { color: "white" } }}
-          sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
+          sx={{
+            my: 1,
+            background: "#38393b",
+            // border: "1.5px solid white",
+            "&:hover": {
+              border: "none",
+            },
+            "&:click": {
+              backgroundColor: "transparent",
+              border: "none",
+            },
+          }}
           required
           value={email}
           onChange={handleEmailChange}
@@ -141,7 +271,11 @@ function Login() {
         </FormHelperText>
 
         <TextField
-          label="비밀번호"
+          classes={{
+            root: classes.root,
+          }}
+          ref={pwRef}
+          label={pwLabel}
           type="password"
           autoComplete="current-password"
           required
@@ -149,38 +283,58 @@ function Login() {
           variant="outlined"
           inputProps={{ style: { color: "white" } }}
           InputLabelProps={{ style: { color: "white" } }}
-          sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
+          sx={{
+            my: 1,
+            background: "#38393b",
+            "&:hover": {
+              border: "none",
+            },
+            "&.Mui-focused fieldset": {
+              backgroundColor: "transparent",
+              border: "none",
+            },
+          }}
           value={password}
           onChange={handlePasswordChange}
         />
 
         <FormHelperText sx={{ color: "red" }}>{passwordError}</FormHelperText>
 
-        <Typography sx={{ display: "flex", alignItems: "center", mt: "16px" }}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                value="remember"
-                color="primary"
-                sx={{
-                  "&.Mui-checked": {
-                    color: "white",
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                    },
-                  },
-                }}
+        <Box sx={{ display: "flex", width: "100%", mt: 4, mb: 3 }}>
+          <Box sx={{ display: "flex", width: "50%" }}>
+            <Typography sx={{ justifyContent: "start" }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    value="remember"
+                    color="primary"
+                    sx={{
+                      color: "white",
+                      "&.Mui-checked": {
+                        color: "white",
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                        },
+                      },
+                    }}
+                    checked={saveAccount}
+                    onChange={saveAccountChange}
+                    name="saveAccount"
+                  />
+                }
+                label="로그인 정보 저장"
+                sx={{ mr: "auto" }}
               />
-            }
-            label="로그인 정보 저장"
-            sx={{ mr: "auto" }}
-          />
-          <Box sx={{ ml: "400px" }}>
-            <CustomizedButton
-              label="비밀번호 찾기"
-              value="비밀번호 찾기"
-              onClick={handleOpen}
-            ></CustomizedButton>
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex", width: "50%", justifyContent: "end" }}>
+            <Box>
+              <CustomizedButton
+                label="비밀번호 찾기"
+                value="비밀번호 찾기"
+                onClick={handleOpen}
+              ></CustomizedButton>
+            </Box>
             {openModal ? (
               <PasswordCheck
                 openModal={openModal}
@@ -190,14 +344,14 @@ function Login() {
               ></PasswordCheck>
             ) : null}
           </Box>
-        </Typography>
+        </Box>
 
         <Button
           type="submit"
           fullWidth
           variant="contained"
           sx={{ background: "#e50914", mt: "24px", mb: "16px" }}
-          onClick={handleSubmit}
+          onClick={checkSubmit}
         >
           로그인
         </Button>
@@ -210,12 +364,14 @@ function Login() {
               onClick={signUpOpen}
             ></CustomizedButton>
             {openSignUp ? (
-              <SignUp
-                openSignUp={openSignUp}
-                setOpenSignUp={setOpenSignUp}
-                signUpOpen={signUpOpen}
-                signUpClose={signUpClose}
-              ></SignUp>
+              <ThemeProvider theme={theme}>
+                <SignUp
+                  openSignUp={openSignUp}
+                  setOpenSignUp={setOpenSignUp}
+                  signUpOpen={signUpOpen}
+                  signUpClose={signUpClose}
+                ></SignUp>
+              </ThemeProvider>
             ) : null}
           </Box>
         </Typography>

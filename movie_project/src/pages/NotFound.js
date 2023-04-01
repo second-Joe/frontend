@@ -1,4 +1,5 @@
 const NotFound = () => {
+  document.body.style.backgroundColor = "rgb(42, 43, 43)";
   const errormsg1 = `I'm sorry :(`;
   const errormsg2 = `We can't find the page!`;
   return (
