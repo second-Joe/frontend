@@ -30,11 +30,16 @@ export default function OutlinedTextField({
   isValidPassword,
   setTelError,
   isValidatePhone,
+  setPwAnsError,
 }) {
   const changeVal = (e) => {
     console.log(e.target.value);
 
-    if (label === "변경할 이메일 주소를 입력해주세요") {
+    if (
+      label === "변경할 이메일 주소를 입력해주세요" ||
+      label === "이메일 주소를 입력해주세요"
+    ) {
+      console.log(e.target.value);
       onChange(e.target.value);
       setIdError(
         isValidId(e.target.value) ? "" : "정확한 이메일 주소를 입력해주세요."
@@ -58,13 +63,24 @@ export default function OutlinedTextField({
           .replace(/[^0-9]/g, "")
           .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})(\d{0,1})$/g, "$1-$2-$3")
           .replace(/(\-{1,2})$/g, "")
+          .slice(0, 13)
       );
       setTelError(
-        isValidatePhone(e.target.value) ? "" : "올바른 휴대폰 번호를 입력하세요"
+        isValidatePhone(e.target.value)
+          ? ""
+          : "올바른 휴대폰 번호를 입력하세요."
       );
 
-      if (e.target.value === "") {
+      if (e.target.value !== "") {
         setTelError("");
+      }
+    } else if (label === "비밀번호 찾기 질문에 대한 답을 입력해주세요") {
+      onChange(e.target.value);
+
+      if (e.target.value === "") {
+        setPwAnsError("비밀번호 찾기 답을 입력해주세요");
+      } else {
+        setPwAnsError("");
       }
     }
   };

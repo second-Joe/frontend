@@ -83,7 +83,8 @@ export default function EmailChange({
     setOpen(false);
   };
   const isValidId = (id) => {
-    const idRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const idRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     return idRegex.test(id);
     // 이메일 주소의 유효성을 검사하는 코드를 작성한다.
     // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
