@@ -111,7 +111,7 @@ function Login() {
               console.error(e);
             });
         } else {
-          alert("일치하는 로그인 정보가 없습니다!");
+          alert("일치하는 이메일 주소가 없습니다!");
         }
       })
       .catch((e) => {
