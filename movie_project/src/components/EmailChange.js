@@ -137,7 +137,14 @@ export default function EmailChange({
             if (res.data === 1) {
               handleClose2();
               alert("이메일 주소 업데이트 성공!");
+              if (
+                window.localStorage.getItem("id") ===
+                window.sessionStorage.getItem("id")
+              ) {
+                window.localStorage.setItem("id", newEmail);
+              }
               window.sessionStorage.setItem("id", newEmail);
+
               setEmail(newEmail);
             } else {
               handleClose2();
