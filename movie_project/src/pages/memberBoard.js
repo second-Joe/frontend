@@ -154,7 +154,7 @@ export default function MemberBoard() {
 
   return (
     <div>
-      <StickyHeader />
+      <StickyHeader kind="고객관리" />
       <Container sx={{ paddingTop: { paddingTop } }}>
         <h2 style={{ display: "flex", alignItems: "center", color: "black" }}>
           <span style={{ marginRight: "auto" }}>문의하기</span>

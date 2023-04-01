@@ -46,7 +46,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar({ kind }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Typography
@@ -61,7 +61,7 @@ export default function PrimarySearchAppBar() {
           mb: 1,
         }}
       >
-        고객 센터
+        {kind}
       </Typography>
       <Search>
         <SearchIconWrapper>

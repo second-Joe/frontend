@@ -7,7 +7,7 @@ import CustomerSolution from "../components/CustomerSolution";
 const Customercenter = () => {
   return (
     <div>
-      <StickyHeader />
+      <StickyHeader kind="고객센터" />
       <CustomerPersonal />
       <Divider />
       <CustomerSolution />
