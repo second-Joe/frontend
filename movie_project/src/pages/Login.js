@@ -86,18 +86,32 @@ function Login() {
 
   const handleLogin = () => {
     axios
-      .post("/login", {
+      .post("/selectMember", {
         member_id: email,
-        member_pw: password,
       })
       .then((res) => {
-        // console.log("handleLogin =>", res);
-        if (res.data === 1) {
-          window.sessionStorage.setItem("id", email);
-          navigate("/login");
+        console.log(res);
+        if (res.data !== "") {
+          axios
+            .post("/login", {
+              member_id: email,
+              member_pw: password,
+            })
+            .then((res) => {
+              console.log("handleLogin =>", res);
+              if (res.data === 1) {
+                window.sessionStorage.setItem("id", email);
+                navigate("/login");
+              } else {
+                alert("비밀번호가 다릅니다!");
+                navigate("/");
+              }
+            })
+            .catch((e) => {
+              console.error(e);
+            });
         } else {
           alert("일치하는 로그인 정보가 없습니다!");
-          navigate("/");
         }
       })
       .catch((e) => {
