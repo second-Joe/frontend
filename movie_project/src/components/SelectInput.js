@@ -4,6 +4,27 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  select: {
+    "&:before": {
+      borderColor: "white",
+    },
+    "&:after": {
+      borderColor: "white",
+    },
+    "&:not(.Mui-disabled):hover::before": {
+      borderColor: "white",
+    },
+  },
+  icon: {
+    fill: "white",
+  },
+  root: {
+    color: "white",
+  },
+});
 
 export default function SelectInput({
   ref1,
@@ -12,6 +33,7 @@ export default function SelectInput({
   setPasswordQuestion,
   setPwQError,
 }) {
+  const classes = useStyles();
   const handleChange = (event) => {
     console.log(event);
     setPasswordQuestion(event.target.value);
@@ -39,19 +61,22 @@ export default function SelectInput({
           Password Questions
         </InputLabel>
         <Select
+          className={classes.select}
           labelId="simple-select-label"
           id="simple-select"
           value={passwordQuestion}
           label="passwordQuestions"
           onChange={handleChange}
-          inputProps={{ style: { color: "white" } }}
           InputLabelProps={{ style: { color: "white" } }}
+          labelStyle={{ color: "white" }}
           sx={{
             my: 1,
             width: 360,
             background: "#38393b",
-            border: "1.5px solid white",
             color: "white",
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "white",
+            },
           }}
         >
           <MenuItem value="자신의 보물 제1호는?">자신의 보물 제1호는?</MenuItem>

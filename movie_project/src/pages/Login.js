@@ -13,8 +13,36 @@ import CustomizedButton from "../components/CustomizedButton";
 import SignUp from "../components/SignUp";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {
+  createMuiTheme,
+  makeStyles,
+  createStyles,
+  Theme as AugmentedTheme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
+import { orange, blue, green } from "@material-ui/core/colors";
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      // color: green[900],
+
+      "& .MuiOutlinedInput-root": {
+        backgroundColor: "transparent",
+        "& fieldset": {
+          borderColor: "rgba(0, 0, 0, 0.23)", // default
+        },
+        "&.Mui-focused fieldset": {
+          border: "2px solid white", // customized
+        },
+      },
+    },
+  })
+);
 
 function Login() {
+  const classes = useStyles();
+  const theme = createMuiTheme();
   const emailRef = useRef();
   const pwRef = useRef();
 
@@ -204,6 +232,10 @@ function Login() {
           로그인
         </Typography>
         <TextField
+          classes={{
+            root: classes.root,
+          }}
+          autoComplete="off"
           ref={emailRef}
           margin="normal"
           label={emailLabel}
@@ -213,7 +245,18 @@ function Login() {
           variant="outlined"
           inputProps={{ style: { color: "white" } }}
           InputLabelProps={{ style: { color: "white" } }}
-          sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
+          sx={{
+            my: 1,
+            background: "#38393b",
+            // border: "1.5px solid white",
+            "&:hover": {
+              border: "none",
+            },
+            "&:click": {
+              backgroundColor: "transparent",
+              border: "none",
+            },
+          }}
           required
           value={email}
           onChange={handleEmailChange}
@@ -224,6 +267,9 @@ function Login() {
         </FormHelperText>
 
         <TextField
+          classes={{
+            root: classes.root,
+          }}
           ref={pwRef}
           label={pwLabel}
           type="password"
@@ -233,7 +279,17 @@ function Login() {
           variant="outlined"
           inputProps={{ style: { color: "white" } }}
           InputLabelProps={{ style: { color: "white" } }}
-          sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
+          sx={{
+            my: 1,
+            background: "#38393b",
+            "&:hover": {
+              border: "none",
+            },
+            "&.Mui-focused fieldset": {
+              backgroundColor: "transparent",
+              border: "none",
+            },
+          }}
           value={password}
           onChange={handlePasswordChange}
         />
@@ -298,12 +354,14 @@ function Login() {
               onClick={signUpOpen}
             ></CustomizedButton>
             {openSignUp ? (
-              <SignUp
-                openSignUp={openSignUp}
-                setOpenSignUp={setOpenSignUp}
-                signUpOpen={signUpOpen}
-                signUpClose={signUpClose}
-              ></SignUp>
+              <ThemeProvider theme={theme}>
+                <SignUp
+                  openSignUp={openSignUp}
+                  setOpenSignUp={setOpenSignUp}
+                  signUpOpen={signUpOpen}
+                  signUpClose={signUpClose}
+                ></SignUp>
+              </ThemeProvider>
             ) : null}
           </Box>
         </Typography>

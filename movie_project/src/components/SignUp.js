@@ -11,7 +11,31 @@ import { useState } from "react";
 import { TextField } from "@mui/material";
 import FormHelperText from "@mui/material/FormHelperText";
 import axios from "axios";
+import {
+  createMuiTheme,
+  makeStyles,
+  createStyles,
+  Theme as AugmentedTheme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      // color: green[900],
+
+      "& .MuiOutlinedInput-root": {
+        backgroundColor: "transparent",
+        "& fieldset": {
+          borderColor: "rgba(0, 0, 0, 0.23)", // default
+        },
+        "&.Mui-focused fieldset": {
+          border: "2px solid white", // customized
+        },
+      },
+    },
+  })
+);
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
     children,
@@ -73,7 +97,6 @@ const formStyle = {
   width: "360px",
   color: "white",
   background: "#38393b",
-  border: "1.5px solid white",
   fontSize: "20px",
   borderRadius: 1,
 };
@@ -84,6 +107,7 @@ const inputFormStyle = {
 };
 
 export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
+  const classes = useStyles();
   const [open, setOpen] = React.useState(openSignUp);
 
   const handleClose2 = () => {
@@ -375,6 +399,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 }}
               >
                 <TextField
+                  classes={{
+                    root: classes.root,
+                  }}
                   label="이메일 주소를 입력해주세요"
                   type="email"
                   value={id}
@@ -387,13 +414,13 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                     width: "255px",
                     color: "white",
                     background: "#38393b",
-                    border: "1.5px solid white",
                     fontSize: "20px",
                     borderRadius: 1,
                     marginRight: "10px",
-                    height: "50px",
+                    height: "53px",
                   }}
                 />
+
                 <CustomizedButton
                   label="중복확인"
                   value="check"
@@ -413,6 +440,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 비밀번호
               </Typography>
               <TextField
+                classes={{
+                  root: classes.root,
+                }}
                 label="비밀번호를 입력해주세요"
                 type="password"
                 value={password}
@@ -438,6 +468,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 비밀번호 확인
               </Typography>
               <TextField
+                classes={{
+                  root: classes.root,
+                }}
                 sx={formStyle}
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -457,6 +490,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 이름
               </Typography>
               <TextField
+                classes={{
+                  root: classes.root,
+                }}
                 label="이름을 입력해주세요"
                 type="text"
                 value={name}
@@ -477,6 +513,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 전화번호
               </Typography>
               <TextField
+                classes={{
+                  root: classes.root,
+                }}
                 label="전화번호를 입력해주세요"
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -496,6 +535,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 주소
               </Typography>
               <TextField
+                classes={{
+                  root: classes.root,
+                }}
                 label="주소를 입력해주세요"
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -519,6 +561,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 비밀번호 찾기 질문
               </Typography>
               <SelectInput
+                classes={{
+                  root: classes.root,
+                }}
                 setPwQError={setPwQError}
                 passwordQuestion={passwordQuestion}
                 setPasswordQuestion={setPasswordQuestion}
@@ -537,6 +582,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               </Typography>
 
               <TextField
+                classes={{
+                  root: classes.root,
+                }}
                 label="비밀번호 찾기 질문에 대한 답"
                 required
                 inputProps={{ style: { color: "white" } }}
