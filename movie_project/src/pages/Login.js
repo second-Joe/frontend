@@ -226,9 +226,11 @@ function Login() {
           flexDirection: "column",
           alignItems: "center",
           padding: "16px",
+          width: "90%",
+          minWidth: "400px",
         }}
       >
-        <Typography component="h1" variant="h5" sx={{ mb: "16px" }}>
+        <Typography component="h1" variant="h5" sx={{ mt: "30px", mb: "30px" }}>
           로그인
         </Typography>
         <TextField
@@ -296,35 +298,41 @@ function Login() {
 
         <FormHelperText sx={{ color: "red" }}>{passwordError}</FormHelperText>
 
-        <Typography sx={{ display: "flex", alignItems: "center", mt: "16px" }}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                value="remember"
-                color="primary"
-                sx={{
-                  color: "white",
-                  "&.Mui-checked": {
-                    color: "white",
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                    },
-                  },
-                }}
-                checked={saveAccount}
-                onChange={saveAccountChange}
-                name="saveAccount"
+        <Box sx={{ display: "flex", width: "100%", mt: 4, mb: 3 }}>
+          <Box sx={{ display: "flex", width: "50%" }}>
+            <Typography sx={{ justifyContent: "start" }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    value="remember"
+                    color="primary"
+                    sx={{
+                      color: "white",
+                      "&.Mui-checked": {
+                        color: "white",
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                        },
+                      },
+                    }}
+                    checked={saveAccount}
+                    onChange={saveAccountChange}
+                    name="saveAccount"
+                  />
+                }
+                label="로그인 정보 저장"
+                sx={{ mr: "auto" }}
               />
-            }
-            label="로그인 정보 저장"
-            sx={{ mr: "auto" }}
-          />
-          <Box sx={{ ml: "400px" }}>
-            <CustomizedButton
-              label="비밀번호 찾기"
-              value="비밀번호 찾기"
-              onClick={handleOpen}
-            ></CustomizedButton>
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex", width: "50%", justifyContent: "end" }}>
+            <Box>
+              <CustomizedButton
+                label="비밀번호 찾기"
+                value="비밀번호 찾기"
+                onClick={handleOpen}
+              ></CustomizedButton>
+            </Box>
             {openModal ? (
               <PasswordCheck
                 openModal={openModal}
@@ -334,7 +342,7 @@ function Login() {
               ></PasswordCheck>
             ) : null}
           </Box>
-        </Typography>
+        </Box>
 
         <Button
           type="submit"
