@@ -72,6 +72,7 @@ export default function PasswordChange({
   setPw,
   passwordChangeEmail,
   label,
+  handleCloseAll,
 }) {
   const [open, setOpen] = React.useState(openPwModal);
   const [newPw, setNewPw] = React.useState("");
@@ -85,6 +86,9 @@ export default function PasswordChange({
     setPasswordSearch(false);
     handlePwClose();
     setOpen(false);
+    if (label === "비밀번호 찾기 변경") {
+      handleCloseAll();
+    }
   };
 
   const isValidPassword = (password) => {

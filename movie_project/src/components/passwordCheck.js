@@ -266,6 +266,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                   setOpenPwModal={setOpenPwModal}
                   handlePwOpen={handlePwOpen}
                   handlePwClose={handlePwClose}
+                  handleCloseAll={handleClose2}
                 />
               ) : null}
             </Box>
