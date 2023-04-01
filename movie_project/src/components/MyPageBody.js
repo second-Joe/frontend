@@ -29,7 +29,7 @@ const MyPageBody = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .post("/selectMember", {
+      .post("http://localhost:8080/selectMember", {
         member_id: user,
       })
       .then((res) => {
@@ -47,7 +47,7 @@ const MyPageBody = () => {
   }, []);
   useEffect(() => {
     axios
-      .post("/selectMember", {
+      .post("http://localhost:8080/selectMember", {
         member_id: email,
       })
       .then((res) => {
@@ -92,7 +92,7 @@ const MyPageBody = () => {
 
   const deleteAccount = () => {
     axios
-      .post("/deleteMember", {
+      .post("http://localhost:8080/deleteMember", {
         member_id: email,
       })
       .then((res) => {

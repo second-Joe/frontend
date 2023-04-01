@@ -87,7 +87,7 @@ export default function PhoneChange({
   const handleUpdate = () => {
     if (isValidatePhone(newTel)) {
       axios
-        .post("/phoneUpdate", {
+        .post("http://localhost:8080/phoneUpdate", {
           member_id: email,
           member_tel: newTel,
         })

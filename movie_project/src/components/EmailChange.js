@@ -94,7 +94,7 @@ export default function EmailChange({
     if (newEmail !== "") {
       if (isValidId(newEmail)) {
         axios
-          .post("/idDuplicateCheck", {
+          .post("http://localhost:8080/idDuplicateCheck", {
             member_id: newEmail,
           })
           .then((res) => {
@@ -128,7 +128,7 @@ export default function EmailChange({
     } else {
       if (isValidId(newEmail)) {
         axios
-          .post("/emailUpdate", {
+          .post("http://localhost:8080/emailUpdate", {
             member_id: email2,
             member_new_id: newEmail,
           })

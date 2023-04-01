@@ -20,7 +20,7 @@ const CustomerPersonal = () => {
 
   useEffect(() => {
     axios
-      .post("/selectMember", {
+      .post("http://localhost:8080/selectMember", {
         member_id: user,
       })
       .then((res) => {

@@ -66,7 +66,9 @@ function Login() {
 
       setEmail(window.localStorage.getItem("id"));
       axios
-        .post("/selectMember", { member_id: window.localStorage.getItem("id") })
+        .post("http://localhost:8080/selectMember", {
+          member_id: window.localStorage.getItem("id"),
+        })
         .then((res) => {
           if (res.data !== null) {
             setPassword(res.data.member_pw);
@@ -139,14 +141,14 @@ function Login() {
 
   const handleLogin = () => {
     axios
-      .post("/selectMember", {
+      .post("http://localhost:8080/selectMember", {
         member_id: email,
       })
       .then((res) => {
         console.log(res);
         if (res.data !== "") {
           axios
-            .post("/login", {
+            .post("http://localhost:8080/login", {
               member_id: email,
               member_pw: password,
             })

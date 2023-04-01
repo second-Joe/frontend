@@ -100,7 +100,7 @@ export default function PasswordChange({
   const handlePwUpdate = () => {
     if (isValidPassword(newPw)) {
       axios
-        .post("/passwordUpdate", {
+        .post("http://localhost:8080/passwordUpdate", {
           member_id: email,
           member_pw: newPw,
         })

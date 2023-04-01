@@ -100,7 +100,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
   const passwordSearchSubmit = () => {
     if (handlePasswordCheck()) {
       axios
-        .post("/passwordSearch", {
+        .post("http://localhost:8080/passwordSearch", {
           member_id: id,
           pw_question: passwordQuestion,
           pw_answer: passwordAnswer,

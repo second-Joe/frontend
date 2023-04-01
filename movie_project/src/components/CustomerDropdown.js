@@ -32,14 +32,13 @@ export default function PositionedMenu() {
 
   useEffect(() => {
     axios
-      .post("/selectMember", {
+      .post("http://localhost:8080/selectMember", {
         member_id: user,
       })
       .then((res) => {
         console.log("selectMember =>", res);
         if (res.data !== null) {
           setUserName(res.data.member_name);
-          console.log(user);
           // alert("정보 확인 성공!");
         } else {
           alert("정보 확인 실패!");

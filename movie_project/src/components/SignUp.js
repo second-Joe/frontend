@@ -301,7 +301,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   const loginSubmit = (e) => {
     if (loginCheck()) {
       axios
-        .post("/insertMember", {
+        .post("http://localhost:8080/insertMember", {
           member_id: id,
           member_pw: password,
           member_name: name,
@@ -329,7 +329,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
     if (id !== "") {
       if (isValidId(id)) {
         axios
-          .post("/idDuplicateCheck", {
+          .post("http://localhost:8080/idDuplicateCheck", {
             member_id: id,
           })
           .then((res) => {
