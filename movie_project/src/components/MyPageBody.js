@@ -90,6 +90,9 @@ const MyPageBody = () => {
     setOpenPhoneModal(false);
   };
 
+  const gotoMemberBoard = () => {
+    navigate("/memberBoard");
+  };
   const deleteAccount = () => {
     axios
       .post("http://localhost:8080/deleteMember", {
@@ -327,6 +330,14 @@ const MyPageBody = () => {
       </Grid>
       <Divider />
       <Box sx={{ display: "flex", justifyContent: "end", mt: 5 }}>
+        {user === "admin@email.com" ? (
+          <Box sx={{ mr: 3 }}>
+            <CustomizedButton
+              label="넷플릭스 회원 관리하기"
+              onClick={gotoMemberBoard}
+            ></CustomizedButton>
+          </Box>
+        ) : null}
         <Box sx={{ mr: 3 }}>
           <CustomizedButton
             label="로그인 정보 삭제하기"

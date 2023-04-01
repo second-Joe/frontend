@@ -19,6 +19,7 @@ import Board from "./components/Board";
 import BoardList from "./components/BoardList";
 import BoardModify from "./pages/BoardModify";
 import BoardDetail from "./components/BoardDetail";
+import MemberBoard from "./pages/memberBoard";
 
 const App = () => {
   const location = useLocation();
@@ -54,6 +55,7 @@ const App = () => {
       <Route path="/profileupdate" element={<ProfileUpdate />} />
       <Route path="/boardInsert" element={<BoardInsert />} />
       <Route path="/boardModify" element={<BoardModify />} />
+      <Route path="/memberBoard" element={<MemberBoard />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
