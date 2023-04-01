@@ -5,20 +5,6 @@ import Box from "@mui/material/Box";
 import FormHelperText from "@mui/material/FormHelperText";
 import { useRef } from "react";
 
-// function MyFormHelperText() {
-//   const { focused } = useFormControl() || {};
-
-//   const helperText = React.useMemo(() => {
-//     if (focused) {
-//       return "This field is being focused";
-//     }
-
-//     return "Helper text";
-//   }, [focused]);
-
-//   return <FormHelperText>{helperText}</FormHelperText>;
-// }
-
 export default function OutlinedTextField({
   label,
   ref1,
@@ -95,7 +81,13 @@ export default function OutlinedTextField({
           value={value}
           inputProps={{ style: { color: "white" } }}
           InputLabelProps={{ style: { color: "white" } }}
-          sx={{ my: 1, background: "#38393b", border: "1.5px solid white" }}
+          sx={{
+            my: 1,
+            background: "#38393b",
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "white",
+            },
+          }}
           placeholder={label}
         />
         {/* <MyFormHelperText /> */}
