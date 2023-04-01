@@ -70,11 +70,17 @@ export default function PasswordChange({
   handlePwClose,
   setPasswordSearch,
   setPw,
+  passwordChangeEmail,
+  label,
 }) {
   const [open, setOpen] = React.useState(openPwModal);
   const [newPw, setNewPw] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
   const [email, setEmail] = React.useState(window.sessionStorage.getItem("id"));
+  if (email === null) {
+    //비밃번호 찾기 일 경우에는 session에 저장된 아이디 없음.
+    setEmail(passwordChangeEmail);
+  }
   const handleClose2 = () => {
     setPasswordSearch(false);
     handlePwClose();
@@ -98,7 +104,10 @@ export default function PasswordChange({
           console.log("passwordUpdate =>", res);
           if (res.data === 1) {
             handleClose2();
-            setPw(newPw);
+            if (label === "마이페이지 비밀번호 변경") {
+              setPw(newPw);
+            }
+
             alert("비밀번호 업데이트 성공!");
           } else {
             alert("비밀번호 업데이트 실패!");

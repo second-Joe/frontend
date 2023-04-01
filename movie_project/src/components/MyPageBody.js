@@ -107,7 +107,7 @@ const MyPageBody = () => {
                 ></CustomizedButton>
                 {openPwModal ? (
                   <PasswordChange
-                    value="비밀번호"
+                    label="마이페이지 비밀번호 변경"
                     openPwModal={openPwModal}
                     setOpenPwModal={setOpenPwModal}
                     handlePwOpen={handlePwOpen}

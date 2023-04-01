@@ -259,7 +259,8 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               ></CustomizedButton>
               {passwordSearch ? (
                 <PasswordChange
-                  email={id}
+                  label="비밀번호 찾기 변경"
+                  passwordChangeEmail={id}
                   setPasswordSearch={setPasswordSearch}
                   openPwModal={openPwModal}
                   setOpenPwModal={setOpenPwModal}
