@@ -100,6 +100,7 @@ const MyPageBody = () => {
         if (res.data === 1) {
           alert("회원 탈퇴되었습니다.");
           window.sessionStorage.clear();
+          window.localStorage.clear();
           navigate("/", { return: true });
         } else {
           alert("회원 탈퇴 실패!");
