@@ -106,6 +106,8 @@ export default function PhoneChange({
         });
     } else if (newTel === "") {
       setTelError("전화번호를 입력해주세요.");
+    } else {
+      setTelError("올바른 전화번호를 입력해주세요.");
     }
   };
 
