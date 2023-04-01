@@ -10,13 +10,17 @@ import CustomerSearch from "../components/CustomerSearch";
 const StickyHeader = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
-    <AppBar position="fixed" style={{ background: "#212121" }}>
-      <Toolbar>
-        {isMiddleScreen ? (
-          <Grid container sx={{ pt: 2 }}>
-            <Grid item xs={8} sx={{ ml: 5 }}>
+    <AppBar
+      position="fixed"
+      sx={{ width: "100%" }}
+      style={{ background: "#212121" }}
+    >
+      <Toolbar sx={{ width: "100%" }}>
+        <Grid container sx={{ pt: 2, width: "100%" }}>
+          <Box sx={{ display: "flex", width: "100%" }}>
+            <Box sx={{ display: "block", width: "80%", ml: 3 }}>
               <Typography
                 noWrap
                 component="a"
@@ -32,47 +36,18 @@ const StickyHeader = () => {
               >
                 {isSmallScreen ? "N" : "NETFLIX"}
               </Typography>
-            </Grid>
-            <Grid item xs={1} sx={{ mr: 8 }}>
+            </Box>
+            <Box sx={{ display: "block", mr: 4, flexGrow: 1 }}>
               <CustomerDropdown />
-            </Grid>
+            </Box>
+          </Box>
 
-            <Grid item xs={3}></Grid>
-            <Grid item xs={6}>
-              <CustomerSearch />
-            </Grid>
-            <Grid item xs={3}></Grid>
+          <Grid item xs={3}></Grid>
+          <Grid item xs={6}>
+            <CustomerSearch />
           </Grid>
-        ) : (
-          <Grid container sx={{ pt: 2 }}>
-            <Grid item xs={10} sx={{ ml: 5 }}>
-              <Typography
-                noWrap
-                component="a"
-                href="/login"
-                sx={{
-                  fontFamily: "helvetica",
-                  fontWeight: 1000,
-                  letterSpacing: ".1rem",
-                  color: "red",
-                  textDecoration: "none",
-                  fontSize: "2.5em",
-                }}
-              >
-                {isSmallScreen ? "N" : "NETFLIX"}
-              </Typography>
-            </Grid>
-            <Grid item xs={1} sx={{ mr: 3 }}>
-              <CustomerDropdown />
-            </Grid>
-
-            <Grid item xs={3}></Grid>
-            <Grid item xs={6}>
-              <CustomerSearch />
-            </Grid>
-            <Grid item xs={3}></Grid>
-          </Grid>
-        )}
+          <Grid item xs={3}></Grid>
+        </Grid>
       </Toolbar>
     </AppBar>
   );

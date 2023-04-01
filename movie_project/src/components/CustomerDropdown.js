@@ -5,6 +5,8 @@ import MenuItem from "@mui/material/MenuItem";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function PositionedMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -12,6 +14,9 @@ export default function PositionedMenu() {
   const navigate = useNavigate();
 
   const location = useLocation();
+
+  const [user, setUser] = React.useState(window.sessionStorage.getItem("id"));
+  const [userName, setUserName] = React.useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -24,6 +29,25 @@ export default function PositionedMenu() {
     window.sessionStorage.clear(); // 세션스토리지에 저장된 속성값 모두 삭제
     navigate("/", { replace: true }); // 로그인페이지로 이동
   };
+
+  useEffect(() => {
+    axios
+      .post("/selectMember", {
+        member_id: user,
+      })
+      .then((res) => {
+        console.log("selectMember =>", res);
+        if (res.data !== null) {
+          setUserName(res.data.member_name);
+          // alert("정보 확인 성공!");
+        } else {
+          alert("정보 확인 실패!");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, []);
 
   return (
     <div>
@@ -39,14 +63,15 @@ export default function PositionedMenu() {
           noWrap
           component="div"
           sx={{
-            display: { sm: "block" },
+            display: { sm: "block", md: "block" },
             textAlign: "center",
-            fontFamily: "helvetica",
+            fontFamily: "Georgia, serif",
             fontWeight: 9,
+            fontSize: "1.3em",
             color: "white",
           }}
         >
-          User's id
+          {user}
         </Typography>
 
         <ArrowDropDownIcon style={{ fontSize: "3rem", color: "red" }} />
