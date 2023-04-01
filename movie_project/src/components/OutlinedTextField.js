@@ -71,9 +71,7 @@ export default function OutlinedTextField({
           : "올바른 휴대폰 번호를 입력하세요."
       );
 
-      if (e.target.value !== "") {
-        setTelError("");
-      } else if (e.target.value === "") {
+      if (e.target.value === "") {
         setTelError("휴대폰 번호를 입력하세요.");
       }
     } else if (label === "비밀번호 찾기 질문에 대한 답을 입력해주세요") {
