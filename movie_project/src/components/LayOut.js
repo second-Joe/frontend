@@ -6,6 +6,7 @@ import SearchResult from "../pages/SearchResult";
 import DownLoadmany from "./DownLoadmany";
 import GoodMany from "./GoodMany";
 import NewDateAdd from "./NewDateAdd";
+import FavMovieList from "./FavMovieList";
 
 const Layout = () => {
   const [search, setSearch] = useState("");
@@ -34,7 +35,9 @@ const Layout = () => {
   const menuName = menuKind;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       <header>
         <NavBar
           search={search}
@@ -45,7 +48,14 @@ const Layout = () => {
           setMenuKind={setMenuKind}
         />
       </header>
-      <main style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: "calc(100vh - 110px)" }}>
+      <main
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "calc(100vh - 110px)",
+        }}
+      >
         {menuClick === false ? (
           search === "" ? (
             <div>
@@ -59,8 +69,10 @@ const Layout = () => {
             <DownLoadmany />
           ) : menuName === "좋아요 가장 많은 영화" ? (
             <GoodMany />
-          ) : (
+          ) : menuName === "최근 추가 된 영화" ? (
             <NewDateAdd />
+          ) : (
+            <FavMovieList />
           )
         ) : (
           <SearchResult search={search} />

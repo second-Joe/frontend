@@ -65,6 +65,11 @@ export default function TemporaryDrawer({
                 <ListItemText primary="최근 추가 된 영화" />
               </ListItemButton>
             </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={showSearchResult}>
+                <ListItemText primary="찜목록" />
+              </ListItemButton>
+            </ListItem>
           </List>
         </Box>
       </Drawer>
