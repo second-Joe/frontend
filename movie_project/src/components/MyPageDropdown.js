@@ -21,7 +21,7 @@ export default function PositionedMenu() {
 
   const logout = () => {
     window.sessionStorage.clear(); // 세션스토리지에 저장된 속성값 모두 삭제
-    navigate("/"); // 로그인페이지로 이동
+    navigate("/", { replace: true }); // 로그인페이지로 이동
   };
 
   return (
