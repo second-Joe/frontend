@@ -107,7 +107,7 @@ export default function PhoneChange({
     } else if (newTel === "") {
       setTelError("휴대폰 번호를 입력해주세요.");
     } else {
-      setTelError("올바른 전화번호를 입력해주세요.");
+      setTelError("올바른 휴대폰 번호를 입력해주세요.");
     }
   };
 
@@ -149,7 +149,6 @@ export default function PhoneChange({
                   value={newTel}
                   onChange={setNewTel}
                   setTelError={setTelError}
-                  isValidatePhone={isValidatePhone}
                   label="변경할 휴대폰 번호를 입력해주세요"
                 />
                 <FormHelperText sx={{ mt: -2, fontSize: "1em", color: "red" }}>

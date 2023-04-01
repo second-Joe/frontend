@@ -15,11 +15,11 @@ export default function OutlinedTextField({
   setPasswordError,
   isValidPassword,
   setTelError,
-  isValidatePhone,
   setPwAnsError,
 }) {
+  const phoneRegex = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
   const changeVal = (e) => {
-    console.log(e.target.value);
+    //  console.log(e.target.value);
 
     if (
       label === "변경할 이메일 주소를 입력해주세요" ||
@@ -51,8 +51,9 @@ export default function OutlinedTextField({
           .replace(/(\-{1,2})$/g, "")
           .slice(0, 13)
       );
+      console.log(e.target.value.slice(0, 13));
       setTelError(
-        isValidatePhone(e.target.value)
+        phoneRegex.test(e.target.value.slice(0, 13))
           ? ""
           : "올바른 휴대폰 번호를 입력하세요."
       );
