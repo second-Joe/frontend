@@ -21,6 +21,7 @@ const MyPageBody = () => {
   const [tel, setTel] = useState("");
   const [pw, setPw] = useState("");
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isxSmallScreen = useMediaQuery(theme.breakpoints.down("xs"));
   const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [user, setUser] = React.useState(window.sessionStorage.getItem("id"));
   const [userName, setUserName] = React.useState("");
@@ -234,24 +235,32 @@ const MyPageBody = () => {
         )}
 
         <Grid item xs={9} sx={{ direction: "column" }}>
-          <Grid container>
-            <Grid item xs={9} sx={{ p: 2 }}>
-              스트리밍 멤버십에 가입하지 않으셨습니다.
+          {isSmallScreen ? (
+            <Grid container>
+              <Grid item xs={12} sx={{ p: 2 }}>
+                스트리밍 멤버십에 가입하지 않으셨습니다.
+              </Grid>
             </Grid>
-            <Grid item xs={3} sx={{ pr: 2 }}>
-              <Typography
-                sx={{
-                  fontSize: 14,
-                  mr: 5,
-                  mb: 3,
-                  color: "blue",
-                  textAlign: "right",
-                }}
-              >
-                스트리밍 멤버십 추가
-              </Typography>
+          ) : (
+            <Grid container>
+              <Grid item xs={9} sx={{ p: 2 }}>
+                스트리밍 멤버십에 가입하지 않으셨습니다.
+              </Grid>
+              <Grid item xs={3} sx={{ pr: 2 }}>
+                <Typography
+                  sx={{
+                    fontSize: 14,
+                    mr: 5,
+                    mb: 3,
+                    color: "blue",
+                    textAlign: "right",
+                  }}
+                >
+                  스트리밍 멤버십 추가
+                </Typography>
+              </Grid>
             </Grid>
-          </Grid>
+          )}
         </Grid>
       </Grid>
 
