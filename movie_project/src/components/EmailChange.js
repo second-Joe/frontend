@@ -92,56 +92,62 @@ export default function EmailChange({
 
   const idDuplicateCheck = () => {
     if (newEmail !== "") {
-      axios
-        .post("/idDuplicateCheck", {
-          member_id: newEmail,
-        })
-        .then((res) => {
-          console.log("idDuplicateCheck =>", res);
-          if (res.data === 1) {
-            setIdError("아이디가 중복됩니다.");
-            return false;
-          } else {
-            setIdError("사용가능한 아이디입니다.");
-            return true;
-          }
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+      if (isValidId(newEmail)) {
+        axios
+          .post("/idDuplicateCheck", {
+            member_id: newEmail,
+          })
+          .then((res) => {
+            console.log("idDuplicateCheck =>", res);
+            if (res.data === 1) {
+              setIdError("이메일이 중복됩니다.");
+              return false;
+            } else {
+              setIdError("사용가능한 이메일입니다.");
+              return true;
+            }
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      } else {
+        setIdError("정확한 이메일 주소를 입력해주세요.");
+      }
     } else {
-      setIdError("아이디를 입력하세요.");
+      setIdError("이메일을 입력하세요.");
     }
   };
 
   const handleUpdate = () => {
-    idDuplicateCheck();
     if (idError === "") {
-      alert("아이디 중복확인 해주세요.");
+      alert("이메일 중복확인 해주세요.");
+      idDuplicateCheck();
       return false;
-    } else if (idError === "아이디가 중복됩니다.") {
+    } else if (idError === "이메일이 중복됩니다.") {
       return false;
     } else {
-      axios
-        .post("/emailUpdate", {
-          member_id: email2,
-          member_new_id: newEmail,
-        })
-        .then((res) => {
-          console.log("emailUpdate =>", res);
-          if (res.data === 1) {
-            handleClose2();
-            alert("이메일 주소 업데이트 성공!");
-            window.sessionStorage.setItem("id", newEmail);
-            setEmail(newEmail);
-          } else {
-            handleClose2();
-            alert("이메일 주소 업데이트 실패!");
-          }
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+      if (isValidId(newEmail)) {
+        axios
+          .post("/emailUpdate", {
+            member_id: email2,
+            member_new_id: newEmail,
+          })
+          .then((res) => {
+            console.log("emailUpdate =>", res);
+            if (res.data === 1) {
+              handleClose2();
+              alert("이메일 주소 업데이트 성공!");
+              window.sessionStorage.setItem("id", newEmail);
+              setEmail(newEmail);
+            } else {
+              handleClose2();
+              alert("이메일 주소 업데이트 실패!");
+            }
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      }
     }
   };
 
@@ -192,12 +198,11 @@ export default function EmailChange({
               </Box>
             </Box>
 
-            <Box sx={{ display: "flex", ml: 47 }}>
+            <Box sx={{ display: "flex", mt: 2, ml: 47 }}>
               <Box sx={{ mr: 3 }}>
                 <CustomizedButton
                   label="중복확인"
-                  value="updateDelete"
-                  onClick={handleUpdate}
+                  onClick={idDuplicateCheck}
                 ></CustomizedButton>
               </Box>
               <CustomizedButton
