@@ -3,13 +3,15 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 
 export default function PositionedMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -67,11 +69,15 @@ export default function PositionedMenu() {
         sx={{ mt: 6 }}
       >
         <MenuItem component={Link} to="/mypage">
-          계정
+          마이페이지
         </MenuItem>
-        <MenuItem component={Link} to="/customercenter">
-          고객센터
-        </MenuItem>
+        {console.log(location.pathname)}
+        {location.pathname === "/customercenter" ? null : (
+          <MenuItem component={Link} to="/customercenter">
+            고객센터
+          </MenuItem>
+        )}
+
         <MenuItem onClick={logout} component={Link} to="/">
           로그아웃
         </MenuItem>
