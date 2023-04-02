@@ -105,7 +105,7 @@ function Banner_data({
           movie_title: title,
         })
         .then((res) => {
-          alert("찜하기 취소!!!");
+          // alert("찜하기 취소!!!");
         })
         .catch((e) => {
           console.error(e);
@@ -120,7 +120,7 @@ function Banner_data({
         })
         .then((res) => {
           console.log("2");
-          alert("찜하기 성공!!!");
+          // alert("찜하기 성공!!!");
         })
         .catch((e) => {
           console.error(e);
