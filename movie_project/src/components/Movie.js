@@ -71,6 +71,7 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
       console.log("isChecked false일때 ");
       axios
         .post("http://localhost:8080/favmovie/insert", {
+          member_id: window.sessionStorage.getItem("id"),
           movie_title: title,
           movie_summary: summary,
           movie_image: medium_cover_image,
