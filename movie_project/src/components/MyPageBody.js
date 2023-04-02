@@ -131,8 +131,15 @@ const MyPageBody = () => {
 
   const deleteLoginInfo = () => {
     if (window.localStorage.getItem("id") !== null) {
-      window.localStorage.clear();
-      alert("로그인 정보가 삭제되었습니다!");
+      if (
+        window.sessionStorage.getItem("id") ===
+        window.localStorage.getItem("id")
+      ) {
+        window.localStorage.clear();
+        alert("로그인 정보가 삭제되었습니다!");
+      } else {
+        alert("로그인 정보 삭제 권한이 없습니다!");
+      }
     } else {
       alert("저장된 로그인 정보가 없습니다!");
     }
