@@ -84,6 +84,7 @@ function Banner_data({
     axios
       .post("http://localhost:8080/favmovie/chk", {
         movie_title: title,
+        member_id: window.sessionStorage.getItem("id"),
       })
       .then((res) => {
         setIsChecked(res.data?.length ? true : false);
