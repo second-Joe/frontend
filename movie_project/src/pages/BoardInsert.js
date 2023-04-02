@@ -9,7 +9,7 @@ import CustomizedButton from "../components/CustomizedButton";
 import Input from "@mui/material/Input";
 import { useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function BoardInsert() {
@@ -17,6 +17,28 @@ export default function BoardInsert() {
   const [member_id, setWriter] = useState("");
   const [board_content, setContent] = useState("");
   const [board_pw, setpassword] = useState("");
+  const [user, setUser] = React.useState(window.sessionStorage.getItem("id"));
+  const [userName, setUserName] = React.useState("");
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8080/selectMember", {
+        member_id: user,
+      })
+      .then((res) => {
+        console.log("selectMember =>", res);
+        if (res.data !== null) {
+          setUserName(res.data.member_name);
+          // alert("정보 확인 성공!");
+        } else {
+          alert("정보 확인 실패!");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, []);
+
   const handleSubmit = () => {};
   const navigate = useNavigate();
   const goBack = () => {
@@ -80,17 +102,19 @@ export default function BoardInsert() {
             }}
           >
             <Typography
-              sx={{ width: "150px", mr: 3, mt: 1, fontWeight: "bold" }}
+              sx={{ width: "150px", mt: 1, fontWeight: "bold" }}
               variant="h6"
               component="h4"
             >
               작성자
             </Typography>
-            <Input
-              sx={{ width: "100%" }}
-              placeholder="작성자"
-              onChange={writerChange}
-            />
+            <Typography
+              sx={{ width: "120px", mt: 1, fontWeight: "bold" }}
+              variant="h6"
+              component="h4"
+            >
+              {user}
+            </Typography>
           </Box>
           <Box
             sx={{
@@ -99,38 +123,19 @@ export default function BoardInsert() {
             }}
           >
             <Typography
-              sx={{ width: "150px", mr: 3, mt: 1, fontWeight: "bold" }}
+              sx={{ width: "150px", mr: 3, mt: 2, fontWeight: "bold" }}
               variant="h6"
               component="h4"
             >
               제목
             </Typography>
             <Input
-              sx={{ width: "100%" }}
+              sx={{ width: "100%", mt: 2 }}
               placeholder="제목"
               onChange={titleChange}
             />
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              pb: 1,
-            }}
-          >
-            <Typography
-              sx={{ width: "150px", mr: 3, mt: 1, fontWeight: "bold" }}
-              variant="h6"
-              component="h4"
-            >
-              비밀번호
-            </Typography>
-            <Input
-              sx={{ width: "100%" }}
-              type="password"
-              placeholder="비밀번호"
-              onChange={passwordChange}
-            />
-          </Box>
+
           <Box
             sx={{
               display: "flex",
