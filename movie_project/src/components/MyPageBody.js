@@ -102,8 +102,17 @@ const MyPageBody = () => {
         console.log("deleteMember =>", res);
         if (res.data === 1) {
           alert("회원 탈퇴되었습니다.");
+          axios
+            .post("http://localhost:8080/favmovie/remove", {
+              member_id: window.sessionStorage.getItem("id"),
+            })
+            .then((res) => {})
+            .catch((e) => {
+              console.error(e);
+            });
           window.sessionStorage.clear();
           window.localStorage.clear();
+
           navigate("/", { return: true });
         } else {
           alert("회원 탈퇴 실패!");

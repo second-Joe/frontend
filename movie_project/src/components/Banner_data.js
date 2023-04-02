@@ -1,15 +1,16 @@
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
-import Grid from "@mui/material/Grid";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { useMediaQuery, useTheme } from "@mui/material";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import React, { useState, useRef } from "react";
+import Grid from "@mui/material/Grid";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
+import React, { useLayoutEffect, useState } from "react";
 import YouTube from "react-youtube";
-import { Hidden, useMediaQuery, useTheme } from "@mui/material";
 
 function Banner_data({
   id,
@@ -18,7 +19,6 @@ function Banner_data({
   summary,
   yt_trailer_code,
 }) {
-  const [like, setLike] = useState();
   const theme = useTheme();
   console.dir(theme.breakpoints);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -78,25 +78,74 @@ function Banner_data({
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
+  const [ischecked, setIsChecked] = useState(false);
+  useLayoutEffect(() => {
+    console.log("1번");
+    axios
+      .post("http://localhost:8080/favmovie/chk", {
+        movie_title: title,
+        member_id: window.sessionStorage.getItem("id"),
+      })
+      .then((res) => {
+        setIsChecked(res.data?.length ? true : false);
+        console.log("Res ", res);
+        console.log("Res.data ", res.data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, []);
 
-  const [playeropen, setPlayerOpen] = useState(false);
+  const handlelike = () => {
+    console.log("ischecked" + ischecked);
+    if (ischecked) {
+      console.log("isChecked가 true일때");
+      setIsChecked(false);
+      axios
+        .post("http://localhost:8080/favmovie/delete", {
+          member_id: window.sessionStorage.getItem("id"),
+          movie_title: title,
+        })
+        .then((res) => {
+          // alert("찜하기 취소!!!");
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    } else {
+      console.log("isChecked false일때 ");
+      axios
+        .post("http://localhost:8080/favmovie/isDuplicateTitle", {
+          member_id: window.sessionStorage.getItem("id"),
+          movie_title: title,
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data !== 1) {
+            //제목이 중복되지 않을 때에만
 
-  const trailerOpen = (e) => {
-    e.stopPropagation();
-    setPlayerOpen(true);
-    if (youtubeRef.current) {
-      youtubeRef.current.playVideo();
+            axios
+              .post("http://localhost:8080/favmovie/insert", {
+                member_id: window.sessionStorage.getItem("id"),
+                movie_title: title,
+                movie_summary: summary,
+                movie_image: medium_cover_image,
+              })
+              .then((res) => {})
+              .catch((e) => {
+                console.error(e);
+                console.log("3" + title);
+              });
+          } else {
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+
+      setIsChecked(true);
     }
   };
-
-  const trailerClose = () => {
-    setPlayerOpen(false);
-    if (youtubeRef.current) {
-      youtubeRef.current.stopVideo();
-    }
-  };
-
-  const youtubeRef = useRef(null);
 
   return (
     <div>
@@ -133,12 +182,11 @@ function Banner_data({
               justifyContent: "space-between",
             }}
           >
-            <Grid>
+            <Grid onClick={() => handlelike()}>
               <Button
                 variant="outlined"
-                startIcon={<StarBorderIcon />}
                 style={{ color: "white", backgroundColor: "#787777" }}
-                onClick={trailerOpen}
+                startIcon={ischecked ? <StarIcon /> : <StarBorderIcon />}
               >
                 찜하기
               </Button>
@@ -211,9 +259,7 @@ function Banner_data({
                     overflow: "hidden",
                   }}
                 >
-                  {summary.length > 500
-                    ? `${summary.slice(0, 500)}...`
-                    : summary}
+                  {summary.length > 500 ? `${summary.slice(0, 500)}…` : summary}
                 </p>
               </div>
             </Typography>

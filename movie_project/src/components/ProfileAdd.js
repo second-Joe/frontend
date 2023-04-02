@@ -10,7 +10,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 const ProfileAdd = ({ open, handleClose }) => {
   const [name, setName] = useState("");
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
     handleClose();
@@ -85,28 +84,34 @@ const ProfileAdd = ({ open, handleClose }) => {
           backgroundColor: "#141414",
         }}
       >
-        <Button onClick={handleClose} sx={{
-          color: "#c4c4c4",
-          border: "1px solid #c4c4c4",
-          backgroundColor: "#000",
-          marginRight: "10px",
-          "&:hover": {
-            backgroundColor: "#c4c4c4",
-            color: "#000",
-          },
-        }}>
+        <Button
+          onClick={handleClose}
+          sx={{
+            color: "#c4c4c4",
+            border: "1px solid #c4c4c4",
+            backgroundColor: "#000",
+            marginRight: "10px",
+            "&:hover": {
+              backgroundColor: "#c4c4c4",
+              color: "#000",
+            },
+          }}
+        >
           닫기
         </Button>
-        <Button onClick={handleSubmit} sx={{
-          color: "#c4c4c4",
-          border: "1px solid #c4c4c4",
-          backgroundColor: "#000",
-          marginRight: "10px",
-          "&:hover": {
-            backgroundColor: "#c4c4c4",
-            color: "#000",
-          },
-        }}>
+        <Button
+          onClick={handleSubmit}
+          sx={{
+            color: "#c4c4c4",
+            border: "1px solid #c4c4c4",
+            backgroundColor: "#000",
+            marginRight: "10px",
+            "&:hover": {
+              backgroundColor: "#c4c4c4",
+              color: "#000",
+            },
+          }}
+        >
           저장
         </Button>
       </DialogActions>

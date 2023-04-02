@@ -6,6 +6,7 @@ import SearchResult from "../pages/SearchResult";
 import DownLoadmany from "./DownLoadmany";
 import GoodMany from "./GoodMany";
 import NewDateAdd from "./NewDateAdd";
+import FavMovieList from "./FavMovieList";
 import { useNavigate } from "react-router-dom";
 
 const Layout = () => {
@@ -78,8 +79,10 @@ const Layout = () => {
             <DownLoadmany />
           ) : menuName === "좋아요 가장 많은 영화" ? (
             <GoodMany />
-          ) : (
+          ) : menuName === "최근 추가 된 영화" ? (
             <NewDateAdd />
+          ) : (
+            <FavMovieList />
           )
         ) : (
           <SearchResult search={search} />
