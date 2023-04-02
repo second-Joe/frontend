@@ -10,116 +10,11 @@ import TableRow from "@mui/material/TableRow";
 import StickyHeader from "./StickyHeader";
 import Container from "@mui/material/Container";
 import CustomizedButton from "./CustomizedButton";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useMediaQuery, useTheme } from "@mui/material";
-const columns = [
-  { id: "id", label: "번호", minWidth: 10 },
-  { id: "author", label: "작성자", minWidth: 10 },
-  { id: "title", label: "제목", minWidth: 350 },
-  { id: "date", label: "날짜", minWidth: 40 },
-];
-
-export const posts = [
-  {
-    id: "1",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content:
-      "This is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my firstrst postThis is my first postThis is myrst postThis is my first postThis is myrst postThis is my first postThis is myrst postThis is my first postThis is myrst postThis is my first postThis is myrst postThis is my first postThis is my postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-  {
-    id: "2",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content: "This is my first post",
-    date: "2023-01-01",
-  },
-];
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function StickyHeadTable() {
   const theme = useTheme();
@@ -127,7 +22,14 @@ export default function StickyHeadTable() {
   const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [selectedPost, setSelectedPost] = React.useState(null); // 추가
+
+
+  const columns = [
+    { id: "board_num", label: "번호", minWidth: 10 },
+    { id: "member_id", label: "작성자", minWidth: 10 },
+    { id: "board_title", label: "제목", minWidth: 350 },
+    { id: "board_date", label: "날짜", minWidth: 40 },
+  ];
 
   let paddingTop = "200px";
   if (isSmallScreen) {
@@ -146,16 +48,42 @@ export default function StickyHeadTable() {
   const handleClick = () => {
     navigate("/boardInsert");
   };
-  const handleTableCellClick = (event, post) => {
-    setSelectedPost(post);
-    navigate(`/board/${post.id}`, { state: { post } });
+
+
+  //배열 시작
+  const [boardlist, setBoardList] = useState([]);
+
+  const [article, setArticle] = useState({
+    board_num: 0,
+    member_id: "",
+    board_title: "",
+    board_date: "",
+  });
+
+  const getList = () => {
+    axios
+      .post("http://localhost:8080/customer/get", {})
+      .then((res) => {
+        const { data } = res;
+        setBoardList(data);
+      })
+      .catch((e) => {
+        console.error(e);
+      })
   };
 
+  const handleTableCellClick = (event, post) => {
+    navigate(`/board/${post.board_num}`);
+  }
+
+  useEffect(() => {
+    getList();
+  }, []);
   return (
     <div>
       <StickyHeader />
       <Container sx={{ paddingTop: { paddingTop } }}>
-        <h2 style={{ display: "flex", alignItems: "center", color: "black" }}>
+        <h2 style={{ display: "flex", alignItems: "center", color: "white" }}>
           <span style={{ marginRight: "auto" }}>문의하기</span>
           <CustomizedButton
             onClick={handleClick}
@@ -170,8 +98,8 @@ export default function StickyHeadTable() {
                 <TableRow>
                   {columns.map((column) => (
                     <TableCell
-                      key={column.id}
-                      align={column.align}
+                      key={column.board_num}
+                      align={column.board_title}
                       style={{ minWidth: column.minWidth }}
                     >
                       {column.label}
@@ -180,7 +108,7 @@ export default function StickyHeadTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {posts
+                {boardlist
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((post, index) => {
                     return (
@@ -199,7 +127,7 @@ export default function StickyHeadTable() {
                       >
                         {columns.map((column) => {
                           return (
-                            <TableCell key={column.id} align={column.align}>
+                            <TableCell key={column.board_num} align={column.board_title}>
                               {post[column.id]}
                             </TableCell>
                           );
@@ -212,7 +140,7 @@ export default function StickyHeadTable() {
           </TableContainer>
           <TablePagination
             component="div"
-            count={posts.length}
+            count={boardlist.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
