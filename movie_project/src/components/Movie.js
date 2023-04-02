@@ -157,6 +157,8 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                 marginLeft: "16px",
                 display: "flex",
                 width: "450px",
+                alignItems: "flex-start",
+                flexDirection: "column",
               }}
             >
               <div
@@ -177,16 +179,16 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                     ? `${summary.slice(0, 400)}...`
                     : summary}
                 </p>
-                <Grid onClick={() => handlelike()}>
-                  <Button
-                    variant="outlined"
-                    style={{ color: "white", backgroundColor: "#787777" }}
-                    startIcon={ischecked ? <StarIcon /> : <StarBorderIcon />}
-                  >
-                    찜하기
-                  </Button>
-                </Grid>
               </div>
+              <Grid onClick={() => handlelike()}>
+                <Button
+                  variant="outlined"
+                  style={{ color: "white", backgroundColor: "#787777" }}
+                  startIcon={ischecked ? <StarIcon /> : <StarBorderIcon />}
+                >
+                  찜하기
+                </Button>
+              </Grid>
             </Typography>
           </div>
         </Box>
