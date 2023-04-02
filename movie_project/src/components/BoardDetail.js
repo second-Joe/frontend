@@ -10,6 +10,8 @@ import { useMediaQuery, useTheme } from "@mui/material";
 
 function BoardDetail() {
   const [openModal, setOpenModal] = useState(false);
+  const [modify, setModify] = useState(false);
+  const [remove, setRemove] = useState(false);
 
   const { board_num } = useParams();
   const [article, setArticle] = useState({
@@ -37,27 +39,18 @@ function BoardDetail() {
     getDetail();
   }, []);
 
-  const handleDelete = () => {
-    axios
-      .get(`http://localhost:8080/customer/delete?board_num=${board_num}`)
-      .then(() => {
-        navigate("/board");
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  };
-
   useEffect(() => {
     getDetail();
   }, []);
 
-  const handleModify = () => {
-    navigate(`/boardModify/${board_num}`);
-  };
-
   const clickModify = () => {
     handleOpen();
+    setModify(true);
+  };
+
+  const clickDelete = () => {
+    handleOpen();
+    setRemove(true);
   };
 
   const handleOpen = () => {
@@ -140,7 +133,7 @@ function BoardDetail() {
               <CustomizedButton
                 label="삭제"
                 value="delete"
-                onClick={handleDelete}
+                onClick={clickDelete}
               ></CustomizedButton>
             </Box>
             {openModal ? (
@@ -150,6 +143,8 @@ function BoardDetail() {
                 handleOpen={handleOpen}
                 handleClose={handleClose}
                 boardnum={board_num}
+                modify={modify}
+                remove={remove}
               ></BoardPasswordCheck>
             ) : null}
           </div>

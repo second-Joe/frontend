@@ -70,6 +70,8 @@ export default function BoardPasswordCheck({
   handleOpen,
   handleClose,
   boardnum,
+  modify,
+  remove,
 }) {
   const [open, setOpen] = React.useState(openModal);
   const [password, setPassword] = React.useState("");
@@ -87,30 +89,64 @@ export default function BoardPasswordCheck({
     handleClose();
   };
   const navigate = useNavigate();
-  const handleUpdate = (e) => {
-    if (isValidPassword(password)) {
-      axios
-        .post("http://localhost:8080/login", {
-          member_id: window.sessionStorage.getItem("id"),
-          member_pw: password,
-        })
-        .then((res) => {
-          if (res.data === 1) {
-            alert("정보확인 성공!");
-            handleClose2();
-            navigate(`/boardModify/${boardnum}`);
-          } else {
-            alert("정보확인 실패!");
-            handleClose2();
-          }
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+  const handleUpdateDelete = (e) => {
+    if (modify === true) {
+      if (isValidPassword(password)) {
+        axios
+          .post("http://localhost:8080/login", {
+            member_id: window.sessionStorage.getItem("id"),
+            member_pw: password,
+          })
+          .then((res) => {
+            if (res.data === 1) {
+              alert("정보확인 성공!");
+              handleClose2();
+              navigate(`/boardModify/${boardnum}`);
+            } else {
+              alert("정보확인 실패!");
+              handleClose2();
+            }
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      } else {
+        if (isValidPassword(password)) {
+          axios
+            .post("http://localhost:8080/login", {
+              member_id: window.sessionStorage.getItem("id"),
+              member_pw: password,
+            })
+            .then((res) => {
+              if (res.data === 1) {
+                alert("정보확인 성공!");
+                axios
+                  .get(
+                    `http://localhost:8080/customer/delete?board_num=${boardnum}`
+                  )
+                  .then(() => {
+                    navigate("/board");
+                  })
+                  .catch((e) => {
+                    console.error(e);
+                  });
+                handleClose2();
+              } else {
+                alert("정보확인 실패!");
+                handleClose2();
+              }
+            })
+            .catch((e) => {
+              console.error(e);
+            });
+        }
+      }
     } else if (password === "") {
       setPasswordError("비밀번호를 입력해주세요.");
     }
   };
+
+  const handleDelete = () => {};
 
   return (
     <div>
@@ -163,7 +199,7 @@ export default function BoardPasswordCheck({
               <CustomizedButton
                 label="확인"
                 value="updateDelete"
-                onClick={handleUpdate}
+                onClick={handleUpdateDelete}
               ></CustomizedButton>
             </Box>
           </Box>
