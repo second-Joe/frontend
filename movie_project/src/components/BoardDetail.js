@@ -44,13 +44,29 @@ function BoardDetail() {
   }, []);
 
   const clickModify = () => {
-    handleOpen();
-    setModify(true);
+    if (window.sessionStorage.getItem("id") === "admin@email.com") {
+      navigate(`/boardModify/${board_num}`);
+    } else {
+      handleOpen();
+      setModify(true);
+    }
   };
 
   const clickDelete = () => {
-    handleOpen();
-    setRemove(true);
+    if (window.sessionStorage.getItem("id") === "admin@email.com") {
+      axios
+        .get(`http://localhost:8080/customer/delete?board_num=${board_num}`)
+        .then((res) => {
+          alert("정보 삭제 성공!");
+          navigate("/board");
+        })
+        .catch((e) => {
+          alert("정보 삭제 실패!");
+        });
+    } else {
+      handleOpen();
+      setRemove(true);
+    }
   };
 
   const handleOpen = () => {
