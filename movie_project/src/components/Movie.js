@@ -41,7 +41,7 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
   useLayoutEffect(() => {
     console.log("1번");
     axios
-      .post("/favmovie/chk", {
+      .post("http://localhost:8080/favmovie/chk", {
         movie_title: title,
       })
       .then((res) => {
@@ -60,7 +60,7 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
       console.log("isChecked가 true일때");
       setIsChecked(false);
       axios
-        .post("/favmovie/delete", {
+        .post("http://localhost:8080/favmovie/delete", {
           movie_title: title,
         })
         .then((res) => {})

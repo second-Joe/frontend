@@ -14,7 +14,7 @@ const FavMovieList = () => {
     console.log("1번");
 
     axios
-      .get("/favmovie/select")
+      .get("http://localhost:8080/favmovie/select")
       .then((res) => {
         setMovies([...res.data]);
         setLoading(false);
