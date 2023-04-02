@@ -114,20 +114,34 @@ function Banner_data({
     } else {
       console.log("isChecked false일때 ");
       axios
-        .post("http://localhost:8080/favmovie/insert", {
+        .post("http://localhost:8080/favmovie/isDuplicateTitle", {
           member_id: window.sessionStorage.getItem("id"),
           movie_title: title,
-          movie_summary: summary,
-          movie_image: medium_cover_image,
         })
         .then((res) => {
-          console.log("2");
-          // alert("찜하기 성공!!!");
+          console.log(res.data);
+          if (res.data !== 1) {
+            //제목이 중복되지 않을 때에만
+
+            axios
+              .post("http://localhost:8080/favmovie/insert", {
+                member_id: window.sessionStorage.getItem("id"),
+                movie_title: title,
+                movie_summary: summary,
+                movie_image: medium_cover_image,
+              })
+              .then((res) => {})
+              .catch((e) => {
+                console.error(e);
+                console.log("3" + title);
+              });
+          } else {
+          }
         })
         .catch((e) => {
           console.error(e);
-          console.log("3" + title);
         });
+
       setIsChecked(true);
     }
   };
