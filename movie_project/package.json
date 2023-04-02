@@ -2,11 +2,8 @@
   "name": "react-project-movie",
   "version": "0.1.0",
   "private": true,
-<<<<<<< HEAD
   "proxy": "http://localhost:8080",
-=======
 
->>>>>>> 0f586955abe086620c54d3616035a39c6addfd38
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",

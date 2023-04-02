@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import Modal from "@mui/material/Modal";
 import * as React from "react";
 import Box from "@mui/material/Box";
@@ -175,11 +176,10 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                     height: "230px",
                     fontSize: 18,
                     display: "block",
-                    overflowY: "scroll",
                   }}
                 >
-                  {summary.length > 500
-                    ? `${summary.slice(0, 500)}...`
+                  {summary?.length > 400
+                    ? `${summary.slice(0, 400)}...`
                     : summary}
                 </p>
                 <Grid onClick={() => handlelike()}>
