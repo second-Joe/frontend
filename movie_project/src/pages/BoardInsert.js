@@ -27,28 +27,19 @@ export default function BoardInsert() {
     console.log(board_title)
   };
 
-  const writerChange = (event) => {
-    setWriter(event.target.value);
-    console.log(member_id)
-  };
 
   const contentChange = (event) => {
     setContent(event.target.value);
     console.log(board_content)
   };
 
-  const passwordChange = (event) => {
-    setpassword(event.target.value);
-    console.log(board_pw)
-  };
 
-
+  const getid = window.sessionStorage.getItem("id") || "";
 
   const handleInsert = () => {
     axios
       .post("http://localhost:8080/customer/insert", {
-        member_id: member_id,
-        board_pw: board_pw,
+        member_id: getid,
         board_title: board_title,
         board_content: board_content,
       })
@@ -84,13 +75,19 @@ export default function BoardInsert() {
             }}
           >
             <Typography
-              sx={{ width: "150px", mr: 3, mt: 1, fontWeight: "bold" }}
+              sx={{ width: "120px", mr: 3, mt: 1, fontWeight: "bold" }}
               variant="h6"
               component="h4"
             >
               작성자
             </Typography>
-            <Input sx={{ width: "100%" }} placeholder="작성자" onChange={writerChange} />
+            <Typography
+              sx={{ width: "150px", mr: 3, mt: 1, fontWeight: "bold" }}
+              variant="h6"
+              component="h4"
+            >
+              {window.sessionStorage.getItem("id")}
+            </Typography>
           </Box>
           <Box
             sx={{
@@ -106,21 +103,6 @@ export default function BoardInsert() {
               제목
             </Typography>
             <Input sx={{ width: "100%" }} placeholder="제목" onChange={titleChange} />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              pb: 1,
-            }}
-          >
-            <Typography
-              sx={{ width: "150px", mr: 3, mt: 1, fontWeight: "bold" }}
-              variant="h6"
-              component="h4"
-            >
-              비밀번호
-            </Typography>
-            <Input sx={{ width: "100%" }} type="password" placeholder="비밀번호" onChange={passwordChange} />
           </Box>
           <Box
             sx={{
