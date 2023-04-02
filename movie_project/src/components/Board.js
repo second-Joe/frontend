@@ -68,7 +68,7 @@ const Board = () => {
 
   return (
     <div>
-      <StickyHeader />
+      <StickyHeader kind="고객센터" />
       <Container sx={{ paddingTop: { paddingTop } }}>
         {posts.map((post) => (
           <Card
