@@ -17,38 +17,35 @@ export default function BoardInsert() {
   const [member_id, setWriter] = useState("");
   const [board_content, setContent] = useState("");
   const [board_pw, setpassword] = useState("");
-  const handleSubmit = () => { };
+  const handleSubmit = () => {};
   const navigate = useNavigate();
   const goBack = () => {
     navigate("/board");
   };
   const titleChange = (event) => {
     setTitle(event.target.value);
-    console.log(board_title)
+    console.log(board_title);
   };
 
   const writerChange = (event) => {
     setWriter(event.target.value);
-    console.log(member_id)
+    console.log(member_id);
   };
 
   const contentChange = (event) => {
     setContent(event.target.value);
-    console.log(board_content)
+    console.log(board_content);
   };
 
   const passwordChange = (event) => {
     setpassword(event.target.value);
-    console.log(board_pw)
+    console.log(board_pw);
   };
-
-
 
   const handleInsert = () => {
     axios
       .post("http://localhost:8080/customer/insert", {
-        member_id: member_id,
-        board_pw: board_pw,
+        member_id: window.sessionStorage.getItem("id"),
         board_title: board_title,
         board_content: board_content,
       })
@@ -59,7 +56,6 @@ export default function BoardInsert() {
       .catch((e) => {
         console.error(e);
       });
-
   };
 
   return (
@@ -90,7 +86,11 @@ export default function BoardInsert() {
             >
               작성자
             </Typography>
-            <Input sx={{ width: "100%" }} placeholder="작성자" onChange={writerChange} />
+            <Input
+              sx={{ width: "100%" }}
+              placeholder="작성자"
+              onChange={writerChange}
+            />
           </Box>
           <Box
             sx={{
@@ -105,7 +105,11 @@ export default function BoardInsert() {
             >
               제목
             </Typography>
-            <Input sx={{ width: "100%" }} placeholder="제목" onChange={titleChange} />
+            <Input
+              sx={{ width: "100%" }}
+              placeholder="제목"
+              onChange={titleChange}
+            />
           </Box>
           <Box
             sx={{
@@ -120,7 +124,12 @@ export default function BoardInsert() {
             >
               비밀번호
             </Typography>
-            <Input sx={{ width: "100%" }} type="password" placeholder="비밀번호" onChange={passwordChange} />
+            <Input
+              sx={{ width: "100%" }}
+              type="password"
+              placeholder="비밀번호"
+              onChange={passwordChange}
+            />
           </Box>
           <Box
             sx={{
@@ -157,7 +166,6 @@ export default function BoardInsert() {
                 label="확인"
                 value="insert"
                 onClick={handleInsert}
-
               ></CustomizedButton>
             </Box>
           </Box>
