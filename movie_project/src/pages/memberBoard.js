@@ -98,19 +98,14 @@ export default function StickyHeadTable() {
         .then((res) => {
           if (res.data === 1) {
             alert("회원 정보가 삭제되었습니다!");
-            axios
-              .post("http://localhost:8080/selectMember", {
-                member_id: post.member_id,
-              })
-              .then((res) => {
-                if (res.data === null) {
-                  window.sessionStorage.clear();
-                  if (window.localStorage.getItem("id") === post.member_id) {
-                    window.localStorage.clear();
-                  }
-                  navigate("/", { return: true });
-                }
-              });
+            if (post.member_id === window.sessionStorage.getItem("id")) {
+              if (window.localStorage.getItem("id") === post.member_id) {
+                window.localStorage.clear();
+              }
+              window.sessionStorage.clear();
+
+              navigate("/", { return: true });
+            }
           } else {
             alert("회원 정보 삭제 실패!");
           }
