@@ -47,11 +47,11 @@ const App = () => {
       {/* SearchResult결과는 section3 컴포넌트 이용 */}
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/profiles" element={<Profiles />} />
+      <Route path="/profile/edit/:member_id/:profileId" element={<ProfileUpdate />} />
       <Route path="/customercenter" element={<Customercenter />} />
       <Route path="/customercenter/board" element={<Board />} />
       <Route path="/board" element={<BoardList />} />
       <Route path="/board/:board_num" element={<BoardDetail />} />
-      <Route path="/profileupdate" element={<ProfileUpdate />} />
       <Route path="/boardInsert" element={<BoardInsert />} />
       <Route path="/boardModify/:board_num" element={<BoardModify />} />
       <Route path="*" element={<NotFound />} />
