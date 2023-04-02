@@ -183,7 +183,12 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
               <Grid onClick={() => handlelike()}>
                 <Button
                   variant="outlined"
-                  style={{ color: "white", backgroundColor: "#787777" }}
+                  style={{
+                    color: "white",
+                    backgroundColor: "#787777",
+                    position: "absolute",
+                    bottom: " 20px",
+                  }}
                   startIcon={ischecked ? <StarIcon /> : <StarBorderIcon />}
                 >
                   찜하기
