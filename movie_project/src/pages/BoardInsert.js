@@ -4,15 +4,62 @@ import Typography from "@mui/material/Typography";
 import BoardInsertInput from "../components/BoardInsertInput";
 import BoardInsertMultiline from "../components/BoardInsertMultiline";
 import StickyHeader from "../components/StickyHeader";
+import TextField from "@mui/material/TextField";
 import CustomizedButton from "../components/CustomizedButton";
+import Input from "@mui/material/Input";
 import { useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
+import { useState } from "react";
+import axios from "axios";
 
 export default function BoardInsert() {
-  const handleSubmit = () => {};
+  const [board_title, setTitle] = useState("");
+  const [member_id, setWriter] = useState("");
+  const [board_content, setContent] = useState("");
+  const [board_pw, setpassword] = useState("");
+  const handleSubmit = () => { };
   const navigate = useNavigate();
   const goBack = () => {
     navigate("/board");
+  };
+  const titleChange = (event) => {
+    setTitle(event.target.value);
+    console.log(board_title)
+  };
+
+  const writerChange = (event) => {
+    setWriter(event.target.value);
+    console.log(member_id)
+  };
+
+  const contentChange = (event) => {
+    setContent(event.target.value);
+    console.log(board_content)
+  };
+
+  const passwordChange = (event) => {
+    setpassword(event.target.value);
+    console.log(board_pw)
+  };
+
+
+
+  const handleInsert = () => {
+    axios
+      .post("http://localhost:8080/customer/insert", {
+        member_id: member_id,
+        board_pw: board_pw,
+        board_title: board_title,
+        board_content: board_content,
+      })
+      .then((res) => {
+        console.log("handleInsert=>", res);
+        navigate("/board");
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+
   };
 
   return (
@@ -43,7 +90,7 @@ export default function BoardInsert() {
             >
               작성자
             </Typography>
-            <BoardInsertInput label="이름"></BoardInsertInput>
+            <Input sx={{ width: "100%" }} placeholder="작성자" onChange={writerChange} />
           </Box>
           <Box
             sx={{
@@ -58,7 +105,22 @@ export default function BoardInsert() {
             >
               제목
             </Typography>
-            <BoardInsertInput label="제목"></BoardInsertInput>
+            <Input sx={{ width: "100%" }} placeholder="제목" onChange={titleChange} />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              pb: 1,
+            }}
+          >
+            <Typography
+              sx={{ width: "150px", mr: 3, mt: 1, fontWeight: "bold" }}
+              variant="h6"
+              component="h4"
+            >
+              비밀번호
+            </Typography>
+            <Input sx={{ width: "100%" }} type="password" placeholder="비밀번호" onChange={passwordChange} />
           </Box>
           <Box
             sx={{
@@ -73,7 +135,14 @@ export default function BoardInsert() {
             >
               내용
             </Typography>
-            <BoardInsertMultiline></BoardInsertMultiline>
+            <TextField
+              sx={{ width: 630, mt: 3 }}
+              id="outlined-multiline-static"
+              multiline
+              rows={10}
+              placeholder="내용을 입력하세요"
+              onChange={contentChange}
+            />
           </Box>
           <Box sx={{ display: "flex", ml: "auto" }}>
             <Box sx={{ width: 100, ml: 79, mr: 3 }}>
@@ -87,7 +156,8 @@ export default function BoardInsert() {
               <CustomizedButton
                 label="확인"
                 value="insert"
-                onClick={handleSubmit}
+                onClick={handleInsert}
+
               ></CustomizedButton>
             </Box>
           </Box>
