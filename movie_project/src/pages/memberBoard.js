@@ -15,6 +15,7 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import Box from "@mui/material/Box";
 
 export default function StickyHeadTable() {
   const theme = useTheme();
@@ -24,10 +25,15 @@ export default function StickyHeadTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const columns = [
-    { id: "board_num", label: "번호", minWidth: 10 },
+    { id: "member_num", label: "번호", minWidth: 10 },
     { id: "member_id", label: "아이디", minWidth: 10 },
-    { id: "board_title", label: "패스워드", minWidth: 10 },
-    { id: "board_date", label: "이름", minWidth: 20 },
+    { id: "member_pw", label: "패스워드", minWidth: 10 },
+    { id: "member_name", label: "이름", minWidth: 20 },
+    { id: "member_tel", label: "휴대폰번호", minWidth: 20 },
+    { id: "member_addr", label: "주소", minWidth: 30 },
+    { id: "pw_question", label: "비밀번호 질문", minWidth: 10 },
+    { id: "pw_answer", label: "비밀번호 답", minWidth: 10 },
+    { id: "signup_date", label: "가입날짜", minWidth: 10 },
   ];
 
   let paddingTop = "200px";
@@ -44,14 +50,11 @@ export default function StickyHeadTable() {
     setPage(0);
   };
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/boardInsert");
-  };
 
   //배열 시작
-  const [boardlist, setBoardList] = useState([]);
+  const [memberList, setMemberList] = useState([]);
 
-  const [article, setArticle] = useState({
+  const [info, setInfo] = useState({
     board_num: 0,
     member_id: "",
     board_title: "",
@@ -60,10 +63,10 @@ export default function StickyHeadTable() {
 
   const getList = () => {
     axios
-      .post("http://localhost:8080/customer/get", {})
+      .post("http://localhost:8080/getMembers", {})
       .then((res) => {
         const { data } = res;
-        setBoardList(data);
+        setMemberList(data);
       })
       .catch((e) => {
         console.error(e);
@@ -71,26 +74,66 @@ export default function StickyHeadTable() {
   };
 
   const handleTableCellClick = (event, post) => {
-    navigate(`/board/${post.board_num}`);
+    console.log(post);
+    if (event.target.innerText === "수정") {
+      axios
+        .post("http://localhost:8080/selectMember", {
+          member_id: post.member_id,
+        })
+        .then((res) => {
+          if (res.data !== null) {
+            alert("회원 정보가 수정되었습니다!");
+          } else {
+            alert("회원 정보 수정 실패!");
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    } else if (event.target.innerText === "삭제") {
+      axios
+        .post("http://localhost:8080/deleteMember", {
+          member_id: post.member_id,
+        })
+        .then((res) => {
+          if (res.data === 1) {
+            alert("회원 정보가 삭제되었습니다!");
+            axios
+              .post("http://localhost:8080/selectMember", {
+                member_id: post.member_id,
+              })
+              .then((res) => {
+                if (res.data === null) {
+                  window.sessionStorage.clear();
+                  if (window.localStorage.getItem("id") === post.member_id) {
+                    window.localStorage.clear();
+                  }
+                  navigate("/", { return: true });
+                }
+              });
+          } else {
+            alert("회원 정보 삭제 실패!");
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    }
   };
 
   useEffect(() => {
     getList();
-  }, []);
+  });
   return (
     <div>
       <StickyHeader kind="고객관리" />
       <Container sx={{ paddingTop: { paddingTop } }}>
-        <h2 style={{ display: "flex", alignItems: "center", color: "white" }}>
-          <span style={{ marginRight: "auto" }}>문의하기</span>
-          <CustomizedButton
-            onClick={handleClick}
-            label="글 작성"
-          ></CustomizedButton>
+        <h2 style={{ display: "flex", alignItems: "center", color: "black" }}>
+          <span style={{ marginRight: "auto" }}>넷플릭스 회원 목록</span>
         </h2>
 
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          <TableContainer sx={{ maxHeight: 640 }}>
+          <TableContainer sx={{ width: "100%", maxHeight: 640 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
@@ -98,15 +141,18 @@ export default function StickyHeadTable() {
                     <TableCell
                       key={column.board_num}
                       align={column.board_title}
-                      style={{ minWidth: column.minWidth }}
+                      style={{ minWidth: column.minWidth, textAlign: "center" }}
                     >
                       {column.label}
                     </TableCell>
                   ))}
+                  <TableCell style={{ width: 50, textAlign: "center" }}>
+                    수정 및 삭제
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {boardlist
+                {memberList
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((post, index) => {
                     return (
@@ -126,13 +172,28 @@ export default function StickyHeadTable() {
                         {columns.map((column) => {
                           return (
                             <TableCell
-                              key={column.board_num}
+                              key={column.member_num}
                               align={column.board_title}
+                              style={{ textAlign: "center" }}
                             >
                               {post[column.id]}
                             </TableCell>
                           );
                         })}
+                        <TableCell style={{ width: 20 }}>
+                          <Box sx={{ display: "flex" }}>
+                            <Box sx={{ mr: 1 }}>
+                              <CustomizedButton
+                                onClick={handleTableCellClick}
+                                label="수정"
+                              ></CustomizedButton>
+                            </Box>
+                            <CustomizedButton
+                              onClick={handleTableCellClick}
+                              label="삭제"
+                            ></CustomizedButton>
+                          </Box>
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -141,7 +202,7 @@ export default function StickyHeadTable() {
           </TableContainer>
           <TablePagination
             component="div"
-            count={boardlist.length}
+            count={memberList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

@@ -110,8 +110,14 @@ const MyPageBody = () => {
             .catch((e) => {
               console.error(e);
             });
+
+          if (
+            window.localStorage.getItem("id") ===
+            window.sessionStorage.getItem("id")
+          ) {
+            window.localStorage.clear();
+          }
           window.sessionStorage.clear();
-          window.localStorage.clear();
 
           navigate("/", { return: true });
         } else {
