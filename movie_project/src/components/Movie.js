@@ -10,7 +10,7 @@ import Grid from "@mui/material/Grid";
 import axios from "axios";
 import { useLayoutEffect, useState } from "react";
 
-function Movie({ id, medium_cover_image, title, summary, genres }) {
+function Movie({ id, medium_cover_image, title, summary, genres, value }) {
   const style = {
     position: "absolute",
     top: "50%",
@@ -38,6 +38,22 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
   };
   const handleClose = () => setOpen(false);
   const [ischecked, setIsChecked] = useState(false);
+  const [isclicked, setIsClicked] = useState(false);
+  if (value === "favmovielist") {
+    axios
+      .post("http://localhost:8080/favmovie/chk", {
+        movie_title: title,
+        member_id: window.sessionStorage.getItem("id"),
+      })
+      .then((res) => {
+        setIsChecked(res.data?.length ? true : false);
+        console.log("Res ", res);
+        console.log("Res.data ", res.data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }
   useLayoutEffect(() => {
     console.log("1번");
     axios
@@ -53,22 +69,28 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
       .catch((e) => {
         console.error(e);
       });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handlelike = () => {
     console.log("ischecked" + ischecked);
+
     if (ischecked) {
       console.log("isChecked가 true일때");
-      setIsChecked(false);
+
       axios
         .post("http://localhost:8080/favmovie/delete", {
           member_id: window.sessionStorage.getItem("id"),
           movie_title: title,
         })
-        .then((res) => {})
+        .then((res) => {
+          handleClose();
+        })
         .catch((e) => {
           console.error(e);
         });
+      setIsChecked(false);
     } else {
       console.log("isChecked false일때 ");
       axios
@@ -99,7 +121,6 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
         .catch((e) => {
           console.error(e);
         });
-
       setIsChecked(true);
     }
   };
@@ -200,7 +221,7 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                     : summary}
                 </p>
               </div>
-              <Grid onClick={() => handlelike()}>
+              <Grid>
                 <Button
                   variant="outlined"
                   style={{
@@ -209,6 +230,7 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
                     position: "absolute",
                     bottom: " 20px",
                   }}
+                  onClick={() => handlelike()}
                   startIcon={ischecked ? <StarIcon /> : <StarBorderIcon />}
                 >
                   찜하기
