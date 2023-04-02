@@ -14,19 +14,28 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useMediaQuery, useTheme } from "@mui/material";
 
 const columns = [
-  { id: "id", label: "번호", minWidth: 10 },
-  { id: "author", label: "작성자", minWidth: 10 },
-  { id: "title", label: "제목", minWidth: 350 },
-  { id: "date", label: "날짜", minWidth: 40 },
+  { id: "num", label: "번호", width: 5 },
+  { id: "email", label: "이메일", width: 70 },
+  { id: "password", label: "패스워드", width: 10 },
+  { id: "name", label: "이름", width: 20 },
+  { id: "phone", label: "휴대폰번호", width: 20 },
+  { id: "addr", label: "주소", width: 30 },
+  { id: "pwQ", label: "비밀번호 찾기 질문", width: 30 },
+  { id: "pwA", label: "비밀번호 찾기 답", width: 30 },
+  { id: "date", label: "가입 날짜", width: 30 },
+  { id: "updateDelete", label: "수정/삭제", width: 10 },
 ];
 
 export const posts = [
   {
-    id: "1",
-    author: "홍길동",
-    title: "영화는 어떻게 보는건가요",
-    content:
-      "This is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my firstrst postThis is my first postThis is myrst postThis is my first postThis is myrst postThis is my first postThis is myrst postThis is my first postThis is myrst postThis is my first postThis is myrst postThis is my first postThis is my postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis is my first postThis",
+    num: "1",
+    email: "diana@naver.om",
+    password: "****",
+    name: "김다희",
+    phone: "010-234-2343",
+    addr: "부평구",
+    pwQ: "가장 아끼는 보물 1호는?",
+    pwA: "나 자신",
     date: "2023-01-01",
   },
   {
@@ -157,23 +166,28 @@ export default function MemberBoard() {
       <StickyHeader kind="고객관리" />
       <Container sx={{ paddingTop: { paddingTop } }}>
         <h2 style={{ display: "flex", alignItems: "center", color: "black" }}>
-          <span style={{ marginRight: "auto" }}>문의하기</span>
-          <CustomizedButton
-            onClick={handleClick}
-            label="글 작성"
-          ></CustomizedButton>
+          <span style={{ marginRight: "auto" }}>고객관리</span>
         </h2>
+        <CustomizedButton
+          onClick={handleClick}
+          label="글 작성"
+        ></CustomizedButton>
 
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          <TableContainer sx={{ maxHeight: 640 }}>
-            <Table stickyHeader aria-label="sticky table">
+          <TableContainer sx={{ width: 800, maxHeight: 640 }}>
+            <Table
+              stickyHeader
+              aria-label="sticky table"
+              style={{ width: "800px" }}
+              tableLayout="fixed"
+            >
               <TableHead>
                 <TableRow>
                   {columns.map((column) => (
                     <TableCell
                       key={column.id}
                       align={column.align}
-                      style={{ minWidth: column.minWidth }}
+                      width="300px"
                     >
                       {column.label}
                     </TableCell>
