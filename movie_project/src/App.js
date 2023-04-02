@@ -54,12 +54,8 @@ const App = () => {
       <Route path="/board/:board_num" element={<BoardDetail />} />
       <Route path="/profileupdate" element={<ProfileUpdate />} />
       <Route path="/boardInsert" element={<BoardInsert />} />
-<<<<<<< HEAD
-      <Route path="/boardModify" element={<BoardModify />} />
-      <Route path="/memberBoard" element={<MemberBoard />} />
-=======
       <Route path="/boardModify/:board_num" element={<BoardModify />} />
->>>>>>> df5a3df8d4da0f90b968f182eec5ceb404829811
+      <Route path="/memberBoard" element={<MemberBoard />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
