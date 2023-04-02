@@ -221,7 +221,7 @@ const MyPageBody = () => {
             <Grid item xs={2} sx={{ p: 2 }}>
               <Box sx={{ width: 200, mb: 2 }}>
                 <CustomizedButton
-                  label="휴대폰 번호 등록"
+                  label="휴대폰 번호 변경"
                   value="phoneChange"
                   onClick={handlePhoneOpen}
                 ></CustomizedButton>
