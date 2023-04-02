@@ -11,10 +11,12 @@ export default function SelectInput({
   passwordQuestion,
   setPasswordQuestion,
   setPwQError,
+  kind,
+  pw_question,
 }) {
   const handleChange = (event) => {
     console.log(event);
-    setPasswordQuestion(event.target.value);
+    setPasswordQuestion((value) => event.target.value);
 
     if (event.target.value === "") {
       setPwQError("비밀번호 질문을 선택해주세요.");
@@ -22,6 +24,10 @@ export default function SelectInput({
       setPwQError("");
     }
   };
+
+  if (kind === "memberupdate") {
+    setPasswordQuestion((value) => pw_question);
+  }
 
   return (
     <Box sx={{ minWidth: 120, mb: 3 }}>

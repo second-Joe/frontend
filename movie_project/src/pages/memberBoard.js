@@ -16,8 +16,18 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import Box from "@mui/material/Box";
+import MemberUpdateForm from "../components/memberUpdateForm";
 
 export default function StickyHeadTable() {
+  const [openMemberUpdateForm, setOpenMemberUpdateForm] = React.useState(false);
+
+  const updateFormOpen = () => {
+    setOpenMemberUpdateForm(true);
+  };
+  const updateFormClose = () => {
+    setOpenMemberUpdateForm(false);
+  };
+
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -55,10 +65,15 @@ export default function StickyHeadTable() {
   const [memberList, setMemberList] = useState([]);
 
   const [info, setInfo] = useState({
-    board_num: 0,
     member_id: "",
-    board_title: "",
-    board_date: "",
+    member_num: 0,
+    member_name: "",
+    member_addr: "",
+    member_pw: "",
+    member_tel: "",
+    pw_answer: "",
+    pw_question: "",
+    signup_date: "",
   });
 
   const getList = () => {
@@ -82,6 +97,18 @@ export default function StickyHeadTable() {
         })
         .then((res) => {
           if (res.data !== null) {
+            updateFormOpen();
+            setInfo({
+              member_id: post.member_id,
+              member_num: post.member_num,
+              member_name: post.member_name,
+              member_addr: post.member_addr,
+              member_pw: post.member_pw,
+              member_tel: post.member_tel,
+              pw_answer: post.pw_answer,
+              pw_question: post.pw_question,
+              signup_date: post.signup_date,
+            });
             alert("회원 정보가 수정되었습니다!");
           } else {
             alert("회원 정보 수정 실패!");
@@ -183,6 +210,17 @@ export default function StickyHeadTable() {
                                 label="수정"
                               ></CustomizedButton>
                             </Box>
+                            {openMemberUpdateForm ? (
+                              <MemberUpdateForm
+                                openMemberUpdateForm={openMemberUpdateForm}
+                                setOpenMemberUpdateForm={
+                                  setOpenMemberUpdateForm
+                                }
+                                updateFormOpen={updateFormOpen}
+                                updateFormClose={updateFormClose}
+                                info={info}
+                              ></MemberUpdateForm>
+                            ) : null}
                             <CustomizedButton
                               onClick={handleTableCellClick}
                               label="삭제"
