@@ -63,9 +63,7 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
         .post("/favmovie/delete", {
           movie_title: title,
         })
-        .then((res) => {
-          alert("찜하기 취소!!!");
-        })
+        .then((res) => {})
         .catch((e) => {
           console.error(e);
         });
@@ -77,10 +75,7 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
           movie_summary: summary,
           movie_image: medium_cover_image,
         })
-        .then((res) => {
-          console.log("2");
-          alert("찜하기 성공!!!");
-        })
+        .then((res) => {})
         .catch((e) => {
           console.error(e);
           console.log("3" + title);
