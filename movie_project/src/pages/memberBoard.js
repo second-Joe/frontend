@@ -109,7 +109,6 @@ export default function StickyHeadTable() {
               pw_question: post.pw_question,
               signup_date: post.signup_date,
             });
-            alert("회원 정보가 수정되었습니다!");
           } else {
             alert("회원 정보 수정 실패!");
           }

@@ -160,6 +160,14 @@ function Login() {
                   // 로그인 정보 저장 버튼을 누르면 localstorage에 로그인 정보 저장
                   window.localStorage.clear();
                   window.localStorage.setItem("id", email);
+                } else {
+                  if (
+                    window.localStorage.getItem("id") !== null &&
+                    window.localStorage.getItem("id") ===
+                      window.sessionStorage.getItem("id")
+                  ) {
+                    window.localStorage.clear();
+                  }
                 }
                 navigate("/login");
               } else {
