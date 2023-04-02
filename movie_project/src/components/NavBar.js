@@ -76,7 +76,7 @@ const NavBar = ({
   //Link 컴포넌트를 사용하지 않고 다른 페이지로 이동해야 할때 사용
   const navigate = useNavigate();
   const goBack = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   const goSearch = (e) => {

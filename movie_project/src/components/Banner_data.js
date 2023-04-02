@@ -113,7 +113,7 @@ function Banner_data({
     } else {
       console.log("isChecked false일때 ");
       axios
-        .post("/favmovie/insert", {
+        .post("http://localhost:8080/favmovie/insert", {
           movie_title: title,
           movie_summary: summary,
           movie_image: medium_cover_image,
