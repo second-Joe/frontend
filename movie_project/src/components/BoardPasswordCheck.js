@@ -8,6 +8,8 @@ import { useSpring, animated } from "@react-spring/web";
 import OutlinedTextField from "./OutlinedTextField";
 import CustomizedButton from "./CustomizedButton";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -67,10 +69,18 @@ export default function BoardPasswordCheck({
   openModal,
   handleOpen,
   handleClose,
-  modify,
-  remove,
+  boardnum,
 }) {
   const [open, setOpen] = React.useState(openModal);
+  const [password, setPassword] = React.useState("");
+  const [passwordError, setPasswordError] = React.useState("");
+
+  const isValidPassword = (password) => {
+    const passwordRegex = password.length >= 4 && password.length <= 20;
+    return passwordRegex;
+    // 패스워드의 유효성을 검사하는 코드를 작성한다.
+    // 유효한 패스워드인 경우 true, 그렇지 않은 경우 false를 반환한다.
+  };
 
   const handleClose2 = () => {
     setOpen(false);
@@ -78,12 +88,29 @@ export default function BoardPasswordCheck({
   };
   const navigate = useNavigate();
   const handleUpdate = (e) => {
-    console.log(e);
-    if (modify === true) {
-      navigate("/boardModify");
+    if (isValidPassword(password)) {
+      axios
+        .post("http://localhost:8080/login", {
+          member_id: window.sessionStorage.getItem("id"),
+          member_pw: password,
+        })
+        .then((res) => {
+          if (res.data === 1) {
+            console.log("정보확인 성공!");
+            handleClose2();
+            navigate(`/boardModify/${boardnum}`);
+          } else {
+            console.log("정보확인 실패!");
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    } else if (password === "") {
+      setPasswordError("비밀번호를 입력해주세요.");
     }
   };
-  const handleRemove = () => {};
+
   return (
     <div>
       <Modal
@@ -117,7 +144,18 @@ export default function BoardPasswordCheck({
               >
                 비밀번호 입력
               </Typography>
-              <OutlinedTextField label="게시판 비밀번호를 입력해주세요" />
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <OutlinedTextField
+                  onChange={setPassword}
+                  value={password}
+                  setPasswordError={setPasswordError}
+                  isValidPassword={isValidPassword}
+                  label="비밀번호를 입력해주세요"
+                />
+                <FormHelperText sx={{ mt: -2, fontSize: "1em", color: "red" }}>
+                  {passwordError}
+                </FormHelperText>
+              </Box>
             </Box>
 
             <Box sx={{ ml: 60 }}>

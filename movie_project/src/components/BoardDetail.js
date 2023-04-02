@@ -10,8 +10,7 @@ import { useMediaQuery, useTheme } from "@mui/material";
 
 function BoardDetail() {
   const [openModal, setOpenModal] = useState(false);
-  const [modify, setModify] = useState(false);
-  const [remove, setRemove] = useState(false);
+
   const { board_num } = useParams();
   const [article, setArticle] = useState({
     member_id: "",
@@ -31,8 +30,8 @@ function BoardDetail() {
           board_title: data.board_title,
           board_content: data.board_content,
         });
-      })
-  }
+      });
+  };
 
   useEffect(() => {
     getDetail();
@@ -42,8 +41,9 @@ function BoardDetail() {
     axios
       .get(`http://localhost:8080/customer/delete?board_num=${board_num}`)
       .then(() => {
-        navigate("/board")
-      }).catch((e) => {
+        navigate("/board");
+      })
+      .catch((e) => {
         console.error(e);
       });
   };
@@ -53,19 +53,13 @@ function BoardDetail() {
   }, []);
 
   const handleModify = () => {
-    navigate(`/boardModify/${board_num}`)
-  }
-
-
+    navigate(`/boardModify/${board_num}`);
+  };
 
   const clickModify = () => {
     handleOpen();
-    setModify(true);
   };
-  const clickDelete = () => {
-    handleOpen();
-    setRemove(true);
-  };
+
   const handleOpen = () => {
     setOpenModal(true);
   };
@@ -84,16 +78,12 @@ function BoardDetail() {
     paddingTop = "140px";
   }
 
-
   return (
     <div>
       <StickyHeader />
       <Container sx={{ paddingTop: { paddingTop } }}>
         <Paper sx={{ padding: "16px" }}>
-          <Typography
-            variant="h4"
-            sx={{ fontWeight: "bold", mb: "16px" }}
-          >
+          <Typography variant="h4" sx={{ fontWeight: "bold", mb: "16px" }}>
             {article.board_title}
           </Typography>
           <div>
@@ -144,7 +134,7 @@ function BoardDetail() {
               <CustomizedButton
                 label="수정"
                 value="update"
-                onClick={handleModify}
+                onClick={clickModify}
               ></CustomizedButton>
               &nbsp; &nbsp;
               <CustomizedButton
@@ -155,12 +145,11 @@ function BoardDetail() {
             </Box>
             {openModal ? (
               <BoardPasswordCheck
-                modify={modify}
-                remove={remove}
                 openModal={openModal}
                 setOpenModal={setOpenModal}
                 handleOpen={handleOpen}
                 handleClose={handleClose}
+                boardnum={board_num}
               ></BoardPasswordCheck>
             ) : null}
           </div>
