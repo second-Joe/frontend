@@ -145,6 +145,7 @@ function BoardDetail() {
                 boardnum={board_num}
                 modify={modify}
                 remove={remove}
+                owner={article.member_id}
               ></BoardPasswordCheck>
             ) : null}
           </div>

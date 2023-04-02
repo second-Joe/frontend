@@ -72,6 +72,7 @@ export default function BoardPasswordCheck({
   boardnum,
   modify,
   remove,
+  owner,
 }) {
   const [open, setOpen] = React.useState(openModal);
   const [password, setPassword] = React.useState("");
@@ -99,9 +100,14 @@ export default function BoardPasswordCheck({
           })
           .then((res) => {
             if (res.data === 1) {
-              alert("정보확인 성공!");
+              if (window.sessionStorage.getItem("id") === owner) {
+                alert("정보확인 성공!");
+                navigate(`/boardModify/${boardnum}`);
+              } else {
+                alert("수정 권한이 없습니다!");
+              }
+
               handleClose2();
-              navigate(`/boardModify/${boardnum}`);
             } else {
               alert("정보확인 실패!");
               handleClose2();
@@ -128,7 +134,11 @@ export default function BoardPasswordCheck({
                 )
                 .then((res) => {
                   if (res.data === 1) {
-                    alert("정보 삭제 성공!");
+                    if (window.sessionStorage.getItem("id") === owner) {
+                      alert("정보 삭제 성공!");
+                    } else {
+                      alert("삭제 권한이 없습니다!");
+                    }
                     navigate("/board");
                   } else {
                     alert("정보 삭제 싪패!");
@@ -151,8 +161,6 @@ export default function BoardPasswordCheck({
       }
     }
   };
-
-  const handleDelete = () => {};
 
   return (
     <div>
