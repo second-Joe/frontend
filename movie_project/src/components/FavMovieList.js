@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import axios from "axios";
 
 const FavMovieList = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
 
   // const [ischecked, setIsChecked] = useState(false);
@@ -17,6 +17,7 @@ const FavMovieList = () => {
       .get("/favmovie/select")
       .then((res) => {
         setMovies([...res.data]);
+        setLoading(false);
       })
       .catch((e) => {
         console.error(e);
@@ -24,37 +25,8 @@ const FavMovieList = () => {
   }, [movies]);
 
   return (
-    // <div>
-    //   {loading ? (
-    //     <div
-    //       style={{
-    //         marginLeft: "30px",
-    //         marginTop: "100px",
-    //         color: "white",
-    //         fontSize: "2.4em",
-    //         position: "fixed",
-    //       }}
-    //     >
-    //       loading...
-    //     </div>
-    //   ) : (
     <div>
-      {movies.length ? (
-        <div style={{ marginTop: "100px" }}>
-          <Grid container spacing={2}>
-            {movies.map((movie) => (
-              <Grid item xs={2} key={movie.movie_num}>
-                <Movie
-                  id={movie.movie_num}
-                  title={movie.movie_title}
-                  summary={movie.movie_summary}
-                  medium_cover_image={movie.movie_image}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </div>
-      ) : (
+      {loading ? (
         <div
           style={{
             marginLeft: "30px",
@@ -64,11 +36,41 @@ const FavMovieList = () => {
             position: "fixed",
           }}
         >
-          찜목록이 없습니다...
+          loading...
+        </div>
+      ) : (
+        <div>
+          {movies.length ? (
+            <div style={{ marginTop: "100px" }}>
+              <Grid container spacing={2}>
+                {movies.map((movie) => (
+                  <Grid item xs={2} key={movie.movie_num}>
+                    <Movie
+                      id={movie.movie_num}
+                      title={movie.movie_title}
+                      summary={movie.movie_summary}
+                      medium_cover_image={movie.movie_image}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </div>
+          ) : (
+            <div
+              style={{
+                marginLeft: "30px",
+                marginTop: "100px",
+                color: "white",
+                fontSize: "2.4em",
+                position: "fixed",
+              }}
+            >
+              찜목록이 없습니다.
+            </div>
+          )}
         </div>
       )}
     </div>
-    // )}
   );
 };
 
