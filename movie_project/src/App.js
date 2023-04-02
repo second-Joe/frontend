@@ -50,10 +50,10 @@ const App = () => {
       <Route path="/customercenter" element={<Customercenter />} />
       <Route path="/customercenter/board" element={<Board />} />
       <Route path="/board" element={<BoardList />} />
-      <Route path="/board/:id" element={<BoardDetail />} />
+      <Route path="/board/:board_num" element={<BoardDetail />} />
       <Route path="/profileupdate" element={<ProfileUpdate />} />
       <Route path="/boardInsert" element={<BoardInsert />} />
-      <Route path="/boardModify" element={<BoardModify />} />
+      <Route path="/boardModify/:board_num" element={<BoardModify />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
