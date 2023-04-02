@@ -110,39 +110,45 @@ export default function BoardPasswordCheck({
           .catch((e) => {
             console.error(e);
           });
-      } else {
-        if (isValidPassword(password)) {
-          axios
-            .post("http://localhost:8080/login", {
-              member_id: window.sessionStorage.getItem("id"),
-              member_pw: password,
-            })
-            .then((res) => {
-              if (res.data === 1) {
-                alert("정보확인 성공!");
-                axios
-                  .get(
-                    `http://localhost:8080/customer/delete?board_num=${boardnum}`
-                  )
-                  .then(() => {
-                    navigate("/board");
-                  })
-                  .catch((e) => {
-                    console.error(e);
-                  });
-                handleClose2();
-              } else {
-                alert("정보확인 실패!");
-                handleClose2();
-              }
-            })
-            .catch((e) => {
-              console.error(e);
-            });
-        }
+      } else if (password === "") {
+        setPasswordError("비밀번호를 입력해주세요.");
       }
-    } else if (password === "") {
-      setPasswordError("비밀번호를 입력해주세요.");
+    } else if (remove === true) {
+      if (isValidPassword(password)) {
+        axios
+          .post("http://localhost:8080/login", {
+            member_id: window.sessionStorage.getItem("id"),
+            member_pw: password,
+          })
+          .then((res) => {
+            if (res.data === 1) {
+              axios
+                .get(
+                  `http://localhost:8080/customer/delete?board_num=${boardnum}`
+                )
+                .then((res) => {
+                  if (res.data === 1) {
+                    alert("정보 삭제 성공!");
+                    navigate("/board");
+                  } else {
+                    alert("정보 삭제 싪패!");
+                  }
+                })
+                .catch((e) => {
+                  console.error(e);
+                });
+              handleClose2();
+            } else {
+              alert("정보확인 실패!");
+              handleClose2();
+            }
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      } else if (password === "") {
+        setPasswordError("비밀번호를 입력해주세요.");
+      }
     }
   };
 

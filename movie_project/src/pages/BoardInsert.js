@@ -49,19 +49,9 @@ export default function BoardInsert() {
     console.log(board_title);
   };
 
-  const writerChange = (event) => {
-    setWriter(event.target.value);
-    console.log(member_id);
-  };
-
   const contentChange = (event) => {
     setContent(event.target.value);
     console.log(board_content);
-  };
-
-  const passwordChange = (event) => {
-    setpassword(event.target.value);
-    console.log(board_pw);
   };
 
   const handleInsert = () => {
