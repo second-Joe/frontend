@@ -102,6 +102,7 @@ function Banner_data({
       setIsChecked(false);
       axios
         .post("http://localhost:8080/favmovie/delete", {
+          member_id: window.sessionStorage.getItem("id"),
           movie_title: title,
         })
         .then((res) => {

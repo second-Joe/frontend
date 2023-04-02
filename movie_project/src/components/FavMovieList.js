@@ -14,8 +14,11 @@ const FavMovieList = () => {
     console.log("1번");
 
     axios
-      .get("http://localhost:8080/favmovie/select")
+      .post("http://localhost:8080/favmovie/select", {
+        member_id: window.sessionStorage.getItem("id"),
+      })
       .then((res) => {
+        console.log(res.data);
         setMovies([...res.data]);
         setLoading(false);
       })

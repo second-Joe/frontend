@@ -43,6 +43,7 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
     axios
       .post("http://localhost:8080/favmovie/chk", {
         movie_title: title,
+        member_id: window.sessionStorage.getItem("id"),
       })
       .then((res) => {
         setIsChecked(res.data?.length ? true : false);
@@ -61,6 +62,7 @@ function Movie({ id, medium_cover_image, title, summary, genres }) {
       setIsChecked(false);
       axios
         .post("http://localhost:8080/favmovie/delete", {
+          member_id: window.sessionStorage.getItem("id"),
           movie_title: title,
         })
         .then((res) => {})
