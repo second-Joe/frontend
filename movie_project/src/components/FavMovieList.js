@@ -11,8 +11,6 @@ const FavMovieList = () => {
   // const [ischecked, setIsChecked] = useState(false);
 
   useEffect(() => {
-    console.log("1번");
-
     axios
       .post("http://localhost:8080/favmovie/select", {
         member_id: window.sessionStorage.getItem("id"),
