@@ -23,9 +23,9 @@ const PageTitle = ({ manageMode }) => {
 function ProfileManager() {
   const [profiles, setProfiles] = useState([]);
 
-  //const member_id = window.sessionStorage.getItem('member_id');
+  const member_id = window.sessionStorage.getItem('member_id');
 
-  const member_id = "bbb";
+  //const member_id = "bbb";
 
   useEffect(() => {
     loadProfiles(member_id);
