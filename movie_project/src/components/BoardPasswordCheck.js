@@ -96,11 +96,12 @@ export default function BoardPasswordCheck({
         })
         .then((res) => {
           if (res.data === 1) {
-            console.log("정보확인 성공!");
+            alert("정보확인 성공!");
             handleClose2();
             navigate(`/boardModify/${boardnum}`);
           } else {
-            console.log("정보확인 실패!");
+            alert("정보확인 실패!");
+            handleClose2();
           }
         })
         .catch((e) => {
