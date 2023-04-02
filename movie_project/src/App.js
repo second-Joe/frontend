@@ -51,11 +51,15 @@ const App = () => {
       <Route path="/customercenter" element={<Customercenter />} />
       <Route path="/customercenter/board" element={<Board />} />
       <Route path="/board" element={<BoardList />} />
-      <Route path="/board/:id" element={<BoardDetail />} />
+      <Route path="/board/:board_num" element={<BoardDetail />} />
       <Route path="/profileupdate" element={<ProfileUpdate />} />
       <Route path="/boardInsert" element={<BoardInsert />} />
+<<<<<<< HEAD
       <Route path="/boardModify" element={<BoardModify />} />
       <Route path="/memberBoard" element={<MemberBoard />} />
+=======
+      <Route path="/boardModify/:board_num" element={<BoardModify />} />
+>>>>>>> df5a3df8d4da0f90b968f182eec5ceb404829811
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

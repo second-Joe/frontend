@@ -33,7 +33,10 @@ export default function OutlinedTextField({
       if (e.target.value === "") {
         setIdError("이메일 주소를 입력해주세요.");
       }
-    } else if (label === "변경할 비밀번호를 입력해주세요") {
+    } else if (
+      label === "변경할 비밀번호를 입력해주세요" ||
+      label === "비밀번호를 입력해주세요"
+    ) {
       onChange(e.target.value);
       setPasswordError(
         isValidPassword(e.target.value)
