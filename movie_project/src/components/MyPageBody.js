@@ -124,11 +124,11 @@ const MyPageBody = () => {
   };
 
   const deleteLoginInfo = () => {
-    window.localStorage.clear();
-    if (window.localStorage.getItem("id") === null) {
+    if (window.localStorage.getItem("id") !== null) {
+      window.localStorage.clear();
       alert("로그인 정보가 삭제되었습니다!");
     } else {
-      alert("로그인 정보가 삭제 실패!");
+      alert("저장된 로그인 정보가 없습니다!");
     }
   };
 
