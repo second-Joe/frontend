@@ -141,7 +141,7 @@ export default function BoardPasswordCheck({
                     }
                     navigate("/board");
                   } else {
-                    alert("정보 삭제 싪패!");
+                    alert("정보 삭제 실패!");
                   }
                 })
                 .catch((e) => {
