@@ -23,7 +23,6 @@ export default function StickyHeadTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-
   const columns = [
     { id: "board_num", label: "번호", minWidth: 10 },
     { id: "member_id", label: "작성자", minWidth: 10 },
@@ -49,7 +48,6 @@ export default function StickyHeadTable() {
     navigate("/boardInsert");
   };
 
-
   //배열 시작
   const [boardlist, setBoardList] = useState([]);
 
@@ -69,21 +67,21 @@ export default function StickyHeadTable() {
       })
       .catch((e) => {
         console.error(e);
-      })
+      });
   };
 
   const handleTableCellClick = (event, post) => {
     navigate(`/board/${post.board_num}`);
-  }
+  };
 
   useEffect(() => {
     getList();
   }, []);
   return (
     <div>
-      <StickyHeader />
+      <StickyHeader kind="고객센터" />
       <Container sx={{ paddingTop: { paddingTop } }}>
-        <h2 style={{ display: "flex", alignItems: "center", color: "white" }}>
+        <h2 style={{ display: "flex", alignItems: "center", color: "black" }}>
           <span style={{ marginRight: "auto" }}>문의하기</span>
           <CustomizedButton
             onClick={handleClick}
@@ -127,7 +125,10 @@ export default function StickyHeadTable() {
                       >
                         {columns.map((column) => {
                           return (
-                            <TableCell key={column.board_num} align={column.board_title}>
+                            <TableCell
+                              key={column.board_num}
+                              align={column.board_title}
+                            >
                               {post[column.id]}
                             </TableCell>
                           );

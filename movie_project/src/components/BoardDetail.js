@@ -73,7 +73,7 @@ function BoardDetail() {
 
   return (
     <div>
-      <StickyHeader />
+      <StickyHeader kind="고객센터" />
       <Container sx={{ paddingTop: { paddingTop } }}>
         <Paper sx={{ padding: "16px" }}>
           <Typography variant="h4" sx={{ fontWeight: "bold", mb: "16px" }}>
