@@ -7,14 +7,22 @@ import DownLoadmany from "./DownLoadmany";
 import GoodMany from "./GoodMany";
 import NewDateAdd from "./NewDateAdd";
 import FavMovieList from "./FavMovieList";
+<<<<<<< HEAD
 import { useNavigate, useLocation } from "react-router-dom";
+=======
+import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useMediaQuery, useTheme } from "@mui/material";
+>>>>>>> 79bd0fd579ac18d2fae1501eff1ad5568d964224
 
 const Layout = () => {
   const [search, setSearch] = useState("");
   const [menuClick, setMenuClick] = useState(false);
   const [menuKind, setMenuKind] = useState("");
+  const theme = useTheme();
 
   const navigate = useNavigate();
+<<<<<<< HEAD
   const location = useLocation();
 
   let profile_num = location.pathname.slice(7);
@@ -25,6 +33,14 @@ const Layout = () => {
   // console.log(profile_num);
   // console.log("param 값은: " + profile_num);
 
+=======
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const footerLayout = isSmallScreen
+    ? {
+        display: "none",
+      }
+    : {};
+>>>>>>> 79bd0fd579ac18d2fae1501eff1ad5568d964224
   useEffect(() => {
     //로그인 상태인지 체크
     const login_id = window.sessionStorage.getItem("id"); // 세션스토리지에 저장되어 있는 id값 읽음
