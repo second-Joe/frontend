@@ -121,7 +121,14 @@ const MypageDropDown = () => {
                 pr: 2,
               }}
             >
-              <Typography sx={{ fontSize: 15, color: "white", mt: 2 }}>
+              <Typography
+                sx={{
+                  textTransform: "none",
+                  fontSize: 25,
+                  color: "white",
+                  mt: 1,
+                }}
+              >
                 {profileNickname}
               </Typography>
             </Box>
