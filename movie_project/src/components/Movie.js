@@ -8,7 +8,7 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState, useEffect } from "react";
 
 function Movie({ id, medium_cover_image, title, summary, genres, value }) {
   const style = {
@@ -32,7 +32,7 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = (e) => {
-    e.stopPropagation();
+    // e.stopPropagation();
     setOpen(true);
     setIsHover(false);
   };
@@ -73,12 +73,27 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const modalCheck = () => {
+    console.log("modal");
+    axios
+      .post("http://localhost:8080/favmovie/chk", {
+        movie_title: title,
+        member_id: window.sessionStorage.getItem("id"),
+      })
+      .then((res) => {
+        setIsChecked(res.data?.length ? true : false);
+        console.log("Res ", res);
+        console.log("Res.data ", res.data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
   const handlelike = () => {
     console.log("ischecked" + ischecked);
 
     if (ischecked) {
       console.log("isChecked가 true일때");
-
       axios
         .post("http://localhost:8080/favmovie/delete", {
           member_id: window.sessionStorage.getItem("id"),
@@ -146,11 +161,19 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
           transform: isHover ? "scale(1.1)" : "scale(1)",
           cursor: "pointer",
         }}
-        onClick={handleOpen}
+        // onClick={handleOpen}
+        onClick={() => {
+          handleOpen();
+          modalCheck();
+        }}
       />
       {isHover ? (
         <div
-          onClick={handleOpen}
+          // onClick={handleOpen}
+          onClick={() => {
+            handleOpen();
+            modalCheck();
+          }}
           style={{
             position: "absolute",
             top: 0,
