@@ -22,7 +22,7 @@ const Footer = () => {
   return (
     <div>
       {isSmallScreen ? (
-        <div style={{ marginBottom: "30px" }}></div>
+        <footer style={{ marginBottom: "30px" }}></footer>
       ) : (
         <footer>
           <ul
