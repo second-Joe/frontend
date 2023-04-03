@@ -26,7 +26,7 @@ const Layout = () => {
   if (profile_num === "") {
     profile_num = 1;
   }
-  // console.log(profile_num);
+  //console.log(profile_num);
   // console.log("param 값은: " + profile_num);
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));

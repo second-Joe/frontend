@@ -25,7 +25,7 @@ const MyPageBody = () => {
   const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [user, setUser] = React.useState(window.sessionStorage.getItem("id"));
   const [userName, setUserName] = React.useState("");
-  const [profiles, setProfiles] = useState([]);
+  const [profiles, setProfiles] = useState();
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -66,22 +66,29 @@ const MyPageBody = () => {
       });
   }, [email, tel, pw]);
 
+  const member_id = window.sessionStorage.getItem("id");
+  const [profileNickname, setProfileNickName] = useState(
+    "프로필을 선택하시면 닉네임이 나타납니다."
+  );
   useEffect(() => {
-    loadProfiles(window.sessionStorage.getItem("id"));
-    window.profiles = { profiles };
+    loadProfiles(member_id);
+    console.log(profiles);
   }, []);
-
-  console.log(window.profile_num);
-  console.log(window.profiles);
-  const nickname =
-    window.profiles.profiles[parseInt(window.profile_num, 10) - 1].nickname;
 
   const loadProfiles = async (member_id) => {
     try {
       const response = await axios.get("http://localhost:8080/profiles", {
         params: { member_id },
       });
-      setProfiles(response.data);
+      console.log("response", response.data);
+      if (response.data !== null) {
+        if (window.profile_num !== undefined) {
+          console.log(window.profile_num);
+          setProfileNickName(response.data[window.profile_num - 1].nickname);
+        } else {
+          setProfileNickName(response.data[0].nickname);
+        }
+      }
     } catch (error) {
       console.error("Error loading profiles:", error);
     }
@@ -355,7 +362,7 @@ const MyPageBody = () => {
                   fontWeight: "bold",
                 }}
               >
-                {nickname}
+                {profileNickname}
               </Typography>
             </Box>
             <Grid></Grid>
