@@ -8,14 +8,22 @@ import GoodMany from "./GoodMany";
 import NewDateAdd from "./NewDateAdd";
 import FavMovieList from "./FavMovieList";
 import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const Layout = () => {
   const [search, setSearch] = useState("");
   const [menuClick, setMenuClick] = useState(false);
   const [menuKind, setMenuKind] = useState("");
+  const theme = useTheme();
 
   const navigate = useNavigate();
-
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const footerLayout = isSmallScreen
+    ? {
+        display: "none",
+      }
+    : {};
   useEffect(() => {
     //로그인 상태인지 체크
     const login_id = window.sessionStorage.getItem("id"); // 세션스토리지에 저장되어 있는 id값 읽음
