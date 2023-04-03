@@ -18,6 +18,7 @@ function Banner_data({
   title,
   summary,
   yt_trailer_code,
+  value,
 }) {
   const theme = useTheme();
   console.dir(theme.breakpoints);
@@ -30,9 +31,19 @@ function Banner_data({
         display: "flex",
         marginLeft: "8.5%",
         flexDirection: "column",
-        justifyContent: "space-around",
       }
-    : { height: "350px", display: "flex", marginLeft: "8.5%" };
+    : isMediumScreen
+    ? {
+        height: "350px",
+        display: "flex",
+        marginLeft: "8.5%",
+        justifyContent: "space-between",
+      }
+    : {
+        height: "350px",
+        display: "flex",
+        marginLeft: "8.5%",
+      };
   const imgStyle = isMediumScreen
     ? {
         display: "none",
@@ -41,11 +52,12 @@ function Banner_data({
         backgroundImage: `url(${medium_cover_image})`,
         width: "230px",
         height: "345px",
+        marginLeft: "10px",
       };
   const playerStyle = isSmallScreen
     ? { marginTop: "10px", width: "30%", height: "70%" }
     : {
-        marginLeft: "40px",
+        marginLeft: "50px",
       };
 
   const btnStyle = isMediumScreen
@@ -61,7 +73,6 @@ function Banner_data({
     position: "absolute",
     top: "50%",
     left: "50%",
-    transform: "translate(-50%, -50%)",
     width: 780,
     height: 400,
     bgcolor: "rgba(0,0,0,0.8)",
@@ -79,6 +90,22 @@ function Banner_data({
   };
   const handleClose = () => setOpen(false);
   const [ischecked, setIsChecked] = useState(false);
+  const [isclicked, setIsClicked] = useState(false);
+  if (value === "favmovielist") {
+    axios
+      .post("http://localhost:8080/favmovie/chk", {
+        movie_title: title,
+        member_id: window.sessionStorage.getItem("id"),
+      })
+      .then((res) => {
+        setIsChecked(res.data?.length ? true : false);
+        console.log("Res ", res);
+        console.log("Res.data ", res.data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }
   useLayoutEffect(() => {
     console.log("1번");
     axios
@@ -94,24 +121,28 @@ function Banner_data({
       .catch((e) => {
         console.error(e);
       });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handlelike = () => {
     console.log("ischecked" + ischecked);
+
     if (ischecked) {
       console.log("isChecked가 true일때");
-      setIsChecked(false);
+
       axios
         .post("http://localhost:8080/favmovie/delete", {
           member_id: window.sessionStorage.getItem("id"),
           movie_title: title,
         })
         .then((res) => {
-          // alert("찜하기 취소!!!");
+          handleClose();
         })
         .catch((e) => {
           console.error(e);
         });
+      setIsChecked(false);
     } else {
       console.log("isChecked false일때 ");
       axios
@@ -142,7 +173,6 @@ function Banner_data({
         .catch((e) => {
           console.error(e);
         });
-
       setIsChecked(true);
     }
   };

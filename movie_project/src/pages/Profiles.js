@@ -23,9 +23,7 @@ const PageTitle = ({ manageMode }) => {
 function ProfileManager() {
   const [profiles, setProfiles] = useState([]);
 
-  const member_id = window.sessionStorage.getItem('member_id');
-
-  //const member_id = "bbb";
+  const member_id = window.sessionStorage.getItem("id");
 
   useEffect(() => {
     loadProfiles(member_id);
@@ -33,7 +31,9 @@ function ProfileManager() {
 
   const loadProfiles = async (member_id) => {
     try {
-      const response = await axios.get("http://localhost:8080/profiles", { params: { member_id } });
+      const response = await axios.get("http://localhost:8080/profiles", {
+        params: { member_id },
+      });
       setProfiles(response.data);
     } catch (error) {
       console.error("Error loading profiles:", error);
@@ -98,7 +98,7 @@ function ProfileManager() {
                 to={
                   manageMode
                     ? `/profile/edit/${member_id}/${profile.profile_id}`
-                    : "/login"
+                    : `/login/${profile.profile_id}`
                 }
               >
                 <Box

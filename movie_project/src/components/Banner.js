@@ -31,6 +31,7 @@ function Banner() {
             background={movie.background_image}
             large_cover_image={movie.large_cover_image}
             yt_trailer_code={movie.yt_trailer_code}
+            value="favmovielist"
           />
         )}
       </Grid>
