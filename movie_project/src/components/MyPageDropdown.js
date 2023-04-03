@@ -6,11 +6,48 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link, useNavigate } from "react-router-dom";
 import { Divider } from "@mui/material";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
-export default function PositionedMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+const MypageDropDown = () => {
+  const member_id = window.sessionStorage.getItem("id");
+  const [profileNickname, setProfileNickName] = useState("USER");
+  useEffect(() => {
+    loadProfiles(member_id);
+  }, []);
+
+  const loadProfiles = async (member_id) => {
+    try {
+      const response = await axios.get("http://localhost:8080/profiles", {
+        params: { member_id },
+      });
+      console.log("response", response.data);
+      if (response.data !== null) {
+        if (window.profile_num !== undefined) {
+          console.log(window.profile_num);
+          setProfileNickName(response.data[window.profile_num - 1].nickname);
+          setProfileImg(profileImages[window.profile_num - 1]);
+        } else {
+          setProfileNickName(response.data[0].nickname);
+          setProfileImg(profileImages[0]);
+        }
+      }
+    } catch (error) {
+      console.error("Error loading profiles:", error);
+    }
+  };
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+  const [profileImg, setProfileImg] = useState("");
+  const profileImages = [
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRVHHNwcCOQ4Y7ulfRG1cZb9joFo5CV921mN1Ha1skrsyRx7PJcLa1stsjBm79z7QV9pQ&usqp=CAU",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/disp/84c20033850498.56ba69ac290ea.png",
+    "https://external-preview.redd.it/0dTT-3SprPcsNCqo1GTCI-nqGM9EdZYwqyYr_pZ-baE.jpg?auto=webp&s=a1e8532d326f5aa122df2f31694bf142f117fc06",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/disp/64623a33850498.56ba69ac2a6f7.png",
+  ];
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -33,13 +70,53 @@ export default function PositionedMenu() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <AccountBoxIcon
-          sx={{
-            fontSize: 40,
-            color: "blue",
-          }}
-        />
-        <ArrowDropDownIcon style={{ fontSize: "2rem", color: "white" }} />
+        {profileImg === "" ? (
+          <AccountBoxIcon
+            sx={{
+              fontSize: 40,
+              color: "grey",
+            }}
+          />
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              width: 350,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                width: "100%",
+                pr: 2,
+              }}
+            >
+              <Typography sx={{ fontSize: 15, color: "white", mt: 2 }}>
+                {profileNickname}
+              </Typography>
+            </Box>
+            <Box
+              component="img"
+              sx={{
+                height: 50,
+                width: 50,
+                maxHeight: { xs: 50, md: 50 },
+                maxWidth: { xs: 50, md: 50 },
+              }}
+              src={profileImg}
+            />
+            <ArrowDropDownIcon
+              style={{
+                marginTop: 10,
+                marginLeft: 5,
+                fontSize: "2rem",
+                color: "white",
+              }}
+            />
+          </Box>
+        )}
       </Button>
       <Menu
         id="demo-positioned-menu"
@@ -71,4 +148,6 @@ export default function PositionedMenu() {
       </Menu>
     </div>
   );
-}
+};
+
+export default MypageDropDown;

@@ -19,7 +19,7 @@ const StickyHeader = () => {
         }}
       >
         <Grid container>
-          <Grid item xs={11}>
+          <Grid item xs={9}>
             <Typography
               noWrap
               component="a"
@@ -37,7 +37,7 @@ const StickyHeader = () => {
               {isSmallScreen ? "N" : "NETFLIX"}
             </Typography>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={2}>
             <MyPageDropdown />
           </Grid>
         </Grid>

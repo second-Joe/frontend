@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import CustomizedButton from "./CustomizedButton";
 import Box from "@mui/material/Box";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OutlinedTextField from "./OutlinedTextField";
 import EmailChange from "./EmailChange";
@@ -13,6 +13,7 @@ import PasswordChange from "./PasswordChange";
 import PhoneChange from "./PhoneChange";
 import axios from "axios";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { useEffect } from "react";
 
 const MyPageBody = () => {
   const theme = useTheme();
