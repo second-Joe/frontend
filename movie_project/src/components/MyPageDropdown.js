@@ -71,12 +71,40 @@ const MypageDropDown = () => {
         onClick={handleClick}
       >
         {profileImg === "" ? (
-          <AccountBoxIcon
+          <Box
             sx={{
-              fontSize: 40,
-              color: "grey",
+              display: "flex",
+              justifyContent: "flex-end",
+              width: 350,
             }}
-          />
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                width: "100%",
+                pr: 2,
+              }}
+            >
+              <Typography sx={{ fontSize: 15, color: "white", mt: 2 }}>
+                SELECT PROFILE
+              </Typography>
+            </Box>
+            <AccountBoxIcon
+              sx={{
+                fontSize: 40,
+                color: "grey",
+              }}
+            />
+            <ArrowDropDownIcon
+              style={{
+                marginTop: 6,
+                marginLeft: 5,
+                fontSize: "2rem",
+                color: "white",
+              }}
+            />
+          </Box>
         ) : (
           <Box
             sx={{
