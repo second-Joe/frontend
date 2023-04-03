@@ -110,6 +110,7 @@ const ProfileUpdate = () => {
           {renderProfileImage(parseInt(profileId, 10))}
 
           <TextField
+            value={nickname}
             autoComplete="off"
             label="수정하실 닉네임을 적어주세요."
             variant="outlined"
