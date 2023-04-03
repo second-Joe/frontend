@@ -221,6 +221,7 @@ function BoardDetail() {
                       onClick={clickDelete}
                     ></CustomizedButton>
                     &nbsp;&nbsp;&nbsp;
+
                     {window.sessionStorage.getItem("id") === "admin@email.com" ?
 
                       <CustomizedButton
@@ -251,22 +252,21 @@ function BoardDetail() {
             reply ?
               <div>
                 <hr />
-                <Typography variant="h4" sx={{ fontWeight: "bold", mb: "16px" }}>
+                <Typography variant="h4" sx={{ fontWeight: "bold", mb: "15px" }}>
                   {article.member_id}님의 문의사항에 대한 답변
                 </Typography>
                 <Box
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "flex-start",
-                    justifyContent: "flex-start",
                     height: "70vh",
                   }}
                 >
                   <TextField
                     sx={{
-                      width: "110vh",
-                      mt: 1
+                      width: "100%",
+                      mt: 1,
+                      textAlign: "center"
                     }}
                     id="outlined-multiline-static"
                     multiline
@@ -276,7 +276,9 @@ function BoardDetail() {
                   <Box sx={{
                     display: "flex",
                     justifyContent: "flex-end",
-                    flexGrow: 1
+                    flexGrow: 1,
+                    mt: 2
+
                   }}>
                     <CustomizedButton
                       label="답변"
