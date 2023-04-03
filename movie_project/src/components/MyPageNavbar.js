@@ -29,7 +29,7 @@ const StickyHeader = () => {
         }}
       >
         <Box container sx={{ display: "flex", width: "100%" }}>
-          <Box sx={{ width: "20%", ml: 4 }}>
+          <Box sx={{ width: "20%", ml: 5 }}>
             <Typography
               noWrap
               component="a"
@@ -48,7 +48,12 @@ const StickyHeader = () => {
             </Typography>
           </Box>
           <Box
-            sx={{ width: "80%", display: "flex", justifyContent: "end", mr: 7 }}
+            sx={{
+              width: "80%",
+              display: "flex",
+              justifyContent: "end",
+              mr: 8,
+            }}
           >
             <MyPageDropdown />
           </Box>
