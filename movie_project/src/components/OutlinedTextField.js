@@ -79,6 +79,7 @@ export default function OutlinedTextField({
     <Box component="form" noValidate autoComplete="off">
       <FormControl sx={{ width: 360, mb: 3 }}>
         <OutlinedInput
+          autoComplete="off"
           required
           ref={ref1}
           onChange={changeVal}
