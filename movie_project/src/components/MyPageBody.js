@@ -75,9 +75,8 @@ const MyPageBody = () => {
   }, [email, tel, pw]);
 
   const member_id = window.sessionStorage.getItem("id");
-  const [profileNickname, setProfileNickName] = useState(
-    "프로필을 선택하시면 닉네임이 나타납니다."
-  );
+  const [profileNickname, setProfileNickName] =
+    useState("저장된 프로필이 없습니다");
   useEffect(() => {
     loadProfiles(member_id);
     console.log(profiles);

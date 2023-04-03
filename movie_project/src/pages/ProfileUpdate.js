@@ -37,13 +37,14 @@ const ProfileUpdate = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(profileId);
     axios
       .get(
         `http://localhost:8080/profiles?member_id=${member_id}&profile_id=${profileId}`
       )
       .then((res) => {
         if (res.data.length > 0) {
-          setNickname(res.data[0].nickname);
+          setNickname(res.data[profileId - 1].nickname);
         }
       })
       .catch((error) => {
