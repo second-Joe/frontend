@@ -7,7 +7,7 @@ import DownLoadmany from "./DownLoadmany";
 import GoodMany from "./GoodMany";
 import NewDateAdd from "./NewDateAdd";
 import FavMovieList from "./FavMovieList";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Layout = () => {
   const [search, setSearch] = useState("");
@@ -15,6 +15,15 @@ const Layout = () => {
   const [menuKind, setMenuKind] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  let profile_num = location.pathname.slice(7);
+
+  if (profile_num === "") {
+    profile_num = 1;
+  }
+  // console.log(profile_num);
+  // console.log("param 값은: " + profile_num);
 
   useEffect(() => {
     //로그인 상태인지 체크
@@ -41,6 +50,12 @@ const Layout = () => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = "rgb(42, 43, 43)";
+    window.profile_num = profile_num;
+    //console.log("window_profile_num" + profile_num);
+  });
 
   const menuName = menuKind;
 

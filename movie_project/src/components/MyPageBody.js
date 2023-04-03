@@ -25,6 +25,7 @@ const MyPageBody = () => {
   const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [user, setUser] = React.useState(window.sessionStorage.getItem("id"));
   const [userName, setUserName] = React.useState("");
+  const [profiles, setProfiles] = useState([]);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -64,6 +65,27 @@ const MyPageBody = () => {
         console.error(e);
       });
   }, [email, tel, pw]);
+
+  useEffect(() => {
+    loadProfiles(window.sessionStorage.getItem("id"));
+    window.profiles = { profiles };
+  }, []);
+
+  console.log(window.profile_num);
+  console.log(window.profiles);
+  const nickname =
+    window.profiles.profiles[parseInt(window.profile_num, 10) - 1].nickname;
+
+  const loadProfiles = async (member_id) => {
+    try {
+      const response = await axios.get("http://localhost:8080/profiles", {
+        params: { member_id },
+      });
+      setProfiles(response.data);
+    } catch (error) {
+      console.error("Error loading profiles:", error);
+    }
+  };
 
   const [openEmailModal, setOpenEmailModal] = React.useState(false);
   const [openPwModal, setOpenPwModal] = React.useState(false);
@@ -333,7 +355,7 @@ const MyPageBody = () => {
                   fontWeight: "bold",
                 }}
               >
-                {userName}
+                {nickname}
               </Typography>
             </Box>
             <Grid></Grid>

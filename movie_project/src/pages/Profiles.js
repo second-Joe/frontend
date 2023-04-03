@@ -25,8 +25,6 @@ function ProfileManager() {
 
   const member_id = window.sessionStorage.getItem("id");
 
-  //const member_id = "bbb";
-
   useEffect(() => {
     loadProfiles(member_id);
   }, [member_id]);
@@ -100,7 +98,7 @@ function ProfileManager() {
                 to={
                   manageMode
                     ? `/profile/edit/${member_id}/${profile.profile_id}`
-                    : "/login"
+                    : `/login/${profile.profile_id}`
                 }
               >
                 <Box
