@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Grid, Typography, Box } from "@mui/material";
 import ProfileAdd from "../components/ProfileAdd";
 import ProfilesManageBtn from "../components/ProfilesManageBtn";
-
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 const PageTitle = ({ manageMode }) => {
   return (
     <div
@@ -65,8 +65,30 @@ function ProfileManager() {
     setManageMode(!manageMode);
   };
 
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div style={{ minHeight: "100vh" }}>
+      <ArrowBackIosNewIcon
+        sx={{
+          display: "flex",
+          marginRight: "10px",
+          color: "white",
+          fontSize: "3em",
+          "&:hover": {
+            cursor: "pointer",
+            boxSizing: "border-box",
+            fontWeight: "bold",
+            opacity: [0.9, 0.8, 0.7],
+          },
+          ml: 3,
+          mt: 4,
+        }}
+        onClick={goBack}
+      />
       <PageTitle manageMode={manageMode} />
       <div
         style={{

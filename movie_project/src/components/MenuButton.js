@@ -8,6 +8,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
+import Typography from "@mui/material/Typography";
 
 export default function TemporaryDrawer({
   search,
@@ -39,8 +40,26 @@ export default function TemporaryDrawer({
         aria-haspopup="true"
         color="inherit"
         onClick={toggleDrawer}
+        sx={{
+          "&:hover": {
+            cursor: "pointer",
+            boxSizing: "border-box",
+            fontWeight: "bold",
+            opacity: [0.9, 0.8, 0.7],
+          },
+        }}
       >
-        <MenuIcon fontSize="large" />
+        <MenuIcon
+          sx={{
+            "&:hover": {
+              cursor: "pointer",
+              boxSizing: "border-box",
+              fontWeight: "bold",
+              opacity: [0.9, 0.8, 0.7],
+            },
+          }}
+          fontSize="large"
+        />
       </IconButton>
       <Drawer open={showMenu} onClose={toggleDrawer}>
         <Box
@@ -52,7 +71,24 @@ export default function TemporaryDrawer({
             <ListItem disablePadding>
               <ListItemButton onClick={showSearchResult}>
                 {/* search뒤에다가 쿼리스트링 붙여주기 ex.?query=series 그 쿼리스트링을 searchResult페이지에서 searchParams로 읽은다음 관련 결과 띄워주기 */}
-                <ListItemText primary="다운로드 가장 많은 영화" />
+                <ListItemText
+                  disableTypography
+                  primary={
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        "&:hover": {
+                          cursor: "pointer",
+                          boxSizing: "border-box",
+                          fontWeight: "bold",
+                          opacity: [0.9, 0.8, 0.7],
+                        },
+                      }}
+                    >
+                      다운로드 가장 많은 영화"
+                    </Typography>
+                  }
+                />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>

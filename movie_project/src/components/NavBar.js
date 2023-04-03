@@ -134,6 +134,12 @@ const NavBar = ({
             sx={{
               display: "flex",
               marginRight: "10px",
+              "&:hover": {
+                cursor: "pointer",
+                boxSizing: "border-box",
+                fontWeight: "bold",
+                opacity: [0.9, 0.8, 0.7],
+              },
             }}
             onClick={goBack}
           />
