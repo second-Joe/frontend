@@ -96,10 +96,7 @@ const Layout = () => {
           <SearchResult search={search} />
         )}
       </main>
-      <div style={footerLayout}>
-        {" "}
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };
