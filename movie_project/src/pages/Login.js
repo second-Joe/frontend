@@ -63,7 +63,7 @@ function Login() {
   useEffect(() => {
     if (window.localStorage.getItem("id") !== null) {
       // alert("저장된 정보 있음!");
-
+      setSaveAccount(true);
       setEmail(window.localStorage.getItem("id"));
       axios
         .post("http://localhost:8080/selectMember", {
@@ -160,6 +160,14 @@ function Login() {
                   // 로그인 정보 저장 버튼을 누르면 localstorage에 로그인 정보 저장
                   window.localStorage.clear();
                   window.localStorage.setItem("id", email);
+                } else {
+                  if (
+                    window.localStorage.getItem("id") !== null &&
+                    window.localStorage.getItem("id") ===
+                      window.sessionStorage.getItem("id")
+                  ) {
+                    window.localStorage.clear();
+                  }
                 }
                 navigate("/login");
               } else {

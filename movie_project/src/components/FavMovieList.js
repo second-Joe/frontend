@@ -51,6 +51,7 @@ const FavMovieList = () => {
                       title={movie.movie_title}
                       summary={movie.movie_summary}
                       medium_cover_image={movie.movie_image}
+                      value="favmovielist"
                     />
                   </Grid>
                 ))}
