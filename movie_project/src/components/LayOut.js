@@ -18,8 +18,8 @@ const Layout = () => {
   const theme = useTheme();
 
   const navigate = useNavigate();
-  const isMediumScreen = useMediaQuery(theme.breakpoints.down("lg"));
-  const footerLayout = isMediumScreen
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const footerLayout = isSmallScreen
     ? {
         display: "none",
       }
