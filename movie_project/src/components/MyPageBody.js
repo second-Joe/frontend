@@ -90,6 +90,9 @@ const MyPageBody = () => {
     setOpenPhoneModal(false);
   };
 
+  const gotoMemberBoard = () => {
+    navigate("/memberBoard");
+  };
   const deleteAccount = () => {
     axios
       .post("http://localhost:8080/deleteMember", {
@@ -107,8 +110,14 @@ const MyPageBody = () => {
             .catch((e) => {
               console.error(e);
             });
+
+          if (
+            window.localStorage.getItem("id") ===
+            window.sessionStorage.getItem("id")
+          ) {
+            window.localStorage.clear();
+          }
           window.sessionStorage.clear();
-          window.localStorage.clear();
 
           navigate("/", { return: true });
         } else {
@@ -121,11 +130,18 @@ const MyPageBody = () => {
   };
 
   const deleteLoginInfo = () => {
-    window.localStorage.clear();
-    if (window.localStorage.getItem("id") === null) {
-      alert("로그인 정보가 삭제되었습니다!");
+    if (window.localStorage.getItem("id") !== null) {
+      if (
+        window.sessionStorage.getItem("id") ===
+        window.localStorage.getItem("id")
+      ) {
+        window.localStorage.clear();
+        alert("로그인 정보가 삭제되었습니다!");
+      } else {
+        alert("로그인 정보 삭제 권한이 없습니다!");
+      }
     } else {
-      alert("로그인 정보가 삭제 실패!");
+      alert("저장된 로그인 정보가 없습니다!");
     }
   };
 
@@ -205,7 +221,7 @@ const MyPageBody = () => {
             <Grid item xs={2} sx={{ p: 2 }}>
               <Box sx={{ width: 200, mb: 2 }}>
                 <CustomizedButton
-                  label="휴대폰 번호 등록"
+                  label="휴대폰 번호 변경"
                   value="phoneChange"
                   onClick={handlePhoneOpen}
                 ></CustomizedButton>
@@ -336,6 +352,14 @@ const MyPageBody = () => {
       </Grid>
       <Divider />
       <Box sx={{ display: "flex", justifyContent: "end", mt: 5 }}>
+        {user === "admin@email.com" ? (
+          <Box sx={{ mr: 3 }}>
+            <CustomizedButton
+              label="넷플릭스 회원 관리하기"
+              onClick={gotoMemberBoard}
+            ></CustomizedButton>
+          </Box>
+        ) : null}
         <Box sx={{ mr: 3 }}>
           <CustomizedButton
             label="로그인 정보 삭제하기"

@@ -205,7 +205,9 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                   setIdError={setIdError}
                   label="이메일 주소를 입력해주세요"
                 />
-                <FormHelperText sx={{ mt: -3, mb: 2, color: "red" }}>
+                <FormHelperText
+                  sx={{ mt: -3, mb: 2, color: "red", fontSize: "0.9em" }}
+                >
                   {idError}
                 </FormHelperText>
               </Box>
@@ -225,7 +227,9 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                   passwordQuestion={passwordQuestion}
                   setPasswordQuestion={setPasswordQuestion}
                 />
-                <FormHelperText sx={{ mt: -3, mb: 2, color: "red" }}>
+                <FormHelperText
+                  sx={{ mt: -3, mb: 2, color: "red", fontSize: "0.9em" }}
+                >
                   {pwQError}
                 </FormHelperText>
               </Box>
@@ -246,7 +250,9 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                   onChange={setPasswordAnswer}
                   label="비밀번호 찾기 질문에 대한 답을 입력해주세요"
                 />
-                <FormHelperText sx={{ mt: -3, mb: 2, color: "red" }}>
+                <FormHelperText
+                  sx={{ mt: -3, mb: 2, color: "red", fontSize: "0.9em" }}
+                >
                   {pwAnsError}
                 </FormHelperText>
               </Box>

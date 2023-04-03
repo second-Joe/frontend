@@ -1,108 +1,207 @@
-import * as React from "react";
-import { useState } from "react";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Unstable_Grid2";
-import plusbtn from "../assets/plusbtn.png";
-import ProfilesBox from "../components/ProfilesBox";
-import ProfilesManageBtn from "../components/ProfilesManageBtn";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { Grid, Typography, Box } from "@mui/material";
 import ProfileAdd from "../components/ProfileAdd";
+import ProfilesManageBtn from "../components/ProfilesManageBtn";
 
-const Profiles = () => {
-  const [editMode, setEditMode] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
-
-  const toggleEditMode = () => {
-    setEditMode(!editMode);
-  };
-
-  const handleModalOpen = () => {
-    setOpenModal(true);
-  };
-
-  const handleModalClose = () => {
-    setOpenModal(false);
-  };
-
-  const titleText = editMode
-    ? "프로필 관리"
-    : "넷플릭스를 시청할 프로필을 선택하세요.";
-
+const PageTitle = ({ manageMode }) => {
   return (
-    <div style={{ minHeight: "100vh" }}>
-      <div
-        style={{
-          color: "white",
-          fontSize: "3em",
-          textAlign: "center",
-          paddingTop: "120px",
-        }}
-      >
-        {titleText}
-      </div>
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          marginTop: "70px",
-        }}
-      >
-        <Box
-          sx={{ flexGrow: 1 }}
-          style={{
-            margin: "0 auto",
-            width: "1200px",
-            height: "250px",
-          }}
-        >
-          <Grid container spacing={5} minHeight={160}>
-            <Grid
-              xs
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <ProfilesBox
-                editMode={editMode}
-                src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/84c20033850498.56ba69ac290ea.png"
-                user="user1"
-              />
-              <ProfilesBox
-                editMode={editMode}
-                src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/64623a33850498.56ba69ac2a6f7.png"
-                user="user2"
-              />
-              <ProfilesBox
-                editMode={editMode}
-                src="https://pro2-bar-s3-cdn-cf4.myportfolio.com/dddb0c1b4ab622854dd81280840458d3/50e8272e1fac95db8aa33e34_rw_600.png?h=5c620938ca992743e815e0c3629f52d9"
-                user="user3"
-              />
-              <ProfilesBox
-                editMode={editMode}
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnuhUq4HXrAE3wwDJRAJ97klKQ99jquh-ANNPEl_i7PmdrmC4lHAyuD6AvZ5ks_Ubnrbg&usqp=CAU"
-                user="user4"
-              />
-              <ProfilesBox
-                editMode={editMode}
-                src={plusbtn}
-                user="프로필 추가"
-                handleModalOpen={handleModalOpen}
-              />
-            </Grid>
-          </Grid>
-          <div
-            style={{
-              marginTop: "80px",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <ProfilesManageBtn editMode={editMode} onClick={toggleEditMode} />
-          </div>
-        </Box>
-      </div>
-      <ProfileAdd open={openModal} handleClose={handleModalClose} />
+    <div
+      style={{
+        color: "white",
+        fontSize: "3em",
+        textAlign: "center",
+        paddingTop: "120px",
+      }}
+    >
+      {manageMode ? "프로필 관리" : "넷플릭스를 시청할 프로필을 선택하세요. "}
     </div>
   );
 };
 
-export default Profiles;
+function ProfileManager() {
+  const [profiles, setProfiles] = useState([]);
+
+  const member_id = window.sessionStorage.getItem('member_id');
+
+  //const member_id = "bbb";
+
+  useEffect(() => {
+    loadProfiles(member_id);
+  }, [member_id]);
+
+  const loadProfiles = async (member_id) => {
+    try {
+      const response = await axios.get("http://localhost:8080/profiles", { params: { member_id } });
+      setProfiles(response.data);
+    } catch (error) {
+      console.error("Error loading profiles:", error);
+    }
+  };
+
+  const addProfile = async (newNickname) => {
+    try {
+      await axios.post("http://localhost:8080/insertprofiles", {
+        member_id: member_id,
+        nickname: newNickname,
+      });
+      loadProfiles(member_id);
+    } catch (error) {
+      console.error("Error adding profile:", error);
+    }
+  };
+
+  const profileImages = [
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRVHHNwcCOQ4Y7ulfRG1cZb9joFo5CV921mN1Ha1skrsyRx7PJcLa1stsjBm79z7QV9pQ&usqp=CAU",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/disp/84c20033850498.56ba69ac290ea.png",
+    "https://external-preview.redd.it/0dTT-3SprPcsNCqo1GTCI-nqGM9EdZYwqyYr_pZ-baE.jpg?auto=webp&s=a1e8532d326f5aa122df2f31694bf142f117fc06",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/disp/64623a33850498.56ba69ac2a6f7.png",
+  ];
+
+  const [manageMode, setManageMode] = useState(false);
+
+  const toggleManageMode = () => {
+    setManageMode(!manageMode);
+  };
+
+  return (
+    <div style={{ minHeight: "100vh" }}>
+      <PageTitle manageMode={manageMode} />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          maxWidth: 1200,
+          margin: "0 auto",
+          padding: "45px 20px",
+        }}
+      >
+        {profiles.map((profile, index) => (
+          <Grid key={profile.profile_id} item xs={3} style={{ margin: "10px" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 180,
+                position: "relative",
+                boxSizing: "border-box",
+                "&:hover": {
+                  cursor: "pointer",
+                },
+              }}
+            >
+              <Link
+                to={
+                  manageMode
+                    ? `/profile/edit/${member_id}/${profile.profile_id}`
+                    : "/login"
+                }
+              >
+                <Box
+                  component="img"
+                  sx={{
+                    width: 180,
+                    height: 180,
+                    maxHeight: { xs: 180, md: 180 },
+                    maxWidth: { xs: 180, md: 180 },
+                    boxSizing: "border-box",
+                    "&:hover": {
+                      backgroundColor: manageMode ? "white" : "",
+                      opacity: manageMode ? [0.9, 0.8, 0.7] : "",
+                      cursor: "pointer",
+                      border: manageMode ? "5px solid white" : "",
+                    },
+                  }}
+                  alt={`Profile ${profile.nickname}`}
+                  src={profileImages[index % profileImages.length]}
+                />
+              </Link>
+              {manageMode && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    pointerEvents: "none",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      color: "white",
+                      fontSize: "1.5em",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    수정
+                  </div>
+                </div>
+              )}
+              <Typography
+                variant="h5"
+                component="h1"
+                style={{
+                  color: "white",
+                  textAlign: "center",
+                }}
+              >
+                {profile.nickname}
+              </Typography>
+            </Box>
+          </Grid>
+        ))}
+        {profiles.length < 4 && (
+          <Grid item xs={3} style={{ margin: "10px" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 180,
+                position: "relative",
+                boxSizing: "border-box",
+                "&:hover": {
+                  cursor: "pointer",
+                },
+              }}
+              onClick={() => document.getElementById("addProfileImage").click()}
+            >
+              <Typography
+                variant="h5"
+                component="h1"
+                style={{
+                  color: "white",
+                  textAlign: "center",
+                }}
+              >
+                <ProfileAdd id="addProfileImage" onAddProfile={addProfile} />
+                프로필 추가
+              </Typography>
+            </Box>
+          </Grid>
+        )}
+      </div>
+      <div style={{ textAlign: "center", paddingTop: "40px" }}>
+        <ProfilesManageBtn
+          onClick={toggleManageMode}
+          label={manageMode ? "완료" : "프로필 관리"}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default ProfileManager;

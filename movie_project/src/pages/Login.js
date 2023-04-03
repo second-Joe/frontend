@@ -145,7 +145,7 @@ function Login() {
         member_id: email,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.data !== "") {
           axios
             .post("http://localhost:8080/login", {

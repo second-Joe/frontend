@@ -1,39 +1,25 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import React from "react";
+import { Button } from "@mui/material";
 
-const ProfilesManageBtn = ({ editMode, onClick }) => {
+const ProfilesManageBtn = ({ onClick, label }) => {
   return (
-    <div>
-      <Box
-        component="span"
-        sx={{
-          p: 2,
-          border: "5px solid grey",
-          "&:hover": {
-            opacity: [0.9, 0.8, 0.7],
-            cursor: "pointer",
-            border: "5px solid white",
-          },
-        }}
-      >
-        <Button
-          onClick={onClick}
-          style={{
-            fontSize: "1.5em",
-            color: "#FFFFFF",
-            fontWeight: "400",
-            "&:hover": {
-              opacity: [0.9, 0.8, 0.7],
-              cursor: "pointer",
-              color: "#FFFFFF ",
-              fontWeight: "bold",
-            },
-          }}
-        >
-          {editMode ? "완료" : "프로필 관리"}
-        </Button>
-      </Box>
-    </div>
+    <Button
+      onClick={onClick}
+      style={{
+        fontSize: "1.5em",
+        color: "#FFFFFF",
+        fontWeight: "400",
+        border: "1px solid #FFFFFF",
+        "&:hover": {
+          opacity: [0.9, 0.8, 0.7],
+          cursor: "pointer",
+          color: "#FFFFFF",
+          fontWeight: "bold",
+        },
+      }}
+    >
+      {label}
+    </Button>
   );
 };
 

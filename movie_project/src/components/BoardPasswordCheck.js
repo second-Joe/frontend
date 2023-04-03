@@ -128,26 +128,22 @@ export default function BoardPasswordCheck({
           })
           .then((res) => {
             if (res.data === 1) {
-              axios
-                .get(
-                  `http://localhost:8080/customer/delete?board_num=${boardnum}`
-                )
-                .then((res) => {
-                  if (res.data === 1) {
-                    if (window.sessionStorage.getItem("id") === owner) {
-                      alert("정보 삭제 성공!");
-                    } else {
-                      alert("삭제 권한이 없습니다!");
-                    }
+              if (window.sessionStorage.getItem("id") === owner) {
+                axios
+                  .get(
+                    `http://localhost:8080/customer/delete?board_num=${boardnum}`
+                  )
+                  .then((res) => {
+                    alert("정보 삭제 성공!");
                     navigate("/board");
-                  } else {
+                  })
+                  .catch((e) => {
                     alert("정보 삭제 실패!");
-                  }
-                })
-                .catch((e) => {
-                  console.error(e);
-                });
-              handleClose2();
+                  });
+              } else {
+                alert("삭제 권한이 없습니다!");
+                handleClose2();
+              }
             } else {
               alert("정보확인 실패!");
               handleClose2();
