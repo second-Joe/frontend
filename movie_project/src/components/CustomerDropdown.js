@@ -7,6 +7,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useEffect } from "react";
+import { Divider } from "@mui/material";
 
 export default function PositionedMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -102,7 +103,10 @@ export default function PositionedMenu() {
             고객센터
           </MenuItem>
         )}
-
+        <MenuItem component={Link} to="/profiles">
+          프로필 관리
+        </MenuItem>
+        <Divider />
         <MenuItem onClick={logout} component={Link} to="/">
           로그아웃
         </MenuItem>
