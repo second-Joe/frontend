@@ -8,16 +8,17 @@ import GoodMany from "./GoodMany";
 import NewDateAdd from "./NewDateAdd";
 import FavMovieList from "./FavMovieList";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useMediaQuery, useTheme } from "react";
 
 import React from "react";
 
 const Layout = () => {
+  const theme = useTheme();
   const [search, setSearch] = useState("");
   const [menuClick, setMenuClick] = useState(false);
   const [menuKind, setMenuKind] = useState("");
 
   const navigate = useNavigate();
-<<<<<<< HEAD
   const location = useLocation();
 
   let profile_num = location.pathname.slice(7);
@@ -34,9 +35,7 @@ const Layout = () => {
         display: "none",
       }
     : {};
-=======
 
->>>>>>> 5830d9a713a07decc101912af1961dd6c75f0765
   useEffect(() => {
     //로그인 상태인지 체크
     const login_id = window.sessionStorage.getItem("id"); // 세션스토리지에 저장되어 있는 id값 읽음
