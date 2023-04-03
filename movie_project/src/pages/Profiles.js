@@ -110,10 +110,10 @@ function ProfileManager() {
                     maxWidth: { xs: 180, md: 180 },
                     boxSizing: "border-box",
                     "&:hover": {
-                      backgroundColor: manageMode ? "white" : "",
-                      opacity: manageMode ? [0.9, 0.8, 0.7] : "",
+                      backgroundColor: "white",
+                      opacity: [0.9, 0.8, 0.7],
                       cursor: "pointer",
-                      border: manageMode ? "5px solid white" : "",
+                      border: "5px solid white",
                     },
                   }}
                   alt={`Profile ${profile.nickname}`}
