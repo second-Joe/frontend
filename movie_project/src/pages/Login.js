@@ -11,7 +11,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import PasswordCheck from "../components/passwordCheck";
 import CustomizedButton from "../components/CustomizedButton";
 import SignUp from "../components/SignUp";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import {
   createMuiTheme,
@@ -47,6 +47,9 @@ function Login() {
   const pwRef = useRef();
 
   const navigate = useNavigate();
+  const { profile_num } = useParams();
+
+  window.profile_num = { profile_num };
 
   const [email, setEmail] = useState("");
   //email 상태값 업데이트

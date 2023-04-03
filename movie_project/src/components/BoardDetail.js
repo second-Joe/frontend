@@ -44,6 +44,8 @@ function BoardDetail() {
   }, []);
 
 
+
+
   const clickModify = () => {
     if (window.sessionStorage.getItem("id") === "admin@email.com") {
       navigate(`/boardModify/${board_num}`);
