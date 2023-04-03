@@ -26,7 +26,11 @@ export default function StickyHeadTable() {
   const columns = [
     { id: "board_num", label: "번호", minWidth: 10 },
     { id: "member_id", label: "작성자", minWidth: 10 },
-    { id: "board_title", label: "제목", minWidth: 350 },
+    {
+      id: "board_title", label: "제목", minWidth: 350,
+      format: (value, row) =>
+        row.board_reply ? `${value} (답변완료)` : value,
+    },
     { id: "board_date", label: "날짜", minWidth: 40 },
   ];
 
@@ -51,12 +55,7 @@ export default function StickyHeadTable() {
   //배열 시작
   const [boardlist, setBoardList] = useState([]);
 
-  const [article, setArticle] = useState({
-    board_num: 0,
-    member_id: "",
-    board_title: "",
-    board_date: "",
-  });
+
 
   const getList = () => {
     axios
@@ -64,6 +63,7 @@ export default function StickyHeadTable() {
       .then((res) => {
         const { data } = res;
         setBoardList(data);
+        console.log(data);
       })
       .catch((e) => {
         console.error(e);
@@ -129,7 +129,9 @@ export default function StickyHeadTable() {
                               key={column.board_num}
                               align={column.board_title}
                             >
-                              {post[column.id]}
+                              {column.format
+                                ? column.format(post[column.id], post) :
+                                post[column.id]}
                             </TableCell>
                           );
                         })}

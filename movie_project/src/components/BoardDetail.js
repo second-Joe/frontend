@@ -4,22 +4,25 @@ import CustomizedButton from "./CustomizedButton";
 import BoardPasswordCheck from "./BoardPasswordCheck";
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useMediaQuery, useTheme } from "@mui/material";
+import TextField from "@mui/material/TextField";
 
 function BoardDetail() {
   const [openModal, setOpenModal] = useState(false);
   const [modify, setModify] = useState(false);
   const [remove, setRemove] = useState(false);
-
+  const [reply, setReply] = useState(false);
+  const [board_reply, setBoard_reply] = useState("");
   const { board_num } = useParams();
+
   const [article, setArticle] = useState({
     member_id: "",
     board_title: "",
     board_content: "",
+    board_reply: "",
   });
-
   const navigate = useNavigate();
 
   const getDetail = () => {
@@ -31,13 +34,18 @@ function BoardDetail() {
           member_id: data.member_id,
           board_title: data.board_title,
           board_content: data.board_content,
+          board_reply: data.board_reply,
         });
+        console.log(article.board_reply);
       });
   };
 
   useEffect(() => {
     getDetail();
   }, []);
+
+
+
 
   const clickModify = () => {
     if (window.sessionStorage.getItem("id") === "admin@email.com") {
@@ -65,6 +73,33 @@ function BoardDetail() {
     }
   };
 
+  const answerSubmit = () => {
+    axios
+      .post("http://localhost:8080/customer/reply", {
+        board_reply: board_reply,
+        board_num: board_num,
+      })
+      .then((res) => {
+        alert(`${article.member_id}님의 게시글에 답변완료하였습니다.`);
+        navigate(`/board`);
+      })
+      .catch((e) => {
+        console.error(e);
+      })
+  }
+
+  const handleReply = () => {
+    setReply(!reply);
+  }
+
+  const scrollRef = useRef();
+
+  useEffect(() => {
+    if (reply) {
+      scrollRef.current.scrollIntoView({ bottom: document.body.scrollHeight, behavior: "smooth" });
+    }
+  }, [reply]);
+
   const handleOpen = () => {
     setOpenModal(true);
   };
@@ -77,6 +112,11 @@ function BoardDetail() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const reflyChange = (event) => {
+    setBoard_reply(event.target.value);
+    console.log(board_reply);
+  };
 
   let paddingTop = "200px";
   if (isSmallScreen) {
@@ -96,8 +136,6 @@ function BoardDetail() {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
                 height: "50vh",
               }}
             >
@@ -129,25 +167,84 @@ function BoardDetail() {
                 </Box>
               </Typography>
             </Box>
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <CustomizedButton
-                label="뒤로가기"
-                value="goBack"
-                onClick={goBack}
-              ></CustomizedButton>
-              &nbsp; &nbsp;
-              <CustomizedButton
-                label="수정"
-                value="update"
-                onClick={clickModify}
-              ></CustomizedButton>
-              &nbsp; &nbsp;
-              <CustomizedButton
-                label="삭제"
-                value="delete"
-                onClick={clickDelete}
-              ></CustomizedButton>
-            </Box>
+            &nbsp; &nbsp;
+            {article.board_reply === null ?
+              (
+                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                  <CustomizedButton
+                    label="뒤로가기"
+                    value="goBack"
+                    onClick={goBack}
+                  ></CustomizedButton>
+                  &nbsp; &nbsp;
+                  <CustomizedButton
+                    label="수정"
+                    value="update"
+                    onClick={clickModify}
+                  ></CustomizedButton>
+                  &nbsp; &nbsp;
+                  <CustomizedButton
+                    label="삭제"
+                    value="delete"
+                    onClick={clickDelete}
+                  ></CustomizedButton>
+                  &nbsp;&nbsp;&nbsp;
+                  {window.sessionStorage.getItem("id") === "admin@email.com" ?
+                    <CustomizedButton
+                      label="답변"
+                      value="handleReply"
+                      onClick={handleReply}
+                    ></CustomizedButton> : null}
+                </Box>
+              )
+              : null}
+            {article.board_reply === null ? null :
+              <div>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "50vh",
+                  }}
+                >
+                  <Typography variant="h4" sx={{ fontWeight: "bold", mb: "16px" }}>
+                    {article.member_id}님의 문의사항에 대한 답변
+                  </Typography>
+                  <Typography sx={{ height: "40vh" }}>
+                    {article.board_reply}
+                  </Typography>
+                  <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                    <CustomizedButton
+                      label="뒤로가기"
+                      value="goBack"
+                      onClick={goBack}
+                    ></CustomizedButton>
+                    &nbsp; &nbsp;
+                    <CustomizedButton
+                      label="수정"
+                      value="update"
+                      onClick={clickModify}
+                    ></CustomizedButton>
+                    &nbsp; &nbsp;
+                    <CustomizedButton
+                      label="삭제"
+                      value="delete"
+                      onClick={clickDelete}
+                    ></CustomizedButton>
+                    &nbsp;&nbsp;&nbsp;
+
+                    {window.sessionStorage.getItem("id") === "admin@email.com" ?
+
+                      <CustomizedButton
+                        label="답변변경"
+                        value="handleReply"
+                        onClick={handleReply}
+                      ></CustomizedButton>
+                      : null}
+                  </Box>
+                </Box>
+              </div>
+            }
             {openModal ? (
               <BoardPasswordCheck
                 openModal={openModal}
@@ -160,10 +257,55 @@ function BoardDetail() {
                 owner={article.member_id}
               ></BoardPasswordCheck>
             ) : null}
+
           </div>
-        </Paper>
-      </Container>
-    </div>
+          {
+            reply ?
+              <div ref={scrollRef}>
+                <hr />
+                <Typography variant="h4" sx={{ fontWeight: "bold", mb: "15px", mt: "30px" }}>
+                  {article.member_id}님의 문의사항에 대한 답변
+                </Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "30h",
+                  }}
+                >
+                  <TextField
+                    sx={{
+                      width: "100%",
+                      mt: 1,
+                      textAlign: "center"
+                    }}
+                    id="outlined-multiline-static"
+                    multiline
+                    rows={10}
+                    onChange={reflyChange}
+                  />
+                  <Box sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    flexGrow: 1,
+                    mt: 2
+
+                  }}>
+                    <CustomizedButton
+                      label="답변"
+                      value="answerSubmit"
+                      onClick={answerSubmit}
+                    ></CustomizedButton>
+                  </Box>
+                </Box>
+              </div >
+              : null
+          }
+
+        </Paper >
+
+      </Container >
+    </div >
   );
 }
 
