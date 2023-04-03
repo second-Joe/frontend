@@ -10,7 +10,6 @@ const OutputMovieGenres = ({ genre }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [moviesIndex, setMoviesIndex] = useState(0);
-
   useLayoutEffect(() => {
     setLoading(true);
     loadMovies();
@@ -35,13 +34,22 @@ const OutputMovieGenres = ({ genre }) => {
     ).json();
 
     let data = movieData.data.movies;
+
     setLoading(false);
     setMovies([data]);
   };
 
+  function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
+  }
+
   const movieRender = () => {
+    shuffle(movies[0]);
     const movieList = movies[0];
+    console.log("movies0", movies[0]);
+    console.log("movie", moviesIndex);
     let result = [];
+
     for (let i = moviesIndex; i < moviesIndex + 5; i++) {
       let movie = movieList[i];
 

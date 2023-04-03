@@ -47,15 +47,12 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
       })
       .then((res) => {
         setIsChecked(res.data?.length ? true : false);
-        console.log("Res ", res);
-        console.log("Res.data ", res.data);
       })
       .catch((e) => {
         console.error(e);
       });
   }
   useLayoutEffect(() => {
-    console.log("1번");
     axios
       .post("http://localhost:8080/favmovie/chk", {
         movie_title: title,
@@ -63,8 +60,6 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
       })
       .then((res) => {
         setIsChecked(res.data?.length ? true : false);
-        console.log("Res ", res);
-        console.log("Res.data ", res.data);
       })
       .catch((e) => {
         console.error(e);
@@ -82,8 +77,6 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
       })
       .then((res) => {
         setIsChecked(res.data?.length ? true : false);
-        console.log("Res ", res);
-        console.log("Res.data ", res.data);
       })
       .catch((e) => {
         console.error(e);
@@ -114,7 +107,6 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
           movie_title: title,
         })
         .then((res) => {
-          console.log(res.data);
           if (res.data !== 1) {
             //제목이 중복되지 않을 때에만
 
@@ -128,7 +120,6 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
               .then((res) => {})
               .catch((e) => {
                 console.error(e);
-                console.log("3" + title);
               });
           } else {
           }
