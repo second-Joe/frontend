@@ -33,12 +33,14 @@ const renderProfileImage = (profileId) => {
 const ProfileUpdate = () => {
   const [nickname, setNickname] = useState("");
   const { profileId } = useParams();
-  const member_id = "bbb"; 
+  const member_id = window.sessionStorage.getItem("id");
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/profiles?member_id=${member_id}&profile_id=${profileId}`)
+      .get(
+        `http://localhost:8080/profiles?member_id=${member_id}&profile_id=${profileId}`
+      )
       .then((res) => {
         if (res.data.length > 0) {
           setNickname(res.data[0].nickname);
@@ -56,8 +58,13 @@ const ProfileUpdate = () => {
         profile_id: parseInt(profileId, 10),
         nickname: nickname,
       })
-      .then(() => {
-        navigate("http://localhost:8080/profiles");
+      .then((res) => {
+        if (res.data !== null) {
+          alert("프로필 변경 성공!");
+          navigate("/profiles");
+        } else {
+          alert("프로필 변경 실패!");
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -66,9 +73,11 @@ const ProfileUpdate = () => {
 
   const handleDelete = () => {
     axios
-      .delete(`http://localhost:8080/deleteprofiles?member_id=${member_id}&profile_id=${profileId}`)
+      .delete(
+        `http://localhost:8080/deleteprofiles?member_id=${member_id}&profile_id=${profileId}`
+      )
       .then(() => {
-        navigate("http://localhost:8080/profiles");
+        navigate("/profiles");
       })
       .catch((error) => {
         console.error(error);
@@ -76,7 +85,7 @@ const ProfileUpdate = () => {
   };
 
   const handleCancel = () => {
-    navigate("http://localhost:8080/profiles");
+    navigate("/profiles");
   };
 
   return (
