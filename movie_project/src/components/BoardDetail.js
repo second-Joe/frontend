@@ -4,7 +4,7 @@ import CustomizedButton from "./CustomizedButton";
 import BoardPasswordCheck from "./BoardPasswordCheck";
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useMediaQuery, useTheme } from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -16,6 +16,7 @@ function BoardDetail() {
   const [reply, setReply] = useState(false);
   const [board_reply, setBoard_reply] = useState("");
   const { board_num } = useParams();
+
   const [article, setArticle] = useState({
     member_id: "",
     board_title: "",
@@ -88,6 +89,14 @@ function BoardDetail() {
   const handleReply = () => {
     setReply(!reply);
   }
+
+  const scrollRef = useRef();
+
+  useEffect(() => {
+    if (reply) {
+      scrollRef.current.scrollIntoView({ bottom: document.body.scrollHeight, behavior: "smooth" });
+    }
+  }, [reply]);
 
   const handleOpen = () => {
     setOpenModal(true);
@@ -250,16 +259,16 @@ function BoardDetail() {
           </div>
           {
             reply ?
-              <div>
+              <div ref={scrollRef}>
                 <hr />
-                <Typography variant="h4" sx={{ fontWeight: "bold", mb: "15px" }}>
+                <Typography variant="h4" sx={{ fontWeight: "bold", mb: "15px", mt: "30px" }}>
                   {article.member_id}님의 문의사항에 대한 답변
                 </Typography>
                 <Box
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    height: "70vh",
+                    height: "30h",
                   }}
                 >
                   <TextField
@@ -287,11 +296,12 @@ function BoardDetail() {
                     ></CustomizedButton>
                   </Box>
                 </Box>
-
-              </div>
+              </div >
               : null
           }
+
         </Paper >
+
       </Container >
     </div >
   );
