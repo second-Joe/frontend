@@ -18,6 +18,7 @@ function Banner_data({
   title,
   summary,
   yt_trailer_code,
+  value,
 }) {
   const theme = useTheme();
   console.dir(theme.breakpoints);
@@ -89,11 +90,12 @@ function Banner_data({
   };
   const handleClose = () => setOpen(false);
   const [ischecked, setIsChecked] = useState(false);
-  useLayoutEffect(() => {
-    console.log("1번");
+  const [isclicked, setIsClicked] = useState(false);
+  if (value === "favmovielist") {
     axios
       .post("http://localhost:8080/favmovie/chk", {
         movie_title: title,
+        member_id: window.sessionStorage.getItem("id"),
       })
       .then((res) => {
         setIsChecked(res.data?.length ? true : false);
@@ -103,38 +105,73 @@ function Banner_data({
       .catch((e) => {
         console.error(e);
       });
+  }
+  useLayoutEffect(() => {
+    console.log("1번");
+    axios
+      .post("http://localhost:8080/favmovie/chk", {
+        movie_title: title,
+        member_id: window.sessionStorage.getItem("id"),
+      })
+      .then((res) => {
+        setIsChecked(res.data?.length ? true : false);
+        console.log("Res ", res);
+        console.log("Res.data ", res.data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handlelike = () => {
     console.log("ischecked" + ischecked);
+
     if (ischecked) {
       console.log("isChecked가 true일때");
-      setIsChecked(false);
+
       axios
         .post("http://localhost:8080/favmovie/delete", {
+          member_id: window.sessionStorage.getItem("id"),
           movie_title: title,
         })
         .then((res) => {
-          // alert("찜하기 취소!!!");
+          handleClose();
         })
         .catch((e) => {
           console.error(e);
         });
+      setIsChecked(false);
     } else {
       console.log("isChecked false일때 ");
       axios
-        .post("http://localhost:8080/favmovie/insert", {
+        .post("http://localhost:8080/favmovie/isDuplicateTitle", {
+          member_id: window.sessionStorage.getItem("id"),
           movie_title: title,
-          movie_summary: summary,
-          movie_image: medium_cover_image,
         })
         .then((res) => {
-          console.log("2");
-          // alert("찜하기 성공!!!");
+          console.log(res.data);
+          if (res.data !== 1) {
+            //제목이 중복되지 않을 때에만
+
+            axios
+              .post("http://localhost:8080/favmovie/insert", {
+                member_id: window.sessionStorage.getItem("id"),
+                movie_title: title,
+                movie_summary: summary,
+                movie_image: medium_cover_image,
+              })
+              .then((res) => {})
+              .catch((e) => {
+                console.error(e);
+                console.log("3" + title);
+              });
+          } else {
+          }
         })
         .catch((e) => {
           console.error(e);
-          console.log("3" + title);
         });
       setIsChecked(true);
     }
