@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import CustomizedButton from "./CustomizedButton";
 import Box from "@mui/material/Box";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OutlinedTextField from "./OutlinedTextField";
 import EmailChange from "./EmailChange";
@@ -13,6 +13,7 @@ import PasswordChange from "./PasswordChange";
 import PhoneChange from "./PhoneChange";
 import axios from "axios";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { useEffect } from "react";
 
 const MyPageBody = () => {
   const theme = useTheme();
@@ -26,6 +27,13 @@ const MyPageBody = () => {
   const [user, setUser] = React.useState(window.sessionStorage.getItem("id"));
   const [userName, setUserName] = React.useState("");
   const [profiles, setProfiles] = useState();
+  const [profileImg, setProfileImg] = useState("");
+  const profileImages = [
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRVHHNwcCOQ4Y7ulfRG1cZb9joFo5CV921mN1Ha1skrsyRx7PJcLa1stsjBm79z7QV9pQ&usqp=CAU",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/disp/84c20033850498.56ba69ac290ea.png",
+    "https://external-preview.redd.it/0dTT-3SprPcsNCqo1GTCI-nqGM9EdZYwqyYr_pZ-baE.jpg?auto=webp&s=a1e8532d326f5aa122df2f31694bf142f117fc06",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/disp/64623a33850498.56ba69ac2a6f7.png",
+  ];
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -85,8 +93,10 @@ const MyPageBody = () => {
         if (window.profile_num !== undefined) {
           console.log(window.profile_num);
           setProfileNickName(response.data[window.profile_num - 1].nickname);
+          setProfileImg(profileImages[window.profile_num - 1]);
         } else {
           setProfileNickName(response.data[0].nickname);
+          setProfileImg(profileImages[0]);
         }
       }
     } catch (error) {
@@ -352,7 +362,23 @@ const MyPageBody = () => {
         <Grid item xs={9} sx={{ direction: "row" }}>
           <Grid container>
             <Box sx={{ display: "flex" }}>
-              <AccountBoxIcon sx={{ fontSize: 80 }} />
+              {profileImg === "" ? (
+                <AccountBoxIcon sx={{ fontSize: 80 }} />
+              ) : (
+                <Box
+                  component="img"
+                  sx={{
+                    ml: 2,
+                    mr: 3,
+                    height: 100,
+                    width: 100,
+                    maxHeight: { xs: 70, md: 100 },
+                    maxWidth: { xs: 70, md: 100 },
+                  }}
+                  src={profileImg}
+                />
+              )}
+
               <Typography
                 sx={{
                   pl: 2,
@@ -360,6 +386,7 @@ const MyPageBody = () => {
                   alignItems: "center",
                   height: "80px",
                   fontWeight: "bold",
+                  fontSize: "1.8em",
                 }}
               >
                 {profileNickname}
@@ -372,7 +399,11 @@ const MyPageBody = () => {
 
       <Divider />
       <Grid container sx={{ m: 1 }}>
-        <Grid item xs={3} sx={{ fontSize: 19, color: "gray" }}>
+        <Grid
+          item
+          xs={3}
+          sx={{ fontSize: 19, color: "black", fontWeight: "bold" }}
+        >
           설정
         </Grid>
         <Grid item xs={9} sx={{ color: "blue" }}>
