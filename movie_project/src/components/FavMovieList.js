@@ -8,8 +8,11 @@ const FavMovieList = () => {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
 
-  // const [ischecked, setIsChecked] = useState(false);
+  const [number, setNumber] = useState(0);
 
+  const getData = (number) => {
+    setNumber(number);
+  };
   useEffect(() => {
     axios
       .post("http://localhost:8080/favmovie/select", {
@@ -23,7 +26,7 @@ const FavMovieList = () => {
       .catch((e) => {
         console.error(e);
       });
-  }, [movies]);
+  }, [number]);
 
   return (
     <div>
@@ -52,6 +55,8 @@ const FavMovieList = () => {
                       summary={movie.movie_summary}
                       medium_cover_image={movie.movie_image}
                       value="favmovielist"
+                      number={number}
+                      getData={getData}
                     />
                   </Grid>
                 ))}

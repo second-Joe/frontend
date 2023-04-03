@@ -10,7 +10,20 @@ import Grid from "@mui/material/Grid";
 import axios from "axios";
 import { useLayoutEffect, useState, useEffect } from "react";
 
-function Movie({ id, medium_cover_image, title, summary, genres, value }) {
+function Movie({
+  id,
+  medium_cover_image,
+  title,
+  summary,
+  genres,
+  value,
+  number,
+  getData,
+}) {
+  const onClick = () => {
+    console.log(number);
+    getData(number + 1);
+  };
   const style = {
     position: "absolute",
     top: "50%",
@@ -38,7 +51,7 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
   };
   const handleClose = () => setOpen(false);
   const [ischecked, setIsChecked] = useState(false);
-  const [isclicked, setIsClicked] = useState(false);
+
   if (value === "favmovielist") {
     axios
       .post("http://localhost:8080/favmovie/chk", {
@@ -244,7 +257,10 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
                     position: "absolute",
                     bottom: " 20px",
                   }}
-                  onClick={() => handlelike()}
+                  onClick={() => {
+                    handlelike();
+                    onClick();
+                  }}
                   startIcon={ischecked ? <StarIcon /> : <StarBorderIcon />}
                 >
                   찜하기
