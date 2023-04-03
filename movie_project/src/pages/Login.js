@@ -190,7 +190,7 @@ function Login() {
   };
 
   const checkenterSubmit = (e) => {
-    console.log(e.key);
+    e.stopPropagation();
     if (e.key === "Enter") {
       checkSubmit();
     }

@@ -16,6 +16,7 @@ export default function OutlinedTextField({
   isValidPassword,
   setTelError,
   setPwAnsError,
+  onKeyPress,
 }) {
   const phoneRegex = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
   const changeVal = (e) => {
@@ -79,6 +80,7 @@ export default function OutlinedTextField({
     <Box component="form" noValidate autoComplete="off">
       <FormControl sx={{ width: 360, mb: 3 }}>
         <OutlinedInput
+          onKeyPress={onKeyPress}
           autoComplete="off"
           required
           ref={ref1}

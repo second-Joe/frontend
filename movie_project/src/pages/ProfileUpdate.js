@@ -39,18 +39,17 @@ const ProfileUpdate = () => {
   useEffect(() => {
     console.log(profileId);
     axios
-      .get(
-        `http://localhost:8080/profiles?member_id=${member_id}&profile_id=${profileId}`
-      )
+      .post("http://localhost:8080/profileDetail", {
+        member_id: member_id,
+        profile_id: profileId,
+      })
       .then((res) => {
-        if (res.data.length > 0) {
-          setNickname(res.data[profileId - 1].nickname);
-        }
+        setNickname(res.data.nickname);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, [member_id, profileId]);
+  }, []);
 
   const handleSave = () => {
     axios

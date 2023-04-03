@@ -354,7 +354,6 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   };
 
   const checkenterSubmit = (e) => {
-    console.log(e.key);
     if (e.key === "Enter") {
       loginSubmit();
     }

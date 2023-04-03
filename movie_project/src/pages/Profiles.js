@@ -23,30 +23,43 @@ const PageTitle = ({ manageMode }) => {
 function ProfileManager() {
   const [profiles, setProfiles] = useState([]);
 
-  const member_id = window.sessionStorage.getItem("id");
+  const memberID = window.sessionStorage.getItem("id");
 
   useEffect(() => {
-    loadProfiles(member_id);
-  }, [member_id]);
+    loadProfiles(memberID);
+  }, [memberID]);
 
-  const loadProfiles = async (member_id) => {
-    try {
-      const response = await axios.get("http://localhost:8080/profiles", {
-        params: { member_id },
+  // const loadProfiles = async (member_id) => {
+  //   try {
+  //     const response = await axios.get("http://localhost:8080/profiles", {
+  //       params: { member_id },
+  //     });
+  //     setProfiles(response.data);
+  //   } catch (error) {
+  //     console.error("Error loading profiles:", error);
+  //   }
+  // };
+  const loadProfiles = (memberID) => {
+    axios
+      .post("http://localhost:8080/profiles", {
+        member_id: memberID,
+      })
+      .then((res) => {
+        console.log("res profiles", res.data);
+        setProfiles(res.data);
+      })
+      .catch((error) => {
+        console.error("Error loading profiles:", error);
       });
-      setProfiles(response.data);
-    } catch (error) {
-      console.error("Error loading profiles:", error);
-    }
   };
 
   const addProfile = async (newNickname) => {
     try {
       await axios.post("http://localhost:8080/insertprofiles", {
-        member_id: member_id,
+        member_id: memberID,
         nickname: newNickname,
       });
-      loadProfiles(member_id);
+      loadProfiles(memberID);
     } catch (error) {
       console.error("Error adding profile:", error);
     }
@@ -119,7 +132,7 @@ function ProfileManager() {
               <Link
                 to={
                   manageMode
-                    ? `/profile/edit/${member_id}/${profile.profile_id}`
+                    ? `/profile/edit/${memberID}/${profile.profile_id}`
                     : `/login/${profile.profile_id}`
                 }
               >

@@ -72,35 +72,38 @@ const MyPageBody = () => {
       .catch((e) => {
         console.error(e);
       });
-  }, [email, tel, pw]);
+  }, [email, pw, tel]);
 
-  const member_id = window.sessionStorage.getItem("id");
+  const memberID = window.sessionStorage.getItem("id");
   const [profileNickname, setProfileNickName] =
     useState("저장된 프로필이 없습니다");
   useEffect(() => {
-    loadProfiles(member_id);
-    console.log(profiles);
+    loadProfiles(memberID);
   }, []);
 
-  const loadProfiles = async (member_id) => {
-    try {
-      const response = await axios.get("http://localhost:8080/profiles", {
-        params: { member_id },
-      });
-      console.log("response", response.data);
-      if (response.data !== null) {
-        if (window.profile_num !== undefined) {
-          console.log(window.profile_num);
-          setProfileNickName(response.data[window.profile_num - 1].nickname);
-          setProfileImg(profileImages[window.profile_num - 1]);
-        } else {
-          setProfileNickName(response.data[0].nickname);
-          setProfileImg(profileImages[0]);
+  const loadProfiles = (memberID) => {
+    console.log("MEMBERID", memberID);
+    axios
+      .post("http://localhost:8080/profiles", {
+        member_id: memberID,
+      })
+      .then((res) => {
+        console.log("res profiles", res.data);
+        if (res.data.length > 0) {
+          if (window.profile_num !== undefined) {
+            // console.log(window.profile_num);
+            setProfileNickName(res.data[window.profile_num - 1].nickname);
+            setProfileImg(profileImages[window.profile_num - 1]);
+          } else {
+            // console.log(window.profile_num);
+            setProfileNickName(res.data[0].nickname);
+            setProfileImg(profileImages[0]);
+          }
         }
-      }
-    } catch (error) {
-      console.error("Error loading profiles:", error);
-    }
+      })
+      .catch((error) => {
+        console.error("Error loading profiles:", error);
+      });
   };
 
   const [openEmailModal, setOpenEmailModal] = React.useState(false);
