@@ -63,8 +63,6 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
       })
       .then((res) => {
         setIsChecked(res.data?.length ? true : false);
-        console.log("Res ", res);
-        console.log("Res.data ", res.data);
       })
       .catch((e) => {
         console.error(e);
@@ -82,8 +80,6 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
       })
       .then((res) => {
         setIsChecked(res.data?.length ? true : false);
-        console.log("Res ", res);
-        console.log("Res.data ", res.data);
       })
       .catch((e) => {
         console.error(e);

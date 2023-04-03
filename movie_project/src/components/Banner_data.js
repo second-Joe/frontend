@@ -99,8 +99,6 @@ function Banner_data({
       })
       .then((res) => {
         setIsChecked(res.data?.length ? true : false);
-        console.log("Res ", res);
-        console.log("Res.data ", res.data);
       })
       .catch((e) => {
         console.error(e);
@@ -114,15 +112,12 @@ function Banner_data({
         member_id: window.sessionStorage.getItem("id"),
       })
       .then((res) => {
+        console.log(res.data);
         setIsChecked(res.data?.length ? true : false);
-        console.log("Res ", res);
-        console.log("Res.data ", res.data);
       })
       .catch((e) => {
         console.error(e);
       });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handlelike = () => {
@@ -136,9 +131,7 @@ function Banner_data({
           member_id: window.sessionStorage.getItem("id"),
           movie_title: title,
         })
-        .then((res) => {
-          handleClose();
-        })
+        .then((res) => {})
         .catch((e) => {
           console.error(e);
         });
