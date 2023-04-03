@@ -361,7 +361,23 @@ const MyPageBody = () => {
         <Grid item xs={9} sx={{ direction: "row" }}>
           <Grid container>
             <Box sx={{ display: "flex" }}>
-              <img style={{ width: 50, height: 50 }} src={profileImg}></img>
+              {profileImg === "" ? (
+                <AccountBoxIcon sx={{ fontSize: 80 }} />
+              ) : (
+                <Box
+                  component="img"
+                  sx={{
+                    ml: 2,
+                    mr: 3,
+                    height: 100,
+                    width: 100,
+                    maxHeight: { xs: 70, md: 100 },
+                    maxWidth: { xs: 70, md: 100 },
+                  }}
+                  src={profileImg}
+                />
+              )}
+
               <Typography
                 sx={{
                   pl: 2,
@@ -369,6 +385,7 @@ const MyPageBody = () => {
                   alignItems: "center",
                   height: "80px",
                   fontWeight: "bold",
+                  fontSize: "1.8em",
                 }}
               >
                 {profileNickname}
