@@ -139,6 +139,15 @@ export default function EmailChange({
             if (res.data === 1) {
               handleClose2();
               alert("이메일 주소 업데이트 성공!");
+              axios
+                .post("http://localhost:8080/profileEmailUpdate", {
+                  member_id: email2,
+                  member_new_id: newEmail,
+                })
+                .then((res) => {})
+                .catch((e) => {
+                  console.error(e);
+                });
               if (
                 window.localStorage.getItem("id") ===
                 window.sessionStorage.getItem("id")

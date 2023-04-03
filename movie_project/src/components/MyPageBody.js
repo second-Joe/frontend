@@ -74,12 +74,12 @@ const MyPageBody = () => {
       });
   }, [email, pw, tel]);
 
-  const memberID = window.sessionStorage.getItem("id");
+  const [memberID, setMemberID] = useState(window.sessionStorage.getItem("id"));
   const [profileNickname, setProfileNickName] =
     useState("저장된 프로필이 없습니다");
   useEffect(() => {
     loadProfiles(memberID);
-  }, []);
+  }, [memberID]);
 
   const loadProfiles = (memberID) => {
     console.log("MEMBERID", memberID);

@@ -16,7 +16,7 @@ const MypageDropDown = () => {
   const [profileNickname, setProfileNickName] = useState("USER");
   useEffect(() => {
     loadProfiles(memberID);
-  }, []);
+  }, [memberID]);
 
   const loadProfiles = (memberID) => {
     console.log("MEMBERID", memberID);

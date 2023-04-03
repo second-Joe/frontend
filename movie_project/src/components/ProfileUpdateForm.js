@@ -11,20 +11,16 @@ const ProfileUpdateForm = () => {
         padding: "50px",
       }}
     >
-      <div
-        style={{ display: "flex", alignItems: "center" }}
-      >
+      <div style={{ display: "flex", alignItems: "center" }}>
         <hr
-        style={{
-          borderColor: "rgba(255, 255, 255, 0.5)",
-          borderWidth: "1px",
-          marginBottom: "20px",
-        }}
-      />
+          style={{
+            borderColor: "rgba(255, 255, 255, 0.5)",
+            borderWidth: "1px",
+            marginBottom: "20px",
+          }}
+        />
         <div style={{ display: "flex", alignItems: "center" }}>
-          <label
-            style={{  marginRight: "10px", color: "#fff" }}
-          >
+          <label style={{ marginRight: "10px", color: "#fff" }}>
             언어 선택:
           </label>
           <select
@@ -107,7 +103,7 @@ const ProfileUpdateForm = () => {
           color: "#fff",
         }}
       />
-       <hr
+      <hr
         style={{
           borderColor: "rgba(255, 255, 255, 0.5)",
           borderWidth: "1px",
