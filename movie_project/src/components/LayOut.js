@@ -7,15 +7,34 @@ import DownLoadmany from "./DownLoadmany";
 import GoodMany from "./GoodMany";
 import NewDateAdd from "./NewDateAdd";
 import FavMovieList from "./FavMovieList";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useMediaQuery, useTheme } from "@mui/material";
+
 import React from "react";
 
 const Layout = () => {
+  const theme = useTheme();
   const [search, setSearch] = useState("");
   const [menuClick, setMenuClick] = useState(false);
   const [menuKind, setMenuKind] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  let profile_num = location.pathname.slice(7);
+
+  if (profile_num === "") {
+    profile_num = 1;
+  }
+  //console.log(profile_num);
+  // console.log("param 값은: " + profile_num);
+
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const footerLayout = isSmallScreen
+    ? {
+        display: "none",
+      }
+    : {};
 
   useEffect(() => {
     //로그인 상태인지 체크
@@ -42,6 +61,12 @@ const Layout = () => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = "rgb(42, 43, 43)";
+    window.profile_num = profile_num;
+    //console.log("window_profile_num" + profile_num);
+  });
 
   const menuName = menuKind;
 

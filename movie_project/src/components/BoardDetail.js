@@ -39,10 +39,6 @@ function BoardDetail() {
     getDetail();
   }, []);
 
-  useEffect(() => {
-    getDetail();
-  }, []);
-
   const clickModify = () => {
     if (window.sessionStorage.getItem("id") === "admin@email.com") {
       navigate(`/boardModify/${board_num}`);

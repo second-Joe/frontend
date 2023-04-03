@@ -76,6 +76,7 @@ const ProfileAdd = ({ onAddProfile }) => {
                 type="text"
                 fullWidth
                 value={newNickname}
+                autoComplete="off"
                 onChange={(e) => setNewNickname(e.target.value)}
                 sx={{
                   width: "100%",

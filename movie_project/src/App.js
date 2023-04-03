@@ -20,12 +20,12 @@ import BoardList from "./components/BoardList";
 import BoardModify from "./pages/BoardModify";
 import BoardDetail from "./components/BoardDetail";
 import MemberBoard from "./pages/memberBoard";
+import { useState } from "react";
+import axios from "axios";
 
 const App = () => {
   const location = useLocation();
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
+
   if (
     location.pathname === "/login" ||
     location.pathname === "/profiles" ||
@@ -41,14 +41,20 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Login />}></Route>
-      <Route path="/login/" element={<Layout />}>
+      <Route path="/login" element={<Layout />}>
+        <Route index element={<Home />} />
+      </Route>
+      <Route path="/login/:profile" element={<Layout />}>
         <Route index element={<Home />} />
       </Route>
       <Route path="/search/" element={<SearchResult />} />
       {/* SearchResult결과는 section3 컴포넌트 이용 */}
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/profiles" element={<Profiles />} />
-      <Route path="/profile/edit/:member_id/:profileId" element={<ProfileUpdate />} />
+      <Route
+        path="/profile/edit/:member_id/:profileId"
+        element={<ProfileUpdate />}
+      />
       <Route path="/customercenter" element={<Customercenter />} />
       <Route path="/customercenter/board" element={<Board />} />
       <Route path="/board" element={<BoardList />} />
