@@ -126,11 +126,11 @@ const MypageDropDown = () => {
         onClose={handleClose}
         anchorOrigin={{
           vertical: "top",
-          horizontal: "left",
+          horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "left",
+          horizontal: "right",
         }}
         sx={{ mt: 6 }}
       >
