@@ -8,7 +8,7 @@ import GoodMany from "./GoodMany";
 import NewDateAdd from "./NewDateAdd";
 import FavMovieList from "./FavMovieList";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useMediaQuery, useTheme } from "react";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 import React from "react";
 
