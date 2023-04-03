@@ -399,7 +399,11 @@ const MyPageBody = () => {
 
       <Divider />
       <Grid container sx={{ m: 1 }}>
-        <Grid item xs={3} sx={{ fontSize: 19, color: "gray" }}>
+        <Grid
+          item
+          xs={3}
+          sx={{ fontSize: 19, color: "black", fontWeight: "bold" }}
+        >
           설정
         </Grid>
         <Grid item xs={9} sx={{ color: "blue" }}>
