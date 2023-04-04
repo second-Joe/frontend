@@ -144,10 +144,20 @@ export default function EmailChange({
                   member_id: email2,
                   member_new_id: newEmail,
                 })
-                .then((res) => {})
+                .then((res) => { })
                 .catch((e) => {
                   console.error(e);
                 });
+              axios
+                .post("http://localhost:8080/customer/modifyid", {
+                  old_member_id: email2,
+                  new_member_id: newEmail,
+                })
+                .then((res) => { })
+                .catch((e) => {
+                  console.error(e);
+                });
+
               if (
                 window.localStorage.getItem("id") ===
                 window.sessionStorage.getItem("id")
@@ -169,7 +179,7 @@ export default function EmailChange({
     }
   };
 
-  const checkenterSubmit = (e) => {};
+  const checkenterSubmit = (e) => { };
 
   return (
     <div>

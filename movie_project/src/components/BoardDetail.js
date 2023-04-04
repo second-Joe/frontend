@@ -42,7 +42,7 @@ function BoardDetail() {
 
   useEffect(() => {
     getDetail();
-  }, []);
+  }, [board_num]);
 
 
 
@@ -74,18 +74,22 @@ function BoardDetail() {
   };
 
   const answerSubmit = () => {
-    axios
-      .post("http://localhost:8080/customer/reply", {
-        board_reply: board_reply,
-        board_num: board_num,
-      })
-      .then((res) => {
-        alert(`${article.member_id}님의 게시글에 답변완료하였습니다.`);
-        navigate(`/board`);
-      })
-      .catch((e) => {
-        console.error(e);
-      })
+    if (board_reply == "") {
+      alert("내용없이 답변이 불가능합니다");
+    } else {
+      axios
+        .post("http://localhost:8080/customer/reply", {
+          board_reply: board_reply,
+          board_num: board_num,
+        })
+        .then((res) => {
+          alert(`${article.member_id}님의 게시글에 답변완료하였습니다.`);
+          navigate(`/board`);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    }
   }
 
   const handleReply = () => {
@@ -168,7 +172,7 @@ function BoardDetail() {
               </Typography>
             </Box>
             &nbsp; &nbsp;
-            {article.board_reply === null ?
+            {article.board_reply === null || '' ?
               (
                 <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                   <CustomizedButton
@@ -198,7 +202,7 @@ function BoardDetail() {
                 </Box>
               )
               : null}
-            {article.board_reply === null ? null :
+            {article.board_reply === null || '' ? null :
               <div>
                 <Box
                   sx={{
