@@ -17,6 +17,7 @@ export default function OutlinedTextField({
   setTelError,
   setPwAnsError,
   onKeyPress,
+  name,
 }) {
   const phoneRegex = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
   const changeVal = (e) => {
@@ -81,6 +82,7 @@ export default function OutlinedTextField({
       <OutlinedInput
         onKeyPress={onKeyPress}
         autoComplete="off"
+        name={name}
         required
         ref={ref1}
         onChange={changeVal}
