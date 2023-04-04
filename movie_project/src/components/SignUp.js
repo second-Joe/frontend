@@ -661,7 +661,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                   width: "150px",
                   mr: 5,
                   height: "56px",
-                  marginBottom: "-10px",
+                  // marginBottom: "-10px",
+                  display: "flex",
+                  alignItems: "center",
                 }}
                 variant="h10"
                 component="h4"
@@ -680,9 +682,9 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               />
               <FormHelperText sx={{ color: "red" }}>{pwQError}</FormHelperText>
             </Box>
-            <Box sx={inputFormStyle}>
+            <Box sx={inputFormStyle} style={{ alignItems: "center" }}>
               <Typography
-                sx={{ width: "150px", mr: 5, mt: 3 }}
+                sx={{ width: "150px", mr: 5 }}
                 variant="h10"
                 component="h4"
               >
