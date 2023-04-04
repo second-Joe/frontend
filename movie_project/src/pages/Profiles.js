@@ -29,16 +29,6 @@ function ProfileManager() {
     loadProfiles(memberID);
   }, [memberID]);
 
-  // const loadProfiles = async (member_id) => {
-  //   try {
-  //     const response = await axios.get("http://localhost:8080/profiles", {
-  //       params: { member_id },
-  //     });
-  //     setProfiles(response.data);
-  //   } catch (error) {
-  //     console.error("Error loading profiles:", error);
-  //   }
-  // };
   const loadProfiles = (memberID) => {
     axios
       .post("http://localhost:8080/profiles", {

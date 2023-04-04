@@ -120,6 +120,15 @@ export default function MemberUpdateForm({
     setOpen(false);
     updateFormClose();
   };
+  const originalData = {
+    member_id: info.member_id,
+    member_pw: info.member_pw,
+    member_name: info.member_name,
+    member_addr: info.member_addr,
+    member_tel: info.member_tel,
+    pw_answer: info.pw_answer,
+    pw_question: info.pw_question,
+  };
   const [id, setId] = useState(info.member_id);
   const [name, setName] = useState(info.member_name);
   const [addr, setAddr] = useState(info.member_addr);
@@ -365,11 +374,24 @@ export default function MemberUpdateForm({
         })
         .then((res) => {
           console.log("updateMember =>", res);
-          if (res.data === 1) {
-            alert("회원 정보 업데이트 성공!");
+          if (res.data !== 0) {
+            if (
+              originalData.member_id === id &&
+              originalData.member_pw === password &&
+              originalData.member_name === name &&
+              originalData.member_tel === tel &&
+              originalData.member_addr === addr &&
+              originalData.pw_question === passwordQuestion &&
+              originalData.pw_answer === pwCheck
+            ) {
+              alert("변경된 정보가 없습니다!");
+            } else {
+              alert("회원 정보 업데이트 성공!");
+            }
             handleClose2();
           } else {
-            alert("회원정보 업데이트 실패!");
+            alert("회원 정보 업데이트 실패!");
+            handleClose2();
           }
         })
         .catch((e) => {
@@ -382,7 +404,6 @@ export default function MemberUpdateForm({
     if (e.key === "Enter") {
       e.preventDefault();
       infoChange();
-
     }
   };
 

@@ -93,11 +93,11 @@ const MyPageBody = () => {
         console.log("res profiles", res.data);
         if (res.data.length > 0) {
           if (profileNum !== undefined) {
-            console.log(profileNum);
+            console.log("profileNum1", profileNum);
             setProfileNickName(res.data[profileNum - 1].nickname);
             setProfileImg(profileImages[profileNum - 1]);
           } else {
-            console.log(profileNum);
+            console.log("profileNum2", profileNum);
             setProfileNickName(res.data[0].nickname);
             setProfileImg(profileImages[0]);
           }
@@ -156,13 +156,21 @@ const MyPageBody = () => {
               console.error(e);
             });
           axios
-          .post("http://localhost:8080/customer/deletebyid",{
-            member_id: window.sessionStorage.getItem("id"),
-          })
-          .then((res)=>{})
-          .catch((e)=>{
-            console.error(e);
-          });
+            .post("http://localhost:8080/customer/deletebyid", {
+              member_id: window.sessionStorage.getItem("id"),
+            })
+            .then((res) => {})
+            .catch((e) => {
+              console.error(e);
+            });
+          axios
+            .post("http://localhost:8080/deleteProfileMember", {
+              member_id: window.sessionStorage.getItem("id"),
+            })
+            .then((res) => {})
+            .catch((e) => {
+              console.error(e);
+            });
 
           if (
             window.localStorage.getItem("id") ===
