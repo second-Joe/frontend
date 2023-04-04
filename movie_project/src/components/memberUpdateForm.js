@@ -145,7 +145,7 @@ export default function MemberUpdateForm({
   const nameInput = document.querySelector("[name=membername]");
   const telInput = document.querySelector("[name=membertel]");
   const addrInput = document.querySelector("[name=memberaddr]");
-  const pwQInput = document.querySelector("[name=memberpwQ]");
+  const pwQInput = document.querySelector("[name=pwQ]");
   const pwAInput = document.querySelector("[name=memberpwA]");
 
   const emailFocus = () => {
@@ -205,12 +205,14 @@ export default function MemberUpdateForm({
   const gotoAddrInput = (e) => {
     console.log(addrInput);
     if (e.key === "Enter") {
+      e.preventDefault();
       addrFocus();
     }
   };
   const gotoPwQInput = (e) => {
     console.log(pwQInput);
     if (e.key === "Enter") {
+      e.preventDefault();
       pwQFocus();
     }
   };
@@ -378,7 +380,9 @@ export default function MemberUpdateForm({
 
   const checkenterSubmit = (e) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       infoChange();
+
     }
   };
 
@@ -584,7 +588,7 @@ export default function MemberUpdateForm({
                   root: classes.root,
                 }}
                 autoComplete="off"
-                name="memberpwQ"
+                // name="memberpwQ"
                 onKeyPress={gotoPwAInput}
                 setPwQError={setPwQError}
                 passwordQuestion={passwordQuestion}
