@@ -91,7 +91,6 @@ export default function EmailChange({
   };
 
   const idDuplicateCheck = () => {
-    let check = true;
     if (newEmail !== "") {
       if (isValidId(newEmail)) {
         axios
@@ -101,10 +100,11 @@ export default function EmailChange({
           .then((res) => {
             console.log("idDuplicateCheck =>", res);
             if (res.data === 1) {
-              setIdError("이메일이 중복됩니다.");
-              check = false;
+              setIdError("아이디가 중복됩니다.");
+              return false;
             } else {
-              setIdError("사용가능한 이메일입니다.");
+              setIdError("사용가능한 아이디입니다.");
+              return true;
             }
           })
           .catch((e) => {
@@ -112,64 +112,88 @@ export default function EmailChange({
           });
       } else {
         setIdError("정확한 이메일 주소를 입력해주세요.");
-        check = false;
       }
     } else {
-      setIdError("이메일을 입력하세요.");
+      setIdError("아이디를 입력하세요.");
+    }
+  };
+
+  const emailChangeCheck = (event) => {
+    let check = true;
+
+    idDuplicateCheck();
+    if (idError === "") {
+      alert("아이디 중복확인 해주세요.");
+      check = false;
+    } else if (idError === "아이디가 중복됩니다.") {
       check = false;
     }
+
+    let validId =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(
+        newEmail
+      );
+
+    if (!newEmail) {
+      setIdError("이메일을 입력해주세요.");
+      check = false;
+    } else if (!validId) {
+      setIdError("정확한 이메일 주소를 입력해주세요.");
+      check = false;
+    }
+
+    console.log("return check : " + check);
     return check;
   };
 
   const handleUpdate = () => {
-    console.log(idDuplicateCheck);
-    if (idDuplicateCheck()) {
-    }
-    if (idError === "") {
-      alert("이메일 중복확인 해주세요.");
-    } else if (idError === "사용가능한 이메일입니다.") {
-      if (isValidId(newEmail)) {
-        axios
-          .post("http://localhost:8080/emailUpdate", {
-            member_id: email2,
-            member_new_id: newEmail,
-          })
-          .then((res) => {
-            console.log("emailUpdate =>", res);
-            if (res.data === 1) {
-              handleClose2();
-              alert("이메일 주소 업데이트 성공!");
-              axios
-                .post("http://localhost:8080/profileEmailUpdate", {
-                  member_id: email2,
-                  member_new_id: newEmail,
-                })
-                .then((res) => {})
-                .catch((e) => {
-                  console.error(e);
-                });
-              if (
-                window.localStorage.getItem("id") ===
-                window.sessionStorage.getItem("id")
-              ) {
-                window.localStorage.setItem("id", newEmail);
-              }
-              window.sessionStorage.setItem("id", newEmail);
-
-              setEmail(newEmail);
-            } else {
-              handleClose2();
-              alert("이메일 주소 업데이트 실패!");
+    if (emailChangeCheck()) {
+      axios
+        .post("http://localhost:8080/emailUpdate", {
+          member_id: email2,
+          member_new_id: newEmail,
+        })
+        .then((res) => {
+          console.log("emailUpdate =>", res);
+          if (res.data === 1) {
+            handleClose2();
+            alert("이메일 주소 업데이트 성공!");
+            axios
+              .post("http://localhost:8080/profileEmailUpdate", {
+                member_id: email2,
+                member_new_id: newEmail,
+              })
+              .then((res) => {
+                window.sessionStorage.setItem("id", newEmail);
+              })
+              .catch((e) => {
+                console.error(e);
+              });
+            if (
+              window.localStorage.getItem("id") ===
+              window.sessionStorage.getItem("id")
+            ) {
+              window.localStorage.setItem("id", newEmail);
             }
-          })
-          .catch((e) => {
-            console.error(e);
-          });
-      }
+            window.sessionStorage.setItem("id", newEmail);
+
+            setEmail(newEmail);
+          } else {
+            handleClose2();
+            alert("이메일 주소 업데이트 실패!");
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+        });
     }
   };
 
-  const checkenterSubmit = (e) => {};
+  const checkenterSubmit = (e) => {
+    if (e.key === "Enter") {
+      handleUpdate();
+    }
+  };
 
   return (
     <div>

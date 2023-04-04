@@ -334,6 +334,7 @@ const MyPageBody = () => {
                     mb: 3,
                     color: "blue",
                     textAlign: "right",
+                    mt: 2,
                   }}
                 >
                   스트리밍 멤버십 추가
