@@ -126,6 +126,10 @@ const NavBar = ({
         },
       };
 
+  const [isHover, setIsHover] = React.useState(false);
+  const handleHover = () => setIsHover(true);
+  const handleLeave = () => setIsHover(false);
+
   return (
     <AppBar position="fixed" style={{ background: "#212121" }}>
       <Container maxWidth="xl">
@@ -144,8 +148,14 @@ const NavBar = ({
             onClick={goBack}
           />
 
-          <Box sx={{ flexGrow: 1, display: { md: "none" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { md: "none" },
+            }}
+          >
             <MenuButton
+              xs={{}}
               search={search}
               setSearch={setSearch}
               menuClick={menuClick}
@@ -168,7 +178,18 @@ const NavBar = ({
             {pages.map((page) => (
               <Button
                 key={page}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  "&:hover": {
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                    color: "red",
+                    opacity: [0.9, 0.8, 0.7],
+                    transform: "scale(1.1)",
+                  },
+                }}
                 onClick={showSearchResult}
                 value={page}
               >

@@ -36,11 +36,9 @@ const OutputMovieGenres = ({ genre }) => {
     let data = movieData.data.movies;
     setLoading(false);
     setMovies(shuffle(data));
-    console.log("loatMovies", movies);
   };
 
   function shuffle(array) {
-    console.log("shuffle", movies);
     return array.sort(() => Math.random() - 0.5);
   }
 
