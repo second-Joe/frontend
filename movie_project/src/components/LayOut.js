@@ -23,9 +23,6 @@ const Layout = () => {
 
   let profile_num = location.pathname.slice(7);
 
-  if (profile_num === "") {
-    profile_num = 1;
-  }
   //console.log(profile_num);
   // console.log("param 값은: " + profile_num);
 
@@ -64,8 +61,19 @@ const Layout = () => {
 
   useEffect(() => {
     document.body.style.backgroundColor = "rgb(42, 43, 43)";
-    window.localStorage.setItem("profile_num", profile_num);
-    //console.log("window_profile_num" + profile_num);
+    if (profile_num === "") {
+      // /login으로 접속했을 경우
+      if (window.localStorage.getItem("profile_num") === "") {
+        //한번도 프로필 변경을 하지 않은 경우
+        window.localStorage.setItem("profile_num", 1);
+      } else {
+        // localStorage에 프로필 값이 저장이 되어 있는 경우
+        //아무것도 하지 않는다(값 그대로 유지)
+      }
+    } else {
+      //login/param 으로 접속한 경우
+      window.localStorage.setItem("profile_num", profile_num);
+    }
   });
 
   const menuName = menuKind;
