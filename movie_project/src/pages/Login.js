@@ -395,7 +395,14 @@ function Login() {
         </Button>
 
         <Box lg={{ display: "flex", alignItems: "center" }}>
-          <Box sx={{ background: "#e50914", mt: "24px", mb: "16px" }}>
+          <Box
+            sx={{
+              background: "#e50914",
+              mt: "24px",
+              mb: "16px",
+              borderRadius: "5px",
+            }}
+          >
             <CustomizedButton
               label="지금 가입하세요"
               value="지금 가입하세요"
