@@ -16,7 +16,6 @@ const Search = styled("div")(({ theme }) => ({
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  marginBottom: 20,
   width: "100%",
   height: "3rem",
   display: "flex",
@@ -69,12 +68,13 @@ export default function PrimarySearchAppBar({ kind }) {
       >
         {kind}
       </Typography>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
         <Search>
           <StyledInputBase
             placeholder="검색어를 입력하세요"
             inputProps={{ "aria-label": "search" }}
             onChange={onchange}
+            sx={{ width: "100%" }}
           />
         </Search>
         <CustomizedButton
