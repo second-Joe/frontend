@@ -158,6 +158,13 @@ export default function BoardPasswordCheck({
     }
   };
 
+  const checkenterSubmit = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleUpdateDelete();
+    }
+  };
+
   return (
     <div>
       <Modal
@@ -197,6 +204,7 @@ export default function BoardPasswordCheck({
                   value={password}
                   setPasswordError={setPasswordError}
                   isValidPassword={isValidPassword}
+                  onKeyPress={checkenterSubmit}
                   label="비밀번호를 입력해주세요"
                 />
                 <FormHelperText sx={{ mt: -2, fontSize: "1em", color: "red" }}>
