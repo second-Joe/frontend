@@ -85,7 +85,7 @@ export default function TemporaryDrawer({
                         },
                       }}
                     >
-                      다운로드 가장 많은 영화"
+                      다운로드 가장 많은 영화
                     </Typography>
                   }
                 />
@@ -93,17 +93,71 @@ export default function TemporaryDrawer({
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton onClick={showSearchResult}>
-                <ListItemText primary="좋아요 가장 많은 영화" />
+                {/* search뒤에다가 쿼리스트링 붙여주기 ex.?query=series 그 쿼리스트링을 searchResult페이지에서 searchParams로 읽은다음 관련 결과 띄워주기 */}
+                <ListItemText
+                  disableTypography
+                  primary={
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        "&:hover": {
+                          cursor: "pointer",
+                          boxSizing: "border-box",
+                          fontWeight: "bold",
+                          opacity: [0.9, 0.8, 0.7],
+                        },
+                      }}
+                    >
+                      좋아요 가장 많은 영화
+                    </Typography>
+                  }
+                />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton onClick={showSearchResult}>
-                <ListItemText primary="최근 추가 된 영화" />
+                {/* search뒤에다가 쿼리스트링 붙여주기 ex.?query=series 그 쿼리스트링을 searchResult페이지에서 searchParams로 읽은다음 관련 결과 띄워주기 */}
+                <ListItemText
+                  disableTypography
+                  primary={
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        "&:hover": {
+                          cursor: "pointer",
+                          boxSizing: "border-box",
+                          fontWeight: "bold",
+                          opacity: [0.9, 0.8, 0.7],
+                        },
+                      }}
+                    >
+                      최근 추가 된 영화
+                    </Typography>
+                  }
+                />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton onClick={showSearchResult}>
-                <ListItemText primary="찜목록" />
+                {/* search뒤에다가 쿼리스트링 붙여주기 ex.?query=series 그 쿼리스트링을 searchResult페이지에서 searchParams로 읽은다음 관련 결과 띄워주기 */}
+                <ListItemText
+                  disableTypography
+                  primary={
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        "&:hover": {
+                          cursor: "pointer",
+                          boxSizing: "border-box",
+                          fontWeight: "bold",
+                          opacity: [0.9, 0.8, 0.7],
+                        },
+                      }}
+                    >
+                      찜목록
+                    </Typography>
+                  }
+                />
               </ListItemButton>
             </ListItem>
           </List>

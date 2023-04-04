@@ -3,7 +3,9 @@ import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
+import { useState } from "react";
+import CustomizedButton from "./CustomizedButton";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -14,22 +16,14 @@ const Search = styled("div")(({ theme }) => ({
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  marginBottom: 20,
   width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
+  height: "3rem",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "100%",
+  },
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -37,16 +31,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: `calc(1em + ${theme.spacing(1)})`,
     transition: theme.transitions.create("width"),
-    width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "20ch",
+      width: "100%",
     },
   },
+  height: "100%",
 }));
 
 export default function PrimarySearchAppBar({ kind }) {
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
+  const onchange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const onClick = () => {
+    navigate(`/boardSearch/${search}`);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Typography
@@ -63,15 +68,17 @@ export default function PrimarySearchAppBar({ kind }) {
       >
         {kind}
       </Typography>
-      <Search>
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="어떤 도움이 필요하세요?"
-          inputProps={{ "aria-label": "search" }}
-        />
-      </Search>
+      <Box sx={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
+        <Search>
+          <StyledInputBase
+            placeholder="검색어를 입력하세요"
+            inputProps={{ "aria-label": "search" }}
+            onChange={onchange}
+            sx={{ width: "100%" }}
+          />
+        </Search>
+        <CustomizedButton label="검색" value="search" onClick={onClick} />
+      </Box>
     </Box>
   );
 }

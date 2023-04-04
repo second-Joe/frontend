@@ -155,6 +155,14 @@ const MyPageBody = () => {
             .catch((e) => {
               console.error(e);
             });
+          axios
+          .post("http://localhost:8080/customer/deletebyid",{
+            member_id: window.sessionStorage.getItem("id"),
+          })
+          .then((res)=>{})
+          .catch((e)=>{
+            console.error(e);
+          });
 
           if (
             window.localStorage.getItem("id") ===

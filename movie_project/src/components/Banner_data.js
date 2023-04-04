@@ -105,7 +105,6 @@ function Banner_data({
       });
   }
   useLayoutEffect(() => {
-    console.log("1번");
     axios
       .post("http://localhost:8080/favmovie/chk", {
         movie_title: title,
@@ -144,7 +143,6 @@ function Banner_data({
           movie_title: title,
         })
         .then((res) => {
-          console.log(res.data);
           if (res.data !== 1) {
             //제목이 중복되지 않을 때에만
 

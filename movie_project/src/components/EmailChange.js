@@ -146,6 +146,7 @@ export default function EmailChange({
     return check;
   };
 
+
   const handleUpdate = (e) => {
     if (emailChangeCheck()) {
       axios
@@ -172,6 +173,7 @@ export default function EmailChange({
               window.sessionStorage.getItem("id")
             ) {
               window.localStorage.setItem("id", newEmail);
+
             }
 
             alert("이메일 주소 업데이트 성공!");
@@ -191,11 +193,14 @@ export default function EmailChange({
     }
   };
 
+
   const checkenterSubmit = (e) => {
     if (e.key === "Enter") {
       handleUpdate();
     }
   };
+
+
 
   return (
     <div>
