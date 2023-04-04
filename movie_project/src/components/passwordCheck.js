@@ -79,6 +79,30 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
   const [pwQError, setPwQError] = useState("");
   const [passwordAnswer, setPasswordAnswer] = useState("");
   const [pwAnsError, setPwAnsError] = useState("");
+  const [password, setPassword] = useState("");
+
+  const emailInput2 = document.querySelector("[name=email2]");
+  const pwQInput2 = document.querySelector("[name=pwQ]");
+  const pwAInput2 = document.querySelector("[name=pwAInput2]");
+
+  const pwQFocus = () => {
+    console.log(pwQInput2);
+    pwQInput2.focus();
+  };
+
+  const pwAFocus = () => {
+    pwAInput2.focus();
+  };
+  const gotoPwQInput = (e) => {
+    if (e.key === "Enter") {
+      pwQFocus();
+    }
+  };
+  const gotoPwAInput = (e) => {
+    if (e.key === "Enter") {
+      pwAFocus();
+    }
+  };
 
   const [passwordSearch, setPasswordSearch] = useState(false);
 
@@ -108,6 +132,13 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
         .then((res) => {
           console.log("passwordSearch =>", res);
           if (res.data === 1) {
+            axios
+              .post("http://localhost:8080/selectMember", {
+                member_id: id,
+              })
+              .then((res) => {
+                setPassword(res.data.member_pw);
+              });
             setPasswordSearch(true);
             handlePwOpen();
           } else {
@@ -204,6 +235,8 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <OutlinedTextField
+                  name="email2"
+                  onKeyPress={gotoPwQInput}
                   required
                   isValidId={isValidId}
                   value={id}
@@ -229,6 +262,8 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <SelectInput
                   required
+                  name="pwQInput2"
+                  onKeyPress={gotoPwAInput}
                   setPwQError={setPwQError}
                   passwordQuestion={passwordQuestion}
                   setPasswordQuestion={setPasswordQuestion}
@@ -251,6 +286,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <OutlinedTextField
                   required
+                  name="pwAInput2"
                   value={passwordAnswer}
                   setPwAnsError={setPwAnsError}
                   onChange={setPasswordAnswer}
@@ -280,6 +316,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                   handlePwOpen={handlePwOpen}
                   handlePwClose={handlePwClose}
                   handleCloseAll={handleClose2}
+                  password={password}
                 />
               ) : null}
             </Box>

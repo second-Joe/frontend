@@ -13,6 +13,7 @@ import Box from "@mui/material/Box";
 
 const MypageDropDown = () => {
   const memberID = window.sessionStorage.getItem("id");
+  const profileNum = window.localStorage.getItem("profile_num");
   const [profileNickname, setProfileNickName] = useState("USER");
   useEffect(() => {
     loadProfiles(memberID);
@@ -27,10 +28,10 @@ const MypageDropDown = () => {
       .then((res) => {
         console.log("res profiles", res.data);
         if (res.data.length > 0) {
-          if (window.profile_num !== undefined) {
+          if (profileNum !== undefined) {
             // console.log(window.profile_num);
-            setProfileNickName(res.data[window.profile_num - 1].nickname);
-            setProfileImg(profileImages[window.profile_num - 1]);
+            setProfileNickName(res.data[profileNum - 1].nickname);
+            setProfileImg(profileImages[profileNum - 1]);
           } else {
             // console.log(window.profile_num);
             setProfileNickName(res.data[0].nickname);
@@ -62,6 +63,7 @@ const MypageDropDown = () => {
 
   const logout = () => {
     window.sessionStorage.clear(); // 세션스토리지에 저장된 속성값 모두 삭제
+    window.localStorage.removeItem("profile_num");
     navigate("/", { replace: true }); // 로그인페이지로 이동
   };
 

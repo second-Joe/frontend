@@ -130,11 +130,86 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
   const [telError, setTelError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [pwQError, setPwQError] = useState("");
-  // const [loginAvailable, setLoginAvailable] = useState(false);
-  // const [idDuplicate, setIdDuplicate] = useState(false);
-  const onNameHandler = (event) => {
-    setName(event.currentTarget.value);
+
+  const emailInput = document.querySelector("[name=email]");
+  const passwordInput2 = document.querySelector("[name=password2]");
+  const passwordConfirmInput = document.querySelector("[name=passwordconfirm]");
+  const nameInput = document.querySelector("[name=name]");
+  const telInput = document.querySelector("[name=tel]");
+  const addrInput = document.querySelector("[name=addr]");
+  const pwQInput = document.querySelector("[name=pwQ]");
+  const pwAInput = document.querySelector("[name=pwA]");
+
+  const emailFocus = () => {
+    emailInput.focus();
   };
+
+  const passwordFocus = () => {
+    passwordInput2.focus();
+  };
+  const passwordConfirmFocus = () => {
+    passwordConfirmInput.focus();
+  };
+
+  const nameFocus = () => {
+    nameInput.focus();
+  };
+  const telFocus = () => {
+    telInput.focus();
+  };
+
+  const addrFocus = () => {
+    addrInput.focus();
+  };
+  const pwQFocus = () => {
+    console.log(pwQInput);
+    pwQInput.focus();
+  };
+
+  const pwAFocus = () => {
+    pwAInput.focus();
+  };
+
+  const gotoPasswordInput = (e) => {
+    if (e.key === "Enter") {
+      passwordFocus();
+    }
+  };
+  const gotoPasswordConfirmInput = (e) => {
+    if (e.key === "Enter") {
+      passwordConfirmFocus();
+    }
+  };
+  const gotoNameInput = (e) => {
+    if (e.key === "Enter") {
+      nameFocus();
+    }
+  };
+  const gotoTelInput = (e) => {
+    if (e.key === "Enter") {
+      telFocus();
+    }
+  };
+  const gotoAddrInput = (e) => {
+    if (e.key === "Enter") {
+      addrFocus();
+    }
+  };
+  const gotoPwQInput = (e) => {
+    if (e.key === "Enter") {
+      pwQFocus();
+    }
+  };
+  const gotoPwAInput = (e) => {
+    if (e.key === "Enter") {
+      pwAFocus();
+    }
+  };
+
+  // React.useEffect(() => {
+  //   emailFocus();
+  // }, []);
+
   const onConfirmPasswordHandler = (event) => {
     setConfirmPassword(event.currentTarget.value);
   };
@@ -349,7 +424,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
         setIdError("정확한 이메일 주소를 입력해주세요.");
       }
     } else {
-      setIdError("아이디를 입력하세요.");
+      setIdError("이메일 주소를 입력하세요.");
     }
   };
 
@@ -408,6 +483,8 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                   classes={{
                     root: classes.root,
                   }}
+                  name="email"
+                  onKeyPress={gotoPasswordInput}
                   autoComplete="off"
                   label="이메일 주소를 입력해주세요"
                   type="email"
@@ -450,6 +527,8 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                name="password2"
+                onKeyPress={gotoPasswordConfirmInput}
                 autoComplete="off"
                 label="비밀번호를 입력해주세요"
                 type="password"
@@ -479,6 +558,8 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                name="passwordconfirm"
+                onKeyPress={gotoNameInput}
                 autoComplete="off"
                 sx={formStyle}
                 required
@@ -502,6 +583,8 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                name="name"
+                onKeyPress={gotoTelInput}
                 autoComplete="off"
                 label="이름을 입력해주세요"
                 type="text"
@@ -526,6 +609,8 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                name="tel"
+                onKeyPress={gotoAddrInput}
                 autoComplete="off"
                 label="전화번호를 입력해주세요"
                 required
@@ -549,6 +634,8 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                name="addr"
+                onKeyPress={gotoPwQInput}
                 autoComplete="off"
                 label="주소를 입력해주세요"
                 required
@@ -576,6 +663,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                onKeyPress={gotoPwAInput}
                 autoComplete="off"
                 setPwQError={setPwQError}
                 passwordQuestion={passwordQuestion}
@@ -598,6 +686,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                name="pwA"
                 autoComplete="off"
                 label="비밀번호 찾기 질문에 대한 답"
                 required

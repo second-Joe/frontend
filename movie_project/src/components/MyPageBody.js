@@ -13,7 +13,7 @@ import PasswordChange from "./PasswordChange";
 import PhoneChange from "./PhoneChange";
 import axios from "axios";
 import { useMediaQuery, useTheme } from "@mui/material";
-import { useEffect } from "react";
+import { useLayoutEffect, useEffect } from "react";
 
 const MyPageBody = () => {
   const theme = useTheme();
@@ -77,7 +77,9 @@ const MyPageBody = () => {
   const [memberID, setMemberID] = useState(window.sessionStorage.getItem("id"));
   const [profileNickname, setProfileNickName] =
     useState("저장된 프로필이 없습니다");
-  useEffect(() => {
+  const profileNum = window.localStorage.getItem("profile_num");
+
+  useLayoutEffect(() => {
     loadProfiles(memberID);
   }, [memberID]);
 
@@ -90,12 +92,12 @@ const MyPageBody = () => {
       .then((res) => {
         console.log("res profiles", res.data);
         if (res.data.length > 0) {
-          if (window.profile_num !== undefined) {
-            // console.log(window.profile_num);
-            setProfileNickName(res.data[window.profile_num - 1].nickname);
-            setProfileImg(profileImages[window.profile_num - 1]);
+          if (profileNum !== undefined) {
+            console.log(profileNum);
+            setProfileNickName(res.data[profileNum - 1].nickname);
+            setProfileImg(profileImages[profileNum - 1]);
           } else {
-            // console.log(window.profile_num);
+            console.log(profileNum);
             setProfileNickName(res.data[0].nickname);
             setProfileImg(profileImages[0]);
           }
@@ -147,7 +149,9 @@ const MyPageBody = () => {
             .post("http://localhost:8080/favmovie/remove", {
               member_id: window.sessionStorage.getItem("id"),
             })
-            .then((res) => {})
+            .then((res) => {
+              window.localStorage.removeItem("profile_num");
+            })
             .catch((e) => {
               console.error(e);
             });
@@ -260,6 +264,7 @@ const MyPageBody = () => {
                     handlePwClose={handlePwClose}
                     setPasswordSearch={setPasswordSearch}
                     setPw={setPw}
+                    pw={pw}
                   ></PasswordChange>
                 ) : null}
               </Box>
@@ -282,6 +287,7 @@ const MyPageBody = () => {
                     handleOpen={handlePhoneOpen}
                     handleClose={handlePhoneClose}
                     setTel={setTel}
+                    tel={tel}
                   ></PhoneChange>
                 ) : null}
               </Box>
@@ -338,6 +344,7 @@ const MyPageBody = () => {
                     mb: 3,
                     color: "blue",
                     textAlign: "right",
+                    mt: 2,
                   }}
                 >
                   스트리밍 멤버십 추가

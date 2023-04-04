@@ -28,6 +28,7 @@ export default function PositionedMenu() {
 
   const logout = () => {
     window.sessionStorage.clear(); // 세션스토리지에 저장된 속성값 모두 삭제
+    window.localStorage.removeItem("profile_num");
     navigate("/", { replace: true }); // 로그인페이지로 이동
   };
 
@@ -97,7 +98,6 @@ export default function PositionedMenu() {
         <MenuItem component={Link} to="/mypage">
           마이페이지
         </MenuItem>
-        {console.log(location.pathname)}
         {location.pathname === "/customercenter" ? null : (
           <MenuItem component={Link} to="/customercenter">
             고객센터

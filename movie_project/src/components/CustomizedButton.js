@@ -11,6 +11,7 @@ const BootstrapButton = styled(Button)({
   lineHeight: 1.5,
   backgroundColor: "#dd1923",
   borderColor: "#cc2c24",
+  borderRadius: "5px",
   fontFamily: [
     "-apple-system",
     "BlinkMacSystemFont",
@@ -57,6 +58,7 @@ export default function CustomizedButton(props) {
           onClick={props.onClick}
           variant="contained"
           disableRipple
+          sx={{ borderRadius: "5px" }}
         >
           {props.label}
         </BootstrapButton>

@@ -69,6 +69,7 @@ export default function PhoneChange({
   handleOpen,
   handleClose,
   setTel,
+  tel,
 }) {
   const [open, setOpen] = React.useState(openModal);
   const [newTel, setNewTel] = React.useState("");
@@ -94,9 +95,13 @@ export default function PhoneChange({
         .then((res) => {
           console.log("phoneUpdate =>", res);
           if (res.data === 1) {
+            if (tel === newTel) {
+              alert("동일한 휴대폰 번호입니다!");
+            } else {
+              alert("휴대폰 번호 업데이트 성공!");
+            }
             handleClose2();
             setTel(newTel);
-            alert("휴대폰 번호 업데이트 성공!");
           } else {
             alert("휴대폰 번호 업데이트 실패!");
           }
