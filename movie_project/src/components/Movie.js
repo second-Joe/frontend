@@ -10,7 +10,20 @@ import Grid from "@mui/material/Grid";
 import axios from "axios";
 import { useLayoutEffect, useState, useEffect } from "react";
 
-function Movie({ id, medium_cover_image, title, summary, genres, value }) {
+function Movie({
+  id,
+  medium_cover_image,
+  title,
+  summary,
+  genres,
+  value,
+  number,
+  getData,
+}) {
+  const onClick = () => {
+    console.log(number);
+    getData(number + 1);
+  };
   const style = {
     position: "absolute",
     top: "50%",
@@ -38,7 +51,7 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
   };
   const handleClose = () => setOpen(false);
   const [ischecked, setIsChecked] = useState(false);
-  const [isclicked, setIsClicked] = useState(false);
+
   if (value === "favmovielist") {
     axios
       .post("http://localhost:8080/favmovie/chk", {
@@ -47,15 +60,12 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
       })
       .then((res) => {
         setIsChecked(res.data?.length ? true : false);
-        console.log("Res ", res);
-        console.log("Res.data ", res.data);
       })
       .catch((e) => {
         console.error(e);
       });
   }
   useLayoutEffect(() => {
-    console.log("1번");
     axios
       .post("http://localhost:8080/favmovie/chk", {
         movie_title: title,
@@ -63,8 +73,6 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
       })
       .then((res) => {
         setIsChecked(res.data?.length ? true : false);
-        console.log("Res ", res);
-        console.log("Res.data ", res.data);
       })
       .catch((e) => {
         console.error(e);
@@ -82,8 +90,6 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
       })
       .then((res) => {
         setIsChecked(res.data?.length ? true : false);
-        console.log("Res ", res);
-        console.log("Res.data ", res.data);
       })
       .catch((e) => {
         console.error(e);
@@ -114,7 +120,6 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
           movie_title: title,
         })
         .then((res) => {
-          console.log(res.data);
           if (res.data !== 1) {
             //제목이 중복되지 않을 때에만
 
@@ -128,7 +133,6 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
               .then((res) => {})
               .catch((e) => {
                 console.error(e);
-                console.log("3" + title);
               });
           } else {
           }
@@ -253,7 +257,10 @@ function Movie({ id, medium_cover_image, title, summary, genres, value }) {
                     position: "absolute",
                     bottom: " 20px",
                   }}
-                  onClick={() => handlelike()}
+                  onClick={() => {
+                    handlelike();
+                    onClick();
+                  }}
                   startIcon={ischecked ? <StarIcon /> : <StarBorderIcon />}
                 >
                   찜하기

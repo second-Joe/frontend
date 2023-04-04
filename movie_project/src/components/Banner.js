@@ -14,6 +14,7 @@ function Banner() {
     const randomNum = Math.floor(Math.random() * movies.length);
     setMovie(movies[randomNum]);
   };
+
   useLayoutEffect(() => {
     loadMysteryMovies();
   }, []);
