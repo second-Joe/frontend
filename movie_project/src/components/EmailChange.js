@@ -146,7 +146,6 @@ export default function EmailChange({
     return check;
   };
 
-
   const handleUpdate = (e) => {
     if (emailChangeCheck()) {
       axios
@@ -168,12 +167,29 @@ export default function EmailChange({
               .catch((e) => {
                 console.error(e);
               });
+            axios
+              .post("http://localhost:8080/customer/modifyid", {
+                new_member_id: newEmail,
+                old_member_id: email2,
+              })
+              .then((res) => {})
+              .catch((e) => {
+                console.error(e);
+              });
+            axios
+              .post("http://localhost:8080/favmovie/modifyid", {
+                new_member_id: newEmail,
+                old_member_id: email2,
+              })
+              .then((res) => {})
+              .catch((e) => {
+                console.error(e);
+              });
             if (
               window.localStorage.getItem("id") ===
               window.sessionStorage.getItem("id")
             ) {
               window.localStorage.setItem("id", newEmail);
-
             }
 
             alert("이메일 주소 업데이트 성공!");
@@ -193,14 +209,11 @@ export default function EmailChange({
     }
   };
 
-
   const checkenterSubmit = (e) => {
     if (e.key === "Enter") {
       handleUpdate();
     }
   };
-
-
 
   return (
     <div>
