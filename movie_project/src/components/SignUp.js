@@ -349,7 +349,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
         setIdError("정확한 이메일 주소를 입력해주세요.");
       }
     } else {
-      setIdError("아이디를 입력하세요.");
+      setIdError("이메일 주소를 입력하세요.");
     }
   };
 

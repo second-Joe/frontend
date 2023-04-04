@@ -77,28 +77,26 @@ export default function OutlinedTextField({
   };
 
   return (
-    <Box component="form" noValidate autoComplete="off">
-      <FormControl sx={{ width: 360, mb: 3 }}>
-        <OutlinedInput
-          onKeyPress={onKeyPress}
-          autoComplete="off"
-          required
-          ref={ref1}
-          onChange={changeVal}
-          value={value}
-          inputProps={{ style: { color: "white" } }}
-          InputLabelProps={{ style: { color: "white" } }}
-          sx={{
-            my: 1,
-            background: "#38393b",
-            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              borderColor: "white",
-            },
-          }}
-          placeholder={label}
-        />
-        {/* <MyFormHelperText /> */}
-      </FormControl>
+    <Box sx={{ width: 360, mb: 3 }} noValidate autoComplete="off">
+      <OutlinedInput
+        onKeyPress={onKeyPress}
+        autoComplete="off"
+        required
+        ref={ref1}
+        onChange={changeVal}
+        value={value}
+        inputProps={{ style: { color: "white" } }}
+        InputLabelProps={{ style: { color: "white" } }}
+        sx={{
+          my: 1,
+          width: 360,
+          background: "#38393b",
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "white",
+          },
+        }}
+        placeholder={label}
+      />
     </Box>
   );
 }

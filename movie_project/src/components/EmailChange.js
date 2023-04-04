@@ -114,7 +114,7 @@ export default function EmailChange({
         setIdError("정확한 이메일 주소를 입력해주세요.");
       }
     } else {
-      setIdError("아이디를 입력하세요.");
+      setIdError("이메일 주소를 입력하세요.");
     }
   };
 
@@ -146,7 +146,7 @@ export default function EmailChange({
     return check;
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = (e) => {
     if (emailChangeCheck()) {
       axios
         .post("http://localhost:8080/emailUpdate", {
@@ -156,8 +156,8 @@ export default function EmailChange({
         .then((res) => {
           console.log("emailUpdate =>", res);
           if (res.data === 1) {
-            handleClose2();
             alert("이메일 주소 업데이트 성공!");
+
             axios
               .post("http://localhost:8080/profileEmailUpdate", {
                 member_id: email2,
@@ -176,11 +176,13 @@ export default function EmailChange({
               window.localStorage.setItem("id", newEmail);
             }
             window.sessionStorage.setItem("id", newEmail);
-
+            // e.preventDefault();
             setEmail(newEmail);
-          } else {
+
             handleClose2();
+          } else {
             alert("이메일 주소 업데이트 실패!");
+            handleClose2();
           }
         })
         .catch((e) => {
