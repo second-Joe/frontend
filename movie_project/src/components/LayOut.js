@@ -64,7 +64,7 @@ const Layout = () => {
 
   useEffect(() => {
     document.body.style.backgroundColor = "rgb(42, 43, 43)";
-    window.profile_num = profile_num;
+    window.localStorage.setItem("profile_num", profile_num);
     //console.log("window_profile_num" + profile_num);
   });
 

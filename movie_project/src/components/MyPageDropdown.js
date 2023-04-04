@@ -27,10 +27,14 @@ const MypageDropDown = () => {
       .then((res) => {
         console.log("res profiles", res.data);
         if (res.data.length > 0) {
-          if (window.profile_num !== undefined) {
+          if (window.localStorage.getItem("profile_num") !== undefined) {
             // console.log(window.profile_num);
-            setProfileNickName(res.data[window.profile_num - 1].nickname);
-            setProfileImg(profileImages[window.profile_num - 1]);
+            setProfileNickName(
+              res.data[window.localStorage.getItem("profile_num") - 1].nickname
+            );
+            setProfileImg(
+              profileImages[window.localStorage.getItem("profile_num") - 1]
+            );
           } else {
             // console.log(window.profile_num);
             setProfileNickName(res.data[0].nickname);

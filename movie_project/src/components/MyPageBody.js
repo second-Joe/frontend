@@ -77,6 +77,8 @@ const MyPageBody = () => {
   const [memberID, setMemberID] = useState(window.sessionStorage.getItem("id"));
   const [profileNickname, setProfileNickName] =
     useState("저장된 프로필이 없습니다");
+  const [profileID, setProfileID] = useState(0);
+
   useEffect(() => {
     loadProfiles(memberID);
   }, [memberID]);
@@ -90,12 +92,16 @@ const MyPageBody = () => {
       .then((res) => {
         console.log("res profiles", res.data);
         if (res.data.length > 0) {
-          if (window.profile_num !== undefined) {
-            // console.log(window.profile_num);
-            setProfileNickName(res.data[window.profile_num - 1].nickname);
-            setProfileImg(profileImages[window.profile_num - 1]);
+          if (window.localStorage.getItem("profile_num") !== undefined) {
+            console.log(window.localStorage.getItem("profile_num"));
+            setProfileNickName(
+              res.data[window.localStorage.getItem("profile_num") - 1].nickname
+            );
+            setProfileImg(
+              profileImages[window.localStorage.getItem("profile_num") - 1]
+            );
           } else {
-            // console.log(window.profile_num);
+            console.log(window.localStorage.getItem("profile_num"));
             setProfileNickName(res.data[0].nickname);
             setProfileImg(profileImages[0]);
           }
