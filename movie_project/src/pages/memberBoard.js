@@ -124,14 +124,40 @@ export default function StickyHeadTable() {
         .then((res) => {
           if (res.data === 1) {
             alert("회원 정보가 삭제되었습니다!");
-            if (post.member_id === window.sessionStorage.getItem("id")) {
-              if (window.localStorage.getItem("id") === post.member_id) {
-                window.localStorage.clear();
-              }
-              window.sessionStorage.clear();
-
-              navigate("/", { return: true });
-            }
+            axios
+              .post("http://localhost:8080/favmovie/remove", {
+                member_id: post.member_id,
+              })
+              .then((res) => {})
+              .catch((e) => {
+                console.error(e);
+              });
+            axios
+              .post("http://localhost:8080/customer/deletebyid", {
+                member_id: post.member_id,
+              })
+              .then((res) => {})
+              .catch((e) => {
+                console.error(e);
+              });
+            axios
+              .post("http://localhost:8080/deleteProfileMember", {
+                member_id: post.member_id,
+              })
+              .then((res) => {
+                window.localStorage.removeItem("profile_num");
+                if (window.localStorage.getItem("id") === post.member_id) {
+                  window.localStorage.clear();
+                }
+                console.log(post.member_id);
+                if (post.member_id === window.sessionStorage.getItem("id")) {
+                  window.sessionStorage.clear();
+                  navigate("/", { return: true });
+                }
+              })
+              .catch((e) => {
+                console.error(e);
+              });
           } else {
             alert("회원 정보 삭제 실패!");
           }
