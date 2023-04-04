@@ -126,10 +126,6 @@ const NavBar = ({
         },
       };
 
-  const [isHover, setIsHover] = React.useState(false);
-  const handleHover = () => setIsHover(true);
-  const handleLeave = () => setIsHover(false);
-
   return (
     <AppBar position="fixed" style={{ background: "#212121" }}>
       <Container maxWidth="xl">
@@ -155,7 +151,6 @@ const NavBar = ({
             }}
           >
             <MenuButton
-              xs={{}}
               search={search}
               setSearch={setSearch}
               menuClick={menuClick}
