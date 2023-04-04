@@ -73,16 +73,30 @@ const ProfileUpdate = () => {
 
   const handleDelete = () => {
     axios
-      .delete(
-        `http://localhost:8080/deleteprofiles?member_id=${member_id}&profile_id=${profileId}`
-      )
-      .then(() => {
-        if (window.localStorage.getItem("profile_num") === profileId) {
-          window.localStorage.setItem("profile_num", 1);
-        } else {
-          axios.post("http://localhost:8080/getDeleteProcessMember");
-        }
-        navigate("/profiles");
+      .post("http://localhost:8080/profileDetail", {
+        member_id: member_id,
+        profile_id: profileId,
+      })
+      .then((res) => {
+        axios
+          .delete(
+            `http://localhost:8080/deleteprofiles?member_id=${member_id}&profile_id=${profileId}`
+          )
+          .then(() => {
+            if (window.localStorage.getItem("profile_num") === profileId) {
+              window.localStorage.setItem("profile_num", 1);
+            } else {
+              window.localStorage.setItem(
+                "profile_num",
+                window.localStorage.getItem("profile_num") - 1
+              );
+            }
+
+            navigate("/profiles");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       })
       .catch((error) => {
         console.error(error);
