@@ -23,6 +23,7 @@ import MemberBoard from "./pages/memberBoard";
 import BoardSearch from "./pages/BoardSearch";
 import { useState } from "react";
 import axios from "axios";
+import MemberSearch from "./pages/MemberSearch";
 
 const App = () => {
   const location = useLocation();
@@ -64,6 +65,7 @@ const App = () => {
       <Route path="/boardModify/:board_num" element={<BoardModify />} />
       <Route path="/boardSearch/:searchAny" element={<BoardSearch />} />
       <Route path="/memberBoard" element={<MemberBoard />} />
+      <Route path="/memberSearch/:searchAny" element={<MemberSearch />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

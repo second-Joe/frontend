@@ -45,11 +45,16 @@ export default function PrimarySearchAppBar({ kind }) {
   const navigate = useNavigate();
 
   const onchange = (event) => {
+    console.log(event.target.value);
     setSearch(event.target.value);
   };
 
   const onClick = () => {
-    navigate(`/boardSearch/${search}`);
+    if (kind === "고객관리") {
+      navigate(`/memberSearch/${search}`);
+    } else {
+      navigate(`/boardSearch/${search}`);
+    }
   };
 
   return (
