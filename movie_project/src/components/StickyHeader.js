@@ -11,6 +11,8 @@ const StickyHeader = ({ kind }) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
+
+
   return (
     <AppBar
       position="fixed"

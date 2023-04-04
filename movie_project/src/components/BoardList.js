@@ -59,7 +59,7 @@ export default function StickyHeadTable() {
 
   const getList = () => {
     axios
-      .post("http://localhost:8080/customer/get", {})
+      .get("http://localhost:8080/customer/get", {})
       .then((res) => {
         const { data } = res;
         setBoardList(data);
