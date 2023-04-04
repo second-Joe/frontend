@@ -79,6 +79,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
   const [pwQError, setPwQError] = useState("");
   const [passwordAnswer, setPasswordAnswer] = useState("");
   const [pwAnsError, setPwAnsError] = useState("");
+  const [password, setPassword] = useState("");
 
   const emailInput2 = document.querySelector("[name=email2]");
   const pwQInput2 = document.querySelector("[name=pwQ]");
@@ -131,6 +132,13 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
         .then((res) => {
           console.log("passwordSearch =>", res);
           if (res.data === 1) {
+            axios
+              .post("http://localhost:8080/selectMember", {
+                member_id: id,
+              })
+              .then((res) => {
+                setPassword(res.data.member_pw);
+              });
             setPasswordSearch(true);
             handlePwOpen();
           } else {
@@ -308,6 +316,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                   handlePwOpen={handlePwOpen}
                   handlePwClose={handlePwClose}
                   handleCloseAll={handleClose2}
+                  password={password}
                 />
               ) : null}
             </Box>

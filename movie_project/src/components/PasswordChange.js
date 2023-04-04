@@ -70,9 +70,11 @@ export default function PasswordChange({
   handlePwClose,
   setPasswordSearch,
   setPw,
+  pw,
   passwordChangeEmail,
   label,
   handleCloseAll,
+  password,
 }) {
   const [open, setOpen] = React.useState(openPwModal);
   const [newPw, setNewPw] = React.useState("");
@@ -109,12 +111,20 @@ export default function PasswordChange({
           if (res.data === 1) {
             handleClose2();
             if (label === "마이페이지 비밀번호 변경") {
+              if (pw === newPw) {
+                alert("동일한 비밀번호 입니다!");
+              } else {
+                alert("비밀번호 업데이트 성공!");
+              }
+              setPw(newPw);
+            } else {
+              if (password === newPw) {
+                alert("동일한 비밀번호 입니다!");
+              } else {
+                alert("비밀번호 업데이트 성공!");
+              }
               setPw(newPw);
             }
-
-            alert("비밀번호 업데이트 성공!");
-          } else {
-            alert("비밀번호 업데이트 실패!");
           }
         })
         .catch((e) => {

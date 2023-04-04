@@ -156,8 +156,6 @@ export default function EmailChange({
         .then((res) => {
           console.log("emailUpdate =>", res);
           if (res.data === 1) {
-            alert("이메일 주소 업데이트 성공!");
-
             axios
               .post("http://localhost:8080/profileEmailUpdate", {
                 member_id: email2,
@@ -175,8 +173,10 @@ export default function EmailChange({
             ) {
               window.localStorage.setItem("id", newEmail);
             }
+
+            alert("이메일 주소 업데이트 성공!");
             window.sessionStorage.setItem("id", newEmail);
-            // e.preventDefault();
+
             setEmail(newEmail);
 
             handleClose2();

@@ -256,6 +256,7 @@ const MyPageBody = () => {
                     handlePwClose={handlePwClose}
                     setPasswordSearch={setPasswordSearch}
                     setPw={setPw}
+                    pw={pw}
                   ></PasswordChange>
                 ) : null}
               </Box>
@@ -278,6 +279,7 @@ const MyPageBody = () => {
                     handleOpen={handlePhoneOpen}
                     handleClose={handlePhoneClose}
                     setTel={setTel}
+                    tel={tel}
                   ></PhoneChange>
                 ) : null}
               </Box>
