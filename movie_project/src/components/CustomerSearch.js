@@ -68,7 +68,7 @@ export default function PrimarySearchAppBar({ kind }) {
       >
         {kind}
       </Typography>
-      <Box sx={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+      <Box sx={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
         <Search>
           <StyledInputBase
             placeholder="검색어를 입력하세요"

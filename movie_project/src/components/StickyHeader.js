@@ -7,7 +7,7 @@ import { Grid, useMediaQuery, useTheme } from "@mui/material";
 import CustomerDropdown from "../components/CustomerDropdown";
 import CustomerSearch from "../components/CustomerSearch";
 
-const StickyHeader = ({ kind, onClick }) => {
+const StickyHeader = ({ kind }) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -46,7 +46,7 @@ const StickyHeader = ({ kind, onClick }) => {
 
           <Grid item xs={3}></Grid>
           <Grid item xs={6}>
-            <CustomerSearch kind={kind} onClick={onClick} />
+            <CustomerSearch kind={kind} />
           </Grid>
           <Grid item xs={3}></Grid>
         </Grid>
