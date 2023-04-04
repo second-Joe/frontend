@@ -97,7 +97,7 @@ export default function PasswordChange({
     // 패스워드의 유효성을 검사하는 코드를 작성한다.
     // 유효한 패스워드인 경우 true, 그렇지 않은 경우 false를 반환한다.
   };
-  const handlePwUpdate = () => {
+  const handlePwUpdate = (e) => {
     if (isValidPassword(newPw)) {
       axios
         .post("http://localhost:8080/passwordUpdate", {
@@ -122,6 +122,12 @@ export default function PasswordChange({
         });
     } else if (newPw === "") {
       setPasswordError("비밀번호를 입력해주세요.");
+    }
+  };
+
+  const checkenterSubmit = (e) => {
+    if (e.key === "Enter") {
+      handlePwUpdate();
     }
   };
 
@@ -165,6 +171,7 @@ export default function PasswordChange({
                   isValidPassword={isValidPassword}
                   setPasswordError={setPasswordError}
                   label="변경할 비밀번호를 입력해주세요"
+                  onKeyPress={checkenterSubmit}
                 />
                 <FormHelperText sx={{ mt: -2, fontSize: "1em", color: "red" }}>
                   {passwordError}

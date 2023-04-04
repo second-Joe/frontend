@@ -119,7 +119,6 @@ function Login() {
   };
 
   const checkSubmit = (event) => {
-    event.preventDefault();
     let validEmail = /\S+@\S+.\S+/.test(email);
     let validPassword = password.length >= 4 && password.length <= 60;
     if (!email) {
@@ -188,6 +187,13 @@ function Login() {
       .catch((e) => {
         console.error(e);
       });
+  };
+
+  const checkenterSubmit = (e) => {
+    e.stopPropagation();
+    if (e.key === "Enter") {
+      checkSubmit();
+    }
   };
 
   const [openModal, setOpenModal] = React.useState(false);
@@ -307,6 +313,7 @@ function Login() {
           }}
           value={password}
           onChange={handlePasswordChange}
+          onKeyPress={checkenterSubmit}
         />
 
         <FormHelperText sx={{ color: "red" }}>{passwordError}</FormHelperText>

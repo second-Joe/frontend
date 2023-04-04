@@ -163,6 +163,12 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
     return check;
   };
 
+  const checkenterSubmit = (e) => {
+    if (e.key === "Enter") {
+      passwordSearchSubmit();
+    }
+  };
+
   return (
     <div>
       <Modal
@@ -248,6 +254,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                   value={passwordAnswer}
                   setPwAnsError={setPwAnsError}
                   onChange={setPasswordAnswer}
+                  onKeyPress={checkenterSubmit}
                   label="비밀번호 찾기 질문에 대한 답을 입력해주세요"
                 />
                 <FormHelperText

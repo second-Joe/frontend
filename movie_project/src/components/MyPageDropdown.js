@@ -12,31 +12,35 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 const MypageDropDown = () => {
-  const member_id = window.sessionStorage.getItem("id");
+  const memberID = window.sessionStorage.getItem("id");
   const [profileNickname, setProfileNickName] = useState("USER");
   useEffect(() => {
-    loadProfiles(member_id);
-  }, []);
+    loadProfiles(memberID);
+  }, [memberID]);
 
-  const loadProfiles = async (member_id) => {
-    try {
-      const response = await axios.get("http://localhost:8080/profiles", {
-        params: { member_id },
-      });
-      console.log("response", response.data);
-      if (response.data !== null) {
-        if (window.profile_num !== undefined) {
-          console.log(window.profile_num);
-          setProfileNickName(response.data[window.profile_num - 1].nickname);
-          setProfileImg(profileImages[window.profile_num - 1]);
-        } else {
-          setProfileNickName(response.data[0].nickname);
-          setProfileImg(profileImages[0]);
+  const loadProfiles = (memberID) => {
+    console.log("MEMBERID", memberID);
+    axios
+      .post("http://localhost:8080/profiles", {
+        member_id: memberID,
+      })
+      .then((res) => {
+        console.log("res profiles", res.data);
+        if (res.data.length > 0) {
+          if (window.profile_num !== undefined) {
+            // console.log(window.profile_num);
+            setProfileNickName(res.data[window.profile_num - 1].nickname);
+            setProfileImg(profileImages[window.profile_num - 1]);
+          } else {
+            // console.log(window.profile_num);
+            setProfileNickName(res.data[0].nickname);
+            setProfileImg(profileImages[0]);
+          }
         }
-      }
-    } catch (error) {
-      console.error("Error loading profiles:", error);
-    }
+      })
+      .catch((error) => {
+        console.error("Error loading profiles:", error);
+      });
   };
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -71,13 +75,6 @@ const MypageDropDown = () => {
         onClick={handleClick}
       >
         {profileImg === "" ? (
-          <AccountBoxIcon
-            sx={{
-              fontSize: 40,
-              color: "grey",
-            }}
-          />
-        ) : (
           <Box
             sx={{
               display: "flex",
@@ -94,6 +91,48 @@ const MypageDropDown = () => {
               }}
             >
               <Typography sx={{ fontSize: 15, color: "white", mt: 2 }}>
+                SELECT PROFILE
+              </Typography>
+            </Box>
+            <AccountBoxIcon
+              sx={{
+                fontSize: 40,
+                color: "grey",
+              }}
+            />
+            <ArrowDropDownIcon
+              style={{
+                marginTop: 6,
+                marginLeft: 5,
+                fontSize: "2rem",
+                color: "white",
+              }}
+            />
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              width: 350,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                width: "100%",
+                pr: 2,
+              }}
+            >
+              <Typography
+                sx={{
+                  textTransform: "none",
+                  fontSize: 25,
+                  color: "white",
+                  mt: 1,
+                }}
+              >
                 {profileNickname}
               </Typography>
             </Box>

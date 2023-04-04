@@ -111,6 +111,13 @@ export default function PhoneChange({
     }
   };
 
+  const checkenterSubmit = (e) => {
+    e.stopPropagation();
+    if (e.key === "Enter") {
+      handleUpdate();
+    }
+  };
+
   return (
     <div>
       <Modal
@@ -150,6 +157,7 @@ export default function PhoneChange({
                   onChange={setNewTel}
                   setTelError={setTelError}
                   label="변경할 휴대폰 번호를 입력해주세요"
+                  onKeyPress={checkenterSubmit}
                 />
                 <FormHelperText sx={{ mt: -2, fontSize: "1em", color: "red" }}>
                   {telError}

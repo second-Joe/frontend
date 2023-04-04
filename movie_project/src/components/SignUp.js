@@ -352,6 +352,12 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
       setIdError("아이디를 입력하세요.");
     }
   };
+
+  const checkenterSubmit = (e) => {
+    if (e.key === "Enter") {
+      loginSubmit();
+    }
+  };
   return (
     <div>
       <Modal
@@ -402,6 +408,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                   classes={{
                     root: classes.root,
                   }}
+                  autoComplete="off"
                   label="이메일 주소를 입력해주세요"
                   type="email"
                   value={id}
@@ -443,6 +450,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
                 label="비밀번호를 입력해주세요"
                 type="password"
                 value={password}
@@ -471,6 +479,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
                 sx={formStyle}
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -493,6 +502,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
                 label="이름을 입력해주세요"
                 type="text"
                 value={name}
@@ -516,6 +526,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
                 label="전화번호를 입력해주세요"
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -538,6 +549,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
                 label="주소를 입력해주세요"
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -564,6 +576,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
                 setPwQError={setPwQError}
                 passwordQuestion={passwordQuestion}
                 setPasswordQuestion={setPasswordQuestion}
@@ -585,6 +598,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
                 label="비밀번호 찾기 질문에 대한 답"
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -592,6 +606,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 sx={formStyle}
                 value={pwCheck}
                 onChange={handlePwCheckChange}
+                onKeyPress={checkenterSubmit}
               />
               <FormHelperText sx={{ color: "red" }}>
                 {pwCheckError}

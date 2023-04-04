@@ -111,6 +111,7 @@ function Banner_data({
         member_id: window.sessionStorage.getItem("id"),
       })
       .then((res) => {
+        console.log(res.data);
         setIsChecked(res.data?.length ? true : false);
       })
       .catch((e) => {

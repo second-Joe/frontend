@@ -8,7 +8,9 @@ const DownLoadmany = () => {
 
   const searchMovies = async () => {
     const json = await (
-      await fetch(`https://yts.mx/api/v2/list_movies.json?sort_by=download_count&order_by=desc&limit=48`)
+      await fetch(
+        `https://yts.mx/api/v2/list_movies.json?sort_by=download_count&order_by=desc&limit=48`
+      )
     ).json();
     setMovies(json.data);
     setLoading(false);
@@ -16,7 +18,7 @@ const DownLoadmany = () => {
 
   useEffect(() => {
     searchMovies();
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -27,7 +29,7 @@ const DownLoadmany = () => {
             marginTop: "100px",
             color: "white",
             fontSize: "2.4em",
-            position: "fixed"
+            position: "fixed",
           }}
         >
           Searching...

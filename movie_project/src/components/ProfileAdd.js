@@ -38,6 +38,12 @@ const ProfileAdd = ({ onAddProfile }) => {
           maxHeight: { xs: 180, md: 180 },
           maxWidth: { xs: 180, md: 180 },
           boxSizing: "border-box",
+          "&:hover": {
+            backgroundColor: "white",
+            opacity: [0.9, 0.8, 0.7],
+            cursor: "pointer",
+            border: "5px solid white",
+          },
         }}
         alt="Add Profile"
         onClick={handleClickOpen}

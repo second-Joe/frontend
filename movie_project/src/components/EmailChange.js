@@ -91,6 +91,7 @@ export default function EmailChange({
   };
 
   const idDuplicateCheck = () => {
+    let check = true;
     if (newEmail !== "") {
       if (isValidId(newEmail)) {
         axios
@@ -101,10 +102,9 @@ export default function EmailChange({
             console.log("idDuplicateCheck =>", res);
             if (res.data === 1) {
               setIdError("이메일이 중복됩니다.");
-              return false;
+              check = false;
             } else {
               setIdError("사용가능한 이메일입니다.");
-              return true;
             }
           })
           .catch((e) => {
@@ -112,20 +112,22 @@ export default function EmailChange({
           });
       } else {
         setIdError("정확한 이메일 주소를 입력해주세요.");
+        check = false;
       }
     } else {
       setIdError("이메일을 입력하세요.");
+      check = false;
     }
+    return check;
   };
 
   const handleUpdate = () => {
+    console.log(idDuplicateCheck);
+    if (idDuplicateCheck()) {
+    }
     if (idError === "") {
       alert("이메일 중복확인 해주세요.");
-      idDuplicateCheck();
-      return false;
-    } else if (idError === "이메일이 중복됩니다.") {
-      return false;
-    } else {
+    } else if (idError === "사용가능한 이메일입니다.") {
       if (isValidId(newEmail)) {
         axios
           .post("http://localhost:8080/emailUpdate", {
@@ -137,6 +139,15 @@ export default function EmailChange({
             if (res.data === 1) {
               handleClose2();
               alert("이메일 주소 업데이트 성공!");
+              axios
+                .post("http://localhost:8080/profileEmailUpdate", {
+                  member_id: email2,
+                  member_new_id: newEmail,
+                })
+                .then((res) => {})
+                .catch((e) => {
+                  console.error(e);
+                });
               if (
                 window.localStorage.getItem("id") ===
                 window.sessionStorage.getItem("id")
@@ -157,6 +168,8 @@ export default function EmailChange({
       }
     }
   };
+
+  const checkenterSubmit = (e) => {};
 
   return (
     <div>
@@ -198,6 +211,7 @@ export default function EmailChange({
                   isValidId={isValidId}
                   setIdError={setIdError}
                   label="변경할 이메일 주소를 입력해주세요"
+                  onKeyPress={checkenterSubmit}
                 />
                 <FormHelperText sx={{ mt: -2, fontSize: "1em", color: "red" }}>
                   {idError}

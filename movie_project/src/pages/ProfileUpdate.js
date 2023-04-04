@@ -37,19 +37,19 @@ const ProfileUpdate = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(profileId);
     axios
-      .get(
-        `http://localhost:8080/profiles?member_id=${member_id}&profile_id=${profileId}`
-      )
+      .post("http://localhost:8080/profileDetail", {
+        member_id: member_id,
+        profile_id: profileId,
+      })
       .then((res) => {
-        if (res.data.length > 0) {
-          setNickname(res.data[0].nickname);
-        }
+        setNickname(res.data.nickname);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, [member_id, profileId]);
+  }, []);
 
   const handleSave = () => {
     axios
@@ -110,6 +110,7 @@ const ProfileUpdate = () => {
           {renderProfileImage(parseInt(profileId, 10))}
 
           <TextField
+            value={nickname}
             autoComplete="off"
             label="수정하실 닉네임을 적어주세요."
             variant="outlined"

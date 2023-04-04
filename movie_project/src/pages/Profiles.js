@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Grid, Typography, Box } from "@mui/material";
 import ProfileAdd from "../components/ProfileAdd";
 import ProfilesManageBtn from "../components/ProfilesManageBtn";
-
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 const PageTitle = ({ manageMode }) => {
   return (
     <div
@@ -23,30 +23,43 @@ const PageTitle = ({ manageMode }) => {
 function ProfileManager() {
   const [profiles, setProfiles] = useState([]);
 
-  const member_id = window.sessionStorage.getItem("id");
+  const memberID = window.sessionStorage.getItem("id");
 
   useEffect(() => {
-    loadProfiles(member_id);
-  }, [member_id]);
+    loadProfiles(memberID);
+  }, [memberID]);
 
-  const loadProfiles = async (member_id) => {
-    try {
-      const response = await axios.get("http://localhost:8080/profiles", {
-        params: { member_id },
+  // const loadProfiles = async (member_id) => {
+  //   try {
+  //     const response = await axios.get("http://localhost:8080/profiles", {
+  //       params: { member_id },
+  //     });
+  //     setProfiles(response.data);
+  //   } catch (error) {
+  //     console.error("Error loading profiles:", error);
+  //   }
+  // };
+  const loadProfiles = (memberID) => {
+    axios
+      .post("http://localhost:8080/profiles", {
+        member_id: memberID,
+      })
+      .then((res) => {
+        console.log("res profiles", res.data);
+        setProfiles(res.data);
+      })
+      .catch((error) => {
+        console.error("Error loading profiles:", error);
       });
-      setProfiles(response.data);
-    } catch (error) {
-      console.error("Error loading profiles:", error);
-    }
   };
 
   const addProfile = async (newNickname) => {
     try {
       await axios.post("http://localhost:8080/insertprofiles", {
-        member_id: member_id,
+        member_id: memberID,
         nickname: newNickname,
       });
-      loadProfiles(member_id);
+      loadProfiles(memberID);
     } catch (error) {
       console.error("Error adding profile:", error);
     }
@@ -65,8 +78,30 @@ function ProfileManager() {
     setManageMode(!manageMode);
   };
 
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div style={{ minHeight: "100vh" }}>
+      <ArrowBackIosNewIcon
+        sx={{
+          display: "flex",
+          marginRight: "10px",
+          color: "white",
+          fontSize: "3em",
+          "&:hover": {
+            cursor: "pointer",
+            boxSizing: "border-box",
+            fontWeight: "bold",
+            opacity: [0.9, 0.8, 0.7],
+          },
+          ml: 3,
+          mt: 4,
+        }}
+        onClick={goBack}
+      />
       <PageTitle manageMode={manageMode} />
       <div
         style={{
@@ -97,7 +132,7 @@ function ProfileManager() {
               <Link
                 to={
                   manageMode
-                    ? `/profile/edit/${member_id}/${profile.profile_id}`
+                    ? `/profile/edit/${memberID}/${profile.profile_id}`
                     : `/login/${profile.profile_id}`
                 }
               >
@@ -110,10 +145,10 @@ function ProfileManager() {
                     maxWidth: { xs: 180, md: 180 },
                     boxSizing: "border-box",
                     "&:hover": {
-                      backgroundColor: manageMode ? "white" : "",
-                      opacity: manageMode ? [0.9, 0.8, 0.7] : "",
+                      backgroundColor: "white",
+                      opacity: [0.9, 0.8, 0.7],
                       cursor: "pointer",
-                      border: manageMode ? "5px solid white" : "",
+                      border: "5px solid white",
                     },
                   }}
                   alt={`Profile ${profile.nickname}`}

@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import { Divider } from "@mui/material";
 
 export default function FadeMenu({ onClick }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -62,6 +63,7 @@ export default function FadeMenu({ onClick }) {
         <MenuItem component={Link} to="/profiles">
           <Typography textAlign="center">{"프로필 변경"}</Typography>
         </MenuItem>
+        <Divider />
         <MenuItem onClick={onClick}>
           <Typography textAlign="center">{"로그아웃"}</Typography>
         </MenuItem>
