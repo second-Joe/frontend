@@ -34,24 +34,19 @@ const OutputMovieGenres = ({ genre }) => {
     ).json();
 
     let data = movieData.data.movies;
-
     setLoading(false);
-    setMovies([data]);
+    setMovies(shuffle(data));
   };
 
   function shuffle(array) {
-    array.sort(() => Math.random() - 0.5);
+    return array.sort(() => Math.random() - 0.5);
   }
 
   const movieRender = () => {
-    shuffle(movies[0]);
-    const movieList = movies[0];
-    console.log("movies0", movies[0]);
-    console.log("movie", moviesIndex);
     let result = [];
 
     for (let i = moviesIndex; i < moviesIndex + 5; i++) {
-      let movie = movieList[i];
+      let movie = movies[i];
 
       result.push(
         <Grid item xs={2} key={movie.id}>
@@ -128,8 +123,8 @@ const OutputMovieGenres = ({ genre }) => {
               </IconButton>
             </Grid>
 
-            {movieRender()}
-
+            {movies?.length && movieRender()}
+            {/* {movieRender()} */}
             <Grid item xs={1}>
               <IconButton
                 onClick={moveRight}

@@ -144,7 +144,12 @@ const NavBar = ({
             onClick={goBack}
           />
 
-          <Box sx={{ flexGrow: 1, display: { md: "none" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { md: "none" },
+            }}
+          >
             <MenuButton
               search={search}
               setSearch={setSearch}
@@ -168,7 +173,18 @@ const NavBar = ({
             {pages.map((page) => (
               <Button
                 key={page}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  "&:hover": {
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                    color: "red",
+                    opacity: [0.9, 0.8, 0.7],
+                    transform: "scale(1.1)",
+                  },
+                }}
                 onClick={showSearchResult}
                 value={page}
               >

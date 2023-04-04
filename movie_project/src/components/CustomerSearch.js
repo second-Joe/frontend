@@ -46,11 +46,11 @@ export default function PrimarySearchAppBar({ kind }) {
 
   const onchange = (event) => {
     setSearch(event.target.value);
-  }
+  };
 
   const onClick = () => {
     navigate(`/boardSearch/${search}`);
-  }
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -77,11 +77,7 @@ export default function PrimarySearchAppBar({ kind }) {
             sx={{ width: "100%" }}
           />
         </Search>
-        <CustomizedButton
-          label="검색"
-          value="search"
-          onClick={onClick}
-        />
+        <CustomizedButton label="검색" value="search" onClick={onClick} />
       </Box>
     </Box>
   );
