@@ -649,11 +649,22 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
               <FormHelperText sx={{ color: "red" }}>{addrError}</FormHelperText>
             </Box>
             <Box
-              sx={inputFormStyle}
-              style={{ marginTop: "2px", height: "92px" }}
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "flex-end",
+              }}
+              style={{ alignItems: "center" }}
             >
               <Typography
-                sx={{ width: "150px", mr: 5, mt: 3 }}
+                sx={{
+                  width: "150px",
+                  mr: 5,
+                  height: "56px",
+                  // marginBottom: "-10px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
                 variant="h10"
                 component="h4"
               >
@@ -669,13 +680,11 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 passwordQuestion={passwordQuestion}
                 setPasswordQuestion={setPasswordQuestion}
               />
-              <FormHelperText sx={{ color: "red", mt: -3, mb: 3 }}>
-                {pwQError}
-              </FormHelperText>
+              <FormHelperText sx={{ color: "red" }}>{pwQError}</FormHelperText>
             </Box>
-            <Box sx={inputFormStyle}>
+            <Box sx={inputFormStyle} style={{ alignItems: "center" }}>
               <Typography
-                sx={{ width: "150px", mr: 5, mt: 3 }}
+                sx={{ width: "150px", mr: 5 }}
                 variant="h10"
                 component="h4"
               >

@@ -269,7 +269,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                   setPasswordQuestion={setPasswordQuestion}
                 />
                 <FormHelperText
-                  sx={{ mt: -3, mb: 2, color: "red", fontSize: "0.9em" }}
+                  sx={{ mt: 1, mb: 2, color: "red", fontSize: "0.9em" }}
                 >
                   {pwQError}
                 </FormHelperText>
@@ -283,7 +283,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
               >
                 비밀번호 찾기 답변
               </Typography>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Box sx={{ display: "flex", flexDirection: "column", mt: -1 }}>
                 <OutlinedTextField
                   required
                   name="pwAInput2"
@@ -294,7 +294,7 @@ export default function PasswordCheck({ openModal, handleOpen, handleClose }) {
                   label="비밀번호 찾기 질문에 대한 답을 입력해주세요"
                 />
                 <FormHelperText
-                  sx={{ mt: -3, mb: 2, color: "red", fontSize: "0.9em" }}
+                  sx={{ mt: -2, mb: 2, color: "red", fontSize: "0.9em" }}
                 >
                   {pwAnsError}
                 </FormHelperText>

@@ -36,7 +36,7 @@ export default function SelectInput({
   // };
 
   return (
-    <Box sx={{ minWidth: 120, mb: 3 }}>
+    <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
         <InputLabel
           sx={{
