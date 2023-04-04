@@ -136,22 +136,95 @@ export default function MemberUpdateForm({
   const [telError, setTelError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [pwQError, setPwQError] = useState("");
-  // const [loginAvailable, setLoginAvailable] = useState(false);
-  // const [idDuplicate, setIdDuplicate] = useState(false);
-  const onNameHandler = (event) => {
-    setName(event.currentTarget.value);
+
+  const emailInput = document.querySelector("[name=memberemail]");
+  const passwordInput = document.querySelector("[name=memberpassword]");
+  const passwordConfirmInput = document.querySelector(
+    "[name=memberpasswordconfirm]"
+  );
+  const nameInput = document.querySelector("[name=membername]");
+  const telInput = document.querySelector("[name=membertel]");
+  const addrInput = document.querySelector("[name=memberaddr]");
+  const pwQInput = document.querySelector("[name=memberpwQ]");
+  const pwAInput = document.querySelector("[name=memberpwA]");
+
+  const emailFocus = () => {
+    emailInput.focus();
   };
+
+  const passwordFocus = () => {
+    // console.log(passwordInput);
+    passwordInput.focus();
+  };
+  const passwordConfirmFocus = () => {
+    passwordConfirmInput.focus();
+  };
+
+  const nameFocus = () => {
+    nameInput.focus();
+  };
+  const telFocus = () => {
+    telInput.focus();
+  };
+
+  const addrFocus = () => {
+    addrInput.focus();
+  };
+  const pwQFocus = () => {
+    console.log(pwQInput);
+    pwQInput.focus();
+  };
+
+  const pwAFocus = () => {
+    pwAInput.focus();
+  };
+
+  const gotoPasswordInput = (e) => {
+    if (e.key === "Enter") {
+      passwordFocus();
+    }
+  };
+  const gotoPasswordConfirmInput = (e) => {
+    if (e.key === "Enter") {
+      console.log(passwordConfirmInput);
+      passwordConfirmFocus();
+    }
+  };
+  const gotoNameInput = (e) => {
+    if (e.key === "Enter") {
+      console.log(nameInput);
+      nameFocus();
+    }
+  };
+  const gotoTelInput = (e) => {
+    console.log(telInput);
+    if (e.key === "Enter") {
+      telFocus();
+    }
+  };
+  const gotoAddrInput = (e) => {
+    console.log(addrInput);
+    if (e.key === "Enter") {
+      addrFocus();
+    }
+  };
+  const gotoPwQInput = (e) => {
+    console.log(pwQInput);
+    if (e.key === "Enter") {
+      pwQFocus();
+    }
+  };
+  const gotoPwAInput = (e) => {
+    console.log(pwAInput);
+    if (e.key === "Enter") {
+      pwAFocus();
+    }
+  };
+
   const onConfirmPasswordHandler = (event) => {
     setConfirmPassword(event.currentTarget.value);
   };
 
-  const isValidId = (id) => {
-    const idRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    return idRegex.test(id);
-    // 이메일 주소의 유효성을 검사하는 코드를 작성한다.
-    // 유효한 이메일 주소인 경우 true, 그렇지 않은 경우 false를 반환한다.
-  };
   const isValidPassword = (password) => {
     const passwordRegex = password.length >= 4 && password.length <= 20;
     return passwordRegex;
@@ -163,20 +236,9 @@ export default function MemberUpdateForm({
     return phoneRegex.test(tel.slice(0, 13));
   };
 
-  const handleIdChange = (event) => {
-    setId((value) => event.target.value);
-    // setEmail 함수를 이용해 email 상태값을 업데이트한다.
-    setIdError(
-      isValidId(event.target.value) ? "" : "정확한 이메일 주소를 입력해주세요."
-    );
-    if (event.target.value === "") {
-      setIdError("이메일을 입력하세요");
-    }
-  };
-
   const handlePasswordChange = (event) => {
     console.log(event);
-    setPassword((value) => event.target.value);
+    setPassword(event.target.value);
     // setPassword 함수를 이용해 password 상태값을 업데이트한다.
     setPasswordError(
       isValidPassword(event.target.value)
@@ -189,7 +251,7 @@ export default function MemberUpdateForm({
   };
 
   const handleAddrChange = (event) => {
-    setAddr((value) => event.target.value);
+    setAddr(event.target.value);
     if (event.target.value !== "") {
       setAddrError("");
     } else {
@@ -198,7 +260,7 @@ export default function MemberUpdateForm({
   };
 
   const handleNameChange = (event) => {
-    setName((value) => event.target.value);
+    setName(event.target.value);
     if (event.target.value !== "") {
       setNameError("");
     } else {
@@ -225,7 +287,7 @@ export default function MemberUpdateForm({
     }
   };
   const handlePwCheckChange = (event) => {
-    setPwCheck((value) => event.target.value);
+    setPwCheck(event.target.value);
     if (event.target.value !== "") {
       setPwCheckError("");
     } else {
@@ -314,6 +376,12 @@ export default function MemberUpdateForm({
     }
   };
 
+  const checkenterSubmit = (e) => {
+    if (e.key === "Enter") {
+      infoChange();
+    }
+  };
+
   return (
     <div>
       <Modal
@@ -382,13 +450,13 @@ export default function MemberUpdateForm({
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
+                name="memberpassword"
+                onKeyPress={gotoPasswordConfirmInput}
                 label="비밀번호를 입력해주세요"
                 type="password"
                 value={password}
                 onChange={handlePasswordChange}
-                setPwQError={setPwQError}
-                passwordQuestion={passwordQuestion}
-                setPasswordQuestion={setPasswordQuestion}
                 required
                 inputProps={{ style: { color: "white" } }}
                 InputLabelProps={{ style: { color: "white" } }}
@@ -410,6 +478,9 @@ export default function MemberUpdateForm({
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
+                name="memberpasswordconfirm"
+                onKeyPress={gotoNameInput}
                 sx={formStyle}
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -432,6 +503,9 @@ export default function MemberUpdateForm({
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
+                name="membername"
+                onKeyPress={gotoTelInput}
                 label="이름을 입력해주세요"
                 type="text"
                 value={name}
@@ -455,6 +529,9 @@ export default function MemberUpdateForm({
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
+                name="membertel"
+                onKeyPress={gotoAddrInput}
                 label="전화번호를 입력해주세요"
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -477,6 +554,9 @@ export default function MemberUpdateForm({
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
+                name="memberaddr"
+                onKeyPress={gotoPwQInput}
                 label="주소를 입력해주세요"
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -503,6 +583,9 @@ export default function MemberUpdateForm({
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
+                name="memberpwQ"
+                onKeyPress={gotoPwAInput}
                 setPwQError={setPwQError}
                 passwordQuestion={passwordQuestion}
                 setPasswordQuestion={setPasswordQuestion}
@@ -524,6 +607,8 @@ export default function MemberUpdateForm({
                 classes={{
                   root: classes.root,
                 }}
+                autoComplete="off"
+                name="memberpwA"
                 label="비밀번호 찾기 질문에 대한 답"
                 required
                 inputProps={{ style: { color: "white" } }}
@@ -531,6 +616,7 @@ export default function MemberUpdateForm({
                 sx={formStyle}
                 value={pwCheck}
                 onChange={handlePwCheckChange}
+                onKeyPress={checkenterSubmit}
               />
               <FormHelperText sx={{ color: "red" }}>
                 {pwCheckError}
