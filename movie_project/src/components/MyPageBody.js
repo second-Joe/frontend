@@ -93,7 +93,6 @@ const MyPageBody = () => {
         console.log("res profiles", res.data);
         if (res.data.length > 0) {
           if (profileNum !== undefined) {
-            console.log(profileNum);
             setProfileNickName(res.data[profileNum - 1].nickname);
             setProfileImg(profileImages[profileNum - 1]);
           } else {

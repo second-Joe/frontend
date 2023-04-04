@@ -9,6 +9,7 @@ import NewDateAdd from "./NewDateAdd";
 import FavMovieList from "./FavMovieList";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useMediaQuery, useTheme } from "@mui/material";
+import axios from "axios";
 
 import React from "react";
 
@@ -60,6 +61,7 @@ const Layout = () => {
   }, []);
 
   useEffect(() => {
+    loadProfiles(window.sessionStorage.getItem("id"));
     document.body.style.backgroundColor = "rgb(42, 43, 43)";
     if (profile_num === "") {
       // /login으로 접속했을 경우
@@ -75,6 +77,23 @@ const Layout = () => {
       window.localStorage.setItem("profile_num", profile_num);
     }
   });
+
+  const loadProfiles = (login_id) => {
+    console.log("MEMBERID", login_id);
+    axios
+      .post("http://localhost:8080/profiles", {
+        member_id: login_id,
+      })
+      .then((res) => {
+        // console.log("res profiles", res.data.length);
+        if (res.data.length === 0) {
+          window.localStorage.setItem("profile_num", 1);
+        }
+      })
+      .catch((error) => {
+        console.error("Error loading profiles:", error);
+      });
+  };
 
   const menuName = menuKind;
 

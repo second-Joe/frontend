@@ -77,6 +77,9 @@ const ProfileUpdate = () => {
         `http://localhost:8080/deleteprofiles?member_id=${member_id}&profile_id=${profileId}`
       )
       .then(() => {
+        if (window.localStorage.getItem("profile_num") === profileId) {
+          window.localStorage.setItem("profile_num", 1);
+        }
         navigate("/profiles");
       })
       .catch((error) => {
