@@ -79,6 +79,8 @@ const ProfileUpdate = () => {
       .then(() => {
         if (window.localStorage.getItem("profile_num") === profileId) {
           window.localStorage.setItem("profile_num", 1);
+        } else {
+          axios.post("http://localhost:8080/getDeleteProcessMember");
         }
         navigate("/profiles");
       })
