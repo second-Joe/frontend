@@ -158,6 +158,7 @@ function Login() {
               console.log("handleLogin =>", res);
               if (res.data === 1) {
                 window.sessionStorage.setItem("id", email);
+                window.localStorage.removeItem("profile_num");
                 if (saveAccount === true) {
                   // 로그인 정보 저장 버튼을 누르면 localstorage에 로그인 정보 저장
                   window.localStorage.clear();

@@ -85,6 +85,7 @@ const NavBar = ({
 
   const goLogout = () => {
     window.sessionStorage.clear(); // 세션스토리지에 저장된 속성값 모두 삭제
+    window.localStorage.removeItem("profile_num");
     navigate("/", { replace: true });
     // 2 방법. window.location.replace("/");
     // 3 방법. return <Navigate to="/" replace={false} />;

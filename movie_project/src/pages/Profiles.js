@@ -80,7 +80,7 @@ function ProfileManager() {
 
   const navigate = useNavigate();
   const goBack = () => {
-    navigate(-1);
+    navigate("/login");
   };
 
   return (

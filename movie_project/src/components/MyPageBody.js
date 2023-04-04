@@ -13,7 +13,7 @@ import PasswordChange from "./PasswordChange";
 import PhoneChange from "./PhoneChange";
 import axios from "axios";
 import { useMediaQuery, useTheme } from "@mui/material";
-import { useEffect } from "react";
+import { useLayoutEffect, useEffect } from "react";
 
 const MyPageBody = () => {
   const theme = useTheme();
@@ -77,9 +77,9 @@ const MyPageBody = () => {
   const [memberID, setMemberID] = useState(window.sessionStorage.getItem("id"));
   const [profileNickname, setProfileNickName] =
     useState("저장된 프로필이 없습니다");
-  const [profileID, setProfileID] = useState(0);
+  const profileNum = window.localStorage.getItem("profile_num");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     loadProfiles(memberID);
   }, [memberID]);
 
@@ -92,16 +92,12 @@ const MyPageBody = () => {
       .then((res) => {
         console.log("res profiles", res.data);
         if (res.data.length > 0) {
-          if (window.localStorage.getItem("profile_num") !== undefined) {
-            console.log(window.localStorage.getItem("profile_num"));
-            setProfileNickName(
-              res.data[window.localStorage.getItem("profile_num") - 1].nickname
-            );
-            setProfileImg(
-              profileImages[window.localStorage.getItem("profile_num") - 1]
-            );
+          if (profileNum !== undefined) {
+            console.log(profileNum);
+            setProfileNickName(res.data[profileNum - 1].nickname);
+            setProfileImg(profileImages[profileNum - 1]);
           } else {
-            console.log(window.localStorage.getItem("profile_num"));
+            console.log(profileNum);
             setProfileNickName(res.data[0].nickname);
             setProfileImg(profileImages[0]);
           }
@@ -153,7 +149,9 @@ const MyPageBody = () => {
             .post("http://localhost:8080/favmovie/remove", {
               member_id: window.sessionStorage.getItem("id"),
             })
-            .then((res) => {})
+            .then((res) => {
+              window.localStorage.removeItem("profile_num");
+            })
             .catch((e) => {
               console.error(e);
             });
