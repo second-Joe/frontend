@@ -63,7 +63,25 @@ function Login() {
   const [emailLabel, setEmailLabel] = useState("이메일 주소");
   const [pwLabel, setPwLabel] = useState("비밀번호");
 
+  const emailInput = document.querySelector("[name=email]");
+  const passwordInput = document.querySelector("[name=password]");
+
+  const emailFocus = () => {
+    emailInput.focus();
+  };
+
+  const passwordFocus = () => {
+    passwordInput.focus();
+  };
+
+  const gotoPasswordInput = (e) => {
+    if (e.key === "Enter") {
+      passwordFocus();
+    }
+  };
+
   useEffect(() => {
+    // emailFocus();
     if (window.localStorage.getItem("id") !== null) {
       // alert("저장된 정보 있음!");
       setSaveAccount(true);
@@ -191,7 +209,6 @@ function Login() {
   };
 
   const checkenterSubmit = (e) => {
-    e.stopPropagation();
     if (e.key === "Enter") {
       checkSubmit();
     }
@@ -258,6 +275,7 @@ function Login() {
             root: classes.root,
           }}
           autoComplete="off"
+          onKeyPress={gotoPasswordInput}
           ref={emailRef}
           margin="normal"
           label={emailLabel}
@@ -295,6 +313,7 @@ function Login() {
           ref={pwRef}
           label={pwLabel}
           type="password"
+          name="password"
           autoComplete="current-password"
           required
           fullWidth

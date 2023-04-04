@@ -13,6 +13,7 @@ export default function SelectInput({
   setPwQError,
   kind,
   pw_question,
+  onKeyPress,
 }) {
   const handleChange = (event) => {
     console.log(event);
@@ -28,6 +29,11 @@ export default function SelectInput({
   if (kind === "memberupdate") {
     setPasswordQuestion((value) => pw_question);
   }
+
+  // const handleKeyPress = (event) => {
+  //   onKeyPress();
+  //   setPasswordQuestion("자신의 보물 제1호는?");
+  // };
 
   return (
     <Box sx={{ minWidth: 120, mb: 3 }}>
@@ -45,7 +51,9 @@ export default function SelectInput({
           Password Questions
         </InputLabel>
         <Select
+          onKeyPress={onKeyPress}
           labelId="simple-select-label"
+          name="pwQ"
           id="simple-select"
           value={passwordQuestion}
           label="passwordQuestions"
