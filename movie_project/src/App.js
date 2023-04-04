@@ -20,6 +20,7 @@ import BoardList from "./components/BoardList";
 import BoardModify from "./pages/BoardModify";
 import BoardDetail from "./components/BoardDetail";
 import MemberBoard from "./pages/memberBoard";
+import BoardSearch from "./pages/BoardSearch";
 import { useState } from "react";
 import axios from "axios";
 
@@ -61,6 +62,7 @@ const App = () => {
       <Route path="/board/:board_num" element={<BoardDetail />} />
       <Route path="/boardInsert" element={<BoardInsert />} />
       <Route path="/boardModify/:board_num" element={<BoardModify />} />
+      <Route path="/boardSearch/:searchAny" element={<BoardSearch />} />
       <Route path="/memberBoard" element={<MemberBoard />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
