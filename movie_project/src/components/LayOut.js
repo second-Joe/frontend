@@ -88,6 +88,10 @@ const Layout = () => {
         // console.log("res profiles", res.data.length);
         if (res.data.length === 0) {
           window.localStorage.setItem("profile_num", 1);
+        } else {
+          if (window.localStorage.getItem("profile_num") === null) {
+            window.localStorage.setItem("profile_num", 1);
+          }
         }
       })
       .catch((error) => {
