@@ -49,6 +49,12 @@ export default function PrimarySearchAppBar({ kind }) {
     setSearch(event.target.value);
   };
 
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      onClick();
+    }
+  };
+
   const onClick = () => {
     if (kind === "고객관리") {
       navigate(`/memberSearch/${search}`);
@@ -76,6 +82,7 @@ export default function PrimarySearchAppBar({ kind }) {
       <Box sx={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
         <Search>
           <StyledInputBase
+            onKeyPress={handleEnter}
             placeholder="검색어를 입력하세요"
             inputProps={{ "aria-label": "search" }}
             onChange={onchange}
