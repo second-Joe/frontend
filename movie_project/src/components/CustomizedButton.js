@@ -52,6 +52,26 @@ export default function CustomizedButton(props) {
         >
           {props.label}
         </BootstrapButton>
+      ) : value === "로그인 정보 삭제하기2" ? (
+        <BootstrapButton
+          value={value}
+          onClick={props.onClick}
+          variant="contained"
+          disableRipple
+          sx={{ width: 200, borderRadius: "5px" }}
+        >
+          {props.label}
+        </BootstrapButton>
+      ) : value === "탈퇴하기2" ? (
+        <BootstrapButton
+          value={value}
+          onClick={props.onClick}
+          variant="contained"
+          disableRipple
+          sx={{ width: 200, borderRadius: "5px", mb: 5 }}
+        >
+          {props.label}
+        </BootstrapButton>
       ) : (
         <BootstrapButton
           value={value}

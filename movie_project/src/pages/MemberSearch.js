@@ -15,10 +15,18 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import MemberUpdateForm from "../components/memberUpdateForm";
 
-export default function StickyHeadTable() {
+export default function MemberSearch() {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const { searchAny } = useParams();
+
   const [openMemberUpdateForm, setOpenMemberUpdateForm] = React.useState(false);
 
   const updateFormOpen = () => {
@@ -27,12 +35,6 @@ export default function StickyHeadTable() {
   const updateFormClose = () => {
     setOpenMemberUpdateForm(false);
   };
-
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const isMiddleScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const columns = [
     { id: "member_num", label: "번호", minWidth: 10 },
@@ -45,7 +47,6 @@ export default function StickyHeadTable() {
     { id: "pw_answer", label: "비밀번호 답", minWidth: 10 },
     { id: "signup_date", label: "가입날짜", minWidth: 10 },
   ];
-
   let paddingTop = "200px";
   if (isSmallScreen) {
     paddingTop = "140px";
@@ -78,10 +79,11 @@ export default function StickyHeadTable() {
 
   const getList = () => {
     axios
-      .post("http://localhost:8080/getMembers", {})
+      .get(`http://localhost:8080/memberSearch?search=${searchAny}`, {})
       .then((res) => {
         const { data } = res;
         setMemberList(data);
+        console.log(data);
       })
       .catch((e) => {
         console.error(e);
@@ -89,7 +91,6 @@ export default function StickyHeadTable() {
   };
 
   const handleTableCellClick = (event, post) => {
-    // console.log(post);
     if (event.target.innerText === "수정") {
       axios
         .post("http://localhost:8080/selectMember", {
@@ -170,7 +171,7 @@ export default function StickyHeadTable() {
 
   useEffect(() => {
     getList();
-  });
+  }, [searchAny]);
   return (
     <div>
       <StickyHeader kind="고객관리" />

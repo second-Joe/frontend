@@ -436,28 +436,62 @@ const MyPageBody = () => {
         </Grid>
       </Grid>
       <Divider />
-      <Box sx={{ display: "flex", justifyContent: "end", mt: 5 }}>
-        {user === "admin@email.com" ? (
-          <Box sx={{ mr: 3 }}>
+      {isSmallScreen ? (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "end",
+            mt: 5,
+          }}
+        >
+          {user === "admin@email.com" ? (
+            <Box sx={{ mr: 3 }}>
+              <CustomizedButton
+                label="넷플릭스 회원 관리하기"
+                onClick={gotoMemberBoard}
+              ></CustomizedButton>
+            </Box>
+          ) : null}
+          <Box sx={{ mr: 3, mt: 2 }}>
             <CustomizedButton
-              label="넷플릭스 회원 관리하기"
-              onClick={gotoMemberBoard}
+              label="로그인 정보 삭제하기"
+              value="로그인 정보 삭제하기2"
+              onClick={deleteLoginInfo}
             ></CustomizedButton>
           </Box>
-        ) : null}
-        <Box sx={{ mr: 3 }}>
-          <CustomizedButton
-            label="로그인 정보 삭제하기"
-            onClick={deleteLoginInfo}
-          ></CustomizedButton>
+          <Box sx={{ mr: 3, mt: 2 }}>
+            <CustomizedButton
+              label="탈퇴하기"
+              value="탈퇴하기2"
+              onClick={deleteAccount}
+            ></CustomizedButton>
+          </Box>
         </Box>
-        <Box>
-          <CustomizedButton
-            label="탈퇴하기"
-            onClick={deleteAccount}
-          ></CustomizedButton>
+      ) : (
+        <Box sx={{ display: "flex", justifyContent: "end", mt: 5 }}>
+          {user === "admin@email.com" ? (
+            <Box sx={{ mr: 3 }}>
+              <CustomizedButton
+                label="넷플릭스 회원 관리하기"
+                onClick={gotoMemberBoard}
+              ></CustomizedButton>
+            </Box>
+          ) : null}
+          <Box sx={{ mr: 3 }}>
+            <CustomizedButton
+              label="로그인 정보 삭제하기"
+              onClick={deleteLoginInfo}
+            ></CustomizedButton>
+          </Box>
+          <Box>
+            <CustomizedButton
+              label="탈퇴하기"
+              onClick={deleteAccount}
+            ></CustomizedButton>
+          </Box>
         </Box>
-      </Box>
+      )}
     </Container>
   );
 };
