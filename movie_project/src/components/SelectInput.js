@@ -58,8 +58,8 @@ export default function SelectInput({
           value={passwordQuestion}
           label="passwordQuestions"
           onChange={handleChange}
-          InputLabelProps={{ style: { color: "white" } }}
-          labelStyle={{ color: "white" }}
+          InputlabelProps={{ style: { color: "white" } }}
+          labelstyle={{ color: "white" }}
           sx={{
             my: 1,
             width: 360,

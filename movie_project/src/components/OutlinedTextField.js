@@ -88,7 +88,7 @@ export default function OutlinedTextField({
         onChange={changeVal}
         value={value}
         inputProps={{ style: { color: "white" } }}
-        InputLabelProps={{ style: { color: "white" } }}
+        InputlabelProps={{ style: { color: "white" } }}
         sx={{
           my: 1,
           width: 360,

@@ -319,7 +319,7 @@ function Login() {
           fullWidth
           variant="outlined"
           inputProps={{ style: { color: "white" } }}
-          InputLabelProps={{ style: { color: "white" } }}
+          InputlabelProps={{ style: { color: "white" } }}
           sx={{
             my: 1,
             background: "#38393b",

@@ -90,7 +90,7 @@ const ProfileAdd = ({ onAddProfile }) => {
                   color: "#fff",
                   border: "1px solid rgba(255, 255, 255, 0.5)",
                 }}
-                InputLabelProps={{
+                InputlabelProps={{
                   style: {
                     color: "#fff",
                   },

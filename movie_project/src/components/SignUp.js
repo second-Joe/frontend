@@ -492,7 +492,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                   onChange={handleIdChange}
                   required
                   inputProps={{ style: { color: "white" } }}
-                  InputLabelProps={{ style: { color: "white" } }}
+                  l={{ style: { color: "white" } }}
                   sx={{
                     my: 1,
                     width: "255px",
@@ -539,7 +539,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 setPasswordQuestion={setPasswordQuestion}
                 required
                 inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
+                l={{ style: { color: "white" } }}
                 sx={formStyle}
               />
               <FormHelperText sx={{ color: "red" }}>
@@ -564,7 +564,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 sx={formStyle}
                 required
                 inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
+                l={{ style: { color: "white" } }}
                 label="비밀번호를 입력해주세요"
                 type="password"
                 value={ConfirmPassword}
@@ -592,7 +592,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 onChange={handleNameChange}
                 required
                 inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
+                InputlabelProps={{ style: { color: "white" } }}
                 sx={formStyle}
               />
               <FormHelperText sx={{ color: "red" }}>{nameError}</FormHelperText>
@@ -615,7 +615,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 label="전화번호를 입력해주세요"
                 required
                 inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
+                l={{ style: { color: "white" } }}
                 sx={formStyle}
                 value={tel}
                 onChange={handleTelChange}
@@ -640,7 +640,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 label="주소를 입력해주세요"
                 required
                 inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
+                l={{ style: { color: "white" } }}
                 sx={formStyle}
                 value={addr}
                 onChange={handleAddrChange}
@@ -700,7 +700,7 @@ export default function SignUp({ openSignUp, signUpOpen, signUpClose }) {
                 label="비밀번호 찾기 질문에 대한 답"
                 required
                 inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
+                l={{ style: { color: "white" } }}
                 sx={formStyle}
                 value={pwCheck}
                 onChange={handlePwCheckChange}
